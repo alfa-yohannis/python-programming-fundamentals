@@ -16,3 +16,4 @@ Resources for Learning Basic Programming using Python
 | 🚚    | Rename or move module files                    |
 | 💡    | Add new code examples or comments             |
 | 🍱    | Add images or other assets                     |
+| ➕    | Add a depedency                               |
