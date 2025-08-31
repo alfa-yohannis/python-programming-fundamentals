@@ -5,8 +5,54 @@
 Pemrograman komputer dimulai pada abad ke-19 dengan penemuan mesin analitik oleh Charles Babbage dan program pertama yang ditulis oleh Ada Lovelace. Sejak itu, pemrograman telah berkembang pesat dengan munculnya bahasa-bahasa pemrograman awal seperti Fortran, COBOL, dan Lisp pada tahun 1950-an. Pada tahun 1970-an dan 1980-an, bahasa pemrograman seperti C, Pascal, dan Basic memperkenalkan konsep-konsep baru dalam pemrograman. Kini, berbagai bahasa pemrograman modern seperti Python, JavaScript, dan Rust digunakan dalam berbagai aplikasi.
 
 Python merupakan bahasa pemrograman \textit{high-level} serbaguna yang pertama kali diperkenalkan pada tahun 1991 oleh Guido van Rossum (GvR). Bahasa ini dirancang agar mudah dipahami dan memiliki struktur kode yang jelas (\textit{readable}), serta mendukung fitur penanganan kesalahan (\textit{exception handling}). Dengan tujuan tersebut, Python berhasil berkembang menjadi bahasa pemrograman yang dapat dimanfaatkan di berbagai bidang. Python merupakan bahasa pemrograman multi-paradigma, yang artinya dapat menggunakan gaya/metode beragam dalam penulisan kode. Saat ini, Python banyak digunakan untuk pengembangan aplikasi web (\textit{server-side}), analisis data, hingga penerapan kecerdasan buatan dan pembelajaran mesin (\textit{machine learning}).
-\section{Instalasi di Windows}
 
+\section{Python Sebagai Bahasa Interpreter}
+Python merupakan bahasa pemrograman yang termasuk ke dalam kategori
+\textit{interpreted language}. Artinya, kode program Python tidak
+dikompilasi terlebih dahulu menjadi file biner yang dapat dieksekusi,
+melainkan dijalankan baris demi baris oleh sebuah program bernama
+\textbf{interpreter}.
+
+Interpreter bertugas membaca kode Python, menerjemahkannya, lalu
+menjalankannya secara langsung. Hal ini membuat proses pengembangan
+program menggunakan Python menjadi lebih fleksibel, karena kita bisa
+langsung menuliskan kode dan melihat hasil eksekusinya tanpa melalui
+tahap kompilasi.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../shared_assets/images/compiler_vs_interpreter.png}
+	\caption{Perbedaan antara Compiler dan Interpreter}
+	\label{fig:compiler-vs-interpreter}
+\end{figure}
+
+\noindent
+Pada Gambar \ref{fig:compiler-vs-interpreter} dapat dilihat perbedaan
+utama antara \textit{compiler} dan \textit{interpreter}.  
+\begin{itemize}
+	\item \textbf{Compiler}: Menerjemahkan seluruh kode sumber menjadi file biner terlebih dahulu, kemudian hasilnya dapat dijalankan berulang kali tanpa perlu proses kompilasi ulang.
+	\item \textbf{Interpreter}: Menjalankan kode baris demi baris secara langsung, sehingga lebih mudah untuk debugging dan eksplorasi.
+\end{itemize}
+
+\noindent
+\textbf{Kelebihan Python sebagai bahasa interpreter:}
+\begin{enumerate}
+	\item Mudah digunakan untuk pemula karena tidak perlu memahami proses kompilasi.
+	\item Memungkinkan interaksi langsung melalui \textit{interactive shell}.
+	\item Sangat fleksibel untuk \textit{prototyping} dan eksperimen cepat.
+\end{enumerate}
+
+\noindent
+\textbf{Kekurangan Python sebagai bahasa interpreter:}
+\begin{enumerate}
+	\item Lebih lambat dibandingkan bahasa yang dikompilasi murni (seperti C, C++, atau Java).
+	\item Program Python membutuhkan interpreter terpasang di sistem agar bisa dijalankan.
+\end{enumerate}
+
+\noindent
+Sumber gambar: \url{https://www.ankitweblogic.com/c/compiler-and-interpreter.php}
+
+\section{Instalasi di Windows}
 Untuk menginstal Python di Windows, ikuti langkah-langkah berikut:
 
 \begin{enumerate}
