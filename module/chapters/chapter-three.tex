@@ -1,0 +1,514 @@
+\chapter{Operator dan Pengkondisian}
+
+\section{Operator}
+Operator adalah karakter khusus yang digunakan untuk melakukan operasi terhadap variabel dan nilai. Di Python terdapat berbagai jenis operator, namun pada chapter ini kita hanya akan membahas beberapa operator yang paling umum digunakan, yaitu:
+
+\begin{enumerate}
+    \item Operator Aritmatika
+    \item Operator \textit{Assignment}
+    \item Operator Perbandingan
+    \item Operator Logika
+    \item Operator \textit{Membership}
+\end{enumerate}
+
+\subsection{Operator Aritmatika}
+\begin{frame}[fragile]{Operator Aritmatika di Python}
+Operator ini dipakai untuk melakukan operasi dasar dalam matematika, seperti penjumlahan, pengurangan, perkalian, pembagian, dan sebagainya.
+
+\end{frame}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Operator} & \textbf{Keterangan} \\
+\hline
+\texttt{+} & Operator penjumlahan \\
+\hline
+\texttt{-} & Operator pengurangan \\
+\hline
+\texttt{*} & Operator perkalian \\
+\hline
+\texttt{/} & Operator pembagian \\
+\hline
+\texttt{//} & Operator pembagian bulat (\textit{floor division}) \\
+\hline
+\texttt{\%} & Operator modulus (sisa hasil bagi) \\
+\hline
+\texttt{**} & Operator perpangkatan \\
+\hline
+\end{tabular}
+\caption{Daftar Operator Aritmatika di Python}
+\end{table}
+
+Berikut adalah contoh penggunaan operator aritmatika dalam Python:
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: arithmetic_operator.py}]
+a = 5
+b = 2
+
+print("a + b =", a + b)
+print("a - b =", a - b)
+print("a * b =", a * b)
+print("a / b =", a / b)
+print("a // b =", a // b)
+print("a % b =", a % b)
+print("a ** b =", a ** b)
+\end{lstlisting}
+
+Kode di atas mendemonstrasikan berbagai operasi aritmatika yang dapat dilakukan di Python menggunakan operator bawaan. Berikut adalah penjelasan dari setiap operasi:
+\begin{itemize}
+    \item Penjumlahan (+)
+    \begin{itemize}
+        \item \texttt{print("a + b =", a + b)} menghasilkan penjumlahan dari \texttt{a} dan \texttt{b}, yaitu $5 + 2 = 7$.
+    \end{itemize}
+
+    \item Pengurangan (-)
+    \begin{itemize}
+        \item \texttt{print("a - b =", a - b)} menghasilkan pengurangan dari \texttt{a} dan \texttt{b}, yaitu $5 - 2 = 3$.
+    \end{itemize}
+
+    \item Perkalian (*)
+    \begin{itemize}
+        \item \texttt{print("a * b =", a * b)} menghasilkan perkalian dari \texttt{a} dan \texttt{b}, yaitu $5 \times 2 = 10$.
+    \end{itemize}
+
+    \item Pembagian (/)
+    \begin{itemize}
+        \item \texttt{print("a / b =", a / b)} menghasilkan pembagian dari \texttt{a} dan \texttt{b}, yaitu $5 / 2 = 2.5$.
+    \end{itemize}
+
+    \item \textit{Floor Division} (//)
+    \begin{itemize}
+        \item \texttt{print("a // b =", a // b)} menghasilkan pembagian bulat dari \texttt{a} dan \texttt{b} dengan pembulatan ke bawah, yaitu $5 // 2 = 2$.
+    \end{itemize}
+
+    \item Modulo (\%)
+    \begin{itemize}
+        \item \texttt{print("a \% b =", a \% b)} menghasilkan sisa hasil bagi dari \texttt{a} dibagi \texttt{b}, yaitu $5 \% 2 = 1$.
+    \end{itemize}
+
+    \item Perpangkatan (**)
+    \begin{itemize}
+        \item \texttt{print("a ** b =", a ** b)} menghasilkan \texttt{a} dipangkatkan dengan \texttt{b}, yaitu $5^2 = 25$.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Operator \textit{Assignment}}
+Operator \textit{assignment} adalah operator yang digunakan untuk memberikan nilai pada variabel. 
+Selain \textit{assignment} dasar dengan tanda sama dengan (\texttt{=}), Python juga menyediakan operator 
+\textit{assignment} gabungan (\textit{augmented assignment}) yang mengombinasikan operasi aritmatika dengan assignment.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Operator} & \textbf{Keterangan} \\
+\hline
+\texttt{=} & Assignment, memberikan nilai ke variabel \\
+\hline
+\texttt{+=} & Penjumlahan sekaligus assignment (\texttt{x += y} $\Rightarrow$ \texttt{x = x + y}) \\
+\hline
+\texttt{-=} & Pengurangan sekaligus assignment (\texttt{x -= y} $\Rightarrow$ \texttt{x = x - y}) \\
+\hline
+\texttt{*=} & Perkalian sekaligus assignment (\texttt{x *= y} $\Rightarrow$ \texttt{x = x * y}) \\
+\hline
+\texttt{/=} & Pembagian sekaligus assignment (\texttt{x /= y} $\Rightarrow$ \texttt{x = x / y}) \\
+\hline
+\texttt{//=} & Floor division sekaligus assignment (\texttt{x //= y} $\Rightarrow$ \texttt{x = x // y}) \\
+\hline
+\texttt{\%=} & Modulo sekaligus assignment (\texttt{x \%= y} $\Rightarrow$ \texttt{x = x \% y}) \\
+\hline
+\texttt{**=} & Perpangkatan sekaligus assignment (\texttt{x **= y} $\Rightarrow$ \texttt{x = x ** y}) \\
+\hline
+\end{tabular}
+\caption{Daftar Operator Assignment di Python}
+\end{table}
+
+Berikut adalah contoh penggunaan operator assignment dalam Python:
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: assignment_operator.py}]
+x = 10
+print("x =", x)
+
+x += 5
+print("x += 5 ->", x)
+
+x -= 3
+print("x -= 3 ->", x)
+
+x *= 2
+print("x *= 2 ->", x)
+
+x /= 4
+print("x /= 4 ->", x)
+
+x //= 2
+print("x //= 2 ->", x)
+
+x %= 3
+print("x %= 3 ->", x)
+
+x **= 2
+print("x **= 2 ->", x)
+\end{lstlisting}
+
+Kode di atas mendemonstrasikan berbagai operator assignment yang dapat digunakan di Python. 
+Berikut adalah penjelasan dari setiap operator:
+\begin{itemize}
+    \item Assignment (=)
+    \begin{itemize}
+        \item \texttt{x = 10} memberikan nilai $10$ ke variabel \texttt{x}.
+    \end{itemize}
+
+    \item Penjumlahan Assignment (+=)
+    \begin{itemize}
+        \item \texttt{x += 5} sama dengan \texttt{x = x + 5}. Jika sebelumnya $x = 10$, maka setelah operasi ini $x = 15$.
+    \end{itemize}
+
+    \item Pengurangan Assignment (-=)
+    \begin{itemize}
+        \item \texttt{x -= 3} sama dengan \texttt{x = x - 3}. Jika $x = 15$, maka hasilnya $x = 12$.
+    \end{itemize}
+
+    \item Perkalian Assignment (*=)
+    \begin{itemize}
+        \item \texttt{x *= 2} sama dengan \texttt{x = x * 2}. Jika $x = 12$, maka hasilnya $x = 24$.
+    \end{itemize}
+
+    \item Pembagian Assignment (/=)
+    \begin{itemize}
+        \item \texttt{x /= 4} sama dengan \texttt{x = x / 4}. Jika $x = 24$, maka hasilnya $x = 6.0$.
+    \end{itemize}
+
+    \item Floor Division Assignment (//=)
+    \begin{itemize}
+        \item \texttt{x //= 2} sama dengan \texttt{x = x // 2}. Jika $x = 6.0$, maka hasilnya $x = 3.0$.
+    \end{itemize}
+
+    \item Modulo Assignment (\%=)
+    \begin{itemize}
+        \item \texttt{x \%= 3} sama dengan \texttt{x = x \% 3}. Jika $x = 3.0$, maka hasilnya $x = 0.0$.
+    \end{itemize}
+
+    \item Perpangkatan Assignment (**=)
+    \begin{itemize}
+        \item \texttt{x **= 2} sama dengan \texttt{x = x ** 2}. Jika $x = 0.0$, maka hasilnya tetap $0.0$.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Operator Perbandingan}
+Operator perbandingan digunakan untuk membandingkan dua nilai. 
+Hasil dari operator ini selalu berupa nilai boolean (\texttt{True} atau \texttt{False}).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Operator} & \textbf{Keterangan} \\
+\hline
+\texttt{==} & Sama dengan \\
+\hline
+\texttt{!=} & Tidak sama dengan \\
+\hline
+\texttt{>} & Lebih besar dari \\
+\hline
+\texttt{<} & Lebih kecil dari \\
+\hline
+\texttt{>=} & Lebih besar atau sama dengan \\
+\hline
+\texttt{<=} & Lebih kecil atau sama dengan \\
+\hline
+\end{tabular}
+\caption{Daftar Operator Perbandingan di Python}
+\end{table}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: comparison_operator.py}]
+a = 5
+b = 2
+
+print("a == b:", a == b)
+print("a != b:", a != b)
+print("a > b:", a > b)
+print("a < b:", a < b)
+print("a >= b:", a >= b)
+print("a <= b:", a <= b)
+\end{lstlisting}
+
+\subsection{Operator Logika}
+Operator logika digunakan untuk menggabungkan ekspresi boolean.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Operator} & \textbf{Keterangan} \\
+\hline
+\texttt{and} & Bernilai \texttt{True} jika kedua kondisi bernilai benar \\
+\hline
+\texttt{or} & Bernilai \texttt{True} jika salah satu kondisi bernilai benar \\
+\hline
+\texttt{not} & Membalikkan nilai boolean (True menjadi False, sebaliknya) \\
+\hline
+\end{tabular}
+\caption{Daftar Operator Logika di Python}
+\end{table}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: logical_operator.py}]
+x = True
+y = False
+
+print("x and y:", x and y)
+print("x or y:", x or y)
+print("not x:", not x)
+\end{lstlisting}
+
+\subsection{Operator \textit{Membership}}
+Operator \textit{membership} digunakan untuk memeriksa apakah suatu nilai (biasanya berupa karakter atau substring) 
+terdapat di dalam sebuah string. Hasil dari operasi ini berupa nilai boolean (\texttt{True} atau \texttt{False}).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Operator} & \textbf{Keterangan} \\
+\hline
+\texttt{in} & Bernilai \texttt{True} jika nilai ada di dalam string \\
+\hline
+\texttt{not in} & Bernilai \texttt{True} jika nilai tidak ada di dalam string \\
+\hline
+\end{tabular}
+\caption{Daftar Operator \textit{Membership} di Python}
+\end{table}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: membership_operator.py}]
+text = "Python Programming"
+
+print("'Py' in text:", "Py" in text)         # True
+print("'Java' in text:", "Java" in text)     # False
+print("'Java' not in text:", "Java" not in text) # True
+print("'P' in text:", "P" in text)           # True
+\end{lstlisting}
+
+\section{Pengkondisian}
+Pengkondisian adalah konsep penting dalam pemrograman yang memungkinkan pengambilan keputusan berdasarkan kondisi tertentu. Di Python, pengkondisian bisa diimplementasikan menggunakan beberapa struktur dasar seperti if, elif, else, match, dan operator ternary.
+
+\subsection{If}
+If digunakan untuk mengeksekusi blok kode tertentu hanya jika kondisi yang diberikan bernilai true. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if}]
+if kondisi:
+    # Blok kode yang akan dieksekusi jika kondisi bernilai true
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_statement.py}]
+nilai = 75
+if nilai >= 70:
+    print("Lulus")
+\end{lstlisting}
+
+\subsection{If-Else}
+If-else memungkinkan kita untuk menentukan blok kode alternatif yang akan dijalankan jika kondisi tidak terpenuhi. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if-else}]
+if kondisi:
+    # Blok kode yang akan dieksekusi jika kondisi bernilai true
+else:
+    # Blok kode yang akan dieksekusi jika kondisi bernilai false
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_else_statement.py}]
+nilai = 65
+if nilai >= 70:
+    print("Lulus")
+else:
+    print("Tidak Lulus")
+\end{lstlisting}
+
+\subsection{If-Elif-Else (Percabangan Multi Kondisi)}
+If-elif-else memungkinkan kita untuk menentukan beberapa kondisi dan blok kode yang akan dijalankan jika kondisi tersebut bernilai true. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if-elif-else}]
+if kondisi1:
+    # Blok kode yang akan dieksekusi jika kondisi1 bernilai true
+elif kondisi2:
+    # Blok kode yang akan dieksekusi jika kondisi2 bernilai true
+else:
+    # Blok kode yang akan dieksekusi jika kondisi1 dan kondisi2 bernilai false
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_elif_else_statement.py}]
+nilai = 65
+if nilai >= 90:
+    print("A")
+elif nilai >= 80:
+    print("B")
+elif nilai >= 70:
+    print("C")
+else:
+    print("D")
+\end{lstlisting}
+
+\subsection{\textit{Nested-If}}
+\textit{Nested-if} adalah struktur if yang digunakan untuk membuat blok kode yang bersarang. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar nested-if}]
+if kondisi1:
+    # Blok kode yang akan dieksekusi jika kondisi1 bernilai true
+    if kondisi2:
+        # Blok kode yang akan dieksekusi jika kondisi2 bernilai true
+    else:
+        # Blok kode yang akan dieksekusi jika kondisi2 bernilai false
+else:
+    # Blok kode yang akan dieksekusi jika kondisi1 bernilai false
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_if_statement.py}]
+usia = 25
+punya_surat_izin_mengemudi = True
+
+if usia >= 18:  # Kondisi luar: cek apakah usia sudah 18 tahun ke atas
+    print("Kamu sudah dewasa.")
+    if punya_surat_izin_mengemudi:  # Kondisi dalam: cek apakah sudah punya SIM
+        print("Kamu boleh mengemudi.")
+    else:
+        print("Kamu sudah dewasa, tapi belum punya SIM.")
+else:
+    print("Kamu belum dewasa.")
+\end{lstlisting}
+
+\subsection{\textit{Match}}
+Sejak Python 3.10, tersedia struktur kontrol baru bernama \texttt{match} yang mirip dengan \texttt{switch-case} di bahasa pemrograman lain. Dengan \texttt{match}, kita dapat mencocokkan sebuah nilai terhadap beberapa pola sekaligus. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar match}]
+match variabel / value:
+    case pola1:
+        # blok kode jika sesuai pola1
+    case pola2:
+        # blok kode jika sesuai pola2
+    case _:
+        # blok kode default jika tidak ada yang cocok
+\end{lstlisting}
+
+Berikut contoh penggunaannya:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: match.py}]
+hari = "Senin"
+
+match hari:
+    case "Senin":
+        print("Awal minggu, semangat kerja!")
+    case "Jumat":
+        print("Akhir minggu, hampir libur!")
+    case _:
+        print("Hari biasa.")
+\end{lstlisting}
+
+\subsection{Operator Ternary (\textit{Conditional Expression})}
+
+Python mendukung bentuk singkat dari struktur \texttt{if-else} yang disebut dengan
+\textit{conditional expression} atau sering dikenal sebagai \textit{ternary operator}.
+Sintaksnya adalah:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar ternary operator di Python}]
+nilai_jika_true if kondisi else nilai_jika_false
+\end{lstlisting}
+
+Contoh penggunaannya:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: ternary_operator.py}]
+usia = 20
+
+status = "Dewasa" if usia >= 18 else "Anak-anak"
+
+print("Status:", status)
+\end{lstlisting}
+
+Kode di atas setara dengan:
+
+\begin{lstlisting}[style=PythonStyle]
+if usia >= 18:
+    status = "Dewasa"
+else:
+    status = "Anak-anak"
+\end{lstlisting}
+
+\section{Latihan}
+Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman tentang program Python yang telah dibahas:
+
+\begin{enumerate}
+\item \textbf{Latihan 1:} Buatlah program yang menerima input 5 nilai asesmen mahasiswa yang kemudian dihitung rata-ratanya. Berdasarkan rata-rata tersebut buatlah pengkondisian menggunakan \textit{if-elif-else statement} untuk menentukan grade yang sesuai dengan ketentuan:
+\begin{itemize}
+    \item Grade A jika rata-rata berada di \textit{range} 90,00 - 100
+    \item Grade A- jika rata-rata berada di \textit{range} 85,00 - 89,99
+    \item Grade B+ jika rata-rata berada di \textit{range} 80,00 - 84,99
+    \item Grade B jika rata-rata berada di \textit{range} 75,00 - 79,99
+    \item Grade B- jika rata-rata berada di \textit{range} 70,00 - 74,99
+    \item Grade C+ jika rata-rata berada di \textit{range} 65,00 - 69,99
+    \item Grade C jika rata-rata berada di \textit{range} 60,00 - 64,99
+    \item Grade D jika rata-rata berada di \textit{range} 55,00 - 59,99
+    \item Grade E jika rata-rata kurang dari 49,99
+\end{itemize}
+
+\item \textbf{Latihan 2:} Buatlah program untuk menghitung \textit{Body Mass Index} (BMI) seseorang dengan rumus:
+
+\[
+BMI = \frac{berat \ (kg)}{(tinggi \ (m))^2}
+\]
+
+\begin{itemize}
+    \item Program meminta input berat badan (kg) dan tinggi badan (cm).
+    \item Konversikan tinggi badan dari cm menjadi meter.
+    \item Hitung nilai BMI menggunakan rumus di atas.
+    \item Kategorikan hasilnya dengan \texttt{if-elif-else}:
+    \begin{itemize}
+        \item $<$ 18.5 : \texttt{Kurus}
+        \item 18.5 -- 24.9 : \texttt{Normal}
+        \item 25 -- 29.9 : \texttt{Overweight}
+        \item $\geq$ 30 : \texttt{Obesitas}
+    \end{itemize}
+\end{itemize}
+
+\item \textbf{Latihan 3:} Modifikasi program BMI pada Latihan 2 dengan ketentuan berikut:
+\begin{itemize}
+    \item Program tetap meminta input berat badan (kg) dan tinggi badan (cm).
+    \item Konversikan tinggi badan dari cm ke meter, lalu hitung nilai BMI.
+    \item Gunakan struktur \texttt{if-elif-else} untuk menentukan kategori BMI:
+    \begin{itemize}
+        \item $<$ 18.5 : \texttt{"kurus"}
+        \item 18.5 -- 24.9 : \texttt{"normal"}
+        \item 25 -- 29.9 : \texttt{"overweight"}
+        \item $\geq$ 30 : \texttt{"obesitas"}
+    \end{itemize}
+    \item Setelah kategori ditentukan, gunakan \texttt{match-case} untuk menampilkan pesan sesuai kategori:
+    \begin{itemize}
+        \item \texttt{"kurus"} : tampilkan pesan untuk memperhatikan asupan gizi
+        \item \texttt{"normal"} : tampilkan pesan untuk mempertahankan pola hidup sehat
+        \item \texttt{"overweight"} : tampilkan pesan untuk mulai menjaga pola makan
+        \item \texttt{"obesitas"} : tampilkan pesan untuk konsultasi ke dokter
+    \end{itemize}
+\end{itemize}
+
+
+\item \textbf{Latihan 4:} Buatlah program autentikasi sederhana yang meminta pengguna untuk memasukkan email dan password. Program harus memenuhi kriteria sebagai berikut:
+\begin{itemize}
+    \item Email harus berupa alamat email dengan domain \texttt{pradita.ac.id}
+    \item Password harus memiliki panjang minimal 8 karakter
+    \item Gunakan \textit{data dummy} (statis), misalnya email \texttt{mahasiswa@pradita.ac.id} dan password \texttt{password123}, untuk proses pencocokan
+\end{itemize}
+
+\item \textbf{Latihan 5:} Buatlah program kalkulator sederhana yang:
+\begin{itemize}
+    \item Meminta pengguna memilih operasi aritmatika yang ingin dilakukan (\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/})
+    \item Meminta pengguna memasukkan dua buah angka
+    \item Menampilkan hasil perhitungan sesuai operasi yang dipilih
+    \item Jika pengguna memasukkan operasi yang tidak valid, tampilkan pesan error
+\end{itemize}
+
+\end{enumerate}
