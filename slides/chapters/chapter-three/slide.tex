@@ -1,0 +1,417 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chatper-03:\\\LARGE{Operator dan Pengkondisian\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+language=Python,
+basicstyle=\ttfamily\footnotesize,
+keywordstyle=\color{blue},
+commentstyle=\color{gray},
+stringstyle=\color{red},
+breaklines=true,
+showstringspaces=false,
+tabsize=2,
+captionpos=b,
+numbers=left,
+numberstyle=\tiny\color{gray},
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{gray}\ttfamily,
+string=[s]{'}{'},
+morestring=[s]{"}{"},
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.5\textwidth}
+\tableofcontents[sections={1}]
+\end{column}
+\begin{column}{.5\textwidth}
+\tableofcontents[sections={2}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Operator}
+
+\begin{frame}{Operator di Python}
+Operator adalah karakter khusus yang digunakan untuk melakukan operasi terhadap variabel dan nilai. Di Python terdapat berbagai jenis operator, namun pada chapter ini kita hanya akan membahas beberapa operator yang paling umum digunakan, yaitu:
+
+\begin{enumerate}
+    \item Operator Aritmatika
+    \item Operator \textit{Assignment}
+    \item Operator Perbandingan
+    \item Operator Logika
+    \item Operator \textit{Membership}
+\end{enumerate}
+\end{frame}
+
+\subsection{Operator Aritmatika}
+\begin{frame}{Operator Aritmatika di Python (1)}
+Operator ini dipakai untuk melakukan operasi dasar dalam matematika, seperti penjumlahan, pengurangan, perkalian, pembagian, dan sebagainya.
+
+\begin{description}
+  \item[\texttt{+}] Operator penjumlahan
+  \item[\texttt{-}] Operator pengurangan
+  \item[\texttt{*}] Operator perkalian
+  \item[\texttt{/}] Operator pembagian
+  \item[\texttt{//}] Operator pembagian bulat (\textit{floor division})
+  \item[\texttt{\%}] Operator modulus (sisa hasil bagi)
+  \item[\texttt{**}] Operator perpangkatan
+\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Operator Aritmatika di Python (2)}
+Berikut adalah contoh penggunaan operator aritmatika dalam Python:
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: arithmetic_operator.py}]
+a = 5
+b = 2
+
+print("a + b =", a + b)
+print("a - b =", a - b)
+print("a * b =", a * b)
+print("a / b =", a / b)
+print("a // b =", a // b)
+print("a % b =", a % b)
+print("a ** b =", a ** b)
+\end{lstlisting}
+\end{frame}
+
+\subsection{Operator \textit{Assignment}}
+
+\begin{frame}[fragile]{Operator \textit{Assignment} di Python (1)}
+Operator \textit{assignment} adalah operator yang digunakan untuk memberikan nilai pada variabel. 
+Selain \textit{assignment} dasar dengan tanda sama dengan (\texttt{=}), Python juga menyediakan operator 
+\textit{assignment} gabungan (\textit{augmented assignment}) yang mengombinasikan operasi aritmatika dengan assignment.
+\end{frame}
+
+\begin{frame}[fragile]{Operator \textit{Assignment} di Python (2)}
+Berikut adalah contoh penggunaan operator \textit{assignment} dalam Python:
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: assignment_operator.py}]
+a = 5
+b = 2
+
+print("a =", a)
+
+a += 5
+print("a += 5 =", a)
+
+a -= 3
+print("a -= 3 =", a)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Operator \textit{Assignment} di Python (3)}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: assignment_operator.py}]
+a *= 2
+print("a *= 2 =", a)
+
+a /= 4
+print("a /= 4 =", a)
+
+a //= 2
+print("a //= 2 =", a)
+
+a %= 3
+print("a %= 3 =", a)
+
+a **= 2
+print("a **= 2 =", a)
+\end{lstlisting}
+
+\end{frame}
+
+\subsection{Operator Perbandingan}
+
+\begin{frame}[fragile]{Operator Perbandingan di Python (1)}
+Operator perbandingan digunakan untuk membandingkan dua nilai. 
+Hasil dari operator ini selalu berupa nilai boolean (\texttt{True} atau \texttt{False}).
+
+\begin{description}
+    \item[\texttt{==}] Sama dengan
+    \item[\texttt{!=}] Tidak sama dengan
+    \item[\texttt{>} ] Lebih besar dari
+    \item[\texttt{<}] Lebih kecil dari
+    \item[\texttt{>=}] Lebih besar atau sama dengan
+    \item[\texttt{<=}] Lebih kecil atau sama dengan
+\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Operator Perbandingan di Python (2)}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: comparison_operator.py}]
+a = 5
+b = 2
+
+print("a == b =", a == b)
+print("a != b =", a != b)
+print("a > b =", a > b)
+print("a < b =", a < b)
+print("a >= b =", a >= b)
+print("a <= b =", a <= b)
+\end{lstlisting}
+\end{frame}
+
+\subsection{Operator Logika}
+
+\begin{frame}[fragile]{Operator Logika di Python}
+Operator logika digunakan untuk melakukan operasi logika, seperti \textit{and}, \textit{or}, dan \textit{not}.
+\begin{description}
+    \item[\texttt{and}] Bernilai \texttt{True} jika kedua kondisi bernilai benar
+    \item[\texttt{or}] Bernilai \texttt{True} jika salah satu kondisi bernilai benar
+    \item[\texttt{not}] Membalikkan nilai boolean (True menjadi False, sebaliknya)
+\end{description}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: logical_operator.py}]
+x = True
+y = False
+
+print("x and y:", x and y)
+print("x or y:", x or y)
+print("not x:", not x)
+\end{lstlisting}
+\end{frame}
+
+\subsection{Operator Membership}
+
+\begin{frame}[fragile]{Operator Membership di Python}
+Operator \textit{membership} digunakan untuk memeriksa apakah suatu nilai (biasanya berupa karakter atau substring) 
+terdapat di dalam sebuah string. Hasil dari operasi ini berupa nilai boolean (\texttt{True} atau \texttt{False}).
+\begin{description}
+    \item[\texttt{in}] Bernilai \texttt{True} jika nilai ada di dalam string
+    \item[\texttt{not in}] Bernilai \texttt{True} jika nilai tidak ada di dalam string
+\end{description}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: membership_operator.py}]
+text = "Python Programming"
+
+print("'Py' in text:", "Py" in text)         # True
+print("'py' in text:", "py" in text)         # False
+print("'Java' in text:", "Java" in text)     # False
+print("'Java' not in text:", "Java" not in text) # True
+print("'P' in text:", "P" in text)           # True
+\end{lstlisting}
+\end{frame}
+
+\section{Pengkondisian}
+
+\begin{frame}[fragile]{Pengkondisian di Python}
+\begin{itemize}
+\item \textbf{Pengkondisian}:
+\begin{itemize}
+\item Konsep penting dalam pemrograman.
+\item Memungkinkan pengambilan keputusan berdasarkan kondisi tertentu.
+\end{itemize}
+
+\item \textbf{Pengkondisian di Python}:
+\begin{itemize}
+\item Menggunakan beberapa struktur dasar:
+\begin{itemize}
+	\item \texttt{if}
+	\item \texttt{if-else}
+	\item \texttt{if-elif-else}
+	\item \texttt{match}
+	\item Operator ternary
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{If}
+
+\begin{frame}[fragile]{If Statement}
+If digunakan untuk mengeksekusi blok kode tertentu hanya jika kondisi yang diberikan bernilai true. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle]
+if kondisi:
+    # Blok kode yang akan dieksekusi jika kondisi bernilai true
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={if_statement.py}]
+nilai = 75
+if nilai >= 70:
+    print("Lulus")
+\end{lstlisting}
+\end{frame}
+
+\subsection{If-Else}
+
+\begin{frame}[fragile]{If-Else Statement}
+If-else memungkinkan kita untuk menentukan blok kode alternatif yang akan dijalankan jika kondisi tidak terpenuhi. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle]
+if kondisi:
+    # Blok kode yang akan dieksekusi jika kondisi bernilai true
+else:
+    # Blok kode yang akan dieksekusi jika kondisi bernilai false
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={if_else_statement.py}]
+nilai = 55
+if nilai >= 70:
+    print("Lulus")
+else:
+    print("Tidak Lulus")
+\end{lstlisting}
+\end{frame}
+
+\subsection{If-Elif-Else}
+
+\begin{frame}[fragile]{If-Elif-Else Statement (1)}
+If-elif-else memungkinkan kita untuk menentukan beberapa kondisi dan blok kode yang akan dijalankan jika kondisi tersebut bernilai true. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle]
+if kondisi1:
+    # Blok kode yang akan dieksekusi jika kondisi1 bernilai true
+elif kondisi2:
+    # Blok kode yang akan dieksekusi jika kondisi2 bernilai true
+else:
+    # Blok kode yang akan dieksekusi jika kondisi1 dan kondisi2 bernilai false
+\end{lstlisting}    
+
+Contoh Penggunaan:
+\end{frame}
+
+\begin{frame}[fragile]{If-Elif-Else Statement (2)}
+\begin{lstlisting}[style=PythonStyle, caption={if_elif_else_statement.py}]
+nilai = 65
+if nilai >= 90:
+    print("A")
+elif nilai >= 80:
+    print("B")
+elif nilai >= 70:
+    print("C")
+else:
+    print("D")
+\end{lstlisting}
+\end{frame}
+
+\subsection{Nested-If}
+
+\begin{frame}[fragile]{Nested-If Statement (1)}
+Nested-if adalah struktur if yang digunakan untuk membuat blok kode yang bersarang. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle]
+if kondisi1:
+    # Blok kode yang akan dieksekusi jika kondisi1 bernilai true
+    if kondisi2:
+        # Blok kode yang akan dieksekusi jika kondisi2 bernilai true
+    else:
+        # Blok kode yang akan dieksekusi jika kondisi2 bernilai false
+else:
+    # Blok kode yang akan dieksekusi jika kondisi1 bernilai false
+\end{lstlisting}
+
+Contoh Penggunaan:
+\end{frame}
+
+\begin{frame}[fragile]{Nested-If Statement (2)}
+\begin{lstlisting}[style=PythonStyle, caption={nested_if_statement.py}]
+nilai = 65
+if nilai >= 90:
+    print("A")
+    if nilai >= 80:
+        print("B")
+    else:
+        print("C")
+else:
+    print("D")
+\end{lstlisting}
+\end{frame}
+
+\subsection{Match}
+
+\begin{frame}[fragile]{Match Statement (1)}
+Sejak Python 3.10, tersedia struktur kontrol baru bernama \texttt{match} yang mirip dengan \texttt{switch-case} di bahasa pemrograman lain. Dengan \texttt{match}, kita dapat mencocokkan sebuah nilai terhadap beberapa pola sekaligus. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle]
+match variabel / value:
+    case pola1:
+        # blok kode jika sesuai pola1
+    case pola2:
+        # blok kode jika sesuai pola2
+    case _:
+        # blok kode default jika tidak ada yang cocok
+\end{lstlisting}
+
+Contoh Penggunaan:
+\end{frame}
+
+\begin{frame}[fragile]{Match Statement (2)}
+\begin{lstlisting}[style=PythonStyle, caption={match_statement.py}]
+hari = "Senin"
+match hari:
+    case "Senin":
+        print("Hari ini adalah Senin.")
+    case "Selasa":
+        print("Hari ini adalah Selasa.")
+    case "Rabu":
+        print("Hari ini adalah Rabu.")
+    case _:
+        print("Hari ini bukan Senin, Selasa, atau Rabu.")
+\end{lstlisting}
+\end{frame}
+
+\subsection{Operator Ternary}
+
+\begin{frame}[fragile]{Operator Ternary (1)}
+Python mendukung bentuk singkat dari struktur \texttt{if-else} yang disebut dengan \texttt{operator ternary}. Bentuk dasarnya adalah:
+
+\begin{lstlisting}[style=PythonStyle]
+variabel = nilai1 if kondisi else nilai2
+\end{lstlisting}
+
+Contoh Penggunaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={ternary_operator.py}]
+nilai = 55
+hasil = "Lulus" if nilai >= 70 else "Tidak Lulus"
+print(hasil)
+\end{lstlisting}
+\end{frame}
+
+\section{Penutup}
+
+\begin{frame}{Penutup}
+\begin{itemize}
+    \item \textbf{Operator Aritmatika}: digunakan untuk operasi matematika dasar seperti penjumlahan, pengurangan, perkalian, pembagian, modulus, dan perpangkatan.
+    \item \textbf{Operator Assignment}: digunakan untuk memberi atau memperbarui nilai variabel (misalnya \texttt{=}, \texttt{+=}, \texttt{-=}, dll).
+    \item \textbf{Operator Perbandingan}: membandingkan dua nilai dan menghasilkan nilai boolean (\texttt{==}, \texttt{!=}, \texttt{>}, \texttt{<}, dll).
+    \item \textbf{Operator Logika}: menggabungkan ekspresi boolean dengan \texttt{and}, \texttt{or}, dan \texttt{not}.
+    \item \textbf{Operator Membership}: mengecek apakah suatu elemen terdapat di dalam koleksi data (\texttt{in}, \texttt{not in}).
+    \item \textbf{Pengkondisian}: memungkinkan program mengambil keputusan menggunakan \texttt{if}, \texttt{if-else}, \texttt{if-elif-else}, \texttt{match-case}, dan \texttt{ternary operator}.
+\end{itemize}
+\end{frame}
+
+\end{document}
