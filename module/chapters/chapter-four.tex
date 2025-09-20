@@ -1,0 +1,292 @@
+\chapter{Fungsi and Modul}
+
+\section{Fungsi}
+Fungsi adalah blok kode terorganisir yang memiliki nama tertentu dan dapat dipanggil berulang kali untuk melakukan tugas spesifik, mengurangi redundansi kode, dan mempermudah pengelolaan program. Fungsi membantu kita menulis kode yang lebih rapi, modular, dan mudah dipelihara.
+
+\subsection{Fungsi Dasar Tanpa Parameter}
+
+Fungsi sederhana yang tidak menerima parameter dan tidak mengembalikan nilai. Fungsi ini hanya menjalankan perintah tertentu.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: basic_function.py}]
+def greet():
+    print("Halo, selamat datang!")
+
+# Memanggil fungsi
+greet()
+\end{lstlisting}
+
+\subsection{Fungsi dengan Parameter}
+
+Fungsi bisa memiliki parameter. Dengan adanya parameter, suatu nilai bisa di-sisipkan ke dalam fungsi secara dinamis saat pemanggilannya.
+
+Parameter sendiri merupakan istilah untuk variabel yang menempel pada fungsi, yang mengharuskan kita untuk menyisipkan nilai pada parameter tersebut saat pemanggilan fungsi.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: parameter_function.py}]
+def greet_with_name(nama):
+    print(f"Halo, {nama}!")
+
+# Memanggil fungsi dengan argumen
+greet_with_name("Jessie")
+\end{lstlisting}
+
+\subsection{Fungsi dengan Nilai Kembalian (Return Value)}
+
+Fungsi dapat mengembalikan hasil yang dapat disimpan atau digunakan dalam perhitungan lain.
+
+\subsubsection{Return Nilai Tunggal}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_single_return.py}]
+def add(a, b):
+    return a + b
+
+summation_result = add(5, 3)
+print(summation_result)  # Output: 8
+\end{lstlisting}
+
+\subsubsection{Return Lebih dari Satu Nilai}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_multiple_return.py}]
+def operate(a, b):
+    return a + b, a * b
+
+sum_result, product_result = operate(4, 5)
+print(sum_result)     # 9
+print(product_result) # 20
+\end{lstlisting}
+
+\subsection{Fungsi dengan Parameter Default}
+
+Fungsi dapat memiliki nilai default untuk parameter jika argumen tidak diberikan saat pemanggilan.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_default_parameter.py}]
+def greet_you(name="Friend"):
+    print(f"Hello, {name}!")
+
+greet_you()        # Output: Hello, Friend!
+greet_you("Andrew")  # Output: Hello, Andrew!
+\end{lstlisting}
+
+\subsection{Fungsi dengan Argumen Keyword dan Positional}
+Fungsi di Python bisa dipanggil menggunakan positional arguments atau keyword arguments. Positional argument adalah istilah untuk urutan parameter/argument fungsi. Pengisian argument saat pemanggilan fungsi harus urut sesuai dengan deklarasi parameternya. Keyword argument atau named argument adalah metode pengisian argument pemanggilan fungsi disertai nama parameter yang ditulis secara jelas (eksplisit).
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_keyword_and_positional.py}]
+def student_info(name, age, major):
+    print(f"{name}, {age} years old, majoring in {major}")
+
+# Positional arguments
+student_info("Delta", 20, "Computer Science")
+
+# Keyword arguments
+student_info(major="Information Systems", name="Echo", age=21)
+\end{lstlisting}
+
+\subsection{Fungsi dengan Jumlah Argumen Variabel}
+
+Jika jumlah argumen tidak pasti, kita bisa menggunakan \texttt{*args}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_variable_arguments.py}]
+def sum_numbers(*numbers):
+    total = sum(numbers)
+    print(f"Total: {total}")
+
+sum_numbers(1, 2, 3, 4)  # Output: Total: 10
+sum_numbers(5, 6, 7)     # Output: Total: 18
+\end{lstlisting}
+
+\subsection{Fungsi Rekursif}
+
+Fungsi yang memanggil dirinya sendiri. Biasanya digunakan untuk masalah yang dapat dipecah menjadi sub-masalah.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: recursive_function.py}]
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+print(factorial(5))  # Output: 120
+\end{lstlisting}
+
+\section{Modul}
+
+Modul adalah file Python (\texttt{.py}) yang berisi kode seperti fungsi, variabel, atau kelas, yang bisa digunakan kembali di program lain. Modul membantu memecah program menjadi bagian-bagian yang lebih kecil dan terstruktur.
+
+\subsection{Membuat Modul}
+
+Modul sendiri dibuat dengan membuat file Python baru. Misalnya kita buat file \texttt{math_operations.py}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: math_operations.py}]
+def add(a, b):
+    """Mengembalikan hasil penjumlahan a + b"""
+    return a + b
+
+def subtract(a, b):
+    """Mengembalikan hasil pengurangan a - b"""
+    return a - b
+
+def multiply(a, b):
+    """Mengembalikan hasil perkalian a * b"""
+    return a * b
+
+def divide(a, b):
+    """Mengembalikan hasil pembagian a / b"""
+    if b == 0:
+        return "Error: Division by zero!"
+    return a / b
+
+def power(a, b):
+    """Mengembalikan hasil a pangkat b"""
+    return a ** b
+\end{lstlisting}
+
+Lalu kita bisa menggunakan modul ini di file program lain:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: calculator.py}]
+import math_operations
+
+print(math_operations.add(5, 3))        # Output: 8
+print(math_operations.subtract(10, 4))  # Output: 6
+print(math_operations.multiply(2, 7))   # Output: 14
+print(math_operations.divide(10, 2))    # Output: 5.0
+print(math_operations.power(3, 4))      # Output: 81
+\end{lstlisting}
+
+\subsection{Mengimpor Modul dengan Alias}
+
+Kita bisa memberi nama alias saat mengimpor modul agar lebih ringkas:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: calculator.py}]
+import math_operations as mo
+
+print(mo.add(5, 3))        # Output: 8
+print(mo.subtract(10, 4))  # Output: 6
+print(mo.multiply(2, 7))   # Output: 14
+print(mo.divide(10, 2))    # Output: 5.0
+print(mo.power(3, 4))      # Output: 81
+\end{lstlisting}
+
+\subsection{Menaruh Modul dalam Folder}
+
+Selain membuat modul di satu file, kita juga bisa menaruh modul di dalam folder supaya lebih rapi. Misalnya:
+
+\begin{verbatim}
+project/
+│
+├── main.py
+└── utils/
+└── string_utils.py
+\end{verbatim}
+
+Isi \texttt{string_utils.py} misalnya:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: utils/string_utils.py}]
+def to_upper(text):
+return text.upper()
+
+def to_lower(text):
+return text.lower()
+\end{lstlisting}
+
+Di \texttt{main.py}, kita bisa mengimpor modul ini dari folder \texttt{utils}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: main.py}]
+from utils import string_utils
+
+print(string_utils.to_upper("Python")) # Output: PYTHON
+print(string_utils.to_lower("Python")) # Output: python
+\end{lstlisting}
+
+\subsection{Best Practice: Paket dengan __init__.py}
+
+Untuk project yang lebih besar atau modul yang akan digunakan di banyak file, sebaiknya folder modul dijadikan \textbf{package} dengan menambahkan file __init__.py:
+
+\begin{verbatim}
+project/
+│
+├── main.py
+└── utils/
+├── __init__.py
+└── string_utils.py
+\end{verbatim}
+
+Dengan __init__.py, Python mengenali folder sebagai package.
+
+Cara import tetap sama:
+
+\begin{lstlisting}[style=PythonStyle]
+from utils import string_utils
+\end{lstlisting}
+
+\subsubsection{Modul Bawaan Python}
+
+Python memiliki banyak modul bawaan yang bisa langsung digunakan tanpa instalasi. Beberapa modul bawaan yang sering dipakai antara lain:
+
+\texttt{math} — untuk operasi matematika, seperti akar, pangkat, atau konstanta \(\pi\).
+
+\texttt{random} — untuk menghasilkan angka acak.
+
+\texttt{datetime} — untuk mengelola tanggal dan waktu.
+
+\texttt{os} — untuk berinteraksi dengan sistem operasi, misal folder, file, path.
+
+Contoh penggunaan modul bawaan:
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: math_module.py}]
+import math
+
+print(math.sqrt(16)) # Output: 4.0
+print(math.pi) # Output: 3.141592653589793
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: random_module.py}]
+import random
+
+print(random.randint(1, 10)) # Output: angka acak antara 1 sampai 10
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: datetime_module.py}]
+from datetime import date
+
+today = date.today()
+print(today) # Output: tanggal hari ini, misal 2025-09-20
+\end{lstlisting}
+
+\subsubsection{Mengimpor Fungsi atau Variabel Tertentu}
+
+Jika hanya membutuhkan beberapa fungsi/variabel dari modul, bisa langsung diimpor:
+
+\begin{lstlisting}[style=PythonStyle]
+from math import sqrt, pi
+
+print(sqrt(36)) # Output: 6.0
+print(pi) # Output: 3.141592653589793
+\end{lstlisting}
+
+\section{Latihan}
+
+\begin{enumerate}
+    \item \textbf{Soal 1:} Buatlah program yang meminta pengguna memasukan nilai (minimal 5 input), kemudian klasifikasikan nilai tersebut sesuai dengan ketentuan berikut:
+    \begin{enumerate}
+        \item Jika nilai lebih besar atau sama dengan 80, maka klasifikasi \texttt{A}
+        \item Jika nilai lebih besar atau sama dengan 70, maka klasifikasi \texttt{B}
+        \item Jika nilai lebih besar atau sama dengan 60, maka klasifikasi \texttt{C}
+        \item Jika nilai lebih besar atau sama dengan 50, maka klasifikasi \texttt{D}
+        \item Jika nilai lebih kecil dari 50, maka klasifikasi \texttt{E}
+    \end{enumerate}
+    Buatkan program dalam dua versi, yaitu dengan membuat fungsi untuk klasifikasi dan tanpa membuat fungsi klasifikasi.
+
+    \item \textbf{Soal 2:} Buatlah program yang meminta pengguna memasukan nilai 3 mata pelajaran (Matematika, Fisika, dan Kimia), kemudian buatlah fungsi yang menerima dua parameter yakni nilai dan parameter kedua nilai minimal kelulusan dengan default nilai 60. Program akan menampilkan lulus atau tidak lulus sesuai dengan nilai minimal. Standar kelulusan untuk matematika adalah 80, untuk fisika adalah 70, dan untuk kimia adalah 60.
+
+    \item \textbf{Soal 3:} Buatlah program untuk menghitung deret Fibonacci dengan cara:
+    \begin{enumerate}
+        \item Meminta input jumlah angka n dari pengguna
+        \item Menggunakan fungsi rekursif untuk menghitung angka Fibonacci ke-n.
+        \item Menampilkan deret Fibonacci hingga n angka pertama
+    \end{enumerate}
+
+    \item \textbf{Soal 4:} Buat modul bernama \textbf{geometry.py} yang berisi fungsi:
+    \begin{enumerate}
+        \item \texttt{hitung_persegi_panjang(panjang, lebar)} → mengembalikan luas dan keliling persegi panjang (function with multiple returns)
+        \item \texttt{hitung_persegi(sisi)} → mengembalikan luas dan keliling persegi (function with multiple returns)
+    \end{enumerate}
+    Kemudian import modul tersebut di file program utama dan gunakan fungsi-fungsi tersebut.
+
+\end{enumerate}
