@@ -1,0 +1,253 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chatper-05:\\\LARGE{Perulangan (Looping)\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+language=Python,
+basicstyle=\ttfamily\footnotesize,
+keywordstyle=\color{blue},
+commentstyle=\color{gray},
+stringstyle=\color{red},
+breaklines=true,
+showstringspaces=false,
+tabsize=2,
+captionpos=b,
+numbers=left,
+numberstyle=\tiny\color{gray},
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{gray}\ttfamily,
+string=[s]{'}{'},
+morestring=[s]{"}{"},
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.5\textwidth}
+\tableofcontents[sections={1-3}]
+\end{column}
+\begin{column}{.5\textwidth}
+\tableofcontents[sections={4-5}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Definisi Perulangan}
+\begin{frame}{Definisi Perulangan}
+Dalam pemrograman, seringkali kita perlu menjalankan blok kode yang sama berulang kali. 
+Misalnya, mencetak angka dari 1 sampai 100, membaca setiap baris dari sebuah file, atau 
+memproses setiap elemen dalam sebuah daftar data. 
+Proses pengulangan eksekusi blok kode ini dikenal sebagai \textbf{perulangan} atau \textit{looping} (iterasi).
+\end{frame}
+
+\section{Perulangan di Python}
+\begin{frame}{Perulangan di Python}
+Python menyediakan dua mekanisme utama untuk melakukan perulangan:
+\begin{enumerate}
+    \item \textbf{Perulangan \texttt{for}}: Digunakan untuk melakukan iterasi pada sebuah urutan (seperti \texttt{list}, \texttt{tuple}, \texttt{string}) atau objek \textit{iterable} lainnya. Perulangan ini sering disebut sebagai \textit{definite iteration} karena jumlah pengulangannya sudah ditentukan oleh panjang urutan.
+    \item \textbf{Perulangan \texttt{while}}: Digunakan untuk mengulang blok kode selama sebuah kondisi bernilai \texttt{True}. Perulangan ini disebut \textit{indefinite iteration} karena jumlah pengulangannya tidak pasti dan bergantung pada kapan kondisi menjadi \texttt{False}.
+\end{enumerate}
+
+Menguasai perulangan adalah langkah fundamental untuk menulis program yang efisien dan otomatis.
+\end{frame}
+
+\subsection{For Loop}
+\begin{frame}[fragile]{For Loop (Sintaks Dasar)}
+Perulangan \texttt{for} di Python bekerja dengan cara mengambil setiap elemen dari sebuah urutan secara bergantian.
+
+Sintaks umum dari perulangan \texttt{for} adalah sebagai berikut:
+\begin{lstlisting}[style=PythonStyle, caption={Sintaks Dasar Perulangan for}]
+for nama_variabel in urutan:
+    # Blok kode yang akan diulang
+    # ...
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{For Loop (Iterasi Menggunakan \texttt{range()})}
+Fungsi \texttt{range()} sangat umum digunakan bersama \texttt{for} untuk menghasilkan urutan angka.
+\begin{itemize}
+    \item \texttt{range(stop)}: Membuat urutan dari 0 hingga \texttt{stop-1}.
+    \item \texttt{range(start, stop)}: Membuat urutan dari \texttt{start} hingga \texttt{stop-1}.
+    \item \texttt{range(start, stop, step)}: Membuat urutan dari \texttt{start} hingga \texttt{stop-1} dengan lompatan sebesar \texttt{step}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{For Loop (Contoh Penggunaan)}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: for_with_range.py}]
+# Mencetak angka dari 0 sampai 4
+print("Contoh 1: range(5)")
+for i in range(5):
+    print(f"Perulangan ke-{i}")
+
+# Mencetak angka dari 2 sampai 5
+print("\nContoh 2: range(2, 6)")
+for j in range(2, 6):
+    print(f"Angka: {j}")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{For Loop (Iterasi pada List dan String)}
+Anda bisa melakukan iterasi secara langsung pada elemen-elemen dari sebuah \texttt{list} atau karakter-karakter dari sebuah \texttt{string}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: list_and_string_iteration.py}]
+# Iterasi pada sebuah list
+daftar_buah = ["apel", "mangga", "jeruk"]
+for buah in daftar_buah:
+    print(f"Saya suka {buah}")
+
+# Iterasi pada sebuah string
+nama = "PYTHON"
+for huruf in nama:
+    print(huruf, end=' ')
+\end{lstlisting}
+\end{frame}
+
+\subsection{While Loop}
+\begin{frame}[fragile]{While Loop (Sintaks Dasar)}
+Perulangan \texttt{while} akan terus mengeksekusi blok kode di dalamnya selama kondisi yang diberikan bernilai \texttt{True}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Sintaks Dasar Perulangan while}]
+while kondisi:
+    # Blok kode yang akan diulang
+    # ...
+    # Penting: Harus ada perubahan yang membuat kondisi akhirnya False
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{While Loop (Contoh Penggunaan 1)}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: while_loop.py}]
+# Menghitung dari 1 sampai 5
+angka = 1
+while angka <= 5:
+    print(f"Hitungan: {angka}")
+    angka = angka + 1 # atau angka += 1
+
+print("Selesai")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{While Loop (Contoh Penggunaan 2)}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: cowok_selalu_salah.py}]
+def cewek_nanya():
+    print('Cewek: Kamu salah ga?')
+
+def respon_cowok():
+    return input('Cowok: ')
+
+def cek_jawaban_cowok(jawaban):
+    if jawaban.startswith('iy'):
+        return True
+    else:
+        return False
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{While Loop (Contoh Penggunaan 3)}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: cowok_selalu_salah.py}]
+def main():
+    while True:
+        cewek_nanya()
+        jawaban_cowo = respon_cowok()
+
+        if cek_jawaban_cowok(jawaban_cowo):
+            break
+
+main()
+\end{lstlisting}
+\end{frame}
+
+\section{Kontrol Alur Perulangan}
+\begin{frame}[fragile]{Definisi Kontrol Alur Perulangan}
+Python menyediakan dua pernyataan untuk mengontrol alur eksekusi di dalam perulangan: \texttt{break} dan \texttt{continue}.
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{break} Statement}
+Statement \texttt{break} digunakan untuk menghentikan paksa (keluar dari) perulangan saat itu juga, bahkan jika kondisi perulangan masih terpenuhi.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: break_keyword.py}]
+# Mencari angka 5 dalam rentang 1-10
+for i in range(1, 11):
+    print(i, end=' ')
+    if i == 5:
+        print("\nAngka 5 ditemukan, perulangan dihentikan!")
+        break 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{continue} Statement}
+Statement \texttt{continue} digunakan untuk melewati sisa blok kode pada iterasi saat ini dan langsung melanjutkan ke iterasi berikutnya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: continue_keyword.py}]
+# Mencetak angka ganjil dari 1 sampai 10
+for i in range(1, 11):
+    if i % 2 == 0: # Jika angka genap
+        continue   # Lewati iterasi ini dan lanjut ke angka berikutnya
+    print(f"Angka ganjil: {i}")
+\end{lstlisting}
+\end{frame}
+
+\section{Perulangan Bersarang (\textit{Nested Loops})}
+\begin{frame}{Definisi Perulangan Bersarang}
+\textit{Nested loop} adalah sebuah perulangan yang berada di dalam perulangan lainnya. Perulangan di dalam (\textit{inner loop}) akan menyelesaikan seluruh iterasinya untuk setiap satu iterasi dari perulangan di luar (\textit{outer loop}).
+\\
+Konsep ini sering digunakan untuk memproses data dalam format dua dimensi, seperti matriks atau tabel.
+\end{frame}
+
+\begin{frame}[fragile]{Contoh Penggunaan Perulangan Bersarang}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_loop.py}]
+# Outer loop untuk baris
+for i in range(1, 4):  # Baris 1 sampai 3
+    # Inner loop untuk kolom
+    for j in range(1, 4): # Kolom 1 sampai 3
+        print(f"{i}x{j} = {i*j}", end='\t')
+    print() # Pindah ke baris baru setelah inner loop selesai
+\end{lstlisting}
+\end{frame}
+
+\section{Penutup}
+\begin{frame}{Penutup}
+    Berikut adalah poin-poin penting yang telah kita pelajari dalam bab ini:
+    \begin{itemize}
+        \item \textbf{Perulangan} adalah konsep fundamental untuk mengeksekusi blok kode secara berulang tanpa harus menulis ulang kode tersebut.
+        \vspace{10pt}
+        \item \textbf{For Loop} ideal digunakan untuk iterasi pada objek yang memiliki jumlah elemen pasti (definite iteration), seperti \texttt{list}, \texttt{string}, atau \texttt{range()}.
+        \vspace{10pt}
+        \item \textbf{While Loop} cocok digunakan saat jumlah perulangan tidak diketahui dan bergantung pada sebuah kondisi yang harus terpenuhi (indefinite iteration).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Penutup}
+    \begin{itemize}
+        \item \textbf{\texttt{break}} dan \textbf{\texttt{continue}} adalah pernyataan untuk mengontrol alur perulangan. \texttt{break} menghentikan loop sepenuhnya, sedangkan \texttt{continue} hanya melewati iterasi saat ini.
+        \vspace{10pt}
+        \item \textbf{Nested Loops} (Perulangan Bersarang) memungkinkan adanya perulangan di dalam perulangan lain, sangat berguna untuk memproses data berstruktur dua dimensi.
+    \end{itemize}
+\end{frame}
+\end{document}
