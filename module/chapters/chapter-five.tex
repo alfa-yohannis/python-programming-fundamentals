@@ -1,0 +1,189 @@
+\chapter{Perulangan (Looping)}
+
+\section{Perulangan di Python}
+Dalam pemrograman, seringkali kita perlu menjalankan blok kode yang sama berulang kali. 
+Misalnya, mencetak angka dari 1 sampai 100, membaca setiap baris dari sebuah file, atau 
+memproses setiap elemen dalam sebuah daftar data. 
+Proses pengulangan eksekusi blok kode ini dikenal sebagai \textbf{perulangan} atau \textit{looping} (iterasi).
+
+Python menyediakan dua mekanisme utama untuk melakukan perulangan:
+\begin{enumerate}
+    \item \textbf{Perulangan \texttt{for}}: Digunakan untuk melakukan iterasi pada sebuah urutan (seperti \texttt{list}, \texttt{tuple}, \texttt{string}) atau objek \textit{iterable} lainnya. Perulangan ini sering disebut sebagai \textit{definite iteration} karena jumlah pengulangannya sudah ditentukan oleh panjang urutan.
+    \item \textbf{Perulangan \texttt{while}}: Digunakan untuk mengulang blok kode selama sebuah kondisi bernilai \texttt{True}. Perulangan ini disebut \textit{indefinite iteration} karena jumlah pengulangannya tidak pasti dan bergantung pada kapan kondisi menjadi \texttt{False}.
+\end{enumerate}
+
+Menguasai perulangan adalah langkah fundamental untuk menulis program yang efisien dan otomatis.
+
+\subsection{For Loop}
+
+Perulangan \texttt{for} di Python bekerja dengan cara mengambil setiap elemen dari sebuah urutan secara bergantian.
+
+\subsection{Sintaks Dasar}
+Sintaks umum dari perulangan \texttt{for} adalah sebagai berikut:
+\begin{lstlisting}[style=PythonStyle, caption={Sintaks Dasar Perulangan for}]
+for nama_variabel in urutan:
+    # Blok kode yang akan diulang
+    # ...
+\end{lstlisting}
+
+\subsection{Iterasi Menggunakan \texttt{range()}}
+Fungsi \texttt{range()} sangat umum digunakan bersama \texttt{for} untuk menghasilkan urutan angka.
+\begin{itemize}
+    \item \texttt{range(stop)}: Membuat urutan dari 0 hingga \texttt{stop-1}.
+    \item \texttt{range(start, stop)}: Membuat urutan dari \texttt{start} hingga \texttt{stop-1}.
+    \item \texttt{range(start, stop, step)}: Membuat urutan dari \texttt{start} hingga \texttt{stop-1} dengan lompatan sebesar \texttt{step}.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: for_with_range.py}]
+# Mencetak angka dari 0 sampai 4
+print("Contoh 1: range(5)")
+for i in range(5):
+    print(f"Perulangan ke-{i}")
+
+# Mencetak angka dari 2 sampai 5
+print("\nContoh 2: range(2, 6)")
+for j in range(2, 6):
+    print(f"Angka: {j}")
+\end{lstlisting}
+
+\subsection{Iterasi pada List dan String}
+Anda bisa melakukan iterasi secara langsung pada elemen-elemen dari sebuah \texttt{list} atau karakter-karakter dari sebuah \texttt{string}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: list_and_string_iteration.py}]
+# Iterasi pada sebuah list
+daftar_buah = ["apel", "mangga", "jeruk"]
+for buah in daftar_buah:
+    print(f"Saya suka {buah}")
+
+# Iterasi pada sebuah string
+nama = "PYTHON"
+for huruf in nama:
+    print(huruf, end=' ')
+\end{lstlisting}
+
+\section{While Loop}
+Perulangan \texttt{while} akan terus mengeksekusi blok kode di dalamnya selama kondisi yang diberikan bernilai \texttt{True}.
+
+\subsection{Sintaks Dasar}
+\begin{lstlisting}[style=PythonStyle, caption={Sintaks Dasar Perulangan while}]
+while kondisi:
+    # Blok kode yang akan diulang
+    # ...
+    # Penting: Harus ada perubahan yang membuat kondisi akhirnya False
+\end{lstlisting}
+
+\textbf{Perhatian:} Pastikan di dalam blok \texttt{while} ada sebuah mekanisme (misalnya, inkrementasi variabel) yang pada akhirnya akan mengubah nilai kondisi menjadi \texttt{False}. Jika tidak, program akan masuk ke dalam \textit{infinite loop} atau perulangan tak terbatas.
+
+\subsection{Contoh Penggunaan}
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: while_loop.py}]
+# Menghitung dari 1 sampai 5
+angka = 1
+while angka <= 5:
+    print(f"Hitungan: {angka}")
+    angka = angka + 1 # atau angka += 1
+
+print("Selesai")
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: cowok_selalu_salah.py}]
+def cewek_nanya():
+    print('Cewek: Kamu salah ga?')
+
+def respon_cowok():
+    return input('Cowok: ')
+
+def cek_jawaban_cowok(jawaban):
+    if jawaban.startswith('iy'):
+        return True
+    else:
+        return False
+    
+def main():
+    while True:
+        cewek_nanya()
+        jawaban_cowo = respon_cowok()
+
+        if cek_jawaban_cowok(jawaban_cowo):
+            break
+
+main()
+\end{lstlisting}
+
+\section{Kontrol Alur Perulangan}
+Python menyediakan dua statement untuk mengontrol alur eksekusi di dalam perulangan: \texttt{break} dan \texttt{continue}.
+
+\subsection{\texttt{break} Statement}
+Statement \texttt{break} digunakan untuk menghentikan paksa (keluar dari) perulangan saat itu juga, bahkan jika kondisi perulangan masih terpenuhi.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: break_keyword.py}]
+# Mencari angka 5 dalam rentang 1-10
+for i in range(1, 11):
+    print(i, end=' ')
+    if i == 5:
+        print("\nAngka 5 ditemukan, perulangan dihentikan!")
+        break 
+\end{lstlisting}
+
+\subsection{\texttt{continue} Statement}
+Statement \texttt{continue} digunakan untuk melewati sisa blok kode pada iterasi saat ini dan langsung melanjutkan ke iterasi berikutnya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: continue_keyword.py}]
+# Mencetak angka ganjil dari 1 sampai 10
+for i in range(1, 11):
+    if i % 2 == 0: # Jika angka genap
+        continue   # Lewati iterasi ini dan lanjut ke angka berikutnya
+    print(f"Angka ganjil: {i}")
+\end{lstlisting}
+
+\section{Perulangan Bersarang (\textit{Nested Loops})}
+\textit{Nested loop} adalah sebuah perulangan yang berada di dalam perulangan lainnya. Perulangan di dalam (\textit{inner loop}) akan menyelesaikan seluruh iterasinya untuk setiap satu iterasi dari perulangan di luar (\textit{outer loop}).
+
+Konsep ini sering digunakan untuk memproses data dalam format dua dimensi, seperti matriks atau tabel.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_loop.py}]
+# Outer loop untuk baris
+for i in range(1, 4):  # Baris 1 sampai 3
+    # Inner loop untuk kolom
+    for j in range(1, 4): # Kolom 1 sampai 3
+        print(f"{i}x{j} = {i*j}", end='\t')
+    print() # Pindah ke baris baru setelah inner loop selesai
+\end{lstlisting}
+
+\section{Latihan Soal}
+Kerjakan soal-soal di bawah ini untuk menguji pemahaman Anda.
+
+\begin{enumerate}
+    \item \textbf{Faktorial}: Buatlah sebuah program yang meminta pengguna memasukkan sebuah bilangan bulat positif, lalu hitung dan tampilkan nilai faktorial dari bilangan tersebut menggunakan perulangan \texttt{for}. ($n! = n \times (n-1) \times \dots \times 1$).
+    
+    \item \textbf{Tebak Angka}: Buatlah sebuah permainan tebak angka sederhana. Program akan memilih sebuah angka acak antara 1 dan 50. Pengguna diminta menebak angka tersebut. Gunakan perulangan \texttt{while} untuk terus meminta input dari pengguna hingga tebakannya benar. Berikan petunjuk "Terlalu besar" atau "Terlalu kecil" di setiap tebakan yang salah.
+    
+    \item \textbf{Pola Bintang - Segitiga Siku-siku}: Gunakan \textit{nested loop} untuk menampilkan pola segitiga siku-siku seperti di bawah ini (untuk tinggi 5 baris):
+    \begin{verbatim}
+*
+**
+***
+****
+*****
+    \end{verbatim}
+
+    \item \textbf{Pola Bintang - Segitiga Siku-siku Terbalik}: Gunakan \textit{nested loop} untuk menampilkan pola segitiga siku-siku terbalik (dengan puncak di bawah) seperti di bawah ini (untuk tinggi 5 baris):
+    \begin{verbatim}
+*****
+****
+***
+**
+*
+    \end{verbatim}
+
+    \item \textbf{Pola Bintang - Piramida}: Gunakan \textit{nested loop} untuk menampilkan pola piramida seperti di bawah ini (untuk tinggi 5 baris):
+    \begin{verbatim}
+    *
+   ***
+  *****
+ *******
+*********
+    \end{verbatim}
+    
+    \item \textbf{Bilangan Prima}: Buatlah program untuk memeriksa apakah sebuah bilangan yang diinput oleh pengguna adalah bilangan prima atau bukan. Gunakan perulangan dan pernyataan \texttt{break} untuk efisiensi. (Bilangan prima adalah bilangan yang hanya habis dibagi 1 dan dirinya sendiri).
+
+\end{enumerate}
