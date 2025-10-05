@@ -36,6 +36,17 @@ Nilai pada posisi tertentu dapat diubah langsung dengan indeks, elemen baru dapa
 dan elemen tertentu dapat dihapus dengan \texttt{remove()}. 
 List menjadi struktur dasar yang sangat penting karena fleksibel dan mudah digunakan dalam berbagai situasi.
 
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+penjualan = [120000, 85000, 95000, 110000, 130000]
+
+total = 0
+for p in penjualan:
+    total += p
+
+print("Total penjualan minggu ini:",
+      f"Rp{total:,}")
+    \end{lstlisting}
+
 % =====================================================
 \section{Tuple}
 Tuple mirip dengan list, tetapi bersifat \textit{immutable}, artinya elemen di dalamnya tidak dapat diubah setelah dibuat. 
@@ -56,6 +67,17 @@ Kode di atas menunjukkan bahwa tuple dapat dibaca seperti list,
 tetapi tidak bisa dimodifikasi secara langsung. 
 Untuk "memperbarui" data, kita membuat tuple baru dari data lama. 
 Karena bersifat tetap, tuple aman digunakan untuk data yang tidak boleh berubah selama program berjalan.
+
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+lokasi = (6.256, 106.618)  # koordinat Serpong
+
+print("Koordinat Lokasi:")
+print("Lintang :", lokasi[0])
+print("Bujur  :", lokasi[1])
+
+# tuple tidak dapat diubah
+# lokasi[0] = 6.300  # akan menyebabkan error
+    \end{lstlisting}
 
 % =====================================================
 \section{Dictionary (Map)}
@@ -84,6 +106,24 @@ menambahkan data baru dengan menetapkan pasangan \texttt{key:value},
 memperbarui nilai yang sudah ada, atau menghapus entri dengan \texttt{del}. 
 Struktur ini sangat efisien untuk data berpasangan dan sering digunakan dalam aplikasi nyata seperti penyimpanan data pengguna atau pengaturan sistem.
 
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+pelanggan = {
+    "nama": "Sinta Dewi",
+    "usia": 28,
+    "kota": "Tangerang"
+}
+
+print("Data Pelanggan:")
+
+for k, v in pelanggan.items():
+    print(f"{k.capitalize():<6}: {v}")
+
+# ubah data
+pelanggan["usia"] = 29
+print("\nUsia diperbarui:",
+      pelanggan["usia"])
+    \end{lstlisting}
+
 % =====================================================
 \section{Set}
 Set adalah struktur data yang berisi kumpulan elemen unik dan tidak memiliki urutan tertentu. 
@@ -110,6 +150,20 @@ Kode di atas memperlihatkan bahwa set secara otomatis menghapus nilai duplikat
 dan memungkinkan penambahan atau penghapusan elemen dengan mudah. 
 Operasi seperti gabungan (\texttt{|}) dan irisan (\texttt{\&}) dapat dilakukan untuk menggabungkan atau mencari elemen yang sama di antara dua set. 
 Struktur ini sangat efisien untuk memastikan keunikan data dan operasi pencarian cepat.
+
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+produk = {"kopi", "teh", "gula", "kopi", "susu"}
+
+print("Daftar produk unik:")
+for p in produk:
+    print("-", p)
+
+# tambahkan elemen baru
+produk.add("keju")
+print("\nSetelah ditambah:")
+for p in produk:
+    print("-", p)
+    \end{lstlisting}
 
 
 % =====================================================
@@ -267,6 +321,7 @@ Tentukan:
 Latihan ini membantu memahami penggunaan fungsi bawaan seperti 
 \texttt{max()}, \texttt{min()}, dan operator \texttt{in} untuk pencarian elemen pada list.
 
+%%%%%%%%%%%%%%
 \item \textbf{Mengurutkan Data Menggunakan List} \\
 Sebuah daftar nilai ujian siswa disimpan dalam bentuk \texttt{list}. 
 Mahasiswa diminta untuk menampilkan data yang telah diurutkan dalam dua cara:  
