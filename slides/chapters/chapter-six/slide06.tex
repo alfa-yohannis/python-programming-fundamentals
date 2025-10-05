@@ -1,0 +1,561 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-06:\\\LARGE{Struktur Data\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+language=Python,
+basicstyle=\ttfamily\footnotesize,
+keywordstyle=\color{blue},
+commentstyle=\color{gray},
+stringstyle=\color{red},
+breaklines=true,
+showstringspaces=false,
+tabsize=2,
+captionpos=b,
+numbers=left,
+numberstyle=\tiny\color{gray},
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{gray}\ttfamily,
+string=[s]{'}{'},
+morestring=[s]{"}{"},
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-7}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={8-14}]
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\section{Pendahuluan}
+
+
+\begin{frame}[fragile]{Pendahuluan}
+\vspace{20pt}
+
+\begin{itemize}
+  \item Struktur data membantu menyimpan dan mengelola informasi secara efisien. 
+  \item Python memiliki beberapa struktur data bawaan seperti 
+        \texttt{list}, \texttt{tuple}, \texttt{dictionary}, dan \texttt{set}. 
+  \item Pemahaman terhadap struktur data penting sebagai dasar pengolahan data 
+        dan pengembangan algoritma.
+	\begin{lstlisting}[style=PythonStyle]
+data = [10, 20, 30]
+print(data[0])
+\end{lstlisting}
+\end{itemize}
+
+
+\end{frame}
+
+
+\section{List}
+
+\begin{frame}[fragile]{List: Konsep dan Contoh}
+\vspace{20pt}
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item List adalah struktur data berurutan (\textit{sequential}) dan bersifat \textbf{mutable}.
+      \item Dapat menyimpan kumpulan data sejenis maupun campuran.
+      \item Elemen dapat \textbf{ditambah}, \textbf{dibaca}, \textbf{diubah}, atau \textbf{dihapus}.
+      \item Cocok untuk data yang bersifat dinamis, seperti daftar nama atau nilai.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle]
+buah = ["apel", "jeruk", "mangga"]
+
+print("Daftar buah:", buah)
+print("Buah pertama:", buah[0])
+
+buah[1] = "anggur"
+buah.append("pisang")
+buah.remove("mangga")
+
+print("Setelah diubah:", buah)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Contoh List}
+
+\begin{frame}[fragile]{Menghitung Total Penjualan Harian}
+\vspace{20pt}
+
+Program ini menghitung total penjualan dari daftar transaksi harian menggunakan satu tingkat perulangan.
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item Data penjualan disimpan dalam \texttt{list}.
+      \item Setiap elemen mewakili nilai transaksi harian.
+      \item Perulangan menjumlahkan semua nilai untuk mendapatkan total penjualan.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.5\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+penjualan = [120000, 85000, 95000, 110000, 130000]
+
+total = 0
+for p in penjualan:
+    total += p
+
+print("Total penjualan minggu ini:",
+      f"Rp{total:,}")
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Tuple}
+
+\begin{frame}[fragile]{Tuple: Konsep dan Contoh}
+\vspace{20pt}
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item \textbf{Tuple} mirip dengan \texttt{list}, tetapi bersifat \textit{immutable}.
+      \item Elemen di dalamnya tidak dapat diubah setelah dibuat.
+      \item Cocok untuk data yang bersifat tetap, seperti koordinat, ukuran, atau warna RGB.
+      \item Jika perlu mengubah nilai, buat tuple baru berdasarkan tuple lama.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle]
+koordinat = (10, 20)
+print("Koordinat awal:", koordinat)
+print("Nilai x:", koordinat[0])
+
+koordinat_baru = (koordinat[0], 25)
+print("Koordinat baru:", koordinat_baru)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Koordinat Lokasi dengan Tuple}
+\vspace{20pt}
+
+Program ini menyimpan dan menampilkan koordinat lokasi yang bersifat tetap menggunakan \texttt{tuple}.
+
+\begin{columns}[T]
+  % ==== KIRI (40%) ====
+  \begin{column}{0.4\textwidth}
+    \begin{itemize}
+      \item \texttt{Tuple} digunakan untuk menyimpan data yang tidak berubah, seperti koordinat.
+      \item Nilai di dalam tuple bersifat tetap selama program berjalan.
+      \item Cocok untuk posisi objek, ukuran gambar, atau konfigurasi awal.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN (60%) ====
+  \begin{column}{0.6\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+lokasi = (6.256, 106.618)  # koordinat Serpong
+
+print("Koordinat Lokasi:")
+print("Lintang :", lokasi[0])
+print("Bujur  :", lokasi[1])
+
+# tuple tidak dapat diubah
+# lokasi[0] = 6.300  # akan menyebabkan error
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Dictionary (Map)}
+
+\begin{frame}[fragile]{Dictionary: Konsep dan Contoh}
+\vspace{20pt}
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item \textbf{Dictionary} menyimpan pasangan \texttt{key:value}.
+      \item Setiap \texttt{key} bersifat unik dan digunakan untuk mengakses nilainya.
+      \item Cocok untuk data berlabel, seperti identitas pengguna atau data mahasiswa.
+      \item Data dapat \textbf{ditambah}, \textbf{dibaca}, \textbf{diperbarui}, dan \textbf{dihapus}.
+      \item Efisien untuk penyimpanan data terstruktur dalam aplikasi nyata.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle]
+mahasiswa = {
+    "nama": "Andi",
+    "umur": 20,
+    "jurusan": "Informatika"
+}
+
+print("Data awal:", mahasiswa)
+print("Nama:", mahasiswa["nama"])
+
+mahasiswa["umur"] = 21
+mahasiswa["kota"] = "Tangerang"
+
+del mahasiswa["jurusan"]
+
+print("Setelah diubah:", mahasiswa)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Menampilkan Data Pelanggan}
+\vspace{20pt}
+
+Program ini menampilkan data pelanggan dalam \texttt{dictionary}.
+
+\begin{columns}[T]
+  % ==== KIRI (40%) ====
+  \begin{column}{0.4\textwidth}
+    \begin{itemize}
+      \item Data pelanggan disimpan dalam bentuk pasangan \texttt{key:value}.
+      \item Perulangan digunakan untuk menampilkan semua atribut pelanggan.
+      \item Cocok untuk laporan data pengguna atau entri basis data sederhana.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN (60%) ====
+  \begin{column}{0.6\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+pelanggan = {
+    "nama": "Sinta Dewi",
+    "usia": 28,
+    "kota": "Tangerang"
+}
+
+print("Data Pelanggan:")
+
+for k, v in pelanggan.items():
+    print(f"{k.capitalize():<6}: {v}")
+
+# ubah data
+pelanggan["usia"] = 29
+print("\nUsia diperbarui:",
+      pelanggan["usia"])
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Set}
+
+\begin{frame}[fragile]{Set: Konsep dan Contoh}
+\vspace{20pt}
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item \textbf{Set} berisi kumpulan elemen unik tanpa urutan tertentu.
+      \item Python secara otomatis menghapus nilai duplikat.
+      \item Digunakan untuk memfilter data unik atau operasi himpunan.
+      \item Mendukung operasi \textbf{gabungan} (\texttt{|}) dan \textbf{irisan} (\texttt{\&}).
+      \item Efisien untuk memastikan keunikan dan pemeriksaan keanggotaan data.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle]
+angka = {1, 2, 3, 3, 2}
+print("Data awal:", angka)
+
+angka.add(4)
+angka.add(5)
+angka.discard(2)
+
+print("Setelah diubah:", angka)
+
+angka_lain = {3, 4, 6}
+print("Gabungan:", angka | angka_lain)
+print("Irisan:", angka & angka_lain)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Data Unik dengan Set}
+\vspace{20pt}
+
+Program ini menggunakan \texttt{set} untuk menyimpan data unik dan menampilkannya menggunakan perulangan.
+
+\begin{columns}[T]
+  % ==== KIRI (40%) ====
+  \begin{column}{0.5\textwidth}
+    \begin{itemize}
+      \item \texttt{Set} menyimpan elemen unik tanpa urutan tertentu.
+      \item Cocok untuk menghapus duplikasi data seperti daftar nama atau produk.
+      \item Perulangan digunakan untuk menampilkan seluruh elemen unik.
+      \item Efisien untuk pencarian atau pemrosesan data yang tidak boleh ganda.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN (60%) ====
+  \begin{column}{0.5\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+produk = {"kopi", "teh", "gula", "kopi", "susu"}
+
+print("Daftar produk unik:")
+for p in produk:
+    print("-", p)
+
+# tambahkan elemen baru
+produk.add("keju")
+print("\nSetelah ditambah:")
+for p in produk:
+    print("-", p)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Range}
+
+\begin{frame}[fragile]{Range: Konsep dan Contoh}
+\vspace{20pt}
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item \textbf{Range} digunakan untuk menghasilkan urutan angka secara efisien.
+      \item Umumnya dipakai dalam perulangan untuk mengontrol jumlah iterasi.
+      \item Tidak menyimpan seluruh nilai di memori, tetapi menghasilkan angka saat dibutuhkan.
+      \item Dapat dikonversi menjadi list dengan \texttt{list(range())}.
+      \item Hemat memori dan ideal untuk operasi berulang.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle]
+for i in range(3):
+    print("Iterasi ke-", i)
+
+angka = list(range(1, 6))
+print("Daftar angka:", angka)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Struktur Data Bertingkat (Nested Structure)}
+
+\begin{frame}[fragile]{Struktur Data Bertingkat: Konsep dan Contoh}
+\vspace{20pt}
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item Struktur data bertingkat berisi struktur data lain di dalamnya.
+      \item Contohnya: \texttt{list} di dalam \texttt{list}, atau \texttt{dictionary} di dalam \texttt{list}.
+      \item Berguna untuk menyimpan data kompleks seperti tabel, daftar objek, atau data JSON.
+      \item Memungkinkan representasi hubungan antar data secara alami dan hierarkis.
+    \end{itemize}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle]
+matriks = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+print("Elemen baris 1 kolom 2:", matriks[0][1])
+
+mahasiswa = [
+    {"nama": "Andi", "umur": 20},
+    {"nama": "Budi", "umur": 21}
+]
+print("Nama mahasiswa kedua:",
+      mahasiswa[1]["nama"])
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Perkalian Matriks Menggunakan List}
+
+\begin{frame}[fragile]{Perkalian Matriks Menggunakan List}
+\vspace{20pt}
+Program ini melakukan perkalian matriks antara A dan B, kemudian menyimpan hasilnya di C.
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.2\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1, basicstyle=\ttfamily\scriptsize]
+A = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+
+B = [
+    [7, 8],
+    [9, 10],
+    [11, 12]
+]
+
+C = [
+    [0, 0],
+    [0, 0]
+]
+
+    \end{lstlisting}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.68\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=16, basicstyle=\ttfamily\scriptsize]
+for i in range(0, len(A)):
+    for j in range(0, len(B[0])):
+        total = 0
+        for k in range(0, len(B)):
+            total = total + A[i][k] * B[k][j]
+            print(f"{A[i][k]}*{B[k][j]}", end=" ")
+            if k < len(B) - 1:
+                print("+", end=" ")
+        print(f"= {total}")
+        C[i][j] = total
+
+print("Hasil akhir matriks C:")
+for row in C:
+    print(row)
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Mengolah Data Bersarang dengan Perulangan dan Kondisi}
+
+\begin{frame}[fragile]{Mengolah Data Bersarang dengan Perulangan dan Kondisi}
+\vspace{20pt}
+
+Program ini menghitung rata-rata nilai mahasiswa dan 
+    menentukan kategori hasil belajar berdasarkan skor akhir.
+
+\begin{columns}[T]
+  % ==== KIRI ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1, basicstyle=\ttfamily\scriptsize]
+mahasiswa = [
+	{"nama": "Andi", "nilai": [80, 85, 90]},
+	{"nama": "Budi", "nilai": [60, 70, 65]},
+	{"nama": "Citra", "nilai": [90, 95, 100]}
+]
+
+for m in mahasiswa:
+    total = 0
+    for n in m["nilai"]:
+        total += n
+    \end{lstlisting}
+  \end{column}
+
+  % ==== KANAN ====
+  \begin{column}{0.48\textwidth}
+    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=11, basicstyle=\ttfamily\scriptsize]
+    rata = total / len(m["nilai"])
+    
+    if rata >= 85:
+        kategori = "Sangat Baik"
+    elif rata >= 70:
+        kategori = "Cukup"
+    else:
+        kategori = "Perlu Perbaikan"
+    
+    print(f"{m['nama']} - "
+          f"Rata-rata: {rata:.1f} "
+          f"({kategori})")
+    \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Kesimpulan}
+
+\begin{frame}{Kesimpulan}
+\vspace{20pt}
+
+\begin{itemize}
+  \item Struktur data membantu menyimpan, mengelola, dan memproses informasi secara efisien. 
+  \item Python menyediakan berbagai struktur data bawaan seperti \texttt{list}, \texttt{tuple}, \texttt{dictionary}, \texttt{set}, dan \texttt{range}.
+  \item Setiap struktur memiliki karakteristik dan kegunaan berbeda — mutable, immutable, berurutan, atau tidak berurutan.
+  \item Struktur data bertingkat memungkinkan representasi data kompleks seperti tabel atau objek bersarang.
+  \item Pemahaman konsep ini menjadi dasar penting dalam pengembangan algoritma, analisis data, dan aplikasi nyata.
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\end{document}

@@ -63,6 +63,29 @@
 	%	showstringspaces=false
 }
 
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false
+}
+
+
 \begin{document}
 		
 	\begin{titlepage}
@@ -95,10 +118,11 @@
 	% Contents Page
 	\tableofcontents
 
-	\include{chapters/chapter-one}
-	\include{chapters/chapter-two}
-	\include{chapters/chapter-three}
-	\include{chapters/chapter-four}
-	\include{chapters/chapter-five}
-		
+%	\include{chapters/chapter-one}
+%	\include{chapters/chapter-two}
+%	\include{chapters/chapter-three}
+%	\include{chapters/chapter-four}
+%	\include{chapters/chapter-five}
+	\include{chapters/chapter-six}
+	
 \end{document}

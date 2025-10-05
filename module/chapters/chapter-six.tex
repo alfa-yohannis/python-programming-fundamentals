@@ -1,0 +1,382 @@
+\chapter{Struktur Data Bawaan dalam Python}
+
+\section{Pendahuluan}
+Struktur data adalah cara menyimpan dan mengatur data agar dapat digunakan secara efisien dalam program.
+Python menyediakan berbagai struktur data bawaan seperti \texttt{list}, \texttt{tuple}, \texttt{dictionary}, dan \texttt{set}.
+Pemahaman terhadap struktur data sangat penting karena menjadi dasar dalam pengolahan informasi dan pengembangan algoritma.
+
+\begin{lstlisting}[style=PythonStyle]
+data = [10, 20, 30]
+print(data[0])  # Mengakses elemen pertama
+\end{lstlisting}
+Kode di atas menggunakan list untuk menyimpan tiga nilai dan menampilkan elemen pertama.
+
+% =====================================================
+\section{List}
+List adalah struktur data berurutan (sequential) yang bersifat mutable, artinya elemen di dalamnya dapat diubah setelah dibuat. 
+List digunakan untuk menyimpan kumpulan data yang sejenis atau campuran, seperti daftar nama, nilai, atau hasil input pengguna. 
+Karena bersifat dinamis, kita dapat menambah, membaca, memperbarui, dan menghapus elemen kapan pun diperlukan.
+
+\begin{lstlisting}[style=PythonStyle]
+buah = ["apel", "jeruk", "mangga"]
+
+print("Daftar buah:", buah)
+print("Buah pertama:", buah[0])
+
+buah[1] = "anggur"
+buah.append("pisang")
+buah.remove("mangga")
+
+print("Setelah diubah:", buah)
+\end{lstlisting}
+
+Kode di atas memperlihatkan bagaimana list dapat dimodifikasi dengan mudah. 
+Program dimulai dengan tiga elemen awal, lalu menampilkan isi list dan elemen pertama. 
+Nilai pada posisi tertentu dapat diubah langsung dengan indeks, elemen baru dapat ditambahkan dengan \texttt{append()}, 
+dan elemen tertentu dapat dihapus dengan \texttt{remove()}. 
+List menjadi struktur dasar yang sangat penting karena fleksibel dan mudah digunakan dalam berbagai situasi.
+
+% =====================================================
+\section{Tuple}
+Tuple mirip dengan list, tetapi bersifat \textit{immutable}, artinya elemen di dalamnya tidak dapat diubah setelah dibuat. 
+Struktur ini cocok digunakan untuk menyimpan data yang bersifat tetap seperti koordinat, ukuran gambar, warna RGB, atau data konfigurasi. 
+Jika ingin melakukan perubahan, kita harus membuat tuple baru berdasarkan tuple lama.
+
+\begin{lstlisting}[style=PythonStyle]
+koordinat = (10, 20)
+print("Koordinat awal:", koordinat)
+print("Nilai x:", koordinat[0])
+
+# membuat tuple baru berdasarkan tuple lama
+koordinat_baru = (koordinat[0], 25)
+print("Koordinat baru:", koordinat_baru)
+\end{lstlisting}
+
+Kode di atas menunjukkan bahwa tuple dapat dibaca seperti list, 
+tetapi tidak bisa dimodifikasi secara langsung. 
+Untuk "memperbarui" data, kita membuat tuple baru dari data lama. 
+Karena bersifat tetap, tuple aman digunakan untuk data yang tidak boleh berubah selama program berjalan.
+
+% =====================================================
+\section{Dictionary (Map)}
+Dictionary adalah struktur data yang menyimpan pasangan \texttt{key:value}. 
+Setiap \texttt{key} bersifat unik dan digunakan untuk mengakses nilainya secara langsung. 
+Struktur ini sangat berguna untuk merepresentasikan data berlabel, seperti identitas pengguna, data mahasiswa, atau konfigurasi sistem. 
+Kita dapat menambah, membaca, memperbarui, maupun menghapus pasangan data dengan mudah.
+
+\begin{lstlisting}[style=PythonStyle]
+mahasiswa = {"nama": "Andi", "umur": 20, "jurusan": "Informatika"}
+
+print("Data awal:", mahasiswa)
+print("Nama mahasiswa:", mahasiswa["nama"])
+
+mahasiswa["umur"] = 21
+mahasiswa["kota"] = "Tangerang"
+
+del mahasiswa["jurusan"]
+
+print("Setelah diubah:", mahasiswa)
+\end{lstlisting}
+
+Kode di atas menunjukkan bagaimana dictionary memungkinkan pengelolaan data berbasis label. 
+Kita dapat membaca nilai tertentu dengan menyebutkan kuncinya, 
+menambahkan data baru dengan menetapkan pasangan \texttt{key:value}, 
+memperbarui nilai yang sudah ada, atau menghapus entri dengan \texttt{del}. 
+Struktur ini sangat efisien untuk data berpasangan dan sering digunakan dalam aplikasi nyata seperti penyimpanan data pengguna atau pengaturan sistem.
+
+% =====================================================
+\section{Set}
+Set adalah struktur data yang berisi kumpulan elemen unik dan tidak memiliki urutan tertentu. 
+Python secara otomatis menghapus elemen duplikat, sehingga setiap nilai di dalam set hanya muncul satu kali. 
+Struktur ini sering digunakan untuk memfilter data unik, melakukan operasi himpunan seperti gabungan dan irisan, 
+atau memeriksa keanggotaan suatu elemen dalam kumpulan data.
+
+\begin{lstlisting}[style=PythonStyle]
+angka = {1, 2, 3, 3, 2}
+print("Data awal:", angka)
+
+angka.add(4)
+angka.add(5)
+angka.discard(2)
+
+print("Setelah diubah:", angka)
+
+angka_lain = {3, 4, 6}
+print("Gabungan:", angka | angka_lain)
+print("Irisan:", angka & angka_lain)
+\end{lstlisting}
+
+Kode di atas memperlihatkan bahwa set secara otomatis menghapus nilai duplikat 
+dan memungkinkan penambahan atau penghapusan elemen dengan mudah. 
+Operasi seperti gabungan (\texttt{|}) dan irisan (\texttt{\&}) dapat dilakukan untuk menggabungkan atau mencari elemen yang sama di antara dua set. 
+Struktur ini sangat efisien untuk memastikan keunikan data dan operasi pencarian cepat.
+
+
+% =====================================================
+\section{Range}
+Range adalah struktur bawaan Python yang digunakan untuk menghasilkan urutan angka secara efisien. 
+Objek ini sering digunakan dalam perulangan untuk mengontrol jumlah iterasi tanpa perlu membuat daftar angka secara manual. 
+Tidak seperti list, \texttt{range} tidak menyimpan seluruh nilai di memori, melainkan menghasilkan angka satu per satu saat dibutuhkan, sehingga lebih hemat sumber daya.
+
+\begin{lstlisting}[style=PythonStyle]
+for i in range(3):
+    print("Iterasi ke-", i)
+
+angka = list(range(1, 6))
+print("Daftar angka:", angka)
+\end{lstlisting}
+
+Contoh di atas menunjukkan penggunaan \texttt{range()} dalam dua bentuk. 
+Pertama, untuk mengatur jumlah pengulangan di dalam perulangan \texttt{for}. 
+Kedua, untuk membuat daftar angka berurutan dengan fungsi \texttt{list()}. 
+Dengan \texttt{range()}, kita dapat membuat urutan angka dengan batas awal, akhir, dan langkah tertentu tanpa membebani memori.
+
+
+% =====================================================
+\section{Struktur Data Bertingkat (Nested Structure)}
+Struktur data bertingkat adalah struktur yang di dalamnya terdapat struktur data lain. 
+Contohnya adalah list di dalam list, atau dictionary di dalam list. 
+Struktur seperti ini berguna untuk menyimpan data yang lebih kompleks, seperti tabel, daftar objek, atau data dalam format JSON. 
+Dengan menggunakan struktur bertingkat, kita dapat merepresentasikan hubungan antar data secara lebih alami.
+
+\begin{lstlisting}[style=PythonStyle]
+matriks = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+
+print("Elemen pada baris 1 kolom 2:", matriks[0][1])
+
+mahasiswa = [
+    {"nama": "Andi", "umur": 20},
+    {"nama": "Budi", "umur": 21}
+]
+
+print("Nama mahasiswa kedua:", mahasiswa[1]["nama"])
+\end{lstlisting}
+
+Contoh di atas memperlihatkan dua bentuk struktur bertingkat. 
+Pertama, list di dalam list yang digunakan untuk menyimpan data berbentuk dua dimensi seperti matriks. 
+Kedua, list yang berisi dictionary yang digunakan untuk menyimpan daftar data berstruktur, misalnya data mahasiswa. 
+Struktur seperti ini umum digunakan untuk pengolahan data yang bersifat hierarkis, penyimpanan data JSON, maupun hasil query dari basis data.
+
+% =====================================================
+\section{Perkalian Matriks Menggunakan List}
+Matriks dapat direpresentasikan sebagai list dua dimensi, di mana setiap elemen di dalam list utama berisi list lain yang mewakili baris. 
+Perkalian matriks dilakukan dengan menjumlahkan hasil kali antara elemen-elemen baris dari matriks pertama dan kolom dari matriks kedua. 
+Konsep ini banyak digunakan dalam berbagai bidang seperti pemrosesan citra, machine learning, dan grafik komputer.
+
+\begin{lstlisting}[style=PythonStyle]
+A = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+
+B = [
+    [7, 8],
+    [9, 10],
+    [11, 12]
+]
+
+C = [
+    [0, 0],
+    [0, 0]
+]
+
+for i in range(0, len(A)):
+    for j in range(0, len(B[0])):
+        total = 0
+        for k in range(0, len(B)):
+            total = total + A[i][k] * B[k][j]
+            print(f"{A[i][k]}*{B[k][j]}", end=" ")
+            if k < len(B) - 1:
+                print("+", end=" ")
+        print(f"= {total}")
+        C[i][j] = total
+
+print("Hasil akhir matriks C:")
+for row in C:
+    print(row)
+\end{lstlisting}
+
+Contoh di atas menunjukkan bagaimana dua matriks dapat dikalikan menggunakan list bersarang. 
+Matriks \texttt{A} berukuran dua baris dan tiga kolom dikalikan dengan matriks \texttt{B} berukuran tiga baris dan dua kolom. 
+Hasilnya adalah matriks baru \texttt{C} berukuran dua baris dan dua kolom. 
+Proses perhitungan dilakukan dengan menggunakan \textit{nested loop} di dalam \textit{list comprehension}, 
+di mana setiap elemen hasil merupakan penjumlahan hasil kali antara baris pada matriks pertama dan kolom pada matriks kedua. 
+Pendekatan ini memperlihatkan bagaimana struktur data sederhana seperti list dapat digunakan untuk menyelesaikan perhitungan matematis secara efisien tanpa memerlukan pustaka tambahan.
+
+\section{Mengolah Data Bersarang dengan Perulangan dan Kondisi}
+Struktur data bersarang sering digunakan dalam situasi di mana setiap elemen di dalam kumpulan data memiliki beberapa atribut. 
+Dengan memanfaatkan perulangan bertingkat (\textit{nested loop}) dan kondisi, kita dapat menelusuri dan memproses data tersebut dengan lebih terarah. 
+Pendekatan ini banyak digunakan dalam pengolahan data, analisis hasil survei, atau pembuatan laporan berdasarkan kriteria tertentu.
+
+\begin{lstlisting}[style=PythonStyle]
+mahasiswa = [
+    {"nama": "Andi", "nilai": [80, 85, 90]},
+    {"nama": "Budi", "nilai": [60, 70, 65]},
+    {"nama": "Citra", "nilai": [90, 95, 100]}
+]
+
+for m in mahasiswa:
+    total = 0
+    for n in m["nilai"]:
+        total += n
+    rata = total / len(m["nilai"])
+    
+    if rata >= 85:
+        kategori = "Sangat Baik"
+    elif rata >= 70:
+        kategori = "Cukup"
+    else:
+        kategori = "Perlu Perbaikan"
+    
+    print(f"{m['nama']} - Rata-rata: {rata:.1f} ({kategori})")
+\end{lstlisting}
+
+Contoh di atas memperlihatkan bagaimana list yang berisi dictionary dan list lain di dalamnya dapat diolah menggunakan dua tingkat perulangan. 
+Perulangan pertama menelusuri setiap mahasiswa, sedangkan perulangan kedua menjumlahkan nilai-nilai mereka untuk menghitung rata-rata. 
+Kondisi \texttt{if} kemudian digunakan untuk menentukan kategori hasil belajar berdasarkan nilai rata-rata tersebut. 
+Contoh ini menggabungkan konsep struktur data bersarang, perulangan bertingkat, dan logika percabangan dalam satu program sederhana yang menggambarkan situasi dunia nyata.
+
+% =====================================================
+\section{Latihan}
+Latihan berikut dirancang agar mahasiswa dapat menerapkan berbagai konsep struktur data Python 
+secara terpadu — meliputi list, tuple, dictionary, serta penggunaan perulangan, kondisi, dan struktur bersarang. Semua solusi harus dibuat moduler ke dalam modul dan fungsi-fungsi yang kemudian dipanggil di fungsi utama. 
+
+\begin{enumerate}
+\item \textbf{Mencari Nilai Tertinggi, Terendah, dan Nilai Spesifik} \\
+Sebuah kelas memiliki daftar nilai ujian yang disimpan dalam bentuk \texttt{list}. 
+Mahasiswa diminta untuk menentukan nilai tertinggi, nilai terendah, 
+dan memeriksa apakah nilai tertentu ada di dalam daftar tersebut.  
+
+Gunakan struktur data berikut sebagai dasar:
+
+\begin{lstlisting}[style=PythonStyle]
+nilai_ujian = [78, 85, 90, 67, 88, 92, 74, 90, 81]
+\end{lstlisting}
+
+Tentukan:
+\begin{itemize}
+  \item \textbf{Nilai tertinggi}: nilai maksimum dari daftar.
+  \item \textbf{Nilai terendah}: nilai minimum dari daftar.
+  \item \textbf{Nilai spesifik}: periksa apakah nilai tertentu (misalnya 90) ada di dalam daftar.
+\end{itemize}
+
+
+Latihan ini membantu memahami penggunaan fungsi bawaan seperti 
+\texttt{max()}, \texttt{min()}, dan operator \texttt{in} untuk pencarian elemen pada list.
+
+\item \textbf{Mengurutkan Data Menggunakan List} \\
+Sebuah daftar nilai ujian siswa disimpan dalam bentuk \texttt{list}. 
+Mahasiswa diminta untuk menampilkan data yang telah diurutkan dalam dua cara:  
+(1) dari nilai tertinggi ke terendah, dan  
+(2) dari nilai terendah ke tertinggi.
+
+Gunakan struktur data berikut sebagai dasar:
+
+\begin{lstlisting}[style=PythonStyle]
+nilai = [85, 90, 78, 92, 88, 75, 95]
+\end{lstlisting}
+
+Tentukan dua hasil pengurutan berikut:
+\begin{itemize}
+  \item \textbf{Ascending}: dari nilai terkecil ke terbesar.
+  \item \textbf{Descending}: dari nilai terbesar ke terkecil.
+\end{itemize}
+
+Hasil akhir yang diharapkan memiliki bentuk struktur data seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle]
+urut_ascending = [75, 78, 85, 88, 90, 92, 95]
+urut_descending = [95, 92, 90, 88, 85, 78, 75]
+\end{lstlisting}
+
+Latihan ini membantu memahami penggunaan fungsi bawaan \texttt{sorted()} 
+dan metode \texttt{.sort()} untuk mengurutkan data numerik secara menaik dan menurun.
+
+
+  \item \textbf{Koordinat Pusat Massa Kubus} \\
+  Sebuah kubus memiliki delapan titik sudut dengan koordinat dalam ruang tiga dimensi. 
+  Setiap titik direpresentasikan sebagai tuple \texttt{(x, y, z)} dan seluruh titik disimpan dalam sebuah list.  
+  Buat program untuk menghitung koordinat pusat massa (titik rata-rata) dari kubus tersebut.  
+  Gunakan perulangan untuk menjumlahkan seluruh nilai koordinat dan tampilkan hasil akhirnya dalam bentuk tuple baru.
+
+
+
+  \item \textbf{Seleksi dan Gabung Data Berdasarkan Kriteria} \\
+Terdapat dua struktur data yang saling melengkapi. 
+Struktur pertama menyimpan daftar produk dan harganya, 
+sementara struktur kedua menyimpan daftar produk dan jumlah stok yang tersedia. 
+Kedua struktur disusun dalam bentuk list berisi dictionary seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle]
+produk_harga = [
+    {"nama": "Laptop", "harga": 9500000},
+    {"nama": "Mouse", "harga": 150000},
+    {"nama": "Keyboard", "harga": 350000},
+    {"nama": "Monitor", "harga": 2200000}
+]
+
+produk_stok = [
+    {"nama": "Laptop", "stok": 3},
+    {"nama": "Mouse", "stok": 25},
+    {"nama": "Keyboard", "stok": 10},
+    {"nama": "Monitor", "stok": 4}
+]
+\end{lstlisting}
+
+Dari dua struktur tersebut, mahasiswa diminta menyeleksi produk 
+dengan harga di bawah batas tertentu dan stok di atas jumlah tertentu, 
+kemudian menggabungkannya ke dalam satu struktur data baru yang berisi 
+\texttt{nama}, \texttt{harga}, dan \texttt{stok}. 
+
+Hasil akhir yang diharapkan berbentuk seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle]
+produk_terpilih = [
+    {"nama": "Mouse", "harga": 150000, "stok": 25},
+    {"nama": "Keyboard", "harga": 350000, "stok": 10}
+]
+\end{lstlisting}
+
+Struktur ini merepresentasikan data hasil seleksi yang memenuhi kriteria dan sudah digabungkan dari dua sumber data berbeda.
+
+
+\item \textbf{Operasi Himpunan Menggunakan Set} \\
+Dua kelompok data mewakili pelanggan dari dua cabang toko yang berbeda. 
+Setiap kelompok disimpan dalam bentuk \texttt{set} karena setiap nama pelanggan bersifat unik.  
+Mahasiswa diminta melakukan berbagai operasi himpunan untuk menganalisis kesamaan dan perbedaan antar cabang.
+
+\begin{lstlisting}[style=PythonStyle]
+cabang_a = {"Andi", "Budi", "Citra", "Dewi", "Eka"}
+cabang_b = {"Budi", "Dewi", "Farah", "Gilang", "Hadi"}
+\end{lstlisting}
+
+Gunakan operasi berikut untuk menemukan hasilnya:
+\begin{itemize}
+  \item \textbf{Irisan (AND)}: pelanggan yang berbelanja di kedua cabang.
+  \item \textbf{Gabungan (OR)}: seluruh pelanggan dari kedua cabang tanpa duplikasi.
+  \item \textbf{Selisih (NOT IN)}: pelanggan yang hanya berbelanja di satu cabang tertentu.
+  \item \textbf{Selisih Simetris (XOR)}: pelanggan yang hanya berbelanja di salah satu cabang saja.
+\end{itemize}
+
+Hasil akhir diharapkan memiliki bentuk struktur data seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle]
+pelanggan_and = {"Budi", "Dewi"}
+pelanggan_or = {"Andi", "Budi", "Citra", "Dewi", "Eka", "Farah", "Gilang", "Hadi"}
+pelanggan_not_in_a = {"Farah", "Gilang", "Hadi"}
+pelanggan_xor = {"Andi", "Citra", "Eka", "Farah", "Gilang", "Hadi"}
+\end{lstlisting}
+
+Struktur ini membantu memahami hubungan antar himpunan data dan dapat digunakan untuk 
+analisis pelanggan, pencocokan data, maupun perbandingan hasil survei.
+
+\end{enumerate}
+
+% =====================================================
+\section{Kesimpulan}
+Python memiliki berbagai struktur data bawaan yang fleksibel dan mudah digunakan.
+Pemahaman tentang list, tuple, dictionary, dan set menjadi dasar penting sebelum mempelajari algoritma dan struktur data lanjutan.
+Dengan menguasai struktur data ini, programmer dapat menulis kode yang lebih efisien, terstruktur, dan mudah dipelihara.
