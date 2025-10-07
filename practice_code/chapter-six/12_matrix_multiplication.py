@@ -15,16 +15,16 @@ C = [
     [0, 0]
 ]
 
-for i in range(0, len(A)):
-    for j in range(0, len(B[0])):
+for baris_a in range(0, len(A)):
+    for kolom_b in range(0, len(B[0])):
         total = 0
-        for k in range(0, len(B)):
-            total = total + A[i][k] * B[k][j]
-            print(f"{A[i][k]}*{B[k][j]}", end=" ")
-            if k < len(B) - 1:
+        for xy in range(0, len(B)):
+            total = total + A[baris_a][xy] * B[xy][kolom_b]
+            print(f"{A[baris_a][xy]}*{B[xy][kolom_b]}", end=" ")
+            if xy < len(B) - 1:
                 print("+", end=" ")
         print(f"= {total}")
-        C[i][j] = total
+        C[baris_a][kolom_b] = total
 
 print("Hasil akhir matriks C:")
 for row in C:
