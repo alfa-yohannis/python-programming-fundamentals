@@ -1,0 +1,448 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-07:\\\LARGE{File I/O pada Python\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\section{Pendahuluan}
+\begin{frame}{Pendahuluan}
+\vspace{20pt}
+\begin{itemize}
+  \item File I/O: membaca/menulis data ke file untuk penyimpanan dan pertukaran informasi.
+  \item Python memudahkan dengan \texttt{open()} dan \texttt{with} untuk pengelolaan resource yang aman.
+  \item Jenis umum: file teks (berbasis karakter) dan CSV (tabel sederhana dipisah pemisah).
+  \item Manfaat: pengolahan data, laporan otomatis, log, arsip hasil perhitungan.
+  \item Alur dasar: buka \textrightarrow{} baca/proses \textrightarrow{} tulis.
+  \item Tujuan: memahami konsep dan siap menerapkan pada contoh kode berikutnya.
+\end{itemize}
+\end{frame}
+
+\section{Membaca dan Menulis File Teks}
+
+\begin{frame}{Membaca dan Menulis File Teks}
+\vspace{20pt}
+File teks menyimpan data berbasis karakter seperti catatan atau log.  
+Python menggunakan fungsi \texttt{open()} untuk mengakses file dengan mode tertentu:  
+\texttt{'r'} (baca), \texttt{'w'} (tulis), \texttt{'a'} (tambah), dan \texttt{'x'} (buat baru).  
+Gunakan \texttt{with open(...)} agar file tertutup otomatis.  
+Metode umum: \texttt{read()}, \texttt{readline()}, \texttt{readlines()} untuk membaca,  
+serta \texttt{write()} dan \texttt{writelines()} untuk menulis.  
+Pastikan encoding menggunakan UTF-8 agar karakter terbaca dengan benar.
+\end{frame}
+
+\begin{frame}[fragile]{Contoh Kode: File Teks di Python}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle]
+# Menulis file teks
+with open("data.txt", "w", encoding="utf-8") as f:
+    f.write("Baris pertama\n")
+    f.write("Baris kedua\n")
+
+# Membaca kembali file
+with open("data.txt", "r", encoding="utf-8") as f:
+    for baris in f:
+        print(baris.strip())
+\end{lstlisting}
+\end{frame}
+
+\section{Penyaringan dan Penghitungan Data dari File}
+
+\begin{frame}{Penyaringan dan Penghitungan Data}
+\vspace{20pt}
+Pemrosesan file teks memungkinkan kita mengekstrak informasi penting dari data mentah.  
+Dua teknik umum yang sering digunakan adalah \textbf{penyaringan} (filtering) dan \textbf{penghitungan} (counting).  
+Program membaca file baris demi baris dan memeriksa apakah baris tersebut memenuhi kondisi tertentu.  
+Python mempermudah hal ini dengan perulangan \texttt{for line in file:} yang efisien dan hemat memori.  
+Pendekatan ini cocok untuk memproses file besar tanpa perlu memuat seluruh isi ke dalam memori.
+\end{frame}
+
+\begin{frame}[fragile]{Isi File \texttt{log\_aktivitas.txt}}
+\vspace{20pt}
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}]
+[08:45] Starting system check...
+[09:00] User login successful
+[09:15] Launching Python script for data processing
+[09:30] ERROR: Missing configuration file
+[10:00] Process completed successfully
+[10:30] Running Python script for report generation
+[11:00] ERROR: Disk read failure
+[11:30] User logged out
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Contoh 1: Penyaringan Baris}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, caption={Menyaring baris yang mengandung kata "Python"}]
+with open("log_aktivitas.txt", "r", encoding="utf-8") as file:
+    for baris in file:
+        if "Python" in baris:
+            print(baris.strip())
+\end{lstlisting}
+
+\noindent\textbf{Output:}
+\begin{lstlisting}[language=bash, caption={Hasil penyaringan baris yang mengandung "Python"}]
+[09:15] Launching Python script for data processing
+[10:30] Running Python script for report generation
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Contoh 2: Penghitungan Kemunculan Kata}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung kemunculan kata "error"}]
+jumlah_error = 0
+with open("log_aktivitas.txt", "r", encoding="utf-8") as file:
+    for baris in file:
+        kata_kata = baris.lower().split()
+        for kata in kata_kata:
+            if kata.startswith("error"):
+                jumlah_error += 1
+
+print(f"Kata 'error' muncul {jumlah_error} kali.")
+\end{lstlisting}
+
+\noindent\textbf{Output:}
+\begin{lstlisting}[language=bash, caption={Hasil penghitungan kemunculan kata "error"}]
+Kata 'error' muncul 2 kali.
+\end{lstlisting}
+\end{frame}
+
+
+\section{Membaca dan Menulis File CSV}
+
+\begin{frame}[fragile]{Membaca dan Menulis File CSV}
+\vspace{20pt}
+\begin{columns}[T, totalwidth=\textwidth]
+  %=== Kolom Kiri ===%
+  \begin{column}{0.65\textwidth}
+  \begin{itemize}
+    \item File CSV (\textit{Comma-Separated Values}) menyimpan data dalam bentuk tabel sederhana.
+    \item Setiap baris mewakili satu entri, dan setiap kolom dipisahkan oleh koma atau pemisah lain.
+    \item Format umum untuk pertukaran data antar aplikasi seperti Excel atau Google Sheets.
+    \item Python menyediakan modul bawaan \texttt{csv} untuk membaca dan menulis data secara efisien.
+    \item Baris pertama (\textbf{header}) berisi nama kolom, diikuti baris-baris nilai aktual.
+    \item Gunakan \texttt{csv.DictReader} dan \texttt{csv.DictWriter} untuk akses kolom berdasarkan nama.
+  \end{itemize}
+  \end{column}
+
+  %=== Kolom Kanan ===%
+  \begin{column}{0.3\textwidth}
+  \vspace{5pt}
+  \textbf{Contoh isi file \texttt{nilai\_mahasiswa.csv}:}
+  \begin{lstlisting}[language=bash, caption={Cuplikan isi file CSV}]
+Nama,Nilai
+Andi,85.5
+Budi,90.0
+Citra,78.0
+Dewi,88.5
+  \end{lstlisting}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Struktur dan Pendekatan}
+\vspace{20pt}
+File CSV umumnya terdiri dari:
+\begin{itemize}
+  \item Baris \textbf{header}: nama kolom (mis. \texttt{Nama}, \texttt{Nilai})
+  \item Baris \textbf{data}: nilai aktual untuk setiap kolom
+\end{itemize}
+Pendekatan utama:
+\begin{itemize}
+  \item \texttt{csv.reader} / \texttt{csv.writer} → bekerja berbasis \textit{list}
+  \item \texttt{csv.DictReader} / \texttt{csv.DictWriter} → berbasis \textit{dictionary}
+\end{itemize}
+Pendekatan kedua lebih disarankan karena aman terhadap perubahan urutan kolom.  
+Pastikan juga konversi tipe data numerik menggunakan \texttt{int()} atau \texttt{float()} saat membaca file.
+\end{frame}
+
+\begin{frame}[fragile]{Contoh 1: Menulis File CSV}
+\vspace{20pt}
+\begin{columns}[T, totalwidth=\textwidth]
+  %=== Kolom Kiri ===%
+  \begin{column}{0.65\textwidth}
+  \begin{lstlisting}[style=PythonStyle]
+import csv
+
+data = [
+    {"Nama": "Andi", "Nilai": 85.5},
+    {"Nama": "Budi", "Nilai": 90.0},
+    {"Nama": "Citra", "Nilai": 78.0},
+    {"Nama": "Dewi", "Nilai": 88.5}
+]
+
+with open("nilai_mahasiswa.csv", "w", newline="", encoding="utf-8") as f:
+    kolom = ["Nama", "Nilai"]
+    writer = csv.DictWriter(f, fieldnames=kolom)
+    writer.writeheader()
+    writer.writerows(data)
+  \end{lstlisting}
+  \end{column}
+
+  %=== Kolom Kanan ===%
+  \begin{column}{0.3\textwidth}
+  \textbf{Hasil File:}
+  \begin{lstlisting}[language=bash, caption={Isi file nilai_mahasiswa.csv}]
+Nama,Nilai
+Andi,85.5
+Budi,90.0
+Citra,78.0
+Dewi,88.5
+  \end{lstlisting}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Contoh 2: Membaca File CSV}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, caption={Membaca data CSV menggunakan DictReader}]
+import csv
+
+with open("nilai_mahasiswa.csv", "r", encoding="utf-8") as f:
+    pembaca = csv.DictReader(f)
+    for baris in pembaca:
+        nama = baris["Nama"]
+        nilai = float(baris["Nilai"])
+        print(f"{nama} memperoleh nilai {nilai:.2f}")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Output Terminal}
+\vspace{20pt}
+\begin{lstlisting}[language=bash, caption={Hasil pembacaan file CSV di terminal}]
+Andi memperoleh nilai 85.50
+Budi memperoleh nilai 90.00
+Citra memperoleh nilai 78.00
+Dewi memperoleh nilai 88.50
+\end{lstlisting}
+
+Kedua contoh memperlihatkan proses penuh pengolahan file CSV —  
+menulis data menggunakan \texttt{DictWriter} dan membacanya kembali dengan \texttt{DictReader}.  
+Teknik ini penting untuk memproses data tabel sederhana dan menjadi dasar analisis data yang lebih kompleks.
+\end{frame}
+
+\section{Agregasi dan Ringkasan Data}
+
+%=== FRAME 1: Konsep Agregasi dan Pengelompokan ===%
+\begin{frame}{Agregasi dan Ringkasan Data}
+\vspace{20pt}
+\begin{itemize}
+  \item \textbf{Agregasi} berarti merangkum sejumlah data menjadi informasi yang lebih ringkas dan bermakna.
+  \item Contoh: menghitung total, rata-rata, jumlah kemunculan, nilai maksimum, atau minimum.
+  \item Python memungkinkan agregasi sederhana menggunakan \texttt{for loop}, \texttt{list}, dan \texttt{dict}.
+  \item \textbf{Pengelompokan} dapat dilakukan manual berdasarkan kategori, misalnya mata kuliah.
+  \item Hasil agregasi dapat ditampilkan dalam teks terformat atau disimpan ke file laporan otomatis.
+\end{itemize}
+\end{frame}
+
+%=== FRAME 2: Kode Input (Membaca dan Menghitung) ===%
+\begin{frame}[fragile]{Input: Menghitung Rata-Rata Nilai}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung rata-rata dari file CSV}]
+import csv
+
+total_nilai = 0
+jumlah_data = 0
+
+with open("nilai_mahasiswa.csv", "r", encoding="utf-8") as file:
+    pembaca = csv.DictReader(file)
+    for baris in pembaca:
+        total_nilai += float(baris["Nilai"])
+        jumlah_data += 1
+
+rata_rata = total_nilai / jumlah_data if jumlah_data > 0 else 0
+print(f"Rata-rata nilai mahasiswa: {rata_rata:.2f}")
+\end{lstlisting}
+\end{frame}
+
+%=== FRAME 3: Kode Output (Menulis Laporan) ===%
+\begin{frame}[fragile]{Output: Menulis File Laporan}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, caption={Menyimpan hasil agregasi ke file laporan}]
+with open("laporan.txt", "w", encoding="utf-8") as file:
+    file.write("Laporan Ringkasan Nilai Mahasiswa\n")
+    file.write("===============================\n")
+    file.write(f"Jumlah data  : {jumlah_data}\n")
+    file.write(f"Total nilai  : {total_nilai:.2f}\n")
+    file.write(f"Rata-rata    : {rata_rata:.2f}\n")
+
+print("Laporan disimpan ke laporan.txt.")
+\end{lstlisting}
+\end{frame}
+
+%=== FRAME 4: Hasil Akhir (Isi File Laporan) ===%
+\begin{frame}[fragile]{Hasil: Isi File \texttt{laporan.txt}}
+\vspace{20pt}
+\begin{lstlisting}[language=bash, caption={Isi file hasil ringkasan data}]
+Laporan Ringkasan Nilai Mahasiswa
+=================================
+Jumlah data  : 4
+Total nilai  : 342.00
+Rata-rata    : 85.50
+\end{lstlisting}
+
+File laporan menampilkan jumlah data, total nilai, dan rata-rata dalam format teks terstruktur.  
+Hasil ini menunjukkan penerapan konsep agregasi sederhana dan pelaporan otomatis dalam Python.
+\end{frame}
+
+\section{Penanganan Error dan Praktik Terbaik}
+
+%=== FRAME 1: Konsep dan Prinsip ===%
+\begin{frame}{Penanganan Error dan Praktik Terbaik}
+\vspace{20pt}
+\begin{itemize}
+  \item Kesalahan (\textit{error}) saat bekerja dengan file tidak dapat dihindari, misalnya file hilang, rusak, atau tidak memiliki izin akses.
+  \item Jenis error umum: 
+  \begin{itemize}
+    \item \texttt{FileNotFoundError} – file tidak ditemukan.  
+    \item \texttt{IOError} – kesalahan input/output.  
+    \item \texttt{ValueError} – format atau tipe data tidak sesuai.
+  \end{itemize}
+  \item Gunakan \texttt{try--except--finally} untuk mencegah program berhenti tiba-tiba.
+  \item Gunakan \texttt{with open(...)} untuk penutupan file otomatis dan aman.
+  \item Praktik terbaik:
+  \begin{itemize}
+    \item Gunakan encoding konsisten (mis. UTF-8).  
+    \item Baca file besar secara bertahap (\textit{streaming}).  
+    \item Gunakan struktur folder dan nama file yang jelas.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%=== FRAME 2: Contoh 1 - try-except-finally ===%
+\begin{frame}[fragile]{Contoh 1: Penanganan Error Dasar}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle]
+try:
+    file = open("data_tidak_ada.txt", "r", encoding="utf-8")
+    isi = file.read()
+    print(isi)
+except FileNotFoundError:
+    print("Error: File tidak ditemukan.")
+except IOError:
+    print("Error: Terjadi kesalahan I/O saat membaca file.")
+finally:
+    try:
+        file.close()
+    except NameError:
+        pass  # file belum dibuka, tidak perlu ditutup
+\end{lstlisting}
+
+\noindent
+Pendekatan ini memastikan file ditutup meskipun terjadi error, 
+dan pesan kesalahan ditampilkan dengan ramah bagi pengguna.
+\end{frame}
+
+%=== FRAME 3: Contoh 2 - with open() ===%
+\begin{frame}[fragile]{Contoh 2: Praktik Terbaik dengan \texttt{with}}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle]
+try:
+    with open("data_mahasiswa.txt", "r", encoding="utf-8") as file:
+        for baris in file:
+            print(baris.strip())
+except FileNotFoundError:
+    print("File data_mahasiswa.txt tidak ditemukan.")
+except UnicodeDecodeError:
+    print("Encoding file tidak sesuai. Gunakan UTF-8.")
+\end{lstlisting}
+
+\noindent
+Penggunaan \texttt{with} menjamin file selalu ditutup otomatis bahkan saat error terjadi, 
+sehingga kode lebih aman, ringkas, dan bebas kebocoran resource.
+\end{frame}
+
+
+\section{Rangkuman}
+
+\begin{frame}{Rangkuman}
+\vspace{20pt}
+\begin{itemize}
+  \item Bab ini membahas konsep dasar pengelolaan file di Python, mencakup file teks dan file CSV.
+  \item Mahasiswa mempelajari penggunaan fungsi \texttt{open()} dan context manager \texttt{with} untuk operasi file yang aman.
+  \item Telah dijelaskan teknik membaca, menulis, menyaring, dan menghitung pola dalam file teks.
+  \item Mahasiswa juga diperkenalkan pada modul \texttt{csv} untuk membaca dan menulis data terstruktur dalam format tabel.
+  \item Latihan praktikum mencakup perhitungan total dan rata-rata serta pembuatan laporan otomatis.
+  \item Setelah bab ini, mahasiswa diharapkan mampu mengelola file eksternal secara efisien dan menerapkan konsep File I/O dalam berbagai aplikasi pemrograman.
+\end{itemize}
+\end{frame}
+
+\end{document}

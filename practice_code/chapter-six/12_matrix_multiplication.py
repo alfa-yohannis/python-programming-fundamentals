@@ -18,10 +18,10 @@ C = [
 for baris_a in range(0, len(A)):
     for kolom_b in range(0, len(B[0])):
         total = 0
-        for xy in range(0, len(B)):
-            total = total + A[baris_a][xy] * B[xy][kolom_b]
-            print(f"{A[baris_a][xy]}*{B[xy][kolom_b]}", end=" ")
-            if xy < len(B) - 1:
+        for i_pasangan in range(0, len(B)):
+            total = total + A[baris_a][i_pasangan] * B[i_pasangan][kolom_b]
+            print(f"{A[baris_a][i_pasangan]}*{B[i_pasangan][kolom_b]}", end=" ")
+            if i_pasangan < len(B) - 1:
                 print("+", end=" ")
         print(f"= {total}")
         C[baris_a][kolom_b] = total

@@ -1,0 +1,462 @@
+\chapter{File Input dan Output (File I/O) di Python}
+
+\section{Pendahuluan}
+
+File Input dan Output (File I/O) merupakan salah satu keterampilan dasar yang penting dalam pemrograman. Hampir setiap aplikasi modern membutuhkan cara untuk menyimpan, membaca, dan memproses data yang tersimpan dalam file, baik untuk keperluan penyimpanan jangka panjang maupun untuk bertukar informasi antar program. Dalam konteks bahasa Python, operasi file I/O menjadi sangat mudah dilakukan berkat dukungan fungsi bawaan dan pustaka standar yang lengkap.
+
+Pada bab ini, mahasiswa akan mempelajari bagaimana Python menangani proses membaca (input) dan menulis (output) file. Pemahaman ini menjadi pondasi penting untuk berbagai aplikasi seperti pengolahan data, pembuatan laporan otomatis, sistem log, dan penyimpanan hasil perhitungan. Dengan menguasai teknik dasar file I/O, mahasiswa dapat mengelola data eksternal tanpa bergantung pada input manual pengguna setiap kali program dijalankan.
+
+Secara umum, file dapat dibedakan menjadi dua jenis utama: file teks dan file CSV (Comma Separated Values). File teks berisi data berbasis karakter, seperti catatan, daftar nama, atau log aktivitas, sedangkan file CSV digunakan untuk menyimpan data terstruktur dalam bentuk tabel sederhana yang dipisahkan oleh tanda koma atau pemisah lain. Kedua format ini sering digunakan dalam dunia nyata, terutama dalam pemrosesan data, analisis statistik, dan integrasi antar sistem.
+
+Peran file I/O dalam pemrograman sangat penting karena memungkinkan program untuk berinteraksi dengan dunia luar. Tanpa kemampuan membaca dan menulis file, data program akan hilang setiap kali eksekusi selesai. Dengan adanya mekanisme file I/O, Python dapat membuka file, membaca isinya, memproses data sesuai kebutuhan, lalu menulis kembali hasilnya ke dalam file baru. Mahasiswa diharapkan mampu memahami alur ini secara konseptual sebelum mempelajari contoh implementasi kode pada bagian selanjutnya.
+
+
+\section{Membaca dan Menulis File Teks}
+
+Salah satu kemampuan dasar dalam pemrograman adalah membaca dan menulis file teks. File teks merupakan file yang berisi data berbasis karakter yang dapat dibaca oleh manusia, seperti catatan, daftar nilai, atau hasil log. Python menyediakan dukungan bawaan untuk melakukan operasi ini dengan mudah melalui fungsi \texttt{open()}, yang memungkinkan program membuka file dan berinteraksi dengan isinya.
+
+Fungsi \texttt{open()} memiliki dua argumen utama: nama file yang akan diakses dan mode akses. Mode akses menentukan bagaimana file tersebut digunakan. Mode \texttt{'r'} (read) digunakan untuk membaca file yang sudah ada, mode \texttt{'w'} (write) digunakan untuk menulis data baru ke file (menghapus isi lama), mode \texttt{'a'} (append) digunakan untuk menambahkan data ke akhir file tanpa menghapus isi sebelumnya, dan mode \texttt{'x'} digunakan untuk membuat file baru namun akan menghasilkan error jika file sudah ada. Selain itu, mode dapat dikombinasikan dengan huruf \texttt{'b'} (binary) untuk bekerja dengan data biner, meskipun dalam bab ini fokusnya adalah pada file teks.
+
+Python juga menyediakan cara yang aman untuk membuka dan menutup file menggunakan context manager melalui pernyataan \texttt{with}. Dengan menggunakan \texttt{with open(...)} program akan memastikan file ditutup secara otomatis setelah blok kode selesai dijalankan, bahkan jika terjadi error di dalamnya. Pendekatan ini lebih disarankan dibandingkan menutup file secara manual dengan \texttt{close()}, karena mencegah kebocoran sumber daya (resource leak) dan membuat kode lebih rapi.
+
+Saat membaca file, Python menyediakan beberapa metode seperti \texttt{read()}, \texttt{readline()}, dan \texttt{readlines()}. Metode \texttt{read()} akan membaca seluruh isi file menjadi satu string, sedangkan \texttt{readline()} membaca satu baris setiap kali dipanggil. Jika ingin membaca semua baris sekaligus dalam bentuk daftar, dapat digunakan \texttt{readlines()}. Untuk menulis file, metode yang umum digunakan adalah \texttt{write()} untuk menulis string tunggal, atau \texttt{writelines()} untuk menulis daftar string ke dalam file. Karena file I/O bersifat bufferized (menggunakan buffer memori), data baru mungkin tidak langsung disimpan ke disk sebelum file ditutup atau buffer dikosongkan.
+
+Selain itu, penting juga memahami konsep \textit{encoding} dan karakter newline. Encoding menentukan bagaimana karakter disimpan dalam bentuk byte di dalam file. Secara umum, Python menggunakan UTF-8 sebagai standar, namun kadang file menggunakan encoding lain seperti ASCII atau ISO-8859-1. Jika file memiliki karakter khusus (misalnya huruf beraksen atau huruf non-Latin), maka spesifikasi encoding menjadi penting agar data terbaca dengan benar. Sementara itu, karakter newline (\texttt{\textbackslash n}) digunakan untuk menandai akhir baris, dan bentuknya dapat berbeda antar sistem operasi (misalnya \texttt{\textbackslash r\textbackslash n} di Windows).
+
+\noindent\textbf{Contoh Kode:}
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Membaca dan Menulis File Teks di Python}]
+# Membuka file untuk menulis
+with open("data.txt", "w", encoding="utf-8") as f:
+    f.write("Baris pertama\n")
+    f.write("Baris kedua\n")
+
+# Membuka file untuk membaca
+with open("data.txt", "r", encoding="utf-8") as f:
+    isi = f.readlines()
+
+# Menampilkan isi file
+for baris in isi:
+    print(baris.strip())
+\end{lstlisting}
+
+\noindent\textbf{Penjelasan Kode:}
+
+Kode di atas menunjukkan dua operasi utama: menulis dan membaca file teks. Pertama, program membuka file bernama \texttt{data.txt} dalam mode tulis (\texttt{'w'}) dan menulis dua baris teks ke dalamnya. Setelah blok \texttt{with} selesai, file otomatis ditutup. Selanjutnya, file yang sama dibuka kembali dalam mode baca (\texttt{'r'}). Metode \texttt{readlines()} membaca seluruh isi file dan menyimpannya sebagai daftar string. Setiap elemen daftar mewakili satu baris teks, termasuk karakter newline di akhir baris. Pada bagian terakhir, setiap baris dicetak ke layar menggunakan \texttt{print()} setelah dihapus karakter newline-nya dengan \texttt{strip()}. Pendekatan ini merupakan pola umum yang digunakan dalam hampir semua program Python yang bekerja dengan file teks sederhana.
+
+
+\section{Penyaringan dan Penghitungan Data dari File}
+
+Setelah memahami cara dasar membaca file teks, langkah berikutnya adalah memproses isi file tersebut untuk memperoleh informasi yang lebih bermakna. Salah satu bentuk pemrosesan yang umum dilakukan adalah penyaringan (filtering) dan penghitungan (counting). Dalam konteks ini, program tidak hanya membaca isi file secara mentah, tetapi juga melakukan analisis sederhana berdasarkan kondisi tertentu, seperti mencari baris yang mengandung kata kunci atau menghitung berapa kali suatu pola muncul dalam file.
+
+Prinsip dasarnya adalah membaca file baris demi baris, kemudian menggunakan ekspresi kondisional untuk memeriksa apakah suatu baris memenuhi kriteria tertentu. Pendekatan ini efisien karena tidak memerlukan pemuatan seluruh isi file ke memori, melainkan cukup memproses satu baris pada satu waktu. Python mempermudah proses ini dengan struktur perulangan sederhana seperti \texttt{for line in file:} yang secara otomatis membaca setiap baris secara berurutan.
+
+Untuk melakukan pencarian kata kunci, Python menyediakan beberapa metode string bawaan yang sangat berguna. Misalnya, operator \texttt{in} dapat digunakan untuk memeriksa apakah suatu kata atau frasa terdapat di dalam baris tertentu. Jika dibutuhkan pencarian yang lebih kompleks, metode seperti \texttt{split()} dapat digunakan untuk memisahkan kata-kata dalam baris menjadi daftar, sehingga memungkinkan pencocokan berbasis kata, bukan sekadar substring. Pendekatan ini berguna untuk menghindari hasil pencarian yang keliru akibat kemiripan sebagian kata (misalnya “data” dan “database”).
+
+Setelah proses penyaringan dilakukan, langkah berikutnya adalah melakukan penghitungan. Penghitungan dapat dilakukan menggunakan variabel penghitung sederhana (\texttt{counter}) yang bertambah setiap kali kondisi tertentu terpenuhi. Hasilnya dapat berupa jumlah baris yang sesuai, total kemunculan kata kunci, atau bahkan jumlah karakter yang memenuhi kriteria tertentu. Dalam kasus file besar, efisiensi sangat penting; oleh karena itu, pemrosesan baris secara iteratif lebih disarankan dibandingkan membaca seluruh file sekaligus ke memori.
+
+Selain efisiensi, keterbacaan kode juga perlu diperhatikan. Pemrosesan file yang jelas dan terstruktur akan membantu mahasiswa memahami alur logika program serta mencegah kesalahan umum seperti menghitung baris kosong atau baris komentar yang tidak relevan.
+
+\noindent\textbf{Contoh isi file \texttt{log\_aktivitas.txt}:}
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}]
+[08:45] Starting system check...
+[09:00] User login successful
+[09:15] Launching Python script for data processing
+[09:30] ERROR: Missing configuration file
+[10:00] Process completed successfully
+[10:30] Running Python script for report generation
+[11:00] ERROR: Disk read failure
+[11:30] User logged out
+\end{lstlisting}
+
+\noindent\textbf{Contoh 1: Menyaring Baris Berdasarkan Kata Kunci}
+
+\begin{lstlisting}[style=PythonStyle, caption={Menyaring baris file yang mengandung kata kunci tertentu}]
+# Menyaring baris yang mengandung kata "Python"
+with open("log_aktivitas.txt", "r", encoding="utf-8") as file:
+    for baris in file:
+        if "Python" in baris:
+            print(baris.strip())
+\end{lstlisting}
+
+Contoh pertama menunjukkan proses sederhana untuk menampilkan semua baris yang mengandung kata “Python” dari file \texttt{log_aktivitas.txt}. Setiap baris dibaca dan diperiksa menggunakan operator \texttt{in}. Jika kondisi terpenuhi, baris tersebut dicetak ke layar setelah dihapus karakter newline menggunakan \texttt{strip()}. Pendekatan ini sangat berguna untuk menelusuri log program, mencari catatan tertentu, atau mengekstrak data berdasarkan kriteria teks.
+
+\noindent\textbf{Contoh 2: Menghitung Kemunculan Kata Tertentu}
+
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung jumlah kemunculan kata dalam file}]
+# Menghitung berapa kali kata "error" muncul di dalam file
+jumlah_error = 0
+
+with open("log_aktivitas.txt", "r", encoding="utf-8") as file:
+    for baris in file:
+        kata_kata = baris.lower().split()
+        for kata in kata_kata:
+            if kata == "error":
+                jumlah_error += 1
+
+print(f"Kata 'error' muncul sebanyak {jumlah_error} kali.")
+\end{lstlisting}
+
+Contoh kedua memperlihatkan teknik penghitungan kemunculan kata tertentu di dalam file. Dalam contoh ini, setiap baris diubah menjadi huruf kecil menggunakan \texttt{lower()} agar pencarian tidak peka terhadap kapitalisasi huruf. Kemudian, \texttt{split()} digunakan untuk memecah baris menjadi daftar kata. Jika salah satu kata sama persis dengan “error”, maka penghitung \texttt{jumlah\_error} ditambah satu. Setelah seluruh file selesai dibaca, hasil total ditampilkan ke layar.
+
+Melalui dua contoh di atas, mahasiswa dapat memahami bahwa proses penyaringan dan penghitungan pada file teks merupakan langkah awal menuju analisis data yang lebih kompleks. Konsep ini dapat diperluas untuk berbagai aplikasi seperti menghitung jumlah entri log, mencari pola tertentu pada teks, atau menganalisis data survei sederhana. Pendekatan iteratif berbasis baris juga memberikan efisiensi yang baik, terutama untuk file berukuran besar.
+
+
+\section{Membaca dan Menulis File CSV}
+
+Selain file teks biasa, salah satu format file yang paling sering digunakan dalam dunia pemrograman dan analisis data adalah file CSV (Comma-Separated Values). File CSV digunakan untuk menyimpan data dalam bentuk tabel yang sederhana dan mudah dibaca. Setiap baris dalam file CSV mewakili satu entri data, sedangkan setiap kolom dipisahkan oleh tanda koma (atau pemisah lain seperti titik koma atau tab). Karena kesederhanaannya, format CSV menjadi standar umum untuk pertukaran data antar aplikasi, termasuk spreadsheet seperti Microsoft Excel atau Google Sheets.
+
+Secara umum, file CSV memiliki struktur yang terdiri dari dua bagian utama, yaitu baris header dan baris data. Header berisi nama kolom yang menjelaskan makna dari setiap nilai, misalnya \texttt{Nama}, \texttt{Umur}, atau \texttt{Nilai}. Baris berikutnya berisi nilai-nilai aktual untuk setiap kolom tersebut. Memahami struktur ini penting karena banyak pustaka Python, termasuk pustaka \texttt{csv}, menggunakan header untuk memetakan setiap nilai ke nama kolom yang sesuai.
+
+Python menyediakan modul bawaan bernama \texttt{csv} yang dirancang khusus untuk membaca dan menulis file CSV dengan cara yang aman dan efisien. Modul ini menyediakan dua pendekatan utama: menggunakan objek \texttt{csv.reader}/\texttt{csv.writer} dan menggunakan \texttt{csv.DictReader}/\texttt{csv.DictWriter}. Pendekatan pertama bekerja dengan daftar (list), di mana setiap baris dibaca sebagai daftar nilai berdasarkan urutan kolom. Pendekatan kedua menggunakan struktur kamus (dictionary), sehingga setiap kolom dapat diakses berdasarkan nama header-nya. Pendekatan berbasis dictionary umumnya lebih mudah dibaca dan lebih aman, terutama jika urutan kolom dapat berubah.
+
+Selain itu, saat bekerja dengan file CSV, penting untuk memperhatikan tipe data dan konversinya. Semua nilai yang dibaca dari file CSV awalnya dianggap sebagai teks (string). Jika kolom tertentu berisi angka, maka nilai tersebut perlu dikonversi ke tipe data numerik (misalnya \texttt{int} atau \texttt{float}) sebelum dapat digunakan untuk perhitungan. Proses ini dapat dilakukan dengan fungsi \texttt{int()} atau \texttt{float()} setelah pembacaan data.\\
+
+\noindent\textbf{Contoh 1: Menulis File CSV Menggunakan \texttt{DictWriter}}
+
+\begin{lstlisting}[style=PythonStyle, caption={Menulis data ke file CSV menggunakan csv.DictWriter}]
+import csv
+
+data = [
+    {"Nama": "Andi", "Nilai": 85.5},
+    {"Nama": "Budi", "Nilai": 90.0},
+    {"Nama": "Citra", "Nilai": 78.0},
+    {"Nama": "Dewi", "Nilai": 88.5}
+]
+
+with open("nilai_mahasiswa.csv", "w", newline="", encoding="utf-8") as file:
+    kolom = ["Nama", "Nilai"]
+    penulis = csv.DictWriter(file, fieldnames=kolom)
+    penulis.writeheader()
+    penulis.writerows(data)
+
+print("File nilai_mahasiswa.csv berhasil dibuat.")
+\end{lstlisting}
+
+Kode di atas membuat file baru bernama \texttt{nilai\_mahasiswa.csv} dan menulis daftar data mahasiswa ke dalamnya.  
+Setiap baris data direpresentasikan sebagai dictionary dengan kunci \texttt{"Nama"} dan \texttt{"Nilai"}.  
+Metode \texttt{writeheader()} digunakan untuk menulis baris pertama berisi nama kolom, sedangkan \texttt{writerows()} menulis seluruh isi daftar data.  
+Parameter \texttt{newline=""} penting agar tidak muncul baris kosong tambahan di antara data pada sistem operasi tertentu.\\
+
+\noindent\textbf{Isi file yang dihasilkan (\texttt{nilai\_mahasiswa.csv}):}
+
+\begin{lstlisting}[language=bash, caption={Hasil isi file nilai_mahasiswa.csv}]
+Nama,Nilai
+Andi,85.5
+Budi,90.0
+Citra,78.0
+Dewi,88.5
+\end{lstlisting}
+
+Pada contoh ini, file \texttt{nilai\_mahasiswa.csv} yang telah dibuat sebelumnya dibaca kembali menggunakan \texttt{csv.DictReader}.  
+Setiap baris dibaca sebagai dictionary di mana nama kolom menjadi kunci, sehingga memudahkan akses ke data tanpa bergantung pada urutan kolom.  
+Nilai di kolom \texttt{Nilai} dikonversi ke tipe \texttt{float} sebelum ditampilkan agar dapat digunakan untuk perhitungan numerik.\\
+
+\noindent\textbf{Contoh 2: Membaca File CSV Menggunakan \texttt{DictReader}}
+
+\begin{lstlisting}[style=PythonStyle, caption={Membaca data CSV menggunakan csv.DictReader}]
+import csv
+
+with open("nilai_mahasiswa.csv", "r", encoding="utf-8") as file:
+    pembaca = csv.DictReader(file)
+    for baris in pembaca:
+        nama = baris["Nama"]
+        nilai = float(baris["Nilai"])
+        print(f"{nama} memperoleh nilai {nilai:.2f}")
+\end{lstlisting}
+
+
+
+\noindent\textbf{Output di terminal:}
+
+\begin{lstlisting}[language=bash, caption={Hasil output pembacaan file CSV}]
+Andi memperoleh nilai 85.50
+Budi memperoleh nilai 90.00
+Citra memperoleh nilai 78.00
+Dewi memperoleh nilai 88.50
+\end{lstlisting}
+
+Kedua contoh di atas menunjukkan alur penuh pengolahan file CSV di Python — dimulai dari penulisan file menggunakan \texttt{DictWriter}, kemudian dilanjutkan dengan pembacaan menggunakan \texttt{DictReader}.  
+Melalui proses ini, mahasiswa memahami konsep pertukaran data terstruktur dalam bentuk tabel, serta bagaimana Python dapat digunakan untuk membuat dan memproses dataset sederhana.  
+Pemahaman ini menjadi dasar penting sebelum melangkah ke topik berikutnya, yaitu agregasi dan pembuatan ringkasan data.
+
+
+
+\section{Agregasi dan Ringkasan Data}
+
+Setelah memahami cara membaca dan menulis file teks maupun CSV, langkah berikutnya dalam pengolahan data adalah melakukan agregasi dan menyusun ringkasan. Agregasi berarti menggabungkan atau merangkum sejumlah data untuk menghasilkan informasi baru yang lebih padat dan bermakna. Contoh umum dari proses agregasi meliputi perhitungan total, rata-rata, jumlah kemunculan, atau nilai maksimum dan minimum dari suatu kumpulan data. Dalam konteks pembelajaran dasar Python, proses ini dapat dilakukan menggunakan struktur data sederhana seperti daftar (list) dan perulangan (\texttt{for loop}) tanpa perlu menggunakan pustaka eksternal seperti \texttt{pandas}.
+
+Salah satu bentuk agregasi paling sederhana adalah menghitung total dan rata-rata. Misalnya, setelah membaca data nilai mahasiswa dari file CSV, kita dapat menjumlahkan seluruh nilai dan kemudian membaginya dengan jumlah entri untuk memperoleh nilai rata-rata. Pendekatan ini memperkenalkan konsep dasar statistik dan numerik sederhana dalam konteks pemrograman.
+
+Selain menghitung total dan rata-rata, agregasi juga dapat dilakukan dalam bentuk pengelompokan sederhana. Misalnya, jika data berisi nilai dari beberapa mata kuliah, kita dapat mengelompokkan nilai berdasarkan mata kuliah tersebut dan menghitung rata-rata masing-masing kelompok. Walaupun Python memiliki pustaka yang lebih canggih untuk hal ini, proses pengelompokan dapat dilakukan secara manual dengan menggunakan struktur dictionary, di mana setiap kunci mewakili kategori (misalnya nama mata kuliah) dan setiap nilai menyimpan daftar nilai yang terkait dengannya.
+
+Setelah hasil agregasi diperoleh, langkah berikutnya adalah menyajikannya dalam bentuk keluaran yang mudah dibaca. Format keluaran yang baik tidak hanya menampilkan angka, tetapi juga menyusun data dalam bentuk tabel sederhana atau teks terformat. Python memungkinkan hal ini dengan menggunakan f-string atau metode \texttt{format()} untuk menyusun tampilan yang rapi di layar.
+
+Terakhir, hasil ringkasan sering kali perlu disimpan ke dalam file agar dapat digunakan kembali. File teks atau CSV dapat digunakan untuk tujuan ini, tergantung kebutuhan. Dengan menulis hasil ringkasan ke file, program dapat menghasilkan laporan otomatis yang dapat dibuka kembali oleh pengguna atau dibaca oleh program lain.\\
+
+\noindent\textbf{Contoh 1: Menghitung Rata-Rata dari File CSV}
+
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung rata-rata nilai mahasiswa dari file CSV}]
+import csv
+
+total_nilai = 0
+jumlah_data = 0
+
+with open("nilai_mahasiswa.csv", "r", encoding="utf-8") as file:
+    pembaca = csv.DictReader(file)
+    for baris in pembaca:
+        total_nilai += float(baris["Nilai"])
+        jumlah_data += 1
+
+rata_rata = total_nilai / jumlah_data if jumlah_data > 0 else 0
+print(f"Rata-rata nilai mahasiswa: {rata_rata:.2f}")
+\end{lstlisting}
+
+Contoh pertama menunjukkan proses menghitung rata-rata nilai dari file \texttt{nilai\_mahasiswa.csv}. Program membaca file menggunakan \texttt{csv.DictReader}, menjumlahkan seluruh nilai mahasiswa, lalu menghitung rata-ratanya dengan membagi total nilai terhadap jumlah data. Ekspresi kondisional \texttt{if jumlah\_data > 0 else 0} digunakan untuk menghindari kesalahan pembagian dengan nol. Hasil akhirnya ditampilkan dengan dua angka di belakang koma menggunakan format \texttt{:.2f}. Contoh ini memperkenalkan konsep agregasi numerik sederhana dan penting dalam pengolahan data.\\
+
+\noindent\textbf{Contoh 2: Menyimpan Hasil Ringkasan ke File Baru}
+
+\begin{lstlisting}[style=PythonStyle, caption={Menyimpan hasil ringkasan dalam file teks terformat}]
+# Menyimpan hasil ringkasan ke file laporan.txt
+with open("laporan.txt", "w", encoding="utf-8") as file:
+    file.write("Laporan Ringkasan Nilai Mahasiswa\n")
+    file.write("===============================\n")
+    file.write(f"Jumlah data  : {jumlah_data}\n")
+    file.write(f"Total nilai  : {total_nilai:.2f}\n")
+    file.write(f"Rata-rata    : {rata_rata:.2f}\n")
+
+print("Laporan ringkasan berhasil disimpan ke laporan.txt.")
+\end{lstlisting}
+
+Contoh kedua memperlihatkan cara menyimpan hasil perhitungan ke dalam file teks baru bernama \texttt{laporan.txt}. File dibuka dalam mode tulis (\texttt{'w'}) menggunakan context manager agar tertutup otomatis setelah penulisan selesai. Isi file terdiri dari beberapa baris teks terformat yang menampilkan jumlah data, total nilai, dan rata-rata dalam format yang rapi. Teknik ini sering digunakan untuk membuat laporan otomatis hasil analisis data sederhana. Dengan pendekatan ini, mahasiswa tidak hanya mempelajari cara membaca data, tetapi juga menghasilkan output yang dapat dibagikan atau dianalisis lebih lanjut.
+
+Kedua contoh di atas memperlihatkan bahwa proses agregasi dan pembuatan ringkasan data dapat dilakukan sepenuhnya dengan sintaks dasar Python tanpa pustaka tambahan. Meskipun sederhana, konsep ini merupakan dasar dari analisis data, pelaporan, dan pengambilan keputusan berbasis informasi. Pemahaman tentang agregasi dan penyajian hasil akan menjadi bekal penting sebelum mahasiswa mempelajari pengolahan data yang lebih kompleks menggunakan pustaka khusus.
+
+
+\section{Penanganan Error dan Praktik Terbaik}
+
+Dalam bekerja dengan file, kesalahan (error) sering kali tidak dapat dihindari. Misalnya, file yang ingin dibaca mungkin tidak ada, rusak, atau tidak memiliki izin akses yang memadai. Oleh karena itu, penanganan error (error handling) merupakan bagian penting dari setiap program yang berinteraksi dengan sistem file. Dengan menangani error dengan baik, program dapat tetap berjalan dengan aman tanpa tiba-tiba berhenti karena kesalahan yang tidak terduga.
+
+Beberapa jenis error umum yang sering muncul saat melakukan operasi file antara lain adalah \texttt{FileNotFoundError}, \texttt{IOError}, dan \texttt{ValueError}.  
+Error \texttt{FileNotFoundError} muncul ketika program mencoba membuka file yang tidak ada pada lokasi yang ditentukan. Error \texttt{IOError} terjadi jika terjadi masalah input/output, misalnya saat perangkat penyimpanan tidak dapat diakses atau file sedang digunakan oleh proses lain. Sementara itu, \texttt{ValueError} dapat muncul ketika isi file tidak sesuai dengan format atau tipe data yang diharapkan, seperti saat mencoba mengonversi teks menjadi angka namun gagal.
+
+Untuk mencegah program berhenti secara tiba-tiba akibat error semacam itu, Python menyediakan mekanisme penanganan kesalahan melalui blok \texttt{try--except--finally}.  
+Bagian \texttt{try} berisi kode yang mungkin menimbulkan error, sedangkan \texttt{except} digunakan untuk menentukan tindakan yang dilakukan jika error terjadi.  
+Bagian \texttt{finally} bersifat opsional dan berfungsi untuk mengeksekusi perintah tertentu, seperti menutup file, terlepas dari apakah error terjadi atau tidak.  
+Dengan cara ini, program dapat menangani berbagai situasi tak terduga secara elegan.
+
+Selain menggunakan blok \texttt{try--except--finally}, Python juga menyediakan mekanisme \texttt{with} yang dikenal sebagai \textit{context manager}.  
+Mekanisme ini secara otomatis menangani proses pembukaan dan penutupan file tanpa harus menuliskannya secara eksplisit di dalam blok \texttt{finally}.  
+Penggunaan \texttt{with} tidak hanya membuat kode lebih ringkas, tetapi juga lebih aman karena menjamin file akan tertutup dengan benar bahkan jika terjadi error di tengah proses.
+
+Selain penanganan error, praktik terbaik dalam File I/O juga mencakup beberapa hal penting:  
+(1) selalu menggunakan encoding yang konsisten, seperti UTF-8, untuk menghindari kesalahan karakter;  
+(2) menulis kode yang dapat membaca file besar secara bertahap (streaming) alih-alih memuat semuanya ke dalam memori;  
+dan (3) menggunakan struktur folder dan nama file yang jelas agar mudah dilacak.  
+Prinsip-prinsip sederhana ini membantu menjaga keamanan data dan meminimalkan risiko kehilangan informasi.\\
+
+\noindent\textbf{Contoh 1: Penanganan Error Menggunakan \texttt{try--except--finally}}
+
+\begin{lstlisting}[style=PythonStyle, caption={Penanganan error dasar saat membuka file}]
+try:
+    file = open("data_tidak_ada.txt", "r", encoding="utf-8")
+    isi = file.read()
+    print(isi)
+except FileNotFoundError:
+    print("Error: File tidak ditemukan.")
+except IOError:
+    print("Error: Terjadi kesalahan I/O saat membaca file.")
+finally:
+    try:
+        file.close()
+    except NameError:
+        pass  # file belum pernah dibuka, jadi tidak perlu ditutup
+\end{lstlisting}
+
+Contoh pertama menunjukkan cara klasik menangani error saat membuka file.  
+Program mencoba membuka file bernama \texttt{data\_tidak\_ada.txt}. Jika file tidak ditemukan, Python akan memicu \texttt{FileNotFoundError} dan menampilkan pesan kesalahan yang ramah bagi pengguna.  
+Blok \texttt{finally} memastikan file ditutup meskipun terjadi error.  
+Pemeriksaan tambahan \texttt{try--except NameError} digunakan untuk mencegah error tambahan jika variabel \texttt{file} belum pernah dibuat.  
+Pendekatan ini menekankan pentingnya memastikan bahwa setiap file yang dibuka harus ditutup kembali untuk menjaga integritas sistem file.\\
+
+\noindent\textbf{Contoh 2: Praktik Terbaik Menggunakan \texttt{with}}
+
+\begin{lstlisting}[style=PythonStyle, caption={Menggunakan context manager untuk keamanan file I/O}]
+try:
+    with open("data_mahasiswa.txt", "r", encoding="utf-8") as file:
+        for baris in file:
+            print(baris.strip())
+except FileNotFoundError:
+    print("File data_mahasiswa.txt tidak ditemukan.")
+except UnicodeDecodeError:
+    print("Encoding file tidak sesuai. Gunakan UTF-8.")
+\end{lstlisting}
+
+Contoh kedua menunjukkan praktik terbaik dalam pengelolaan file di Python menggunakan \texttt{with}.  
+Ketika file dibuka dengan cara ini, Python akan secara otomatis menutup file setelah blok kode selesai, bahkan jika terjadi error di dalamnya.  
+Hal ini membuat program lebih aman dan mengurangi risiko kebocoran resource.  
+Selain itu, penambahan blok \texttt{except} untuk menangkap \texttt{UnicodeDecodeError} memberikan perlindungan tambahan jika file tidak memiliki encoding yang sesuai.
+
+Dari kedua contoh di atas, terlihat bahwa penanganan error dan penerapan praktik terbaik sangat penting dalam pengembangan perangkat lunak yang andal.  
+Dengan menggunakan struktur \texttt{try--except--finally} atau \texttt{with}, program dapat mengantisipasi berbagai kemungkinan kesalahan dan tetap berjalan dengan stabil.  
+Pendekatan ini tidak hanya meningkatkan keamanan data, tetapi juga memperlihatkan profesionalisme dalam menulis kode yang tangguh dan mudah dipelihara.
+
+
+\section{Latihan}
+
+Bagian ini berisi beberapa latihan untuk memperkuat pemahaman mahasiswa mengenai konsep File I/O di Python.  
+Setiap latihan dirancang untuk melatih keterampilan membaca, menulis, menyaring, serta menganalisis data dari file teks dan file CSV.  
+Mahasiswa diharapkan tidak hanya menulis kode yang benar, tetapi juga memahami logika di balik setiap langkah — mulai dari pembukaan file hingga penyimpanan hasil ke file baru.  
+Kerjakan latihan berikut secara berurutan karena masing-masing latihan membangun konsep dari latihan sebelumnya.
+
+\begin{enumerate}
+    
+\item \textbf{Latihan 1 – File Teks (Membaca dan Menulis).}  
+Buatlah sebuah program Python yang:
+\begin{enumerate}
+    \item Meminta pengguna untuk memasukkan beberapa kalimat, kemudian menyimpannya ke dalam file bernama \texttt{catatan.txt}.  
+    \item Setelah file berhasil dibuat, program membuka kembali file tersebut dan menampilkan seluruh isinya ke layar.  
+    \item Tambahkan satu baris baru ke file tersebut tanpa menghapus isi yang lama (gunakan mode \texttt{'a'}).  
+\end{enumerate}
+
+Tujuan latihan ini adalah untuk membiasakan mahasiswa dengan proses membaca dan menulis file teks menggunakan fungsi \texttt{open()} dan context manager \texttt{with}.
+
+\noindent\textbf{Contoh isi file \texttt{catatan.txt}:}
+
+\begin{lstlisting}[language=bash, caption={Isi file catatan.txt yang dihasilkan}]
+Hari ini belajar Python dasar.
+Mempelajari cara membaca dan menulis file teks.
+File I/O sangat penting untuk menyimpan data program.
+Menambahkan satu baris baru ke dalam file.
+\end{lstlisting}
+
+
+\item \textbf{Latihan 2 – Penyaringan dan Penghitungan Data.}  
+Diberikan file teks bernama \texttt{log\_aktivitas.txt} yang berisi daftar aktivitas pengguna komputer setiap jam.  
+Buatlah program yang:
+\begin{enumerate}
+    \item Menampilkan semua baris yang mengandung kata kunci \texttt{"error"} atau \texttt{"failed"}.  
+    \item Menghitung berapa kali kata tersebut muncul di seluruh file (tidak peka huruf besar/kecil).  
+    \item Menyimpan hasil pencarian dan total kemunculan ke dalam file baru bernama \texttt{ringkasan\_error.txt}.  
+\end{enumerate}
+
+Latihan ini melatih kemampuan mahasiswa dalam menggunakan kondisi, pencarian kata kunci, dan manipulasi string saat memproses file teks.
+
+\noindent\textbf{Contoh isi file input \texttt{log\_aktivitas.txt}:}
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}]
+[08:45] Starting system check...
+[09:00] User login successful
+[09:15] Loading configuration file
+[09:30] ERROR: Missing configuration file
+[10:00] Backup completed
+[10:30] Process failed to execute script
+[11:00] ERROR: Disk read failure
+[11:15] Update finished successfully
+[11:45] ERROR: Connection timeout
+\end{lstlisting}
+
+\noindent\textbf{Contoh hasil file output \texttt{ringkasan\_error.txt}:}
+
+\begin{lstlisting}[language=bash, caption={Isi file ringkasan_error.txt yang dihasilkan}]
+Baris yang mengandung kata "error" atau "failed":
+
+[09:30] ERROR: Missing configuration file
+[10:30] Process failed to execute script
+[11:00] ERROR: Disk read failure
+[11:45] ERROR: Connection timeout
+
+Total kemunculan kata kunci: 4
+\end{lstlisting}
+
+\item \textbf{Latihan 3 – File CSV (Membaca dan Menulis dengan \texttt{DictReader/DictWriter.})}  
+Diberikan file CSV bernama \texttt{nilai\_mahasiswa.csv} yang memiliki kolom \texttt{Nama}, \texttt{Mata Kuliah}, dan \texttt{Nilai}.  
+Buatlah program yang:
+\begin{enumerate}
+    \item Membaca file tersebut menggunakan \texttt{csv.DictReader()}.  
+    \item Menampilkan daftar mahasiswa yang memiliki nilai di atas 80.  
+    \item Menulis data mahasiswa tersebut ke file baru bernama \texttt{mahasiswa\_unggul.csv} menggunakan \texttt{csv.DictWriter()}.  
+\end{enumerate}
+
+Tujuan latihan ini adalah agar mahasiswa terbiasa bekerja dengan format CSV dan memahami perbedaan antara pembacaan berbasis daftar dan berbasis kamus.
+
+\noindent\textbf{Contoh isi file input \texttt{nilai\_mahasiswa.csv}:}
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file nilai_mahasiswa.csv}]
+Nama,Mata Kuliah,Nilai
+Andi,Algoritma,85
+Budi,Algoritma,90
+Citra,Struktur Data,78
+Dewi,Algoritma,88
+Eko,Struktur Data,92
+Fani,Basis Data,75
+Gilang,Basis Data,81
+\end{lstlisting}
+
+\noindent\textbf{Contoh hasil file output \texttt{mahasiswa\_unggul.csv}:}
+
+\begin{lstlisting}[language=bash, caption={Isi file mahasiswa_unggul.csv yang dihasilkan}]
+Nama,Mata Kuliah,Nilai
+Andi,Algoritma,85
+Budi,Algoritma,90
+Dewi,Algoritma,88
+Eko,Struktur Data,92
+Gilang,Basis Data,81
+\end{lstlisting}
+
+
+    \item \textbf{Latihan 4 – Agregasi dan Ringkasan Data.}  
+Gunakan file \texttt{nilai\_mahasiswa.csv} dari latihan sebelumnya.  
+Buatlah program yang:
+\begin{enumerate}
+    \item Menghitung total dan rata-rata nilai seluruh mahasiswa.  
+    \item Mengelompokkan mahasiswa berdasarkan \texttt{Mata Kuliah} dan menghitung rata-rata nilai untuk setiap kelompok.  
+    \item Menyimpan hasil ringkasan ke file teks bernama \texttt{laporan\_rata\_nilai.txt} dalam format tabel yang rapi.  
+\end{enumerate}
+Latihan ini melatih mahasiswa untuk menggabungkan berbagai konsep sebelumnya — membaca file CSV, melakukan agregasi sederhana, dan menghasilkan laporan terformat.
+
+\noindent\textbf{Contoh isi file input \texttt{nilai\_mahasiswa.csv}:}
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file nilai_mahasiswa.csv}]
+Nama,Mata Kuliah,Nilai
+Andi,Algoritma,85
+Budi,Algoritma,90
+Citra,Struktur Data,78
+Dewi,Algoritma,88
+Eko,Struktur Data,92
+Fani,Basis Data,75
+Gilang,Basis Data,81
+\end{lstlisting}
+
+\noindent\textbf{Contoh hasil file output \texttt{laporan\_rata\_nilai.txt}:}
+
+\begin{lstlisting}[language=bash, caption={Isi file laporan_rata_nilai.txt yang dihasilkan}]
+Laporan Ringkasan Nilai Mahasiswa
+=================================
+Jumlah data   : 7
+Total nilai   : 589.00
+Rata-rata     : 84.14
+
+Rata-rata per Mata Kuliah
+-------------------------
+- Algoritma      : 87.67  (3 mahasiswa)
+- Struktur Data  : 85.00  (2 mahasiswa)
+- Basis Data     : 78.00  (2 mahasiswa)
+\end{lstlisting}
+
+\end{enumerate}
+
+Setelah menyelesaikan semua latihan, mahasiswa diharapkan dapat memahami seluruh siklus kerja File I/O di Python:  
+mulai dari membaca file, melakukan pemrosesan logika sederhana, hingga menulis kembali hasil analisis dalam bentuk teks atau CSV.  
+Kemampuan ini menjadi dasar penting untuk berbagai proyek pemrograman lanjutan seperti analisis data, otomasi laporan, dan pemrosesan log sistem.
+
+
+\section{Rangkuman}
+
+Bab ini membahas konsep dasar pengelolaan file di Python, mulai dari membaca dan menulis file teks hingga penggunaan format data yang lebih terstruktur seperti CSV. Mahasiswa telah mempelajari cara menggunakan fungsi \texttt{open()} dan context manager \texttt{with} untuk membuka, membaca, menulis, dan menutup file dengan aman. Selain itu, dibahas pula bagaimana melakukan penyaringan data berdasarkan kondisi tertentu serta menghitung kemunculan kata atau pola dalam file teks. Konsep-konsep ini memberikan pemahaman tentang bagaimana program berinteraksi dengan data yang tersimpan secara permanen di sistem.
+
+Selanjutnya, mahasiswa juga diperkenalkan pada pengolahan file CSV menggunakan modul \texttt{csv}, yang memungkinkan pembacaan dan penulisan data dalam format tabel sederhana. Melalui latihan-latihan yang disediakan, mahasiswa belajar menerapkan teknik agregasi seperti menghitung total dan rata-rata nilai serta membuat ringkasan laporan secara otomatis. Dengan demikian, setelah mempelajari bab ini, mahasiswa diharapkan mampu mengelola file eksternal secara efisien, menghasilkan data terformat dengan benar, dan memanfaatkan kemampuan File I/O untuk mendukung berbagai aplikasi pemrograman yang lebih kompleks.
+
+
+
