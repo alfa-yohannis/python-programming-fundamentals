@@ -1,0 +1,381 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-07:\\\LARGE{Train File I/O pada Python (A)\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Instruksi Umum}
+\begin{frame}[fragile]{Instruksi Umum}
+\begin{enumerate}
+\item Pada sesi perkuliahan kali ini, Anda akan \textbf{belajar mandiri} dengan menggunakan \textbf{ChatGPT}.
+\item Anda \textbf{bebas menggunakan ChatGPT} untuk menyelesaikan soal-soal (total 6 soal) yang ada pada slide-slide berikut.
+\item Tanyakan apa saja bagian yang Anda kurang mengerti.
+\item \textbf{Gunakan strategi yang Anda anggap paling optimal} untuk mempelajari topik \textbf{Python File Input-Output}.
+\item \textbf{Akan ada test di 30 menit terakhir}.
+\end{enumerate}
+\end{frame}
+
+\section{Tanyakan ChatGPT tentang File I/0 Python }
+\begin{frame}[fragile]{Tanyakan ChatGPT tentang File I/0 Python}
+\vspace{20pt}
+\centering
+\begin{enumerate}
+\item Soal-soal ada di slide-slide berikutnya.
+\item Akses ChatGPT melalui Web Browser.
+\item Tanyakan pada pertanyaan berikut:
+\begin{lstlisting}[language=bash]
+Untuk mata kuliah Pemrograman Dasar, ajarkan saya tentang Baca dan tulis File di Python yang mencakup (1) membaca dan menulis file teks, (2) penyaringan dan penghitungan data, (3) membaca dan menulis file CSV, dan (2) agregasi dan ringkasan data.
+\end{lstlisting}
+\item Jika Anda belum paham, tanyakan lagi ke ChatGPT bagian yang Anda kurang mengerti.
+\item Lanjut ke slide berikutnya kapan pun Anda mau.
+\end{enumerate}
+\end{frame}
+
+
+
+\section{Soal 1}
+%=============================
+\begin{frame}[fragile]{Soal 1: Baca dan Filter Teks (1/2)}
+\vspace{15pt}
+\textbf{Tugas:}  
+Buat program Python \texttt{filter\_reviews.py} yang membaca teks ulasan restoran, memfilter baris yang mengandung kata tertentu, lalu menyimpan hasilnya ke file.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Buka berkas \texttt{resto\_reviews.txt} menggunakan \texttt{with open(..., "r", encoding="utf-8")}.
+  \item Periksa setiap baris dan pilih yang mengandung kata \texttt{enak} atau \texttt{murah}  
+        (abaikan perbedaan huruf besar/kecil).
+  \item Simpan hasil ke berkas \texttt{filtered\_reviews.txt}  
+        menggunakan mode tulis \texttt{"w"}.
+  \item (Opsional) Tampilkan isi hasil di terminal setelah selesai.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Mempraktikkan pembacaan file teks, pemfilteran berbasis kata kunci, dan penulisan hasil ke file baru.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 1: Baca dan Filter Teks (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{resto\_reviews.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Makanan enak dan pelayanan ramah.
+Tempatnya bersih, tapi agak mahal.
+Harga sangat murah untuk porsi besar.
+Akan datang lagi, enak banget.
+\end{lstlisting}
+
+\textbf{File Output: \texttt{filtered\_reviews.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Makanan enak dan pelayanan ramah.
+Harga sangat murah untuk porsi besar.
+Akan datang lagi, enak banget.
+\end{lstlisting}
+\end{frame}
+
+\section{Soal 2}
+%=============================
+\begin{frame}[fragile]{Soal 2: Menghitung Kata pada Teks (1/2)}
+\vspace{15pt}
+\textbf{Tugas:}  
+Buat program Python \texttt{count\_techwords.py} yang membaca teks berita teknologi, menghitung jumlah kemunculan kata kunci tertentu, dan menuliskan hasilnya ke file laporan.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Buka berkas \texttt{tech\_news.txt} dengan \texttt{with open(...)}.
+  \item Hitung berapa kali kata \texttt{AI} dan \texttt{robot} muncul  
+        (tidak sensitif huruf besar/kecil).
+  \item Tulis hasil ke \texttt{report.txt} dengan format:
+        \begin{itemize}
+          \item Total baris dibaca
+          \item Jumlah kata \texttt{AI}
+          \item Jumlah kata \texttt{robot}
+        \end{itemize}
+  \item Tampilkan isi laporan di terminal.
+\end{enumerate}
+\textbf{Tujuan:}  
+Melatih pencarian dan penghitungan kata kunci pada teks non-formal.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 2: Menghitung Kata pada Teks (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{tech\_news.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Perusahaan rintisan ini mengembangkan robot pembersih otomatis.
+AI generasi baru mampu menulis artikel berita dengan cepat.
+Robot industri kini semakin cerdas berkat sistem AI terbaru.
+Teknologi ini mempercepat proses produksi di pabrik.
+\end{lstlisting}
+
+\textbf{File Output: \texttt{report.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Total lines: 4
+Count of "AI": 2
+Count of "robot": 2
+\end{lstlisting}
+\end{frame}
+
+
+\section{Soal 3}
+%=============================
+\begin{frame}[fragile]{Soal 3: Analisis Komentar Media Sosial (1/2)}
+\vspace{15pt}
+\textbf{Tugas:}  
+Buat program Python \texttt{analyze\_comments.py} yang membaca komentar pengguna, memfilter komentar positif, dan menghitung jumlah kata pujian.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Buka berkas \texttt{comments.txt} dengan \texttt{with open(...)}.
+  \item Pilih baris yang mengandung kata \texttt{bagus} atau \texttt{mantap}  
+        (tidak sensitif huruf besar/kecil).
+  \item Hitung jumlah total komentar dan kemunculan tiap kata kunci.
+  \item Simpan hasil analisis ke \texttt{report.txt} dalam format:
+        \begin{itemize}
+          \item Total komentar
+          \item Komentar terpilih
+          \item Jumlah kata \texttt{bagus} dan \texttt{mantap}
+        \end{itemize}
+\end{enumerate}
+\textbf{Tujuan:}  
+Melatih kombinasi logika pemfilteran dan perhitungan sederhana dari file teks.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 3: Analisis Komentar Media Sosial (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{comments.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Postingan ini sangat bagus!
+Mantap banget hasil fotonya.
+Kurang menarik menurut saya.
+Warna dan komposisi bagus sekali.
+\end{lstlisting}
+
+\textbf{File Output: \texttt{report.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Total comments: 4
+Filtered comments (bagus/mantap): 3
+Count of "bagus": 2
+Count of "mantap": 1
+\end{lstlisting}
+\end{frame}
+
+\section{Soal 4}
+%=============================
+\begin{frame}[fragile]{Soal 4: Analisis Penjualan Toko (1/2)}
+\vspace{15pt}
+\textbf{Tugas:}  
+Buat program Python \texttt{sales\_summary.py} yang membaca data penjualan dari file CSV, menghitung total dan rata-rata penjualan tiap cabang, lalu menyimpan hasilnya.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Baca \texttt{sales.csv} menggunakan \texttt{csv.DictReader}.
+  \item Abaikan kolom \texttt{cashier}, gunakan hanya \texttt{branch} dan \texttt{amount}.
+  \item Hitung:
+        \begin{itemize}
+          \item Total penjualan per cabang
+          \item Rata-rata penjualan per cabang
+        \end{itemize}
+  \item Simpan hasil ke \texttt{summary.csv} dengan kolom:  
+        \texttt{branch, total\_sales, avg\_sales}.
+\end{enumerate}
+\textbf{Tujuan:}  
+Melatih pembacaan CSV, pengelompokan data numerik, dan penulisan hasil ringkasan ke file baru.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 4: Analisis Penjualan Toko (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{sales.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+branch,cashier,amount
+A,Dina,100000
+B,Rudi,150000
+A,Budi,120000
+B,Sari,130000
+C,Tono,90000
+\end{lstlisting}
+
+\textbf{File Output: \texttt{summary.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+branch,total_sales,avg_sales
+A,220000,110000
+B,280000,140000
+C,90000,90000
+\end{lstlisting}
+\end{frame}
+
+\section{Soal 5}
+%=============================
+\begin{frame}[fragile]{Soal 5: Laporan Cabang Penjualan (1/2)}
+\vspace{15pt}
+\textbf{Tugas:}  
+Buat program Python \texttt{sales\_report.py} yang membaca data penjualan dari file CSV dan menghasilkan laporan ringkasan sederhana dalam bentuk teks.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Baca \texttt{sales.csv} menggunakan \texttt{csv.DictReader}.
+  \item Abaikan kolom \texttt{cashier}, gunakan hanya \texttt{branch} dan \texttt{amount}.
+  \item Hitung:
+        \begin{itemize}
+          \item Jumlah total cabang unik
+          \item Cabang dengan total penjualan tertinggi
+        \end{itemize}
+  \item Simpan hasil ke \texttt{report.txt} dengan format teks sederhana.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pengelompokan data dan identifikasi cabang dengan nilai penjualan tertinggi.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 5: Laporan Cabang Penjualan (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{sales.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+branch,cashier,amount
+A,Dina,100000
+B,Rudi,150000
+A,Budi,120000
+B,Sari,130000
+C,Tono,90000
+\end{lstlisting}
+
+\textbf{File Output: \texttt{report.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+SALES REPORT SUMMARY
+====================
+Total branches: 3
+Top branch: B (280000)
+\end{lstlisting}
+\end{frame}
+
+\section{Soal 6}
+%=============================
+\begin{frame}[fragile]{Soal 6: Nilai Tertinggi dan Terendah (1/2)}
+\vspace{15pt}
+\textbf{Tugas:}  
+Buat program Python \texttt{grades\_extremes.py} yang membaca data nilai mahasiswa dari file CSV, menghitung nilai tertinggi dan terendah per mata kuliah, lalu menyimpan hasilnya ke satu file CSV.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Baca \texttt{grades.csv} menggunakan \texttt{csv.DictReader}.
+  \item Gunakan kolom \texttt{course} dan \texttt{score}.
+  \item Kelompokkan data berdasarkan mata kuliah.
+  \item Hitung nilai maksimum dan minimum untuk setiap mata kuliah.
+  \item Simpan hasil ke \texttt{summary.csv}  
+        dengan kolom: \texttt{course,max,min}.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pembacaan CSV, pengelompokan data, serta pencarian nilai ekstrem numerik.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 6: Nilai Tertinggi dan Terendah (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{grades.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+student,course,score
+Andi,Math,80
+Budi,Science,75
+Citra,Math,90
+Dewi,Science,85
+Eka,English,70
+Fani,English,95
+\end{lstlisting}
+
+\textbf{File Output: \texttt{summary.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+course,max,min
+Math,90,80
+Science,85,75
+English,95,70
+\end{lstlisting}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\end{document}
