@@ -1,0 +1,392 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-07:\\\LARGE{Train File I/O pada Python (B)\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-99}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Instruksi Umum}
+\begin{frame}[fragile]{Instruksi Umum}
+\vspace{20pt}
+\begin{enumerate}
+\item Pada sesi ini, Anda akan \textbf{belajar mandiri} menggunakan \textbf{ChatGPT} menjawab total \textbf{7 soal}.
+\item \textbf{Pengenalan - 10 menit}: Anda boleh menanyakan kepada ChatGPT tentang File Input/Output di Python.
+\item \textbf{Setiap Soal - 15 Menit}: Gunakan \textbf{10 menit pertama} untuk memecahkan soal mandiri, \textbf{boleh} memakai sumber apapun \textbf{KECUALI} ChatGPT dan aplikasi sejenis (Grok, Gemini, dsb). \textbf{Gunakan sisa 5 menit} untuk berkonsultasi dengan ChatGPT jika belum selesai. 
+\item \textbf{Akan ada tes 30 menit terakhir} tanpa ChatGPT.
+\item Kumpulkan semua jawaban (file *.py, *.txt, *.csv) ke \textcolor{blue}{\textbf{\url{https://drive.google.com/drive/folders/1FI8mJjC7xKJ-HU9xU8kfg87v1W-O7l9R?usp=drive_link}}} sesuai direktori NIM-Nama dan nomor soal. 
+\end{enumerate}
+\end{frame}
+
+
+\section{Pengenalan - 10 Menit}
+\begin{frame}[fragile]{Pengenalan - 10 Menit}
+\vspace{20pt}
+\centering
+\begin{enumerate}
+\item \textbf{Waktu 10 menit.}
+\item Akses ChatGPT melalui Web Browser.
+\item Tanyakan pada pertanyaan berikut:
+\begin{lstlisting}[language=bash]
+Untuk mata kuliah Pemrograman Dasar, ajarkan saya tentang Baca dan tulis File di Python yang mencakup (1) membaca dan menulis file teks, (2) penyaringan dan penghitungan data, (3) membaca dan menulis file CSV, dan (2) agregasi dan ringkasan data.
+\end{lstlisting}
+\item Jika Anda belum paham, tanyakan lagi ke ChatGPT bagian yang Anda kurang mengerti.
+\item Lanjut ke slide berikutnya setelah 10 menit selesai.
+
+\end{enumerate}
+\end{frame}
+
+
+
+\section{Soal 1}
+%=============================
+\begin{frame}[fragile]{Soal 1: Filter Laporan Lingkungan (1/2)}
+\vspace{15pt}
+\textbf{Tugas (10 menit mandiri + 5 menit dengan ChatGPT jika belum selesai):}  
+Buat program Python \texttt{filter\_reports.py} yang membaca teks laporan lingkungan, memfilter baris yang mengandung kata kunci tertentu, lalu menyimpan hasilnya ke file baru.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Buka berkas \texttt{env\_reports.txt} menggunakan \texttt{with open(..., "r", encoding="utf-8")}.
+  \item Periksa setiap baris dan pilih yang mengandung kata \texttt{hujan} atau \texttt{banjir}  
+        (abaikan huruf besar/kecil).
+  \item Simpan hasil ke \texttt{filtered\_reports.txt} menggunakan mode tulis \texttt{"w"}.
+  \item (Opsional) Tampilkan hasil di terminal setelah disimpan.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pembacaan teks baris demi baris, pemfilteran berdasarkan kata kunci, dan penulisan hasil ke file.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 1: Filter Laporan Lingkungan (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{env\_reports.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Curah hujan tinggi terjadi di wilayah selatan.
+Kebakaran hutan mulai meluas di area pegunungan.
+Beberapa daerah mengalami banjir akibat drainase buruk.
+Cuaca hari ini cukup cerah di bagian utara.
+\end{lstlisting}
+
+\textbf{File Output: \texttt{filtered\_reports.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Curah hujan tinggi terjadi di wilayah selatan.
+Beberapa daerah mengalami banjir akibat drainase buruk.
+\end{lstlisting}
+\end{frame}
+
+
+\section{Soal 2}
+%=============================
+\begin{frame}[fragile]{Soal 2: Menghitung Kata dalam Berita (1/2)}
+\vspace{15pt}
+\textbf{Tugas (10 menit mandiri + 5 menit dengan ChatGPT jika belum selesai):}  
+Buat program Python \texttt{count\_sportswords.py} yang membaca teks berita olahraga, menghitung jumlah kemunculan kata kunci tertentu, dan menuliskan hasilnya ke file laporan.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Buka berkas \texttt{sports\_news.txt} dengan \texttt{with open(...)}.
+  \item Hitung berapa kali kata \texttt{gol} dan \texttt{menang} muncul  
+        (tidak sensitif huruf besar/kecil).
+  \item Tulis hasil ke \texttt{report.txt} dengan format:
+        \begin{itemize}
+          \item Total baris dibaca
+          \item Jumlah kata \texttt{gol}
+          \item Jumlah kata \texttt{menang}
+        \end{itemize}
+  \item Tampilkan isi laporan di terminal.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pencarian dan penghitungan kata kunci dalam konteks berita olahraga.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 2: Menghitung Kata dalam Berita (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{sports\_news.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Tim nasional mencetak dua gol di babak pertama.
+Pertandingan berlangsung sengit hingga menit akhir.
+Pemain muda itu memastikan timnya menang 3-2.
+Kemenangan ini membawa mereka ke final.
+\end{lstlisting}
+
+\textbf{File Output: \texttt{report.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Total lines: 4
+Count of "gol": 1
+Count of "menang": 1
+\end{lstlisting}
+\end{frame}
+
+
+\section{Soal 3}
+%=============================
+\begin{frame}[fragile]{Soal 3: Analisis Ulasan Produk (1/2)}
+\vspace{15pt}
+\textbf{Tugas (10 menit mandiri + 5 menit dengan ChatGPT jika belum selesai):}  
+Buat program Python \texttt{analyze\_reviews.py} yang membaca ulasan produk dari pelanggan, memfilter ulasan positif, dan menghitung jumlah kata pujian.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Buka berkas \texttt{product\_reviews.txt} dengan \texttt{with open(...)}.
+  \item Pilih baris yang mengandung kata \texttt{puas} atau \texttt{rekomendasi}  
+        (tidak sensitif huruf besar/kecil).
+  \item Hitung jumlah total ulasan dan kemunculan tiap kata kunci.
+  \item Simpan hasil analisis ke \texttt{report.txt} dalam format:
+        \begin{itemize}
+          \item Total ulasan
+          \item Ulasan terpilih
+          \item Jumlah kata \texttt{puas} dan \texttt{rekomendasi}
+        \end{itemize}
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pemfilteran teks dan perhitungan sederhana dari file ulasan pelanggan.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 3: Analisis Ulasan Produk (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{product\_reviews.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Produk ini sangat memuaskan!
+Saya tidak puas dengan kemasannya.
+Barang dikirim cepat, sangat direkomendasikan.
+Harga sedikit mahal tapi kualitas oke.
+\end{lstlisting}
+
+\textbf{File Output: \texttt{report.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+Total reviews: 4
+Filtered reviews (puas/rekomendasi): 2
+Count of "puas": 1
+Count of "rekomendasi": 1
+\end{lstlisting}
+\end{frame}
+
+
+\section{Soal 4}
+%=============================
+\begin{frame}[fragile]{Soal 4: Ringkasan Produksi Pabrik (1/2)}
+\vspace{10pt}
+\textbf{Tugas (10 menit mandiri + 5 menit dengan ChatGPT jika belum selesai):}  
+Buat program Python \texttt{production\_merge.py} yang membaca dua file CSV dari dua pabrik berbeda, menggabungkan datanya, lalu menghitung total dan rata-rata hasil produksi per pabrik.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Baca \texttt{factory\_A.csv} dan \texttt{factory\_B.csv} menggunakan \texttt{csv.DictReader}.
+  \item Gabungkan data ke satu list produksi.
+  \item Gunakan kolom \texttt{factory} dan \texttt{units}.
+  \item Hitung total dan rata-rata produksi per pabrik.
+  \item Simpan hasil ke \texttt{summary.csv} dengan kolom:  
+        \texttt{factory,total\_units,avg\_units}.
+\end{enumerate}
+\textbf{Tujuan:}  
+Melatih pembacaan multi-file CSV, penggabungan data, dan agregasi numerik sederhana.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 4: Ringkasan Produksi Pabrik (2/2)}
+\vspace{10pt}
+\textbf{File Input: Dua Berkas Produksi Harian}
+
+\begin{columns}[t]
+  \begin{column}{0.48\textwidth}
+  \textbf{File Input 1: \texttt{factory\_A.csv}}
+  \begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+factory,operator,units
+A,Dina,500
+A,Budi,550
+  \end{lstlisting}
+  \end{column}
+
+  \begin{column}{0.48\textwidth}
+  \textbf{File Input 2: \texttt{factory\_B.csv}}
+  \begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+factory,operator,units
+B,Rudi,600
+B,Sari,580
+  \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\vspace{5pt}
+\textbf{File Output: \texttt{summary.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+factory,total_units,avg_units
+A,1050,525
+B,1180,590
+\end{lstlisting}
+\end{frame}
+
+
+
+
+\section{Soal 5}
+%=============================
+\begin{frame}[fragile]{Soal 5: Laporan Departemen Proyek (1/2)}
+\vspace{15pt}
+\textbf{Tugas (10 menit mandiri + 5 menit dengan ChatGPT jika belum selesai):}  
+Buat program Python \texttt{project\_report.py} yang membaca data proyek dari file CSV dan menghasilkan laporan ringkasan sederhana dalam bentuk teks.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Baca \texttt{projects.csv} menggunakan \texttt{csv.DictReader}.
+  \item Abaikan kolom \texttt{manager}, gunakan hanya \texttt{department} dan \texttt{budget}.
+  \item Hitung:
+        \begin{itemize}
+          \item Jumlah total departemen unik
+          \item Departemen dengan total anggaran proyek tertinggi
+        \end{itemize}
+  \item Simpan hasil ke \texttt{report.txt} dengan format teks sederhana.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pengelompokan data dan identifikasi departemen dengan nilai total tertinggi.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 5: Laporan Departemen Proyek (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{projects.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+department,manager,budget
+IT,Andi,200000
+HR,Rina,150000
+IT,Dewi,180000
+Finance,Budi,220000
+HR,Sinta,130000
+\end{lstlisting}
+
+\textbf{File Output: \texttt{report.txt}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+PROJECT REPORT SUMMARY
+=======================
+Total departments: 3
+Top department: Finance (220000)
+\end{lstlisting}
+\end{frame}
+
+
+\section{Soal 6}
+%=============================
+\begin{frame}[fragile]{Soal 6: Penilaian Kinerja Pegawai (1/2)}
+\vspace{15pt}
+\textbf{Tugas (10 menit mandiri + 5 menit dengan ChatGPT jika belum selesai):}  
+Buat program Python \texttt{employee\_performance.py} yang membaca data penilaian pegawai dari file CSV, menghitung nilai tertinggi dan terendah per divisi, lalu menyimpan hasilnya ke satu file CSV.
+
+\textbf{Langkah:}
+\begin{enumerate}
+  \item Baca \texttt{performance.csv} menggunakan \texttt{csv.DictReader}.
+  \item Gunakan kolom \texttt{division} dan \texttt{score}.
+  \item Kelompokkan data berdasarkan divisi.
+  \item Hitung nilai maksimum dan minimum untuk setiap divisi.
+  \item Simpan hasil ke \texttt{summary.csv}  
+        dengan kolom: \texttt{division,max,min}.
+\end{enumerate}
+
+\textbf{Tujuan:}  
+Melatih pembacaan CSV, pengelompokan data, dan pencarian nilai ekstrem dalam konteks evaluasi kinerja.
+\end{frame}
+
+%=============================
+\begin{frame}[fragile]{Soal 6: Penilaian Kinerja Pegawai (2/2)}
+\vspace{15pt}
+\textbf{File Input: \texttt{performance.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+employee,division,score
+Andi,Marketing,85
+Budi,Finance,90
+Citra,Marketing,78
+Dewi,Finance,95
+Eka,IT,88
+Fani,IT,75
+\end{lstlisting}
+
+\textbf{File Output: \texttt{summary.csv}}
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+division,max,min
+Marketing,85,78
+Finance,95,90
+IT,88,75
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}
