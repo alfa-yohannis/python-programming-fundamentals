@@ -236,50 +236,61 @@ Count of "mantap": 1
 \end{lstlisting}
 \end{frame}
 
-\section{Soal 4}
+\section{Soal 4 (Extended)}
 %=============================
-\begin{frame}[fragile]{Soal 4: Analisis Penjualan Toko (1/2)}
-\vspace{15pt}
+\begin{frame}[fragile]{Soal 4: Analisis Penjualan Multi-Cabang (1/2)}
+\vspace{10pt}
 \textbf{Tugas:}  
-Buat program Python \texttt{sales\_summary.py} yang membaca data penjualan dari file CSV, menghitung total dan rata-rata penjualan tiap cabang, lalu menyimpan hasilnya.
+Buat program Python \texttt{sales\_merge.py} yang membaca dua file CSV, menggabungkan datanya, lalu menghitung total dan rata-rata penjualan tiap cabang.
 
 \textbf{Langkah:}
 \begin{enumerate}
-  \item Baca \texttt{sales.csv} menggunakan \texttt{csv.DictReader}.
-  \item Abaikan kolom \texttt{cashier}, gunakan hanya \texttt{branch} dan \texttt{amount}.
-  \item Hitung:
-        \begin{itemize}
-          \item Total penjualan per cabang
-          \item Rata-rata penjualan per cabang
-        \end{itemize}
+  \item Baca \texttt{sales\_A.csv} dan \texttt{sales\_B.csv} menggunakan \texttt{csv.DictReader}.
+  \item Gabungkan data ke satu list transaksi.
+  \item Gunakan kolom \texttt{branch} dan \texttt{amount}.
+  \item Hitung total dan rata-rata penjualan per cabang.
   \item Simpan hasil ke \texttt{summary.csv} dengan kolom:  
-        \texttt{branch, total\_sales, avg\_sales}.
+        \texttt{branch,total\_sales,avg\_sales}.
 \end{enumerate}
 \textbf{Tujuan:}  
-Melatih pembacaan CSV, pengelompokan data numerik, dan penulisan hasil ringkasan ke file baru.
+Melatih pembacaan multi-file CSV, penggabungan data, dan agregasi numerik.
 \end{frame}
 
 %=============================
-\begin{frame}[fragile]{Soal 4: Analisis Penjualan Toko (2/2)}
-\vspace{15pt}
-\textbf{File Input: \texttt{sales.csv}}
-\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+\begin{frame}[fragile]{Soal 4: Analisis Penjualan Multi-Cabang (2/2)}
+\vspace{10pt}
+\textbf{File Input: Dua Berkas Penjualan Cabang}
+
+\begin{columns}[t]
+  \begin{column}{0.48\textwidth}
+  \textbf{File Input 1: \texttt{sales\_A.csv}}
+  \begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
 branch,cashier,amount
 A,Dina,100000
-B,Rudi,150000
 A,Budi,120000
-B,Sari,130000
-C,Tono,90000
-\end{lstlisting}
+  \end{lstlisting}
+  \end{column}
 
+  \begin{column}{0.48\textwidth}
+  \textbf{File Input 2: \texttt{sales\_B.csv}}
+  \begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+branch,cashier,amount
+B,Rudi,150000
+B,Sari,130000
+  \end{lstlisting}
+  \end{column}
+\end{columns}
+
+\vspace{5pt}
 \textbf{File Output: \texttt{summary.csv}}
 \begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
 branch,total_sales,avg_sales
 A,220000,110000
 B,280000,140000
-C,90000,90000
 \end{lstlisting}
 \end{frame}
+
+
 
 \section{Soal 5}
 %=============================
