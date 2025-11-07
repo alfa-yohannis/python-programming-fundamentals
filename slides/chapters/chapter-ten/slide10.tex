@@ -1,0 +1,939 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, trees, positioning}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-10:\\\LARGE{Unit Test\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+
+%----------------------------------------
+\section{Pendahuluan}
+
+\begin{frame}[fragile]{Pendahuluan}
+\vspace*{15pt}
+\begin{itemize}
+  \item \textbf{Unit testing} adalah proses menguji bagian kecil program seperti fungsi atau method.
+  \item Tujuannya memastikan setiap unit bekerja sesuai yang diharapkan.
+  \item Pengujian sejak awal membantu menemukan kesalahan logika lebih cepat.
+  \item Dengan demikian, pengembang dapat memperbaiki bug sebelum kode digabungkan dengan komponen lain yang lebih kompleks.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\subsection{Mengapa Unit Test Penting}
+\begin{frame}[fragile]{Mengapa Unit Test Penting}
+\vspace*{10pt}
+\begin{enumerate}
+  \item \textbf{Deteksi dini kesalahan.} Bug ditemukan sebelum integrasi.
+  \item \textbf{Refactoring aman.} Menjamin perilaku lama tetap konsisten.
+  \item \textbf{Dokumentasi fungsional.} Menunjukkan cara fungsi bekerja.
+  \item \textbf{Efisiensi jangka panjang.} Menghemat waktu debugging.
+  \item \textbf{Dasar pengujian lanjutan.} Pondasi untuk integrasi dan end-to-end test.
+\end{enumerate}
+\end{frame}
+
+%----------------------------------------
+\subsection{Prinsip Dasar Pengujian Unit}
+
+\begin{frame}[fragile]{Prinsip Dasar Pengujian Unit}
+\vspace*{10pt}
+\begin{itemize}
+  \item Pengujian unit mengikuti prinsip agar test efektif dan mudah dirawat.
+  \item \textbf{Isolasi:} setiap test menguji satu fungsi tanpa bergantung pada test lain.
+  \item \textbf{Deterministik:} hasil harus sama setiap kali dijalankan.
+  \item \textbf{Kemandirian:} test tidak bergantung pada database, jaringan, atau file eksternal kecuali diperlukan.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\section{Pengenalan Modul \texttt{unittest}}
+\begin{frame}[fragile]{Pengenalan Modul \texttt{unittest}}
+\vspace*{10pt}
+\begin{itemize}
+  \item Python menyediakan modul bawaan \texttt{unittest} untuk menulis dan menjalankan pengujian unit.
+  \item Terinspirasi dari kerangka kerja \textit{xUnit} seperti \texttt{JUnit} dan \texttt{NUnit}.
+  \item Fitur utama:
+  \begin{itemize}
+    \item Mendefinisikan \textit{test case}.
+    \item Melakukan pengecekan hasil dengan \textit{assertion}.
+    \item Mengelompokkan test menjadi \textit{test suite}.
+    \item Menjalankan semua test secara otomatis.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\subsection{Struktur Dasar \texttt{TestCase}}
+
+\begin{frame}[fragile]{Struktur Dasar \texttt{TestCase}}
+\vspace{20pt}
+\begin{itemize}
+  \item Setiap test ditulis sebagai kelas turunan dari \texttt{unittest.TestCase}.
+  \item Metode yang diawali \texttt{test\_} akan dijalankan otomatis.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle, caption={Blok eksekusi test bawaan}]
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+\vspace{-10pt}
+\begin{lstlisting}[style=PythonStyle, caption={Struktur dasar kelas unit test di Python}]
+import unittest
+
+class TestNamaFungsi(unittest.TestCase):
+    def test_kasus_1(self):
+        self.assertEqual(1 + 1, 2)
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Eksekusi dan Hasil Test}
+\vspace*{10pt}
+\begin{itemize}
+  \item Saat dijalankan, \texttt{unittest} mengeksekusi semua metode \texttt{test\_}.
+  \item Hasilnya ditandai dengan:
+  \begin{itemize}
+    \item \texttt{.} — test berhasil.
+    \item \texttt{F} — test gagal.
+    \item \texttt{E} — error selama eksekusi.
+  \end{itemize}
+\end{itemize}
+
+\begin{lstlisting}[language=bash]
+test_kasus_1 (test_fungsi.TestNamaFungsi) ... ok
+------------------------------------------------------------------
+Ran 1 test in 0.001s
+OK
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\subsection{Menjalankan Test}
+\begin{frame}[fragile]{Menjalankan Test}
+\vspace*{10pt}
+\begin{itemize}
+  \item Jalankan langsung:
+  \begin{lstlisting}[language=bash]
+  python test_fungsi.py
+  \end{lstlisting}
+  \item Gunakan perintah bawaan:
+  \begin{lstlisting}[language=bash]
+  python -m unittest discover
+  \end{lstlisting}
+  \item Jalankan test tertentu:
+  \begin{lstlisting}[language=bash]
+  python -m unittest test_fungsi.TestNamaFungsi.test_kasus_1
+  \end{lstlisting}
+  \item Tambah keluaran rinci:
+  \begin{lstlisting}[language=bash]
+  python -m unittest -v
+  \end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\section{Menulis Unit Test untuk Fungsi}
+
+\begin{frame}[fragile]{Menulis Unit Test untuk Fungsi}
+\vspace*{10pt}
+\begin{itemize}
+  \item Unit test untuk fungsi adalah bentuk pengujian paling sederhana.
+  \item Fokus pada verifikasi input dan output yang deterministik.
+  \item Langkah dasar:
+  \begin{enumerate}
+    \item Tulis fungsi yang akan diuji.
+    \item Buat berkas test terpisah (\texttt{test\_fungsi.py}).
+    \item Import fungsi dari modul utama.
+    \item Buat kelas turunan \texttt{unittest.TestCase}.
+    \item Gunakan metode \texttt{assert*} untuk membandingkan hasil.
+  \end{enumerate}
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Contoh Fungsi dan Unit Test}
+\vspace*{10pt}
+\begin{lstlisting}[style=PythonStyle, caption={Fungsi yang akan diuji}]
+# file: fungsi.py
+def add(a, b):
+    """Menjumlahkan dua bilangan."""
+    return a + b
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, caption={Pengujian fungsi add()}]
+# file: test_fungsi.py
+import unittest
+from fungsi import add
+
+class TestAdd(unittest.TestCase):
+    def test_positif(self):
+        self.assertEqual(add(2, 3), 5)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menjalankan dan Memeriksa Hasil}
+\vspace*{10pt}
+\begin{lstlisting}[language=bash]
+python -m unittest test_fungsi.py
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+...
+------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+\end{lstlisting}
+
+\begin{itemize}
+  \item Simbol hasil:
+  \begin{itemize}
+    \item \texttt{.} test sukses.
+    \item \texttt{F} test gagal.
+    \item \texttt{E} terjadi error.
+  \end{itemize}
+  \item Pengujian dapat dijalankan berulang tanpa dependensi eksternal.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\section{Menulis Unit Test untuk Method di Kelas}
+
+\begin{frame}[fragile]{Menguji Method di Kelas}
+\vspace*{10pt}
+\begin{itemize}
+  \item Pengujian method mirip dengan fungsi, tetapi melibatkan \textit{state} objek.
+  \item Langkah umum:
+  \begin{enumerate}
+    \item Buat instance objek pada awal test.
+    \item Panggil method yang diuji dengan argumen relevan.
+    \item Gunakan \texttt{assert*} untuk memeriksa hasil.
+    \item Gunakan \texttt{assertRaises} bila perlu menguji error.
+  \end{enumerate}
+  \item Untuk \texttt{@staticmethod} dan \texttt{@classmethod}, panggil dengan \texttt{NamaKelas.method()}.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menggunakan \texttt{setUp} dan \texttt{tearDown}}
+\vspace*{10pt}
+\begin{itemize}
+  \item \texttt{setUp()} dijalankan sebelum setiap test case untuk menyiapkan objek atau data.
+  \item \texttt{tearDown()} dijalankan sesudah test untuk membersihkan sumber daya.
+  \item Kedua metode menjamin setiap test berjalan dalam kondisi segar dan terisolasi.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan setUp/tearDown}]
+import unittest
+
+class TestUser(unittest.TestCase):
+    def setUp(self):
+        self.user = User("Alfa")
+
+    def tearDown(self):
+        del self.user
+\end{lstlisting}
+\end{frame}
+
+
+%----------------------------------------
+\begin{frame}[fragile]{Kode Kelas Contoh untuk Diuji (1/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+# file: calculator.py
+
+class Calculator:
+    def __init__(self, memory: float = 0.0):
+        # state internal: menyimpan nilai terakhir
+        self.memory = float(memory)
+
+    # -------- Instance methods --------
+    def add(self, a: float, b: float) -> float:
+        """Menjumlahkan a dan b, memperbarui memory, 
+        dan mengembalikan hasil."""
+        result = float(a) + float(b)
+        self.memory = result
+        return result
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Kode Kelas Contoh untuk Diuji (2/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+    def divide(self, a: float, b: float) -> float:
+        """Membagi a dengan b. 
+        Memunculkan ZeroDivisionError jika b == 0."""
+        if b == 0:
+            raise ZeroDivisionError("pembagian dengan nol")
+        result = float(a) / float(b)
+        self.memory = result
+        return result
+
+    # -------- Static method --------
+    @staticmethod
+    def is_even(n: int) -> bool:
+        """Mengembalikan True jika n genap, False jika ganjil."""
+        return (n % 2) == 0
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Kode Kelas Contoh untuk Diuji (3/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+    # -------- Class method --------
+    @classmethod
+    def from_string(cls, s: str) -> "Calculator":
+        """
+        Alternate constructor: membuat Calculator 
+        dari string angka. Jika string tidak valid, 
+        ValueError.
+        """
+        try:
+            val = float(s.strip())
+        except Exception as e:
+            raise ValueError(f"nilai tidak valid: {s}") from e
+        return cls(memory=val)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Pengujian Method Kelas (1/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+# file: test_calculator.py
+import unittest
+from calculator import Calculator
+
+class TestCalculatorMethods(unittest.TestCase):
+    def setUp(self):
+        self.calc = Calculator()
+
+    def tearDown(self):
+        self.calc = None
+
+    def test_add_mengembalikan_hasil_dan_update_memory(self):
+        hasil = self.calc.add(2, 3)
+        self.assertEqual(hasil, 5.0)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Pengujian Method Kelas (2/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+        self.assertEqual(self.calc.memory, 5.0)
+
+    def test_divide_zero_raises(self):
+        with self.assertRaises(ZeroDivisionError):
+            self.calc.divide(1, 0)
+
+    def test_add_dengan_variansi_input(self):
+        kasus = [
+            (0, 0, 0.0),
+            (1, -1, 0.0),
+            (2.5, 0.5, 3.0),
+            (-3, -7, -10.0),
+        ]
+        for a, b, expected in kasus:
+            with self.subTest(a=a, b=b):
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Pengujian Method Kelas (3/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+                self.assertEqual(self.calc.add(a, b), expected)
+
+    def test_is_even(self):
+        # Bisa dipanggil via kelas atau instance
+        self.assertTrue(Calculator.is_even(2))
+        self.assertFalse(self.calc.is_even(3))
+
+    def test_from_string_valid(self):
+        c = Calculator.from_string("  42.5 ")
+        self.assertIsInstance(c, Calculator)
+        self.assertEqual(c.memory, 42.5)
+
+    def test_from_string_invalid_raises(self):
+        with self.assertRaises(ValueError):
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Pengujian Method Kelas (4/5)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+            Calculator.from_string("bukan-angka")
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menjalankan Pengujian Kelas}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash]
+python -m unittest test_calculator.py
+\end{lstlisting}
+\begin{lstlisting}[language=bash, caption={Keluaran yang diharapkan (ilustrasi)}]
+test_add_dengan_variansi_input ... ok
+test_add_mengembalikan_hasil_dan_update_memory ... ok
+test_divide_normal ... ok
+test_divide_zero_raises ... ok
+test_from_string_invalid_raises ... ok
+test_from_string_valid ... ok
+test_is_even ... ok
+-----------------------------------------------------
+Ran 7 tests in 0.00Xs
+OK
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Penekanan Utama dari Contoh}
+\vspace*{20pt}
+\begin{itemize}
+  \item \textbf{Instance method}: diuji untuk hasil benar dan skenario error menggunakan \texttt{assertRaises}.
+  \item \textbf{Static method}: diuji seperti fungsi murni tanpa bergantung pada state objek.
+  \item \textbf{Class method}: diuji sebagai \textit{alternate constructor} untuk memvalidasi input.
+  \item \textbf{\texttt{setUp}/\texttt{tearDown}}: memastikan setiap test berjalan di lingkungan bersih.
+  \item \textbf{\texttt{subTest}}: menguji banyak variasi input tanpa membuat test terpisah.
+\end{itemize}
+\end{frame}
+
+
+%----------------------------------------
+\section{Assertion Dasar dalam \texttt{unittest}}
+
+\begin{frame}[fragile]{Konsep Dasar Assertion}
+\vspace*{20pt}
+\begin{itemize}
+  \item Pengujian dilakukan dengan memeriksa apakah hasil aktual sesuai dengan ekspektasi.
+  \item Pemeriksaan dilakukan menggunakan metode \textit{assertion} dari \texttt{unittest.TestCase}.
+  \item Jika kondisi tidak terpenuhi, test akan berstatus \textit{failed}.
+  \item Assertion berfungsi sebagai “kontrak” yang harus selalu valid bagi fungsi yang diuji.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle]
+self.assertEqual(a, b)
+self.assertTrue(expr)
+self.assertFalse(expr)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Contoh Penggunaan Assertion Dasar}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+import unittest
+
+def is_even(n): return (n % 2) == 0
+def square(x): return x * x
+
+class TestAssertionDasar(unittest.TestCase):
+    def test_assert_equal(self):
+        self.assertEqual(square(3), 9)
+        self.assertEqual(square(-4), 16)
+
+    def test_assert_true_false(self):
+        self.assertTrue(is_even(2))
+        self.assertFalse(is_even(3))
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Contoh Hasil dan Variasi Assertion}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash]
+...
+--------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
+\end{lstlisting}
+
+\begin{itemize}
+  \item \texttt{assertNotEqual(a, b)}
+  \item \texttt{assertIsNone(x)}, \texttt{assertIsNotNone(x)}
+  \item \texttt{assertIn(member, container)}, \texttt{assertNotIn(member, container)}
+  \item \texttt{assertAlmostEqual(a, b, places=n)}
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menggunakan \texttt{assertRaises}}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+import unittest
+
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("pembagian dengan nol")
+    return a / b
+
+class TestErrorHandling(unittest.TestCase):
+    def test_divide_normal(self):
+        self.assertEqual(divide(10, 2), 5)
+
+    def test_divide_zero(self):
+        with self.assertRaises(ZeroDivisionError):
+            divide(4, 0)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{assertRaises (lanjutan)}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+    def test_divide_zero_pakai_lambda(self):
+        self.assertRaises(ZeroDivisionError, divide, 1, 0)
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+\end{lstlisting}
+
+\texttt{assertRaises} memastikan error dilempar dengan benar 
+pada kondisi yang salah — menguji skenario negatif secara eksplisit.
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{\texttt{subTest} untuk Menguji Beberapa Kasus}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle]
+import unittest
+
+def multiply(a, b):
+    return a * b
+
+class TestSubTest(unittest.TestCase):
+    def test_multiply_variatif(self):
+        kasus = [ (2, 3, 6),
+            (0, 10, 0),
+            (-2, 4, -8),
+            (1.5, 2, 3.0),
+        ]
+        for a, b, expected in kasus:
+            with self.subTest(a=a, b=b):
+                self.assertEqual(multiply(a, b), expected)
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Hasil Eksekusi dan Manfaat \texttt{subTest}}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash]
+...
+--------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+FAIL: test_multiply_variatif (__main__.TestSubTest) (a=2, b=3)
+AssertionError: 5 != 6
+\end{lstlisting}
+
+\begin{itemize}
+  \item Semua kasus tetap dijalankan meskipun satu gagal.
+  \item Laporan menunjukkan kombinasi input yang menyebabkan error.
+  \item Menghemat waktu, meningkatkan keterbacaan, 
+        dan menghindari duplikasi kode.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\subsection{Menjalankan via CLI: \texttt{python -m unittest}}
+
+\begin{frame}[fragile]{Menjalankan Unit Test via CLI}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash, caption={Menjalankan file test tertentu}]
+python -m unittest test_fungsi.py
+\end{lstlisting}
+
+\begin{itemize}
+  \item Menjalankan semua test dalam satu berkas.
+  \item Hanya metode yang diawali \texttt{test\_} yang akan dijalankan.
+  \item Untuk menjalankan semua test di proyek:
+\end{itemize}
+
+\begin{lstlisting}[language=bash, caption={Menjalankan semua test (discovery)}]
+python -m unittest discover
+\end{lstlisting}
+
+\begin{itemize}
+  \item Mencari file \texttt{test\_*.py} atau \texttt{*\_test.py} 
+        di seluruh direktori proyek.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menjalankan Test Spesifik dan Verbose}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash, caption={Menjalankan test tertentu}]
+python -m unittest test_fungsi.TestAddFunction.test_penjumlahan_positif
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Mode verbose}]
+python -m unittest -v
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Beberapa modul sekaligus}]
+python -m unittest test_fungsi test_calculator
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Contoh hasil verbose}]
+test_penjumlahan_positif ... ok
+test_penjumlahan_negatif ... ok
+test_penjumlahan_nol ... ok
+------------------------------------------------------------------
+Ran 3 tests in 0.001s
+OK
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Interpretasi Hasil dan Mode Ringkas}
+\vspace*{20pt}
+\begin{itemize}
+  \item \texttt{ok} $\rightarrow$ Test berhasil.
+  \item \texttt{FAIL} $\rightarrow$ Hasil tidak sesuai ekspektasi.
+  \item \texttt{ERROR} $\rightarrow$ Error tak tertangani.
+  \item texttt{.} $\rightarrow$ Test berhasil (passed), \texttt{F} $\rightarrow$ Test gagal (failed), \texttt{E} $\rightarrow$ Test error (exception) \\
+\end{itemize}
+
+\begin{lstlisting}[language=bash]
+..F
+==================================================================
+FAIL: test_penjumlahan_nol (test_fungsi.TestAddFunction)
+------------------------------------------------------------------
+AssertionError: 0 != 1
+------------------------------------------------------------------
+Ran 3 tests in 0.000s
+FAILED (failures=1)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\subsection{Menafsirkan Output dan Traceback}
+
+\begin{frame}[fragile]{Menafsirkan Output dan Traceback}
+\vspace*{20pt}
+\begin{itemize}
+  \item Jika test gagal, \texttt{unittest} menampilkan laporan \textit{traceback}.
+  \item Struktur laporan:
+  \begin{itemize}
+    \item \textbf{Nama test gagal:} contoh  
+      \texttt{FAIL: test\_penjumlahan\_nol (TestAddFunction)}.
+    \item \textbf{Lokasi kesalahan:} menunjukkan file dan nomor baris.
+    \item \textbf{Assertion gagal:} menampilkan nilai aktual dan ekspektasi.
+    \item \textbf{Ringkasan hasil:} misalnya  
+      \texttt{FAILED (failures=1)}.
+  \end{itemize}
+\end{itemize}
+
+\begin{lstlisting}[language=bash]
+FAILED (failures=1)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Contoh Traceback pada ERROR}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash]
+E
+==================================================================
+ERROR: test_divide_zero (test_calculator.TestCalculatorMethods)
+------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_calculator.py", line 17, in test_divide_zero
+    self.calc.divide(1, 0)
+  File "calculator.py", line 12, in divide
+    raise ZeroDivisionError("pembagian dengan nol")
+ZeroDivisionError: pembagian dengan nol
+------------------------------------------------------------------
+Ran 1 test in 0.000s
+FAILED (errors=1)
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Perbedaan dan Tips Membaca Traceback}
+\vspace*{20pt}
+\begin{itemize}
+  \item \textbf{FAIL}: assertion gagal (nilai tidak sesuai ekspektasi).
+  \item \textbf{ERROR}: exception tak tertangani di luar assertion.
+\end{itemize}
+
+\textbf{Tips membaca traceback:}
+\begin{enumerate}
+  \item Fokus pada baris paling bawah untuk pesan error utama.
+  \item Gunakan nomor baris untuk menuju sumber kesalahan.
+  \item Tambahkan pesan kustom untuk memperjelas test:
+\end{enumerate}
+
+\begin{lstlisting}[style=PythonStyle]
+self.assertEqual(add(2, 3), 5, 
+    "Fungsi add tidak menjumlahkan dengan benar")
+\end{lstlisting}
+\end{frame}
+
+
+%----------------------------------------
+\section{Refactoring dan Pemeliharaan Test}
+
+\begin{frame}[fragile]{Konsep Refactoring dan Pemeliharaan Test}
+\vspace*{20pt}
+\begin{itemize}
+  \item Setelah semua unit test berjalan baik, langkah selanjutnya adalah menjaga agar kode tetap mudah dibaca dan dirawat.
+  \item \textbf{Refactoring}: memperbaiki struktur internal kode tanpa mengubah perilaku eksternal.
+  \item Unit test berfungsi sebagai \textbf{jaring pengaman} untuk mendeteksi efek samping perubahan.
+  \item Jika seluruh test tetap \texttt{OK}, maka refactoring berhasil tanpa menimbulkan regresi.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menambah Fungsi Baru}
+\vspace*{20pt}
+\begin{itemize}
+  \item Setiap fitur baru perlu diikuti dengan test baru agar cakupan pengujian meningkat.
+  \item Contoh: menambahkan fungsi \texttt{subtract(a, b)} di file \texttt{fungsi.py}.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle, caption={Fungsi baru: subtract()}]
+# file: fungsi.py
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    """Mengembalikan hasil pengurangan a - b."""
+    return a - b
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menambahkan Test untuk Fungsi Baru}
+\vspace*{20pt}
+\begin{lstlisting}[style=PythonStyle, caption={Test untuk fungsi add() dan subtract()}]
+# file: test_fungsi.py
+import unittest
+from fungsi import add, subtract
+
+class TestMathFunctions(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(2, 3), 5)
+
+    def test_subtract(self):
+        self.assertEqual(subtract(5, 3), 2)
+        self.assertEqual(subtract(0, 7), -7)
+        self.assertEqual(subtract(-2, -3), 1)
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Memastikan Tidak Ada Regresi}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash, caption={Menjalankan ulang semua test}]
+python -m unittest -v
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Hasil keluaran}]
+test_add (test_fungsi.TestMathFunctions) ... ok
+test_subtract (test_fungsi.TestMathFunctions) ... ok
+------------------------------------------------------------------
+Ran 2 tests in 0.000s
+OK
+\end{lstlisting}
+
+\begin{itemize}
+  \item Setiap perubahan pada kode diuji ulang secara otomatis.
+  \item Jika fungsi \texttt{subtract} diubah secara salah, test langsung gagal.
+  \item Suite test menjadi dokumentasi perilaku sistem yang selalu terkini.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menjaga Keterbacaan dan Konsistensi}
+\vspace*{20pt}
+\begin{itemize}
+  \item Jumlah test bisa mencapai ratusan atau ribuan seiring pertumbuhan proyek.
+  \item Beberapa praktik terbaik:
+  \begin{itemize}
+    \item Gunakan nama test yang deskriptif:
+\begin{lstlisting}[style=PythonStyle]
+def test_divide_munculkan_error_jika_bagi_nol(self):
+    ...
+\end{lstlisting}
+    \item Pisahkan test per modul atau fitur:
+\begin{lstlisting}[language=bash]
+project/
+├── app/
+│   ├── fungsi.py
+│   └── kalkulator.py
+└── tests/
+    ├── test_fungsi.py
+    └── test_kalkulator.py
+\end{lstlisting}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Praktik Terbaik Lainnya}
+\vspace*{20pt}
+\begin{itemize}
+  \item Hindari duplikasi kode test — gunakan \texttt{setUp()} atau helper.
+  \item Gunakan data deterministik (hindari random tanpa seed).
+  \item Komentar hanya jika perlu, jelaskan “mengapa” bukan “bagaimana”.
+  \item Jalankan semua test sebelum commit/push agar bug tidak masuk ke main branch.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle, caption={Refactoring aman pada fungsi multiply()}]
+def multiply(a, b):
+    result = 0
+    for _ in range(b):
+        result += a
+    return result
+
+# Refactoring lebih ringkas
+def multiply(a, b):
+    return a * b
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+\begin{frame}[fragile]{Menjalankan Test dan Ringkasan}
+\vspace*{20pt}
+\begin{lstlisting}[language=bash, caption={Menjalankan ulang semua test}]
+python -m unittest
+\end{lstlisting}
+
+\begin{itemize}
+  \item Jika seluruh test tetap \texttt{OK}, refactoring aman diterapkan.
+  \item Tambahkan test baru untuk fitur baru.
+  \item Gunakan nama test yang jelas dan struktur folder rapi.
+  \item Jalankan semua test setiap kali ada perubahan.
+  \item Test berfungsi sebagai jaminan bahwa perubahan tidak mengubah perilaku aplikasi.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------
+\section{Rangkuman}
+
+\begin{frame}[fragile]{Rangkuman}
+\vspace*{20pt}
+\begin{itemize}
+  \item \textbf{Konsep:} Unit test memastikan setiap fungsi/method bekerja sesuai ekspektasi.
+  \item \textbf{Prinsip:} isolasi, deterministik, kemandirian, repeatable, FAST.
+  \item \textbf{unittest:} struktur \texttt{TestCase}, \texttt{setUp}/\texttt{tearDown}, \texttt{test\_*.}
+  \item \textbf{Assertion:} \texttt{assertEqual/True/False}, \texttt{assertRaises}, \texttt{subTest}.
+  \item \textbf{CLI:} \texttt{python -m unittest}, \texttt{-v}, \texttt{discover}, jalankan test spesifik.
+  \item \textbf{Output:} simbol \texttt{.}/\texttt{F}/\texttt{E}, interpretasi hasil dan traceback.
+  \item \textbf{Praktik:} pisahkan test per modul, nama deskriptif, data deterministik, hindari duplikasi.
+  \item \textbf{Refactoring:} jalankan semua test untuk mencegah regresi dan menjaga kualitas.
+\end{itemize}
+\end{frame}
+
+\end{document}
