@@ -401,7 +401,7 @@ if __name__ == "__main__":
 Untuk menjalankan pengujian:
 
 \begin{lstlisting}[language=bash]
-python -m unittest test_calculator.py
+python -m unittest test_calculator.py --verbose
 \end{lstlisting}
 
 \noindent
@@ -656,9 +656,9 @@ OK
 
 Penjelasan hasil:
 \begin{itemize}
-    \item \texttt{ok} → Test berhasil.
-    \item \texttt{FAIL} → Hasil tidak sesuai ekspektasi.
-    \item \texttt{ERROR} → Terjadi error yang tidak ditangani (exception) di luar mekanisme assertion.
+    \item \texttt{ok} $\rightarrow$ Test berhasil.
+    \item \texttt{FAIL} $\rightarrow$ Hasil tidak sesuai ekspektasi.
+    \item \texttt{ERROR} $\rightarrow$ Terjadi error yang tidak ditangani (exception) di luar mekanisme assertion.
 \end{itemize}
 
 Dalam mode non-verbose (tanpa \texttt{-v}), simbol yang digunakan lebih ringkas:
