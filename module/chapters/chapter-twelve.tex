@@ -1,0 +1,221 @@
+\chapter{Pemrograman Graphical User Interface (GUI) 2}
+
+\section{Menampilkan Gambar Menggunakan File Dialog}
+
+Tkinter menyediakan objek \texttt{PhotoImage} untuk menampilkan gambar pada aplikasi. Gambar dapat dimuat dari file dan dipasang pada widget \texttt{Label}. Untuk memungkinkan pengguna memilih gambar sendiri, Tkinter menyediakan fungsi \texttt{askopenfilename()} dari modul \texttt{filedialog}. Dengan menggabungkan satu tombol, satu label, dan file dialog, aplikasi sederhana dapat dibuat untuk menampilkan gambar yang dipilih pengguna.
+
+Dalam penerapannya, tombol digunakan untuk membuka dialog pemilihan file. Jika pengguna memilih gambar, file tersebut dimuat sebagai objek \texttt{PhotoImage} lalu ditampilkan pada Label. Agar gambar muncul dengan benar, referensinya harus disimpan sehingga tidak terhapus oleh sistem memori Python. Contoh berikut menunjukkan implementasi dasar dari proses tersebut.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Menampilkan Gambar dengan Class}]
+import tkinter as tk
+from tkinter import filedialog
+
+class GambarDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh Menampilkan Gambar")
+        self.geometry("400x300")
+
+        # Label tempat menampilkan gambar
+        self.label_gambar = tk.Label(self)
+        self.label_gambar.pack(pady=10)
+
+        # Tombol untuk memilih gambar
+        self.button = tk.Button(self, text="Pilih Gambar", command=self.pilih_gambar)
+        self.button.pack(pady=10)
+
+    def pilih_gambar(self):
+        filepath = filedialog.askopenfilename(
+            filetypes=[("Image Files", "*.png;*.gif")]
+        )
+
+        if filepath:
+            img = tk.PhotoImage(file=filepath)
+            self.label_gambar.img = img   # simpan referensi
+            self.label_gambar.config(image=img)
+
+if __name__ == "__main__":
+    app = GambarDemo()
+    app.mainloop()
+\end{lstlisting}
+
+Pada contoh di atas, tombol digunakan untuk membuka file dialog sehingga pengguna dapat memilih gambar. Jika gambar berhasil dipilih, objek \texttt{PhotoImage} dibuat dan ditampilkan pada Label. Penyimpanan referensi gambar melalui \texttt{self.label\_gambar.img = img} diperlukan agar gambar tidak hilang dari memori. Dengan cara ini, mahasiswa dapat memahami dasar menampilkan gambar menggunakan Tkinter.
+
+\section{Menu}
+
+Menu merupakan komponen antarmuka yang digunakan untuk memberikan daftar perintah dalam bentuk \textit{menu bar} di bagian atas jendela. Melalui menu, pengguna dapat memilih perintah tertentu seperti membuka form lain, menyimpan data, atau mengubah pengaturan aplikasi. Tkinter menyediakan kelas \texttt{Menu} yang memungkinkan pengembang membuat menu bar dan menambahkan item menu secara sederhana. Dengan menghubungkan item menu ke sebuah method, menu dapat berinteraksi langsung dengan komponen dalam aplikasi.
+
+Untuk memahami konsep dasar menu, contoh berikut memperlihatkan sebuah item menu yang berfungsi mengubah judul jendela. Ketika pengguna memilih menu tersebut, sebuah method dipanggil dan judul jendela diperbarui. Contoh ini menunjukkan bagaimana menu dapat dihubungkan dengan logika program dengan cara yang mudah dan terorganisasi menggunakan pendekatan berbasis kelas.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Menu untuk Mengubah Judul Window Menggunakan Class}]
+import tkinter as tk
+
+class MenuDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Judul Awal")
+        self.geometry("300x150")
+
+        # Membuat menu bar
+        menu_bar = tk.Menu(self)
+
+        # Membuat menu "File"
+        menu_file = tk.Menu(menu_bar, tearoff=0)
+        menu_file.add_command(label="Ubah Judul", command=self.ubah_judul)
+
+        # Menambahkan menu ke menu bar
+        menu_bar.add_cascade(label="File", menu=menu_file)
+
+        # Menampilkan menu bar
+        self.config(menu=menu_bar)
+
+    # Method yang dipanggil dari menu
+    def ubah_judul(self):
+        self.title("Judul Berubah!")
+
+if __name__ == "__main__":
+    app = MenuDemo()
+    app.mainloop()
+\end{lstlisting}
+
+Pada contoh di atas, menu bar dibuat di dalam konstruktor kelas \texttt{MenuDemo}. Menu bernama “File” ditambahkan ke menu bar, kemudian item menu “Ubah Judul” dihubungkan dengan method \texttt{ubah\_judul()}. Ketika item menu dipilih, judul jendela berubah dari “Judul Awal” menjadi “Judul Berubah!”. Contoh ini memperlihatkan bagaimana menu dapat berfungsi sebagai pemicu perintah dalam aplikasi Tkinter dengan cara yang sederhana dan terstruktur.
+
+
+\section{Navigasi Antar Form}
+
+Dalam aplikasi Tkinter, pengembang dapat membuat lebih dari satu form atau jendela agar fitur aplikasi dapat dipisahkan dengan rapi. Salah satu cara untuk membuka form lain adalah melalui menu, sehingga pengguna dapat melakukan navigasi dengan memilih item menu tertentu. Tkinter menyediakan kelas \texttt{Toplevel} untuk membuat jendela tambahan yang berdiri sendiri tetapi tetap terhubung dengan aplikasi utama.
+
+Pada contoh ini, form utama akan memiliki menu bernama “Navigasi.” Ketika pengguna memilih “Buka Form Kedua,” sebuah form baru akan muncul. Form kedua dibuat pada file terpisah dan hanya merupakan jendela kosong tanpa komponen tambahan. Contoh ini menunjukkan struktur navigasi antar file secara sederhana.
+
+\begin{lstlisting}[style=PythonStyle, caption={main_window.py: Form Utama dengan Menu Navigasi}]
+import tkinter as tk
+from second_form import SecondForm
+
+class MainWindow(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Form Utama")
+        self.geometry("400x200")
+
+        # Label sederhana
+        self.label = tk.Label(self, text="Ini form utama.")
+        self.label.pack(pady=20)
+
+        # Menu bar
+        menu_bar = tk.Menu(self)
+
+        # Menu Navigasi
+        menu_navigasi = tk.Menu(menu_bar, tearoff=0)
+        menu_navigasi.add_command(label="Buka Form Kedua",
+                                  command=self.buka_form_kedua)
+
+        menu_bar.add_cascade(label="Navigasi", menu=menu_navigasi)
+
+        # Tampilkan menu bar
+        self.config(menu=menu_bar)
+
+    def buka_form_kedua(self):
+        # Membuka form kedua
+        SecondForm(self)
+
+if __name__ == "__main__":
+    app = MainWindow()
+    app.mainloop()
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, caption={second_form.py: Form Kedua Kosong}]
+import tkinter as tk
+
+class SecondForm(tk.Toplevel):
+    def __init__(self, master):
+        super().__init__(master)
+        self.title("Form Kedua")
+        self.geometry("300x150")
+        # Tidak ada komponen tambahan (form kosong)
+\end{lstlisting}
+
+Dalam contoh ini, form kedua dibuat sebagai kelas \texttt{SecondForm} yang mewarisi \texttt{tk.Toplevel}. Ketika pengguna memilih item menu “Buka Form Kedua,” jendela baru akan muncul sebagai form kosong. Pendekatan ini membantu mahasiswa memahami struktur dasar navigasi antar form tanpa menambahkan kompleksitas komponen tambahan.
+
+\section{Tabel Data (Table)}
+
+Pada Tkinter, tampilan data dalam bentuk tabel dapat dibuat menggunakan widget \texttt{ttk.Treeview} dari modul \texttt{tkinter.ttk}. Meskipun Tkinter tidak memiliki widget tabel khusus seperti di spreadsheet, \texttt{Treeview} dapat berfungsi sebagai tabel sederhana dengan beberapa kolom dan banyak baris. Widget ini sering digunakan untuk menampilkan data yang terstruktur, misalnya daftar mahasiswa, data barang, atau hasil perhitungan. Setiap baris pada \texttt{Treeview} disebut \textit{item}, sedangkan kolom-kolomnya dapat diberi nama dan lebar tertentu sesuai kebutuhan.
+
+Untuk membuat tabel, pengembang perlu mendefinisikan nama kolom, judul header, serta menambahkan baris data satu per satu. Selain itu, biasanya ditambahkan scrollbar agar pengguna dapat menggulir tabel ketika jumlah datanya banyak. Pengguna juga dapat memilih salah satu baris, kemudian data dari baris terpilih tersebut dapat diambil dan ditampilkan di Label atau diproses lebih lanjut. Dengan kombinasi sederhana antara \texttt{Treeview}, \texttt{Scrollbar}, dan \texttt{Button}, mahasiswa sudah dapat membangun tampilan tabel dasar yang cukup untuk banyak kasus aplikasi pemula.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Tabel Data dengan ttk.Treeview}]
+import tkinter as tk
+from tkinter import ttk
+
+class TableDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh Tabel Data")
+        self.geometry("400x250")
+
+        # Frame untuk menampung tabel dan scrollbar
+        frame_table = tk.Frame(self)
+        frame_table.pack(fill="both", expand=True, pady=10, padx=10)
+
+        # Membuat Treeview dengan dua kolom
+        self.tree = ttk.Treeview(
+            frame_table,
+            columns=("nama", "umur"),
+            show="headings"  # hanya menampilkan header, tanpa kolom tree
+        )
+
+        # Mengatur header kolom
+        self.tree.heading("nama", text="Nama")
+        self.tree.heading("umur", text="Umur")
+
+        # Mengatur lebar kolom
+        self.tree.column("nama", width=200)
+        self.tree.column("umur", width=80, anchor="center")
+
+        # Menambahkan beberapa baris data
+        self.tree.insert("", tk.END, values=("Andi", 20))
+        self.tree.insert("", tk.END, values=("Budi", 21))
+        self.tree.insert("", tk.END, values=("Citra", 19))
+
+        # Scrollbar vertikal
+        scrollbar = tk.Scrollbar(frame_table, orient="vertical", command=self.tree.yview)
+        self.tree.configure(yscrollcommand=scrollbar.set)
+
+        # Menempatkan tabel dan scrollbar berdampingan
+        self.tree.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        # Label untuk menampilkan baris terpilih
+        self.label_info = tk.Label(self, text="Belum ada baris yang dipilih")
+        self.label_info.pack(pady=5)
+
+        # Tombol untuk mengambil data baris terpilih
+        button_pilih = tk.Button(self, text="Tampilkan Baris Terpilih",
+                                 command=self.tampilkan_pilihan)
+        button_pilih.pack(pady=5)
+
+    def tampilkan_pilihan(self):
+        # Mengambil item yang sedang dipilih
+        selected = self.tree.selection()
+        if selected:
+            values = self.tree.item(selected[0], "values")
+            self.label_info.config(text=f"Terpilih: Nama = {values[0]}, Umur = {values[1]}")
+        else:
+            self.label_info.config(text="Belum ada baris yang dipilih")
+
+if __name__ == "__main__":
+    app = TableDemo()
+    app.mainloop()
+\end{lstlisting}
+
+Pada contoh di atas, \texttt{ttk.Treeview} digunakan sebagai tabel dengan dua kolom: \texttt{Nama} dan \texttt{Umur}. Beberapa baris data dimasukkan menggunakan \texttt{insert()}, kemudian sebuah scrollbar vertikal ditambahkan agar tabel tetap nyaman dilihat meskipun data bertambah banyak. Pengguna dapat memilih salah satu baris, lalu menekan tombol “Tampilkan Baris Terpilih” untuk menampilkan data baris tersebut pada Label di bawah tabel. Contoh ini memberikan gambaran dasar bagaimana membuat dan menggunakan tabel data di Tkinter tanpa konfigurasi yang terlalu kompleks.
+
+\section{Struktur Program Tkinter}
+
+\subsection{Struktur Dasar File}
+Struktur program Tkinter yang baik biasanya memisahkan logika antarmuka, fungsi-fungsi pendukung, dan form tambahan ke dalam file yang berbeda. Pada program yang sederhana, satu file sudah mencukupi, tetapi ketika aplikasi mulai berkembang, pemisahan file akan membantu menjaga kode tetap teratur dan mudah dibaca. Biasanya, file utama berisi jendela utama aplikasi, sedangkan form tambahan ditempatkan dalam file lain menggunakan kelas \texttt{Toplevel}. Struktur file yang rapi juga memudahkan proses debugging dan pengembangan fitur baru.
+
+\subsection{Pemanggilan Fungsi dan Modul}
+Aplikasi Tkinter dapat menggunakan berbagai modul Python untuk mendukung operasinya. Modul standar seperti \texttt{tkinter}, \texttt{tkinter.ttk}, dan \texttt{filedialog} biasanya diimpor pada bagian atas file. Jika aplikasi memiliki beberapa form, file tambahan dapat diimpor menggunakan sintaks \texttt{from nama\_file import NamaClass}. Pola ini memungkinkan form utama memanggil dan membuka form lainnya secara modular. Selain itu, fungsi-fungsi kecil yang mendukung logika aplikasi dapat ditulis sebagai metode di dalam kelas, sehingga keterkaitan antara tombol, menu, dan fungsi menjadi lebih jelas.
+
+\subsection{Best Practice Organisasi Kode}
+Untuk menjaga kualitas kode, beberapa praktik umum dapat diterapkan. Pertama, gunakan pendekatan berbasis kelas agar struktur program lebih mudah diatur dan diperluas. Kedua, pisahkan komponen antarmuka dan logika ke dalam metode yang terorganisasi sehingga program tidak menjadi satu blok besar yang sulit dibaca. Ketiga, gunakan nama variabel dan metode yang jelas serta deskriptif untuk memudahkan pemahaman. Terakhir, pertimbangkan untuk memisahkan form atau komponen kompleks ke dalam file terpisah guna mendukung pengembangan aplikasi yang lebih besar. Dengan mengikuti prinsip-prinsip ini, mahasiswa dapat membangun aplikasi Tkinter yang lebih profesional dan mudah dipelihara.

@@ -1,0 +1,463 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, trees, positioning}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-11:\\\LARGE{GUI Programming 1\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Pengenalan Tkinter}
+\begin{frame}[fragile]{Pengenalan Tkinter}
+\vspace{20pt}
+Tkinter adalah pustaka standar Python untuk membuat GUI.  
+Konsep dasarnya dapat dijelaskan sebagai berikut:
+
+\begin{itemize}
+    \item Menyediakan jendela, tombol, label, dan elemen visual lainnya.
+    \item Menggunakan model \textit{event-driven} untuk merespons tindakan pengguna.
+    \item Sudah termasuk dalam instalasi Python, sehingga mudah digunakan pemula.
+    \item Cocok untuk memahami bagaimana aplikasi modern bekerja.
+\end{itemize}
+\end{frame}
+
+\section{Membuat Window Utama}
+\begin{frame}[fragile]{Membuat Window Utama}
+\vspace{20pt}
+Pendekatan berorientasi objek membantu membuat aplikasi Tkinter lebih terstruktur.
+
+\begin{itemize}
+    \item Kelas utama biasanya mewarisi \texttt{tk.Tk}.
+    \item Konfigurasi jendela ditempatkan dalam konstruktor.
+    \item Mudah diperluas, dikelola, dan diorganisasikan.
+\end{itemize}
+
+\begin{lstlisting}[style=PythonStyle]
+import tkinter as tk
+
+class MainWindow(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Aplikasi Tkinter Pertama")
+        self.geometry("400x300")
+
+if __name__ == "__main__":
+    app = MainWindow()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------
+
+
+\section{Label}
+
+\begin{frame}[fragile]{Label di Tkinter}
+\vspace{20pt}
+Label adalah widget dasar untuk menampilkan teks atau gambar pada GUI.
+
+\begin{itemize}
+    \item Dibuat dengan kelas \texttt{Label}.
+    \item Mendukung teks, gambar, warna, dan pengaturan font.
+    \item Harus ditempatkan menggunakan \texttt{pack()}, \texttt{grid()}, atau \texttt{place()}.
+    \item Digunakan untuk judul, deskripsi, atau informasi statis.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Contoh Penggunaan Label}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle]
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Contoh Label")
+
+label1 = tk.Label(root, text="Halo, selamat datang di Tkinter!")
+label2 = tk.Label(root, text="Label dengan properti.", font=("Arial", 14), fg="blue", bg="lightgray")
+
+label1.pack(pady=10)
+label2.pack(pady=10)
+
+root.mainloop()
+\end{lstlisting}
+\end{frame}
+
+
+\section{Button}
+\begin{frame}[fragile]{Button di Tkinter}
+\vspace{20pt}
+Button adalah widget interaktif yang digunakan untuk menjalankan aksi tertentu ketika ditekan.  
+
+\begin{itemize}
+    \item Dibuat menggunakan kelas \texttt{Button}.
+    \item Menampilkan teks untuk menjelaskan fungsinya.
+    \item Aksi dijalankan melalui \texttt{command}.
+    \item Umum digunakan dalam pendekatan OOP agar tombol dapat berinteraksi dengan widget lain.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Contoh Penggunaan Button}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class ButtonDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh Button")
+        self.geometry("300x200")
+
+        self.label = tk.Label(self, text="Teks awal")
+        self.label.pack(pady=10)
+
+        self.button = tk.Button(self, text="Klik Saya", command=self.ubah_teks)
+        self.button.pack(pady=10)
+
+    def ubah_teks(self):
+        self.label.config(text="Tombol ditekan!")
+
+if __name__ == "__main__":
+    app = ButtonDemo()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+\section{EditText (Entry)}
+\begin{frame}[fragile]{Entry di Tkinter}
+\vspace{20pt}
+Entry adalah widget untuk menerima input teks dari pengguna.
+
+\begin{itemize}
+    \item Digunakan untuk memasukkan data seperti nama atau angka.
+    \item Nilai diambil menggunakan \texttt{get()}.
+    \item Label diperbarui memakai \texttt{config()}.
+    \item Umumnya dipadukan dengan Button untuk memicu aksi.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Contoh Entry dan Label}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class EntryDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh Entry dan Label")
+        self.geometry("300x150")
+        self.label = tk.Label(self, text="Hasil akan tampil di sini")
+        self.label.pack(pady=5)
+        self.entry = tk.Entry(self)
+        self.entry.pack(pady=5)
+        self.button = tk.Button(self, text="Tampilkan", command=self.copy_text)
+        self.button.pack(pady=5)
+
+    def copy_text(self):
+        teks = self.entry.get()
+        self.label.config(text=teks)
+
+if __name__ == "__main__":
+    app = EntryDemo()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+\section{Layout pada Tkinter}
+\begin{frame}[fragile]{Pengenalan Sistem Layout}
+\vspace{20pt}
+Tkinter menyediakan tiga metode utama untuk mengatur posisi widget:
+
+\begin{itemize}
+    \item \texttt{pack()} – menyusun widget secara vertikal atau horizontal.
+    \item \texttt{grid()} – mengatur widget dalam baris dan kolom seperti tabel.
+    \item \texttt{place()} – menempatkan widget berdasarkan koordinat absolut.
+\end{itemize}
+
+Memahami karakteristik ketiganya membantu pengembang memilih sistem layout yang sesuai dengan kebutuhan desain aplikasi.
+\end{frame}
+
+\begin{frame}[fragile]{Menggunakan \texttt{pack()}}
+\vspace{30pt}
+Metode \texttt{pack()} adalah layout paling sederhana di Tkinter.
+
+\textbf{Parameter penting:}
+\begin{itemize}
+    \item \texttt{side} — menentukan sisi penempatan (top, left, right, bottom).
+    \item \texttt{fill} — melebar secara horizontal (\texttt{x}) atau vertikal (\texttt{y}).
+    \item \texttt{expand} — memanfaatkan ruang kosong ketika jendela diperbesar.
+\end{itemize}
+
+Cocok untuk tampilan berurutan dan struktur layout sederhana.
+\end{frame}
+
+\begin{frame}[fragile]{Kode \texttt{pack()}}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class PackDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh pack() Lengkap")
+        self.geometry("300x250")
+
+        tk.Label(self, text="Atas", bg="lightblue").pack(side="top", fill="x", pady=5)
+        tk.Button(self, text="Kiri", bg="yellow").pack(side="left", fill="y", padx=10, pady=10)
+        tk.Button(self, text="Kanan", bg="cyan").pack(side="right", expand=True, padx=10, pady=10)
+        tk.Label(self, text="Bawah", bg="lightgreen").pack(side="bottom", pady=5)
+
+if __name__ == "__main__":
+    app = PackDemo()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Menggunakan \texttt{grid()}}
+\vspace{30pt}
+Metode \texttt{grid()} menempatkan widget dalam baris dan kolom.  
+\textbf{Parameter penting}:
+
+\begin{itemize}
+    \item \texttt{row}, \texttt{column} — posisi widget.
+    \item \texttt{columnspan} — melebar ke beberapa kolom.
+    \item \texttt{sticky} — menempel ke arah N, S, E, W.
+\end{itemize}
+
+Pendekatan berbasis kelas memudahkan pembuatan form terstruktur dan mudah dirawat.
+\end{frame}
+
+\begin{frame}[fragile]{Kode \texttt{grid()}}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class GridDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh grid()")
+        self.geometry("300x150")
+        tk.Label(self, text="Nama:").grid(row=0, column=0, padx=5, pady=5)
+        self.entry_nama = tk.Entry(self)
+        self.entry_nama.grid(row=0, column=1, padx=5, pady=5)
+
+        tk.Label(self, text="Umur:").grid(row=1, column=0, padx=5, pady=5)
+        self.entry_umur = tk.Entry(self)
+        self.entry_umur.grid(row=1, column=1, padx=5, pady=5)
+
+        tk.Button(self, text="Simpan").grid(row=2, column=0, columnspan=2, pady=10)
+
+if __name__ == "__main__":
+    app = GridDemo()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]{Menggunakan \texttt{place()}}
+\vspace{20pt}
+Metode \texttt{place()} menempatkan widget menggunakan koordinat.
+
+\begin{itemize}
+    \item Menggunakan koordinat absolut: \texttt{x}, \texttt{y}.
+    \item Mendukung posisi relatif: \texttt{relx}, \texttt{rely}.
+    \item Memberikan kontrol penuh terhadap posisi widget.
+    \item Kurang cocok untuk layout responsif atau jendela dinamis.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Kode \texttt{place()}}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class PlaceDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh place()")
+        self.geometry("300x200")
+
+        tk.Label(self, text="Label di x=20, y=30").place(x=20, y=30)
+        tk.Button(self, text="Tombol").place(x=100, y=100)
+        tk.Entry(self).place(x=150, y=150, width=120)
+
+if __name__ == "__main__":
+    app = PlaceDemo()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]{Layout dalam Frame}
+\vspace{20pt}
+Frame adalah wadah (container) untuk mengelompokkan widget dalam area tertentu.
+
+\begin{itemize}
+    \item Membantu membuat layout lebih rapi dan terstruktur.
+    \item Setiap frame dapat memakai metode layout berbeda (nested layout).
+    \item Berguna untuk membagi antarmuka menjadi bagian seperti header, form, dan tombol.
+    \item Pada pendekatan OOP, frame dibuat di konstruktor agar antarmuka modular.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Kode Layout dalam Frame}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class FrameDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Layout dalam Frame")
+        self.geometry("300x200")
+        self.frame_atas = tk.Frame(self, bg="lightgray")
+        self.frame_atas.pack(fill="x", pady=10)
+
+        tk.Label(self.frame_atas, text="Ini bagian atas").pack(pady=5)
+        self.frame_bawah = tk.Frame(self)
+        self.frame_bawah.pack(pady=10)
+
+        tk.Button(self.frame_bawah, text="Tombol 1").pack(side="left", padx=5)
+        tk.Button(self.frame_bawah, text="Tombol 2").pack(side="left", padx=5)
+
+if __name__ == "__main__":
+    app = FrameDemo()
+    app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]{Contoh Kombinasi Layout Sederhana}
+\vspace{20pt}
+Kombinasi layout sering digunakan untuk membuat tampilan lebih fleksibel.
+
+\begin{itemize}
+    \item \texttt{pack()} cocok untuk mengatur frame utama secara vertikal.
+    \item \texttt{grid()} ideal untuk mengatur form dalam struktur baris–kolom.
+    \item Kombinasi ini memberi keseimbangan antara fleksibilitas dan kemudahan.
+    \item Pendekatan berbasis class membuat antarmuka modular dan mudah diperluas.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Kode Kombinasi Layout}
+\vspace{20pt}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class KombinasiLayoutDemo(tk.Tk):
+	def __init__(self):
+		super().__init__()
+		self.title("Kombinasi Layout")
+		self.geometry("300x250")
+		self.frame_form = tk.Frame(self, padx=10, pady=10, relief="groove", borderwidth=2)
+		self.frame_form.pack(pady=10)
+		tk.Label(self.frame_form, text="Nama:").grid(row=0, column=0, padx=5, pady=5)
+		tk.Entry(self.frame_form).grid(row=0, column=1, padx=5, pady=5)
+		tk.Label(self.frame_form, text="Umur:").grid(row=1, column=0, padx=5, pady=5)
+		tk.Entry(self.frame_form).grid(row=1, column=1, padx=5, pady=5)
+		self.frame_tombol = tk.Frame(self)
+		self.frame_tombol.pack(pady=10)
+		tk.Button(self.frame_tombol, text="Simpan").pack(side="left", padx=5)
+		tk.Button(self.frame_tombol, text="Batal").pack(side="left", padx=5)
+
+if __name__ == "__main__":
+	app = KombinasiLayoutDemo()
+	app.mainloop()
+\end{lstlisting}
+\end{frame}
+
+\section{Rangkuman}
+\begin{frame}[fragile]{Rangkuman}
+\vspace{20pt}
+
+\begin{itemize}
+    \item Tkinter adalah pustaka standar Python untuk membuat GUI dengan konsep \textit{event-driven}, memungkinkan program merespons aksi pengguna (klik, input, dll).
+    \item Widget dasar seperti \texttt{Label}, \texttt{Button}, dan \texttt{Entry} digunakan untuk menampilkan informasi, menerima input, dan menjalankan perintah.
+    \item Window utama dapat dibuat secara prosedural maupun dengan pendekatan OOP menggunakan class yang mewarisi \texttt{tk.Tk} sehingga struktur aplikasi lebih rapi dan modular.
+
+    \item Tkinter menyediakan tiga metode layout:  
+          \texttt{pack()} (sederhana), \texttt{grid()} (form terstruktur), dan \texttt{place()} (koordinat absolut).
+    \item \texttt{Frame} membantu mengelompokkan widget sehingga antarmuka lebih terorganisasi dan mendukung \textit{nested layout}.
+    \item Kombinasi layout seperti \texttt{pack()} untuk frame utama dan \texttt{grid()} untuk form memberikan fleksibilitas penyusunan tampilan.
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}
