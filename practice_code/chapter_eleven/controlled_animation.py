@@ -1,16 +1,17 @@
 import tkinter as tk
+import time
 
 class TriangleControlDemo(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Kontrol Segitiga dengan Keyboard")
+        self.title("Kontrol Segitiga Halus dengan Keyboard")
         self.geometry("400x400")
 
         # Canvas
         self.canvas = tk.Canvas(self, width=380, height=380, bg="white")
         self.canvas.pack(pady=10)
 
-        # Buat segitiga (x1, y1, x2, y2, x3, y3)
+        # Buat segitiga
         self.triangle = self.canvas.create_polygon(
             190, 150,   # titik atas
             160, 200,   # titik kiri bawah
@@ -18,24 +19,54 @@ class TriangleControlDemo(tk.Tk):
             fill="blue"
         )
 
-        # Jarak gerak setiap kali tombol ditekan
-        self.step = 10
+        # Kecepatan (px/s)
+        self.vx = 0
+        self.vy = 0
+        self.speed = 160    # 160 px per detik
 
-        # Bind keyboard ke window
-        self.bind("<KeyPress>", self.on_key)
-        # Pastikan window punya fokus keyboard
+        # Delta time
+        self.last = time.time()
+
+        # Bind keyboard (tahan tombol → tetap bergerak)
+        self.bind("<KeyPress>", self.on_key_down)
+        self.bind("<KeyRelease>", self.on_key_up)
         self.focus_set()
 
-    def on_key(self, event):
-        # Cek tombol apa yang ditekan
+        # Frame rate
+        self.frame_delay = int(1000 / 60)  # 60 FPS
+
+        # Mulai animasi
+        self.update_anim()
+
+    def on_key_down(self, event):
         if event.keysym == "Left":
-            self.canvas.move(self.triangle, -self.step, 0)
+            self.vx = -self.speed
         elif event.keysym == "Right":
-            self.canvas.move(self.triangle, self.step, 0)
+            self.vx = self.speed
         elif event.keysym == "Up":
-            self.canvas.move(self.triangle, 0, -self.step)
+            self.vy = -self.speed
         elif event.keysym == "Down":
-            self.canvas.move(self.triangle, 0, self.step)
+            self.vy = self.speed
+
+    def on_key_up(self, event):
+        # Saat tombol dilepas, hentikan gerakan pada arah itu
+        if event.keysym in ("Left", "Right"):
+            self.vx = 0
+        if event.keysym in ("Up", "Down"):
+            self.vy = 0
+
+    def update_anim(self):
+        now = time.time()
+        dt = now - self.last
+        self.last = now
+
+        move_x = self.vx * dt
+        move_y = self.vy * dt
+
+        self.canvas.move(self.triangle, move_x, move_y)
+
+        # Loop animasi 60 FPS
+        self.after(self.frame_delay, self.update_anim)
 
 if __name__ == "__main__":
     app = TriangleControlDemo()

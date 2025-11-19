@@ -1,0 +1,870 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, trees, positioning}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-13:\\\LARGE{Debugging\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Pengenalan}
+\begin{frame}{Pengenalan Debugging}
+\vspace{20pt}
+
+\begin{itemize}
+    \item Debugging adalah proses menemukan, menganalisis, dan memperbaiki kesalahan (bug) dalam program.
+    \item Python sensitif terhadap struktur kode, sehingga kesalahan kecil (indentasi, penamaan variabel, logika) dapat menyebabkan error.
+    \item Debugging membantu menelusuri alur eksekusi program untuk memahami sumber masalah secara sistematis.
+    \item Keterampilan ini meningkatkan efisiensi pengembangan karena masalah dapat ditemukan lebih cepat dan kode menjadi lebih rapi.
+    \item Debugging dasar menjadi fondasi sebelum mempelajari teknik lanjutan seperti \texttt{pdb}, \texttt{breakpoint()}, dan fitur debugging pada IDE modern.
+\end{itemize}
+
+\end{frame}
+
+\section{Jenis-Jenis Error dalam Python}
+
+\begin{frame}[fragile]{Syntax Error}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.40\linewidth}
+        \begin{itemize}
+            \item Syntax Error terjadi ketika kode tidak mengikuti aturan sintaks Python.
+            \item Muncul sebelum program dijalankan (tahap parsing).
+            \item Penyebab umum: kurang titik dua, kurung tidak lengkap, indentasi salah, atau pengetikan perintah tidak valid.
+            \item Pesan error menunjukkan baris yang perlu diperbaiki.
+        \end{itemize}
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Contoh Syntax Error
+nilai = 75
+if nilai >= 70
+    print("Lulus")
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Perbaikan
+nilai = 75
+if nilai >= 70:
+    print("Lulus")
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Runtime Error}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+        Runtime Error terjadi saat program sudah berjalan tetapi menemukan operasi yang tidak valid.  
+        Berbeda dengan Syntax Error, error ini hanya muncul ketika alur program benar-benar dieksekusi.
+
+        \begin{itemize}
+            \item Penyebab umum:
+            \begin{itemize}
+                \item pembagian dengan nol
+                \item indeks list tidak valid
+                \item file tidak ditemukan
+                \item variabel belum didefinisikan
+            \end{itemize}
+            \item Penting untuk memvalidasi input dan menangani kondisi tak terduga.
+        \end{itemize}
+    \end{column}
+
+    \begin{column}{0.45\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Contoh Runtime Error: pembagian dengan nol
+angka = 10
+pembagi = 0
+
+hasil = angka / pembagi  # Error saat dijalankan
+print("Hasil:", hasil)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+
+\begin{frame}[fragile]{Perbaikan Runtime Error}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.40\linewidth}
+        Dua pendekatan umum mencegah Runtime Error:
+
+        \begin{itemize}
+            \item \textbf{Pengecekan kondisi} sebelum operasi dilakukan.
+            \item \textbf{try-except} untuk menangani error tanpa menghentikan program.
+        \end{itemize}
+
+        Cara ini menjaga program tetap aman dan stabil.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Perbaikan dengan pengecekan
+angka = 10
+pembagi = 0
+
+if pembagi != 0:
+    print(angka / pembagi)
+else:
+    print("Error: pembagi tidak boleh nol.")
+
+# Perbaikan dengan try-except
+try:
+    print(angka / pembagi)
+except ZeroDivisionError:
+    print("Terjadi kesalahan: tidak bisa membagi dengan nol.")
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Logic Error}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+        Logic Error terjadi ketika program berjalan tanpa pesan error, tetapi hasilnya salah.  
+        Python tidak memberikan peringatan karena sintaks dan eksekusi tidak bermasalah.
+
+        \begin{itemize}
+            \item Penyebab umum:
+            \begin{itemize}
+                \item operator salah
+                \item kondisi percabangan keliru
+                \item rumus perhitungan salah
+                \item alur algoritma tidak tepat
+            \end{itemize}
+            \item Cara menemukan: memahami alur logika, memeriksa nilai variabel, print debugging.
+        \end{itemize}
+    \end{column}
+
+    \begin{column}{0.45\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Logic Error: operator salah
+nilai = 85
+
+if nilai <= 70:  # Logika terbalik
+    print("Lulus")
+else:
+    print("Tidak lulus")
+
+# Perbaikan
+nilai = 85
+if nilai >= 70:
+    print("Lulus")
+else:
+    print("Tidak lulus")
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+
+\begin{frame}[fragile]{Logic Error dalam Perhitungan}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.40\linewidth}
+        Logic Error juga sering muncul pada operasi matematis, terutama jika rumus
+        atau jumlah pembagi tidak sesuai.  
+        Contoh berikut memperlihatkan kesalahan menghitung rata-rata karena salah
+        menggunakan pembagi.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Logic Error: rata-rata salah
+a = 80; b = 90; c = 70
+rata = (a + b + c) / 2   # Seharusnya 3
+print("Rata-rata:", rata)
+
+# Perbaikan
+a = 80; b = 90; c = 70
+rata = (a + b + c) / 3
+print("Rata-rata:", rata)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Teknik Dasar Debugging}
+
+\begin{frame}[fragile]{Print Debugging: Konsep dan Contoh Dasar}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.6\linewidth}
+        Print debugging adalah teknik sederhana untuk memahami
+        alur eksekusi program dengan menampilkan nilai variabel
+        atau kondisi tertentu menggunakan \texttt{print()}.
+
+        \begin{itemize}
+            \item Mudah digunakan tanpa alat tambahan.
+            \item Berguna untuk melacak perubahan variabel.
+            \item Membantu memastikan blok kode dijalankan.
+            \item Keterbatasan: jika terlalu banyak, kode menjadi berantakan.
+        \end{itemize}
+
+        Teknik ini sangat cocok untuk pemula sebelum menggunakan
+        debugger yang lebih canggih.
+    \end{column}
+
+    \begin{column}{0.35\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Print debugging melacak perubahan nilai
+total = 0
+
+for i in range(1, 6):
+    total += i
+    print("Iterasi:", i,
+          "Total sementara:", total)
+
+print("Total akhir:", total)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+
+\begin{frame}[fragile]{Print Debug untuk Menemukan Logic Error}
+\vspace{20pt}
+
+\begin{columns}
+    \begin{column}{0.35\linewidth}
+        Print debugging juga membantu menemukan Logic Error,
+        yaitu ketika logika program salah tetapi tidak
+        menghasilkan pesan error.
+
+        Contoh berikut menunjukkan kesalahan logika ketika
+        menghitung jumlah bilangan genap. Debug print membantu
+        menunjukkan data mana yang diproses secara keliru.
+    \end{column}
+
+    \begin{column}{0.6\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Logic Error ditemukan dengan print debugging
+angka = [1,2,3,4,5,6]
+jumlah_genap = 0
+
+for x in angka:
+    print("Memeriksa:", x)
+    if x % 2 == 1:   # Logika salah
+        jumlah_genap += 1
+        print("Ditambahkan:", x)
+
+print("Jumlah genap:", jumlah_genap)
+
+# Perbaikan
+jumlah_genap = 0
+for x in angka:
+    print("Memeriksa:", x)
+    if x % 2 == 0:   # Logika benar
+        jumlah_genap += 1
+        print("Ditambahkan:", x)
+
+print("Jumlah genap:", jumlah_genap)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Memahami Traceback}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.40\linewidth}
+        Traceback adalah pesan yang ditampilkan Python ketika
+        terjadi error saat program dijalankan. Pesan ini
+        menunjukkan:
+
+        \begin{itemize}
+            \item file tempat error terjadi
+            \item nomor baris
+            \item baris kode yang bermasalah
+            \item jenis error (misalnya \texttt{NameError}, \texttt{TypeError})
+        \end{itemize}
+
+        Memahami traceback membantu programmer menemukan sumber
+        masalah tanpa menebak-nebak, terutama untuk error yang
+        terjadi saat runtime.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# NameError: variabel belum didefinisikan
+x = 10
+print(y)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+Traceback (most recent call last):
+  File "contoh.py", line 3, in <module>
+    print(y)
+NameError: name 'y' is not defined
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Perbaikan
+x = 10
+y = 5
+print(y)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+
+\begin{frame}[fragile]{Traceback untuk TypeError}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.40\linewidth}
+        Traceback juga membantu mendeteksi kesalahan argumen
+        pada pemanggilan fungsi. Ketika fungsi dipanggil dengan
+        jumlah argumen yang salah, Python menghasilkan
+        \texttt{TypeError} beserta informasi detail lokasi error.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# TypeError: argumen kurang
+def tambah(a, b):
+    return a + b
+
+hasil = tambah(10)   # Harusnya 2 argumen
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+Traceback (most recent call last):
+  File "contoh2.py", line 5, in <module>
+    hasil = tambah(10)
+TypeError: tambah() missing 1 required
+positional argument: 'b'
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Perbaikan
+def tambah(a, b):
+    return a + b
+
+hasil = tambah(10, 20)
+print(hasil)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Membaca Pesan Error: ValueError}
+\vspace{18pt}
+
+\begin{columns}[T]
+    \begin{column}{0.42\linewidth}
+        Membaca pesan error sangat penting karena error Python
+        selalu memberi tiga informasi utama:
+
+        \begin{itemize}
+            \item lokasi error (file dan nomor baris)
+            \item potongan kode yang salah
+            \item jenis dan deskripsi error
+        \end{itemize}
+
+        \texttt{ValueError} muncul ketika nilai yang diberikan
+        ke suatu fungsi tidak valid. Pesan error membantu
+        programmer memahami bahwa input harus divalidasi
+        sebelum diproses.
+    \end{column}
+
+    \begin{column}{0.54\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# ValueError: string tidak dapat dikonversi
+angka = int("abc")
+print(angka)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+Traceback (most recent call last):
+  File "contoh3.py", line 2, in <module>
+    angka = int("abc")
+ValueError: invalid literal for int()
+with base 10: 'abc'
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Solusi: validasi input
+s = "123"
+angka = int(s)
+print(angka)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Membaca Pesan Error: TypeError}
+\vspace{18pt}
+
+\begin{columns}[T]
+    \begin{column}{0.42\linewidth}
+        \texttt{TypeError} terjadi ketika operasi dilakukan
+        pada tipe data yang tidak kompatibel, misalnya
+        menjumlahkan \texttt{int} dengan \texttt{str}.
+
+        Dengan membaca traceback, programmer dapat segera
+        mengetahui:
+
+        \begin{itemize}
+            \item baris mana yang salah
+            \item tipe data apa yang tidak cocok
+            \item bagaimana memperbaikinya (konversi tipe)
+        \end{itemize}
+    \end{column}
+
+    \begin{column}{0.54\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# TypeError: operasi tidak sesuai tipe
+a = 10
+b = "20"
+hasil = a + b
+print(hasil)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+Traceback (most recent call last):
+  File "contoh4.py", line 5, in <module>
+    hasil = a + b
+TypeError: unsupported operand type(s)
+for +: 'int' and 'str'
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Perbaikan dengan konversi tipe
+a = 10
+b = "20"
+hasil = a + int(b)
+print(hasil)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Mengenal Debugger Bawaan Python: \texttt{pdb}}
+\vspace{16pt}
+
+\begin{columns}[T]
+    \begin{column}{0.44\linewidth}
+\textbf{Modul \texttt{pdb}} adalah debugger bawaan Python yang dapat menghentikan eksekusi (breakpoint), memeriksa nilai variabel, menelusuri kode baris demi baris, masuk ke fungsi (step), melanjutkan eksekusi, dan menguji ekspresi dengan \texttt{p}. \textbf{Debugger} sangat membantu ketika print debugging kurang efektif, logika program kompleks, atau dibutuhkan analisis nilai secara interaktif. Breakpoint dapat ditambahkan dengan:
+\textbf{\texttt{import pdb; pdb.set\_trace()}}
+
+
+    \end{column}
+
+    \begin{column}{0.52\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Contoh pdb untuk kesalahan logika
+def hitung_diskon(harga, diskon):
+    hasil = harga - harga * diskon  # SALAH
+    return hasil
+
+import pdb; pdb.set_trace()
+
+total = hitung_diskon(100000, 20)
+print("Total harga:", total)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+> contoh_pdb.py(8)<module>()
+-> total = hitung_diskon(100000, 20)
+(Pdb)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+(Pdb) n
+(Pdb) p total
+-1900000
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Perbaikan Logika dan Cara Menjalankan \texttt{pdb}}
+\vspace{16pt}
+
+\begin{columns}[T]
+    \begin{column}{0.46\linewidth}
+        Setelah menggunakan \texttt{pdb}, kesalahan logika dapat
+        ditemukan dengan cepat. Pada contoh sebelumnya, nilai
+        diskon ditafsirkan sebagai angka murni, bukan persen.
+
+        Berikut versi fungsi yang benar:
+
+        Jalankan \texttt{pdb} tanpa mengubah kode:
+        \begin{itemize}
+            \item melalui terminal: \texttt{python -m pdb file.py}
+            \item cocok untuk debugging cepat
+        \end{itemize}
+
+        Dengan memahami \texttt{pdb}, programmer dapat
+        menganalisis alur eksekusi kompleks secara efisien.
+    \end{column}
+
+    \begin{column}{0.50\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Perbaikan fungsi diskon
+def hitung_diskon(harga, diskon_persen):
+    diskon = harga * (diskon_persen / 100)
+    return harga - diskon
+
+total = hitung_diskon(100000, 20)
+print("Total harga:", total)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+# Menjalankan pdb via terminal
+python -m pdb program.py
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Breakpoint (\texttt{breakpoint()})}
+\vspace{10pt}
+
+\begin{columns}[T]
+\begin{column}{0.6\linewidth}
+Fungsi \texttt{breakpoint()} adalah cara modern untuk
+mengaktifkan debugger sejak Python 3.7. Dengan satu baris
+kode, eksekusi dihentikan pada titik tertentu sehingga
+programmer dapat:
+
+\begin{itemize}
+    \item memeriksa nilai variabel
+    \item menelusuri alur kode baris demi baris
+    \item menjalankan perintah interaktif
+    \item melanjutkan eksekusi (\texttt{continue}) atau masuk fungsi (\texttt{step})
+\end{itemize}
+
+Secara default, \texttt{breakpoint()} membuka \texttt{pdb},
+tetapi dapat diarahkan ke debugger lain (misal \texttt{ipdb})
+melalui variabel lingkungan \texttt{PYTHONBREAKPOINT}.
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Contoh penggunaan breakpoint()
+angka = [10, 20, 30, 40]
+total = 0
+
+for x in angka:
+    breakpoint()   # berhenti di sini
+    total += x
+    print("Total sementara:", total)
+
+print("Total akhir:", total)
+\end{lstlisting}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Output Debugger dan Pengaturan Lanjut}
+\vspace{10pt}
+
+\begin{columns}[T]
+\begin{column}{0.57\linewidth}
+Ketika program mencapai \texttt{breakpoint()}, debugger aktif
+dan menampilkan posisi eksekusi:
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+> contoh_breakpoint.py(6)<module>()
+-> total += x
+(Pdb)
+\end{lstlisting}
+
+Contoh perintah debugging:
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+(Pdb) p x
+10
+(Pdb) p total
+0
+(Pdb) n
+\end{lstlisting}
+
+Debugger memudahkan inspeksi nilai secara langsung sehingga
+logic error lebih cepat ditemukan.
+\end{column}
+
+\begin{column}{0.38\linewidth}
+\textbf{Menggunakan debugger lain}
+
+\texttt{breakpoint()} dapat diarahkan ke \texttt{ipdb},
+\texttt{pudb}, atau debugger lain melalui variabel lingkungan:
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+export PYTHONBREAKPOINT=ipdb.set_trace
+python program.py
+\end{lstlisting}
+
+Dengan konfigurasi ini, \texttt{breakpoint()} akan membuka
+\texttt{ipdb} alih-alih \texttt{pdb}, memberi fleksibilitas
+lebih dalam debugging program besar atau antarmuka kaya.
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Debugging di VS Code: Dasar dan Breakpoint}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% ---------------- LEFT COLUMN ----------------
+\begin{column}{0.54\linewidth}
+VS Code menyediakan (plugin) debugging Python yang memampukan:
+
+\begin{itemize}
+    \item memasang \textbf{breakpoint} dengan klik di kiri baris
+    \item menjalankan debug via \textbf{Run and Debug} atau \textbf{F5}
+    \item melihat variabel di panel \textit{Variables}
+    \item memantau ekspresi melalui \textit{Watch}
+    \item menelusuri kode dengan \textit{step over/into/out}
+    \item memeriksa \textit{Call Stack}
+\end{itemize}
+
+Debugging menjadi lebih mudah secara visual.
+\end{column}
+
+% ---------------- RIGHT COLUMN ----------------
+\begin{column}{0.41\linewidth}
+
+Contoh program untuk diuji dengan debugger:
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def hitung_total(harga, jumlah):
+    return harga * jumlah
+
+def main():
+    total = hitung_total(25000, 3)
+    print("Total:", total)
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+Tambahkan breakpoint dan tekan \textbf{F5}.
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Konfigurasi Debug VS Code (\texttt{launch.json})}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% ---------------- LEFT COLUMN ----------------
+\begin{column}{0.6\linewidth}
+Untuk debugging terstruktur, VS Code dapat membuat
+\texttt{launch.json} secara otomatis. Contoh:
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize]
+{
+ "version": "0.2.0",
+ "configurations": [
+  {
+   "name": "Python Debug",
+   "type": "python",
+   "request": "launch",
+   "program": "${file}",
+   "console": "integratedTerminal"
+  }
+ ]
+}
+\end{lstlisting}
+
+Setelah file dibuat, tekan \textbf{F5} untuk mulai debugging.
+VS Code akan berhenti pada breakpoint pertama.
+\end{column}
+
+% ---------------- RIGHT COLUMN ----------------
+\begin{column}{0.35\linewidth}
+
+Panel Debug menampilkan informasi:
+
+\begin{itemize}
+    \item \textbf{Variables} — nilai variabel terkini
+    \item \textbf{Watch} — ekspresi yang dipantau
+    \item \textbf{Call Stack} — jejak pemanggilan fungsi
+\end{itemize}
+
+VS Code membuat debugging lebih visual,
+intuitif, dan sangat membantu terutama bagi pemula.
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+\section{Best Practices Debugging}
+
+% ========================= FRAME 1 =========================
+\begin{frame}{Best Practices Debugging}
+\vspace{10pt}
+
+\begin{itemize}
+    \item Jaga kode tetap rapi dan terstruktur agar mudah dianalisis.
+    \item Reproduksi error secara konsisten sebelum memperbaiki.
+    \item Baca traceback dan pesan error secara lengkap.
+    \item Gunakan alat debugging sesuai kebutuhan:
+    \begin{itemize}
+        \item \texttt{print()} — untuk pengecekan cepat
+        \item \texttt{pdb} / \texttt{breakpoint()} — debugging interaktif
+        \item VS Code Debugger — visual, breakpoint, variable inspector
+    \end{itemize}
+    \item Gunakan \textit{unit testing} untuk mendeteksi error lebih awal.
+    \item Validasi nilai penting dengan \textit{assertion}.
+    \item Gunakan Git untuk melacak perubahan dan mempermudah rollback.
+\end{itemize}
+
+\end{frame}
+
+\section{Rangkuman}
+
+% ========================= FRAME 2 =========================
+\begin{frame}{Rangkuman Debugging Python}
+\vspace{10pt}
+
+\begin{itemize}
+    \item Debugging adalah proses menemukan dan memperbaiki kesalahan program.
+    \item Tiga jenis error utama:
+    \begin{itemize}
+        \item \textbf{Syntax Error} — pelanggaran sintaks, muncul sebelum run.
+        \item \textbf{Runtime Error} — terjadi saat eksekusi program.
+        \item \textbf{Logic Error} — hasil salah tanpa pesan error.
+    \end{itemize}
+    \item Traceback membantu menemukan lokasi dan penyebab error.
+    \item Teknik debugging umum:
+    \begin{itemize}
+        \item print debugging
+        \item \texttt{pdb} / \texttt{breakpoint()}
+        \item Debugger visual di IDE (VS Code)
+    \end{itemize}
+    \item Praktik terbaik: analisis sistematis, kode rapi, dan penggunaan alat yang tepat.
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}

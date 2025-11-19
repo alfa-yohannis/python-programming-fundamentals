@@ -1,0 +1,619 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, trees, positioning}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-14:\\\LARGE{Mengukur Kinerja\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Konsep Dasar: Algoritma Bisa Cepat atau Lambat}
+
+% ========================= FRAME 1 =========================
+\begin{frame}{Program yang Sama, Performa Berbeda}
+\vspace{10pt}
+
+Dalam pemrograman, dua program dapat menghasilkan keluaran yang sama
+namun memiliki kecepatan dan penggunaan memori yang sangat berbeda.
+Perbedaan ini muncul karena:
+
+\begin{itemize}
+    \item setiap instruksi memiliki biaya komputasi,
+    \item semakin besar data, semakin lama waktu eksekusi,
+    \item algoritma menentukan efisiensi pemrosesan.
+\end{itemize}
+
+Meskipun kode “berjalan”, ia belum tentu efisien.
+Pada aplikasi nyata—seperti data processing atau mobile apps—
+performa sangat memengaruhi pengalaman pengguna.
+
+\end{frame}
+
+
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Contoh A: Algoritma Tidak Efisien}
+\vspace{8pt}
+
+\begin{columns}[T]
+% ------------ LEFT COLUMN ------------
+\begin{column}{0.45\linewidth}
+Contoh berikut menunjukkan pencarian angka dalam list, tetapi
+menggunakan pendekatan sangat lambat karena melakukan ribuan
+pengulangan yang tidak diperlukan.
+
+\begin{itemize}
+    \item hasil tetap benar;
+    \item namun waktu eksekusi jauh lebih lama;
+    \item loop tambahan tidak memberi kontribusi pada logika pencarian.
+\end{itemize}
+\end{column}
+
+% ------------ RIGHT COLUMN ------------
+\begin{column}{0.52\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def cari_angka_lambat(data, target):
+    for _ in range(10000): # loop tidak perlu
+        for x in data:
+            if x == target:
+                return True
+    return False
+
+angka = list(range(1000))
+print(cari_angka_lambat(angka, 500))
+\end{lstlisting}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+% ========================= FRAME 3 =========================
+\begin{frame}[fragile]{Contoh B: Algoritma Lebih Efisien}
+\vspace{8pt}
+
+\begin{columns}[T]
+% ------------ LEFT COLUMN ------------
+\begin{column}{0.45\linewidth}
+Versi berikut melakukan tugas yang sama tetapi jauh lebih efisien.
+
+\begin{itemize}
+    \item hanya satu iterasi,
+    \item jumlah instruksi jauh lebih sedikit,
+    \item hasil sama, performa jauh lebih cepat.
+\end{itemize}
+
+Perbandingan ini menegaskan bahwa algoritma yang efisien
+tidak selalu berarti lebih rumit, tetapi lebih tepat sasaran.
+\end{column}
+
+% ------------ RIGHT COLUMN ------------
+\begin{column}{0.52\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def cari_angka_cepat(data, target):
+    for x in data: # satu iterasi saja
+        if x == target:
+            return True
+    return False
+
+angka = list(range(1000))
+print(cari_angka_cepat(angka, 500))
+\end{lstlisting}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Mengapa Performa Penting dalam Pemrograman Dasar}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Pengaruh Kecepatan Program}
+\vspace{20pt}
+
+Kecepatan eksekusi menentukan seberapa cepat komputer menyelesaikan tugas.
+Pada level dasar, fokus utama adalah pada pada program “berjalan”, padahal
+pada aplikasi nyata, performa memengaruhi: respons aplikas, pengalaman pengguna, kemampuan memproses data besar.
+
+\begin{columns}[T]
+% ---------- LEFT ----------
+\begin{column}{0.47\linewidth}
+\textbf{Cara lambat: banyak operasi tidak perlu}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def hitung_genap_lambat(data):
+    count = 0
+    for x in data:
+        for _ in range(50):  # repetisi tidak perlu
+            if x % 2 == 0:
+                count += 1
+                break
+    return count
+\end{lstlisting}
+\end{column}
+
+% ---------- RIGHT ----------
+\begin{column}{0.47\linewidth}
+\textbf{Cara cepat: satu pengecekan}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def hitung_genap_cepat(data):
+    count = 0
+    for x in data:
+        if x % 2 == 0:
+            count += 1
+    return count
+\end{lstlisting}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Pengaruh Penggunaan Memori}
+\vspace{8pt}
+
+Selain kecepatan, performa juga dipengaruhi oleh penggunaan memori.
+Program yang boros memori dapat:
+
+\begin{itemize}
+    \item memperlambat eksekusi, menyebabkan aplikasi crash, membuat perangkat kecil cepat penuh.
+\end{itemize}
+
+Contoh berikut menunjukkan perbedaan antara penggunaan memori yang buruk
+dan yang efisien.
+
+\begin{columns}[T]
+
+% ---------- LEFT ----------
+\begin{column}{0.47\linewidth}
+\textbf{Tidak efisien: membuat banyak salinan}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def banyak_salinan(data):
+    temp = data[:]        # salinan awal
+    for _ in range(1000):
+        temp = temp[:]    # salinan berulang
+    return temp
+\end{lstlisting}
+\end{column}
+
+% ---------- RIGHT ----------
+\begin{column}{0.47\linewidth}
+\textbf{Efisien: satu kali salinan}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+def satu_salinan(data):
+    return data[:]        # cukup satu salinan
+\end{lstlisting}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+% ========================= FRAME =========================
+\begin{frame}[fragile]{Dampak Performa pada Aplikasi Dunia Nyata}
+\vspace{6pt}
+
+Aplikasi dunia nyata sering memproses data besar, seperti ratusan foto.
+Jika operasi dilakukan berulang tanpa optimasi, performa menurun signifikan.
+Contoh berikut menunjukkan proses resize yang dapat menjadi bottleneck.
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+from PIL import Image
+
+def proses_thumbnail(file_list):
+    hasil = []
+    for path in file_list:
+        img = Image.open(path)
+        kecil = img.resize((100, 100))   # operasi intensif
+        hasil.append(kecil)
+    return hasil
+\end{lstlisting}
+
+Kode di atas menekankan pentingnya memilih algoritma dan metode pemrosesan
+yang lebih efisien saat jumlah data bertambah besar.
+\end{frame}
+
+
+\section{Kecepatan/Waktu}
+
+\begin{frame}[fragile]{Pengukuran Waktu Eksekusi dengan \texttt{time}}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% ----------- LEFT COLUMN -----------
+\begin{column}{0.45\linewidth}
+\small
+Pengukuran waktu paling dasar dapat dilakukan dengan mencatat waktu
+sebelum dan sesudah fungsi berjalan menggunakan \texttt{time()}.
+Metode ini sederhana, cocok untuk memperkenalkan konsep performa.
+
+\medskip
+Output menunjukkan durasi total eksekusi, yang berguna untuk melihat
+perbedaan waktu pada operasi besar atau loop panjang.
+\end{column}
+
+% ----------- RIGHT COLUMN -----------
+\begin{column}{0.52\linewidth}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import time
+
+def hitung():
+    total = 0
+    for i in range(1_000_000):
+        total += i
+    return total
+
+start = time.time()
+hasil = hitung()
+end = time.time()
+
+print("Hasil:", hasil)
+print("Waktu eksekusi:",
+      end - start, "detik")
+\end{lstlisting}
+
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Pengukuran Lebih Akurat dengan \texttt{timeit}}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% ----------- LEFT COLUMN -----------
+\begin{column}{0.45\linewidth}
+\small
+Modul \texttt{timeit} mengulang eksekusi berkali-kali sehingga hasil
+lebih stabil dan akurat. Sangat cocok membandingkan dua algoritma.
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import timeit
+
+def cara_lambat():
+    data = list(range(1000))
+    c = 0
+    for x in data:
+        for _ in range(20):
+            if x % 2 == 0:
+                c += 1
+                break
+    return c
+\end{lstlisting}
+\end{column}
+
+% ----------- RIGHT COLUMN -----------
+\begin{column}{0.52\linewidth}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize, firstnumber=12]
+def cara_cepat():
+    data = list(range(1000))
+    c = 0
+    for x in data:
+        if x % 2 == 0:
+            c += 1
+    return c
+
+w1 = timeit.timeit(cara_lambat, number=100)
+w2 = timeit.timeit(cara_cepat, number=100)
+
+print("Lambat:", w1)
+print("Cepat :", w2)
+\end{lstlisting}
+Semakin banyak pengulangan (\texttt{number=...}), semakin baik rata-ratanya,
+terutama untuk operasi yang sangat cepat.
+
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================= FRAME: Interpretasi Hasil Pengukuran =========================
+\begin{frame}[fragile]{Interpretasi Hasil Pengukuran Waktu}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% ---------------- LEFT COLUMN ----------------
+\begin{column}{0.47\linewidth}
+\small
+Setelah mendapatkan durasi eksekusi, hasilnya perlu diinterpretasikan.
+Nilai waktu harus dilihat dalam konteks ukuran data, stabilitas hasil,
+dan rasio perbandingan antar algoritma.  
+
+Perbedaan kecil pada data kecil dapat menjadi sangat besar saat data diperbesar.
+Jika hasil berubah-ubah, pengukuran mungkin dipengaruhi kondisi sistem—%
+itulah sebabnya \texttt{timeit} sering lebih andal.
+
+Membandingkan rasio waktu memberi gambaran yang lebih jelas daripada hanya
+melihat angka detik mentah.
+\end{column}
+
+% ---------------- RIGHT COLUMN ----------------
+\begin{column}{0.50\linewidth}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+# Contoh hasil pengukuran
+w_lambat = 0.85
+w_cepat = 0.12
+
+if w_lambat > w_cepat:
+    print("Cara cepat efisien",
+          round(w_lambat / w_cepat, 2),
+          "kali lebih cepat.")
+\end{lstlisting}
+
+Kode ini membandingkan dua waktu eksekusi
+dan menampilkan rasio performanya.
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\section{Memori}
+
+\begin{frame}[fragile]{Pengukuran Memori dengan \texttt{tracemalloc}}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% -------- LEFT COLUMN --------
+\begin{column}{0.47\linewidth}
+\small
+Modul \texttt{tracemalloc} digunakan untuk melacak alokasi memori.
+Dengan mengaktifkan pelacakan, menjalankan fungsi, lalu membaca
+\texttt{get\_traced\_memory()}, kita dapat melihat memori saat ini
+dan memori puncak yang digunakan program.
+
+Teknik ini membantu mendeteksi penggunaan memori berlebihan pada
+struktur data besar atau algoritma yang tidak efisien.
+\end{column}
+
+% -------- RIGHT COLUMN --------
+\begin{column}{0.50\linewidth}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tracemalloc
+
+def buat_list_besar():
+    return [i for i in range(1_000_000)]
+
+tracemalloc.start()
+
+buat_list_besar()
+
+current, peak = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+
+print("Memori saat ini :", current)
+print("Memori puncak   :", peak)
+\end{lstlisting}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Snapshot Memori dan Perbandingan}
+\vspace{10pt}
+
+\begin{columns}[T]
+
+% -------- LEFT COLUMN --------
+\begin{column}{0.47\linewidth}
+\small
+\texttt{tracemalloc} dapat membuat snapshot memori untuk melihat
+perubahan alokasi sebelum dan sesudah suatu fungsi dipanggil.
+Perbandingan snapshot membantu mengidentifikasi baris kode yang
+paling banyak mengonsumsi memori atau potensi \textit{memory leak}.
+\end{column}
+
+% -------- RIGHT COLUMN --------
+\begin{column}{0.50\linewidth}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tracemalloc
+
+def operasi_memori():
+    return [i*2 for i in range(500_000)]
+
+tracemalloc.start()
+
+s1 = tracemalloc.take_snapshot()
+operasi_memori()
+s2 = tracemalloc.take_snapshot()
+
+tracemalloc.stop()
+
+diff = s2.compare_to(s1, 'lineno')
+
+for item in diff[:5]:
+    print(item)
+\end{lstlisting}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Perbedaan Alokasi Memori \texttt{tracemalloc}}
+\vspace{20pt}
+
+\begin{columns}[T]
+
+% ----------- LEFT COLUMN -----------
+\begin{column}{0.45\linewidth}
+Memori (1 )membuat salinan list berulang-ulang, vs (2) memproses data langsung. \texttt{tracemalloc} digunakan untuk melihat alokasi memori. Versi tidak efisien memiliki puncak memori jauh lebih besar karena membuat banyak salinan list, sedangkan versi efisien menghindari alokasi tambahan.
+
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tracemalloc
+
+def tidak_efisien():
+    data = list(range(200_000))
+    for _ in range(100):
+        data = data[:]      # banyak salinan
+    return data
+
+
+\end{lstlisting}
+\end{column}
+
+% ----------- RIGHT COLUMN -----------
+\begin{column}{0.52\linewidth}
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize, firstnumber=18]
+def efisien():
+    data = list(range(200_000))
+    for i in range(len(data)):
+        data[i] *= 2        # proses langsung
+    return data
+
+tracemalloc.start()
+tidak_efisien()
+mem1 = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+
+tracemalloc.start()
+efisien()
+mem2 = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+
+print("Tidak efisien :", mem1)
+print("Efisien       :", mem2)
+\end{lstlisting}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\section{Studi Kasus}
+
+\begin{frame}[fragile]{Studi Kasus Sederhana untuk Pemula}
+\vspace{20pt}
+
+\begin{itemize}
+    \item Buatlah studi kasus membandingkan \textit{insertion sort} dan \textit{selection sort} untuk memahami performa dasar algoritma.
+    \item \textbf{Insertion sort}: menyisipkan elemen ke posisi tepat; cepat pada data hampir terurut tetapi banyak pemindahan pada data acak.
+    \item \textbf{Selection sort}: mencari elemen minimum lalu menukar posisi; jumlah perbandingan stabil dan pertukaran sedikit.
+    \item Analisis waktu dilakukan dengan pengulangan terkontrol menggunakan \texttt{timeit}, lalu hasil disimpan ke file CSV untuk evaluasi.
+    \item Analisis memori menggunakan \texttt{tracemalloc} untuk melihat alokasi dan puncak penggunaan memori selama eksekusi, juga disimpan ke file CSV terpisah.
+    \item Berdasarkan hasil, coba jelaskan keterkaitan antara performa dengan pola data, struktur algoritma, serta cara memproses elemen.
+\end{itemize}
+
+\end{frame}
+
+\section{Rangkuman}
+
+\begin{frame}[fragile]{Rangkuman}
+\vspace{20pt}
+
+Bab ini menekankan bahwa program tidak cukup hanya \emph{berfungsi}; efisiensi waktu dan memori juga penting. Dua algoritma dengan keluaran sama dapat memiliki performa berbeda bergantung pada jumlah operasi dan pola data.
+
+\begin{itemize}
+    \item Performa dipengaruhi jumlah instruksi, ukuran data, dan desain algoritma.
+    \item \textbf{time()} mengukur durasi secara sederhana.
+    \item \textbf{timeit} memberikan hasil lebih stabil melalui eksekusi berulang.
+    \item \textbf{tracemalloc} melacak alokasi serta puncak penggunaan memori.
+    \item Contoh studi kasus menunjukkan efisiensi dapat berbeda jauh meski output identik.
+    \item Pengujian berulang dan pencatatan hasil membantu analisis lebih objektif.
+\end{itemize}
+
+Pemahaman ini menjadi dasar menulis program yang cepat, hemat memori, dan siap untuk aplikasi nyata.
+
+\end{frame}
+
+
+\end{document}

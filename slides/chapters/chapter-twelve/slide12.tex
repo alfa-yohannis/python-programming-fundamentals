@@ -1,0 +1,527 @@
+\documentclass[aspectratio=169, table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+\usepackage[strings]{underscore}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, trees, positioning}
+
+
+\renewcommand{\lstlistingname}{} 
+
+\makeatletter
+\def\input@path{{../../themes/Pradita}}
+\makeatother
+
+\usetheme{Pradita}
+
+\subtitle{IF120203-Programming Fundamentals}
+
+\title{Chapter-12:\\\LARGE{GUI Programming 2\\}
+\vspace{10pt}}
+\date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
+\author[Pradita]{\small{\textbf{Alfa Yohannis}}}
+
+
+% Define Python language style for listings
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{lightgray!10},
+    tabsize=2,
+    captionpos=b
+}
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={iex},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false,
+	captionpos=b
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Add table of contents slide
+\begin{frame}[fragile]{Contents}
+\vspace{15pt}
+\begin{columns}[t]
+\begin{column}{.4\textwidth}
+\tableofcontents[sections={1-4}]
+\end{column}
+\begin{column}{.6\textwidth}
+\tableofcontents[sections={5-7}]
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\section{Menampilkan Gambar Menggunakan File Dialog}
+
+\begin{frame}[fragile]{Menampilkan Gambar via File Dialog}
+\vspace{20pt}
+
+\begin{columns}[T, totalwidth=0.95\linewidth]
+    \begin{column}{0.4\linewidth}
+        Contoh dasar pemakaian \texttt{PhotoImage} untuk
+        memuat gambar, \texttt{Label} untuk menampilkan, serta
+        \texttt{askopenfilename()} untuk memilih file secara
+        interaktif. Referensi gambar perlu disimpan agar tidak
+        hilang dari memori.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+class GambarDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.label = tk.Label(self); self.label.pack()
+        tk.Button(self,text="Pilih",
+                  command=self.pilih).pack()
+
+    def pilih(self):
+        f = filedialog.askopenfilename(
+            filetypes=[("Image","*.png;*.gif")])
+        if f:
+            img = tk.PhotoImage(file=f)
+            self.label.img = img
+            self.label.config(image=img)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Menu}
+
+\begin{frame}[fragile]{Menu pada Tkinter}
+\vspace{20pt}
+
+\begin{columns}[T, totalwidth=\linewidth]
+    \begin{column}{0.4\linewidth}
+        Menu bar memungkinkan aplikasi menyediakan perintah
+        seperti membuka form, menyimpan data, atau mengubah
+        pengaturan. Contoh ini menunjukkan cara menghubungkan
+        item menu dengan sebuah method sehingga aksi dapat
+        dijalankan secara langsung ketika pengguna memilih menu.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+class MenuDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Judul Awal")
+
+        m = tk.Menu(self)
+        f = tk.Menu(m, tearoff=0)
+        f.add_command(label="Ubah Judul",
+                      command=self.ubah)
+        m.add_cascade(label="File", menu=f)
+        self.config(menu=m)
+
+    def ubah(self):
+        self.title("Judul Berubah!")
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Navigasi Antar Form}
+
+\begin{frame}[fragile]{Form Utama dengan Menu Navigasi}
+\vspace{20pt}
+
+\begin{columns}
+    \begin{column}{0.4\linewidth}
+        Form utama memiliki menu \texttt{Navigasi} untuk
+        membuka form kedua. Ketika item menu dipilih, method
+        \texttt{buka\_form\_kedua()} dijalankan dan membuat
+        instance \texttt{SecondForm}. Pendekatan ini memisahkan
+        fitur aplikasi ke dalam jendela terpisah.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+class MainWindow(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Form Utama")
+
+        menu = tk.Menu(self)
+        nav = tk.Menu(menu, tearoff=0)
+        nav.add_command(label="Buka Form Kedua",
+            command=self.buka_kedua)
+        menu.add_cascade(label="Navigasi", menu=nav)
+        self.config(menu=menu)
+
+    def buka_kedua(self):
+        SecondForm(self)
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+\section{Tabel Data (Table)}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Membuat Tabel dengan ttk.Treeview}
+\vspace{20pt}
+
+Pada frame ini ditunjukkan proses pembuatan tabel dasar menggunakan \texttt{ttk.Treeview}. Kolom didefinisikan, header ditetapkan, dan beberapa baris data dimasukkan sebagai contoh. Pendekatan ini sudah cukup untuk membuat tampilan tabel sederhana pada aplikasi Tkinter.
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+class TableDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Contoh Tabel")
+        frame = tk.Frame(self)
+        frame.pack(fill="both", expand=True)
+        self.tree = ttk.Treeview(frame, columns=("nama","umur"), show="headings")
+        self.tree.heading("nama", text="Nama")
+        self.tree.heading("umur", text="Umur")
+        self.tree.column("nama", width=200)
+        self.tree.column("umur", width=80, anchor="center")
+        self.tree.insert("", tk.END, values=("Andi",20))
+        self.tree.insert("", tk.END, values=("Budi",21))
+        self.tree.insert("", tk.END, values=("Citra",19))
+\end{lstlisting}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Scrollbar dan Baris Terpilih}
+\vspace{20pt}
+
+Bagian berikut menunjukkan cara menambahkan scrollbar, menampilkan tabel ke layar, serta mengambil data baris yang dipilih. Tombol digunakan untuk memicu method \texttt{show()} agar nilai terpilih dapat ditampilkan pada Label.
+
+\begin{lstlisting}[style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+        sb = tk.Scrollbar(frame, orient="vertical", command=self.tree.yview)
+        self.tree.config(yscrollcommand=sb.set)
+        self.tree.pack(side="left", fill="both", expand=True)
+        sb.pack(side="right", fill="y")
+        self.label = tk.Label(self, text="Belum ada pilihan")
+        self.label.pack()
+        tk.Button(self, text="Tampilkan", command=self.show).pack()
+
+    def show(self):
+        s = self.tree.selection()
+        if s:
+            v = self.tree.item(s[0], "values")
+            self.label.config(text=f"Nama={v[0]}, Umur={v[1]}")
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\section{Menggambar Gambar dan Bentuk Geometris pada Canvas Tkinter}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Gambar: File PNG pada Canvas}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.35\linewidth}
+        Frame pertama memperlihatkan cara menampilkan gambar
+        raster (PNG) di dalam \texttt{Canvas}. Gambar dimuat
+        menggunakan \texttt{PhotoImage} dan ditempatkan pada
+        koordinat awal \texttt{(0,0)}. Area \texttt{Canvas}
+        berfungsi sebagai ruang kerja untuk menggabungkan
+        gambar dan bentuk vektor.
+    \end{column}
+
+    \begin{column}{0.6\linewidth}
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+
+class CanvasShapesDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Canvas: Gambar + Bentuk")
+        self.geometry("600x450")
+
+        self.canvas = tk.Canvas(self, width=560, height=400, bg="white")
+        self.canvas.pack(pady=10)
+
+        self.img = tk.PhotoImage(file="./image.png")
+        self.canvas.create_image(0, 0, anchor="nw", image=self.img)
+
+        self.gambar_bentuk()
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Gambar: Persegi dan Segitiga pada Canvas}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.40\linewidth}
+        Frame kedua menampilkan dua bentuk vektor: persegi dan
+        segitiga. Persegi dibuat menggunakan
+        \texttt{create\_rectangle()} dengan garis biru, sedangkan
+        segitiga dibuat melalui \texttt{create\_polygon()} dengan
+        outline merah dan isian merah muda. Kedua bentuk dapat
+        digabung dengan gambar raster tanpa masalah.
+    \end{column}
+
+    \begin{column}{0.55\linewidth}
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+    def gambar_bentuk(self):
+        self.canvas.create_rectangle(50,50,150,150,outline="blue",width=3)
+        self.canvas.create_polygon(250,250,200,350,300,350,outline="red",fill="pink",width=2)
+
+if __name__ == "__main__":
+    app = CanvasShapesDemo()
+    app.mainloop()
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Animasi Sederhana Menggunakan Canvas di Tkinter}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Animasi: Konsep Dasar Animasi Halus}
+\vspace{20pt}
+
+Animasi halus di \texttt{Tkinter} dapat dicapai dengan menggabungkan  
+\textbf{delta time} (selisih waktu antar frame) dan \textbf{frame rate konstan}.  
+Pendekatan ini membuat animasi tetap stabil meskipun komputer sibuk atau mengalami delay.  
+Frame pertama menyiapkan jendela dan area \texttt{Canvas} untuk menampilkan bola bergerak.
+
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+import time
+
+class AnimasiCanvas(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Animasi Halus di Canvas")
+        self.geometry("400x300")
+
+        self.canvas = tk.Canvas(self, width=380,
+                                height=250, bg="white")
+        self.canvas.pack(pady=10)
+\end{lstlisting}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Animasi: Inisialisasi Bola dan Parameter Animasi}
+\vspace{20pt}
+
+Frame kedua menjelaskan proses pembuatan bola di dalam \texttt{Canvas}.  
+Posisi awal, ukuran objek, kecepatan dalam piksel per detik, serta variabel delta time  
+disiapkan untuk mendukung perhitungan gerakan yang konsisten pada 60 FPS.
+
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+        self.x_pos = 10
+        self.y_pos = 100
+        self.ball = self.canvas.create_oval(
+            self.x_pos, self.y_pos,
+            self.x_pos + 30, self.y_pos + 30,
+            fill="blue")
+
+        self.dx = 120           # kecepatan px/s
+        self.last = time.time() # delta time
+        self.frame_delay = int(1000 / 60)
+        self.gerak()
+\end{lstlisting}
+
+\end{frame}
+
+% ========================= FRAME 3 =========================
+\begin{frame}[fragile]{Animasi: Delta Time, Bouncing, \& 60 FPS}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.30\linewidth}
+        Bagian ini inti animasi.  
+        \textbf{Delta time} untuk menghitung jarak
+        perpindahan setiap frame agar gerakan tetap mulus.  
+        Ketika bola mencapai batas kiri atau kanan, kecepatannya
+        dibalik untuk menghasilkan efek pantulan.  
+        Fungsi animasi dipanggil ulang setiap \textbf{16 ms}
+        untuk mempertahankan laju sekitar 60 FPS.
+    \end{column}
+
+    \begin{column}{0.65\linewidth}
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+    def gerak(self):
+        now = time.time()
+        dt = now - self.last
+        self.last = now
+
+        move_x = self.dx * dt
+        self.x_pos += move_x
+
+        if self.x_pos >= 350:
+            self.dx = -abs(self.dx)
+        if self.x_pos <= 0:
+            self.dx = abs(self.dx)
+
+        self.canvas.move(self.ball, move_x, 0)
+        self.after(self.frame_delay, self.gerak)
+
+if __name__ == "__main__":
+    app = AnimasiCanvas()
+    app.mainloop()
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Kontrol Objek Segitiga Menggunakan Keyboard pada Canvas Tkinter}
+
+% ========================= FRAME 1 =========================
+\begin{frame}[fragile]{Kontrol: Konsep Kontrol + Animasi Halus}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.30\linewidth}
+        Contoh ini menggabungkan kontrol keyboard dengan teknik \textit{smooth animation}. Tombol panah tidak memindahkan objek secara langsung, tetapi mengubah nilai kecepatan (velocity). Pergerakan dihitung memakai delta time dengan frame rate 60 FPS sehingga animasi tampil mulus.
+    \end{column}
+
+    \begin{column}{0.65\linewidth}
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+import tkinter as tk
+import time
+
+class TriangleControlDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Kontrol Segitiga Halus")
+        self.geometry("400x400")
+
+        self.canvas = tk.Canvas(self, width=380, height=380, bg="white")
+        self.canvas.pack(pady=10)
+        self.triangle = self.canvas.create_polygon(190,150,160,200,220,200,fill="blue")
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 2 =========================
+\begin{frame}[fragile]{Kontrol:  Gambar Segitiga + Kecepatan}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.30\linewidth}
+        Segitiga dibuat menggunakan \texttt{create\_polygon()}. Nilai \texttt{vx} dan \texttt{vy} mewakili kecepatan horizontal dan vertikal. Event \texttt{KeyPress} dan \texttt{KeyRelease} mengubah nilai kecepatan ini, sementara loop animasi berjalan terus untuk menghitung gerakan berdasarkan delta time.
+    \end{column}
+
+    \begin{column}{0.65\linewidth}
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+        self.vx = 0
+        self.vy = 0
+        self.speed = 160
+        self.last = time.time()
+
+        self.bind("<KeyPress>", self.on_key_down)
+        self.bind("<KeyRelease>", self.on_key_up)
+        self.focus_set()
+
+        self.frame_delay = int(1000/60)
+        self.update_anim()
+
+    def on_key_down(self, event):
+        if event.keysym=="Left": self.vx=-self.speed
+        elif event.keysym=="Right": self.vx=self.speed
+        elif event.keysym=="Up": self.vy=-self.speed
+        elif event.keysym=="Down": self.vy=self.speed
+
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+% ========================= FRAME 3 =========================
+\begin{frame}[fragile]{Kontrol: Loop+Delta Time+Pergerakan Halus}
+\vspace{20pt}
+
+\begin{columns}[T]
+    \begin{column}{0.27\linewidth}
+        Fungsi animasi menghitung perpindahan berdasarkan delta time agar objek bergerak stabil. Tombol yang ditekan mengubah kecepatan; saat tombol dilepas, arah itu dihentikan. Penggunaan \texttt{after()} menjaga laju animasi tetap sekitar 60 FPS.
+    \end{column}
+
+    \begin{column}{0.68\linewidth}
+\begin{lstlisting}[language=Python, style=PythonStyle, basicstyle=\ttfamily\scriptsize]
+    
+    def on_key_up(self, event):
+        if event.keysym in ("Left","Right"): self.vx=0
+        if event.keysym in ("Up","Down"): self.vy=0
+
+    def update_anim(self):
+        now = time.time()
+        dt = now - self.last
+        self.last = now
+
+        self.canvas.move(self.triangle, self.vx*dt, self.vy*dt)
+        self.after(self.frame_delay, self.update_anim)
+
+if __name__=="__main__":
+    app = TriangleControlDemo()
+    app.mainloop()
+\end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Rangkuman Bab GUI 2}
+\vspace{20pt}
+
+\begin{itemize}
+    \item Menampilkan gambar dengan \texttt{PhotoImage} dan \texttt{filedialog.askopenfilename()} pada \texttt{Label}.
+    \item Membuat \texttt{menu bar} dengan \texttt{Menu} dan menghubungkannya ke method (misalnya mengubah judul window).
+    \item Navigasi antar form menggunakan \texttt{Toplevel} dan pemisahan form utama / form kedua.
+    \item Menampilkan data terstruktur dengan \texttt{ttk.Treeview}, scrollbar, dan pemilihan baris.
+    \item Menggambar gambar dan bentuk vektor (persegi, segitiga) pada \texttt{Canvas}.
+    \item Animasi halus dan kontrol objek (lingkaran/segitiga) menggunakan \texttt{Canvas}, \texttt{after()}, dan event keyboard.
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}

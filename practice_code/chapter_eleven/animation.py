@@ -1,47 +1,56 @@
 import tkinter as tk
+import time
 
 class AnimasiCanvas(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Animasi di Canvas")
+        self.title("Animasi Halus di Canvas")
         self.geometry("400x300")
 
-        # Canvas tempat animasi
         self.canvas = tk.Canvas(self, width=380, height=250, bg="white")
         self.canvas.pack(pady=10)
 
-        # Membuat lingkaran (bola)
+        # Buat bola
         self.x_pos = 10
         self.y_pos = 100
-        self.ball = self.canvas.create_oval(self.x_pos, self.y_pos,
-                                            self.x_pos + 30, self.y_pos + 30,
-                                            fill="blue")
+        self.ball = self.canvas.create_oval(
+            self.x_pos, self.y_pos,
+            self.x_pos + 30, self.y_pos + 30,
+            fill="blue"
+        )
 
-        # Kecepatan gerak
-        self.x_speed = 1
+        # Kecepatan dalam pixel/s
+        self.dx = 120        # 120 px per detik
 
-        # Mulai animasi
+        # Untuk delta time
+        self.last = time.time()
+
+        # Target frame rate
+        self.frame_delay = int(1000 / 60)   # 60 FPS → ~16 ms
+
         self.gerak()
 
     def gerak(self):
-        # Update posisi bola
-        self.x_pos += self.x_speed
+        now = time.time()
+        dt = now - self.last
+        self.last = now
 
-        # Jika bola menyentuh batas kanan → balik arah
+        # Hitung jarak berdasarkan dt
+        move_x = self.dx * dt
+        self.x_pos += move_x
+
+        # Bouncing
         if self.x_pos >= 350:
-            self.x_speed = -1
-
-        # Jika bola menyentuh batas kiri → balik arah
+            self.dx = -abs(self.dx)
         if self.x_pos <= 0:
-            self.x_speed = 1
+            self.dx = abs(self.dx)
 
-        # Geser objek pada canvas
-        self.canvas.coords(self.ball,
-                           self.x_pos, self.y_pos,
-                           self.x_pos + 30, self.y_pos + 30)
+        # Gerakkan bola
+        self.canvas.move(self.ball, move_x, 0)
 
-        # Panggil ulang fungsi ini setiap 20 ms (50 FPS)
-        self.after(20, self.gerak)
+        # Jadwalkan frame berikutnya (60 FPS)
+        self.after(self.frame_delay, self.gerak)
+
 
 if __name__ == "__main__":
     app = AnimasiCanvas()

@@ -209,6 +209,208 @@ if __name__ == "__main__":
 
 Pada contoh di atas, \texttt{ttk.Treeview} digunakan sebagai tabel dengan dua kolom: \texttt{Nama} dan \texttt{Umur}. Beberapa baris data dimasukkan menggunakan \texttt{insert()}, kemudian sebuah scrollbar vertikal ditambahkan agar tabel tetap nyaman dilihat meskipun data bertambah banyak. Pengguna dapat memilih salah satu baris, lalu menekan tombol “Tampilkan Baris Terpilih” untuk menampilkan data baris tersebut pada Label di bawah tabel. Contoh ini memberikan gambaran dasar bagaimana membuat dan menggunakan tabel data di Tkinter tanpa konfigurasi yang terlalu kompleks.
 
+\section{Menggambar Gambar dan Bentuk Geometris pada Canvas Tkinter}
+
+Bagian ini membahas penggunaan \texttt{Canvas} untuk menampilkan gambar dan bentuk-bentuk geometris menggunakan \texttt{Tkinter}. Contoh implementasi ini memuat sebuah berkas gambar berformat PNG ke dalam \texttt{Canvas} dan menambahkan dua objek grafis: persegi dan segitiga. Pendekatan ini memperlihatkan cara menggabungkan elemen gambar raster dengan bentuk vektor dalam satu area tampilan.
+
+Kelas \texttt{CanvasShapesDemo} berfungsi sebagai jendela utama. \texttt{Canvas} berwarna putih disiapkan sebagai tempat penempatan objek. Gambar PNG dimuat dengan \texttt{PhotoImage} dan ditempatkan di koordinat awal \texttt{(0,0)} menggunakan \texttt{create\_image()}. Fungsi \texttt{gambar\_bentuk()} kemudian digunakan untuk menghasilkan objek persegi dan segitiga. Persegi digambar menggunakan \texttt{create\_rectangle()} dengan garis berwarna biru, sedangkan segitiga dibentuk melalui \texttt{create\_polygon()} dengan kombinasi garis berwarna merah dan isian berwarna merah muda.
+
+\begin{lstlisting}[language=Python, style=PythonStyle]
+import tkinter as tk
+
+class CanvasShapesDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Canvas: Gambar + Persegi + Segitiga")
+        self.geometry("600x450")
+
+        # Canvas
+        self.canvas = tk.Canvas(self, width=560, height=400, bg="white")
+        self.canvas.pack(pady=10)
+
+        # Load gambar PNG
+        self.img = tk.PhotoImage(file="./image.png")
+        self.canvas.create_image(0, 0, anchor="nw", image=self.img)
+
+        # Gambar bentuk
+        self.gambar_bentuk()
+
+    def gambar_bentuk(self):
+        # Persegi
+        self.canvas.create_rectangle(
+            50, 50, 150, 150,
+            outline="blue",
+            width=3
+        )
+
+        # Segitiga
+        self.canvas.create_polygon(
+            250, 250,   # titik 1
+            200, 350,   # titik 2
+            300, 350,   # titik 3
+            outline="red",
+            fill="pink",
+            width=2
+        )
+
+if __name__ == "__main__":
+    app = CanvasShapesDemo()
+    app.mainloop()
+\end{lstlisting}
+
+
+\section{Animasi Sederhana Menggunakan Canvas di Tkinter}
+
+Bagian ini menjelaskan pembuatan animasi halus menggunakan \texttt{Canvas} pada \texttt{Tkinter}. Tidak seperti pendekatan dasar yang mengubah posisi berdasarkan interval tetap, contoh berikut menggunakan teknik \textit{smooth animation} melalui kombinasi \textbf{delta time} dan \textbf{frame rate konstan} (60 FPS). Pendekatan ini membuat gerakan lebih stabil dan mulus meskipun performa sistem berubah.
+
+Kelas \texttt{AnimasiCanvas} menyiapkan sebuah \texttt{Canvas} berwarna putih sebagai area animasi, lalu membuat objek lingkaran sebagai bola yang bergerak mendatar. Kecepatan bola dinyatakan dalam satuan piksel per detik, sementara pergerakan aktual dihitung menggunakan delta time agar jarak tempuh per frame tetap konsisten. Ketika bola menyentuh batas kiri atau kanan, nilai kecepatannya dibalik untuk menghasilkan efek pantulan. Penggunaan \texttt{after()} dengan interval sekitar 16 ms menghasilkan laju animasi mendekati 60 FPS sehingga tampilan menjadi lebih halus.
+
+\begin{lstlisting}[language=Python, style=PythonStyle]
+import tkinter as tk
+import time
+
+class AnimasiCanvas(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Animasi Halus di Canvas")
+        self.geometry("400x300")
+
+        self.canvas = tk.Canvas(self, width=380, height=250, bg="white")
+        self.canvas.pack(pady=10)
+
+        # Buat bola
+        self.x_pos = 10
+        self.y_pos = 100
+        self.ball = self.canvas.create_oval(
+            self.x_pos, self.y_pos,
+            self.x_pos + 30, self.y_pos + 30,
+            fill="blue"
+        )
+
+        # Kecepatan dalam pixel/s
+        self.dx = 120        # 120 px per detik
+
+        # Untuk delta time
+        self.last = time.time()
+
+        # Target frame rate
+        self.frame_delay = int(1000 / 60)   # 60 FPS → ~16 ms
+
+        self.gerak()
+
+    def gerak(self):
+        now = time.time()
+        dt = now - self.last
+        self.last = now
+
+        # Hitung jarak berdasarkan dt
+        move_x = self.dx * dt
+        self.x_pos += move_x
+
+        # Bouncing
+        if self.x_pos >= 350:
+            self.dx = -abs(self.dx)
+        if self.x_pos <= 0:
+            self.dx = abs(self.dx)
+
+        # Gerakkan bola
+        self.canvas.move(self.ball, move_x, 0)
+
+        # Jadwalkan frame berikutnya (60 FPS)
+        self.after(self.frame_delay, self.gerak)
+
+
+if __name__ == "__main__":
+    app = AnimasiCanvas()
+    app.mainloop()
+
+\end{lstlisting}
+
+
+
+\section{Kontrol Objek Segitiga Menggunakan Keyboard pada Canvas Tkinter}
+
+Bagian ini menjelaskan teknik pengendalian objek grafis pada \texttt{Canvas} menggunakan input keyboard dengan pendekatan animasi halus. Berbeda dari metode dasar yang menggeser objek beberapa piksel setiap kali tombol ditekan, implementasi berikut menggunakan konsep \textbf{velocity} (kecepatan), \textbf{delta time}, dan \textbf{frame rate konstan} untuk menghasilkan gerakan yang lebih mulus dan responsif.
+
+Kelas \texttt{TriangleControlDemo} menampilkan sebuah segitiga pada \texttt{Canvas}. Alih-alih memindahkan segitiga secara langsung setiap kali tombol panah ditekan, tombol panah digunakan untuk mengubah komponen kecepatan horizontal dan vertikal. Nilai kecepatan inilah yang kemudian diproses oleh loop animasi 60 FPS untuk menghitung jarak perpindahan berdasarkan delta time. Ketika tombol dilepas, kecepatan pada arah tersebut dihapus sehingga objek berhenti dengan mulus. Pendekatan ini menghasilkan kontrol yang lebih stabil, halus, dan cocok untuk pembuatan game atau simulasi sederhana menggunakan \texttt{Tkinter}.
+
+\begin{lstlisting}[language=Python, style=PythonStyle]
+import tkinter as tk
+import time
+
+class TriangleControlDemo(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Kontrol Segitiga Halus dengan Keyboard")
+        self.geometry("400x400")
+
+        # Canvas
+        self.canvas = tk.Canvas(self, width=380, height=380, bg="white")
+        self.canvas.pack(pady=10)
+
+        # Buat segitiga
+        self.triangle = self.canvas.create_polygon(
+            190, 150,   # titik atas
+            160, 200,   # titik kiri bawah
+            220, 200,   # titik kanan bawah
+            fill="blue"
+        )
+
+        # Kecepatan (px/s)
+        self.vx = 0
+        self.vy = 0
+        self.speed = 160    # 160 px per detik
+
+        # Delta time
+        self.last = time.time()
+
+        # Bind keyboard (tahan tombol → tetap bergerak)
+        self.bind("<KeyPress>", self.on_key_down)
+        self.bind("<KeyRelease>", self.on_key_up)
+        self.focus_set()
+
+        # Frame rate
+        self.frame_delay = int(1000 / 60)  # 60 FPS
+
+        # Mulai animasi
+        self.update_anim()
+
+    def on_key_down(self, event):
+        if event.keysym == "Left":
+            self.vx = -self.speed
+        elif event.keysym == "Right":
+            self.vx = self.speed
+        elif event.keysym == "Up":
+            self.vy = -self.speed
+        elif event.keysym == "Down":
+            self.vy = self.speed
+
+    def on_key_up(self, event):
+        # Saat tombol dilepas, hentikan gerakan pada arah itu
+        if event.keysym in ("Left", "Right"):
+            self.vx = 0
+        if event.keysym in ("Up", "Down"):
+            self.vy = 0
+
+    def update_anim(self):
+        now = time.time()
+        dt = now - self.last
+        self.last = now
+
+        move_x = self.vx * dt
+        move_y = self.vy * dt
+
+        self.canvas.move(self.triangle, move_x, move_y)
+
+        # Loop animasi 60 FPS
+        self.after(self.frame_delay, self.update_anim)
+
+if __name__ == "__main__":
+    app = TriangleControlDemo()
+    app.mainloop()
+\end{lstlisting}
+
+
 \section{Struktur Program Tkinter}
 
 \subsection{Struktur Dasar File}
@@ -219,3 +421,65 @@ Aplikasi Tkinter dapat menggunakan berbagai modul Python untuk mendukung operasi
 
 \subsection{Best Practice Organisasi Kode}
 Untuk menjaga kualitas kode, beberapa praktik umum dapat diterapkan. Pertama, gunakan pendekatan berbasis kelas agar struktur program lebih mudah diatur dan diperluas. Kedua, pisahkan komponen antarmuka dan logika ke dalam metode yang terorganisasi sehingga program tidak menjadi satu blok besar yang sulit dibaca. Ketiga, gunakan nama variabel dan metode yang jelas serta deskriptif untuk memudahkan pemahaman. Terakhir, pertimbangkan untuk memisahkan form atau komponen kompleks ke dalam file terpisah guna mendukung pengembangan aplikasi yang lebih besar. Dengan mengikuti prinsip-prinsip ini, mahasiswa dapat membangun aplikasi Tkinter yang lebih profesional dan mudah dipelihara.
+
+
+\section{Rangkuman}
+
+Bab ini menyajikan berbagai teknik penting dalam pengembangan antarmuka grafis berbasis Tkinter. Materi mencakup pemanfaatan \texttt{PhotoImage} untuk menampilkan gambar, penggunaan \texttt{Menu} untuk menyediakan perintah terstruktur, serta mekanisme navigasi antar form menggunakan \texttt{Toplevel}. Selain itu, konsep tabel data diperkenalkan melalui widget \texttt{ttk.Treeview}, yang memungkinkan penampilan data secara terstruktur dalam bentuk kolom dan baris. Contoh-contoh yang diberikan memperlihatkan bagaimana setiap komponen diintegrasikan dengan logika program melalui pendekatan berbasis kelas.
+
+Bagian akhir membahas penggunaan \texttt{Canvas} untuk menggambar bentuk geometris, menampilkan gambar PNG, membuat animasi dengan pembaruan posisi berkala, serta mengendalikan objek menggunakan input keyboard. Berbagai contoh menunjukkan penerapan koordinat, transformasi objek, serta teknik event handling untuk interaksi pengguna. Seluruh materi memberikan dasar yang kuat bagi pengembangan aplikasi Tkinter yang lebih kompleks, sekaligus menekankan praktik organisasi kode yang baik agar struktur program tetap teratur, modular, dan mudah dirawat.
+
+
+\section{Latihan}
+
+Bagian ini berisi dua latihan praktikum yang bertujuan memperdalam pemahaman mahasiswa terhadap konsep-konsep yang telah dibahas, yaitu penampilan gambar menggunakan \texttt{PhotoImage} dan \texttt{filedialog}, penggunaan \texttt{Menu}, navigasi antar form (\texttt{Toplevel}), serta penampilan data dalam bentuk tabel menggunakan \texttt{ttk.Treeview}. Mahasiswa diminta mengerjakan soal berikut dengan pendekatan berbasis kelas seperti pada contoh-contoh di bab ini.
+
+\subsection*{Soal 1: Dua Pemain dengan Gambar Berjalan yang Dapat Dikendalikan Keyboard}
+
+Buatlah sebuah aplikasi Tkinter berbasis kelas yang menggabungkan konsep \texttt{Canvas}, kontrol keyboard, dan pemilihan gambar menggunakan \texttt{file dialog}. Aplikasi ini merupakan pengembangan dari contoh \emph{Kontrol Segitiga dengan Keyboard}, tetapi objek segitiga digantikan oleh dua gambar animasi (animated GIF) yang menggambarkan orang berjalan.
+
+Spesifikasi:
+\begin{itemize}
+    \item Jendela utama berisi sebuah \texttt{Canvas} yang menjadi arena gerak dua ``pemain''.
+    \item Aplikasi memiliki dua ``pemain'' (Player 1 dan Player 2), masing-masing direpresentasikan oleh gambar animated GIF orang berjalan.
+    \item Pengguna dapat memilih file gambar untuk masing-masing pemain menggunakan \texttt{filedialog.askopenfilename()}. Minimal, filter file harus mengizinkan file GIF (\texttt{*.gif}), dan dianjurkan menggunakan animated GIF.
+    \item Setiap gambar pemain ditampilkan pada posisi awal yang berbeda di \texttt{Canvas}.
+    \item Player 1 digerakkan dengan tombol keyboard \textbf{W, A, S, D} (misalnya: A = kiri, D = kanan, W/S = atas/bawah, atau atur sendiri skema yang konsisten).
+    \item Player 2 digerakkan dengan tombol panah (\textbf{Left, Right, Up, Down}) seperti pada contoh sebelumnya.
+    \item Gerakan dilakukan dengan memanggil \texttt{canvas.move()} terhadap objek gambar yang sesuai.
+    \item Pastikan referensi \texttt{PhotoImage} untuk kedua pemain disimpan (misalnya sebagai atribut objek) agar gambar tidak hilang dari tampilan.
+\end{itemize}
+
+Syarat:
+\begin{enumerate}
+    \item Gunakan \texttt{Canvas} sebagai area gerak dan \texttt{bind("<KeyPress>")} untuk menangkap event keyboard.
+    \item Logika pemetaan tombol ke gerakan harus dipisahkan dengan jelas antara Player 1 dan Player 2.
+    \item Susun program dengan pendekatan berbasis kelas (misalnya \texttt{GameWindow} sebagai turunan \texttt{tk.Tk}).
+    \item Opsional (tantangan tambahan): jika file GIF benar-benar animasi, usahakan animasi tetap berjalan ketika pemain digerakkan.
+\end{enumerate}
+
+
+\subsection*{Soal 2: Navigasi Antar Form ke Tabel Data Mahasiswa}
+
+Rancang sebuah aplikasi Tkinter yang terdiri atas \textbf{form utama} dan \textbf{form kedua} dengan konsep sebagai berikut:
+\begin{itemize}
+    \item Form utama (\texttt{Tk}) berisi:
+          \begin{itemize}
+              \item Sebuah \texttt{Label} sederhana berisi teks, misalnya ``Aplikasi Data Mahasiswa''.
+              \item Sebuah \texttt{menu bar} dengan menu ``Navigasi'' yang memiliki item ``Daftar Mahasiswa''.
+          \end{itemize}
+    \item Ketika pengguna memilih menu ``Daftar Mahasiswa'', aplikasi akan membuka form kedua (\texttt{Toplevel}) yang berisi:
+          \begin{itemize}
+              \item Sebuah \texttt{ttk.Treeview} dengan minimal dua kolom, misalnya ``NIM'' dan ``Nama''.
+              \item Beberapa baris data mahasiswa yang ditambahkan secara statis di dalam konstruktor.
+              \item Sebuah \texttt{Label} di bawah tabel yang menampilkan informasi mahasiswa yang dipilih (misalnya ``Terpilih: NIM = ..., Nama = ...'').
+              \item Sebuah \texttt{Button} untuk menampilkan data baris yang sedang dipilih pada \texttt{Treeview} ke dalam \texttt{Label} tersebut.
+          \end{itemize}
+\end{itemize}
+Syarat:
+\begin{enumerate}
+    \item Pisahkan definisi form utama dan form kedua ke dalam dua kelas berbeda, seperti contoh \texttt{MainWindow} dan \texttt{SecondForm}.
+    \item Gunakan pola \texttt{from second\_form import SecondForm} (atau nama file lain yang sesuai) untuk memanggil form kedua dari form utama.
+    \item Pastikan \texttt{Treeview} dikonfigurasi dengan \texttt{show="headings"} dan memiliki header kolom yang jelas, serta mekanisme pemilihan baris menggunakan \texttt{selection()}.
+\end{enumerate}
+
