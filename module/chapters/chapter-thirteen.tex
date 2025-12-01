@@ -154,7 +154,7 @@ Print debugging juga dapat membantu mendeteksi Logic Error. Misalnya, program be
 # Contoh Logic Error yang ditemukan dengan bantuan print debugging
 angka = [1, 2, 3, 4, 5, 6]
 jumlah_genap = 0
-
+ 
 for x in angka:
     print("Memeriksa:", x)  # Debug print
     if x % 2 == 1:  # Logika salah (harusnya x % 2 == 0)
@@ -498,7 +498,6 @@ Latihan berikut dirancang untuk menguji kemampuan debugging tingkat lanjut mengg
 Program berikut berusaha menghitung rata-rata, median, dan modus dari sebuah list. Namun hasil yang ditampilkan tidak konsisten, terutama ketika fungsi dipanggil lebih dari sekali. Masalahnya tidak muncul dari satu baris saja, tetapi dari interaksi variabel yang berbagi state antar fungsi.
 
 \begin{lstlisting}[style=PythonStyle]
-# Latihan 1: Shared mutable state menyebabkan hasil salah
 cache = {"sum": 0, "count": 0}
 
 def hitung_rata(data):
@@ -508,8 +507,8 @@ def hitung_rata(data):
     return cache["sum"] / cache["count"]
 
 def median(data):
-    data.sort()        # Memodifikasi list asli
-    mid = len(data) // 2
+    data.sort()     
+    mid = len(data) 
     return data[mid]
 
 def modus(data):
@@ -524,8 +523,7 @@ def main():
     print("Rata-rata:", hitung_rata(nilai))
     print("Median:", median(nilai))
     print("Modus:", modus(nilai))
-
-    # Panggilan ulang (bug makin jelas)
+    
     print("Rata-rata 2:", hitung_rata(nilai))
 
 if __name__ == "__main__":
@@ -540,11 +538,10 @@ Mahasiswa harus menemukan bagaimana perubahan list oleh \texttt{median()}, serta
 Program berikut berusaha mengelompokkan data penjualan berdasarkan bulan. Setiap transaksi memiliki informasi bulan (1--12) dan nilai penjualan. Hasil yang diharapkan adalah sebuah dictionary yang berisi daftar nilai penjualan untuk setiap bulan, serta total penjualan per bulan. Namun, output yang dihasilkan program tampak aneh: beberapa bulan memiliki data yang sama persis, atau total penjualan per bulan menjadi tidak masuk akal. Kesalahan tidak muncul sebagai error sintaks ataupun runtime, melainkan berasal dari penggunaan list yang saling berbagi referensi secara tidak sengaja. Mahasiswa diminta menggunakan debugger di VS Code untuk memantau isi dictionary dan list pada setiap langkah, serta menemukan bagaimana satu perubahan pada satu bulan dapat memengaruhi bulan lain.
 
 \begin{lstlisting}[style=PythonStyle]
-# Latihan 2: Bug karena shared reference pada list
+
 
 def kelompokkan_penjualan(transaksi):
-    # Inisialisasi dictionary untuk 12 bulan
-    # BUG: semua bulan berbagi list yang sama
+
     data_per_bulan = dict.fromkeys(range(1, 13), [])
 
     for bulan, nilai in transaksi:
@@ -589,12 +586,12 @@ Petunjuk: gunakan breakpoint di dalam fungsi \texttt{kelompokkan\_penjualan()} d
 Program ini mensimulasikan sistem inventori. Hasil akhir kadang benar, kadang salah, tergantung urutan pemanggilan fungsi. Bug berasal dari interaksi kompleks antar fungsi: mutasi dictionary, penggunaan objek yang direferensikan ulang, serta kesalahan kecil dalam logika penambahan dan pengurangan stok.
 
 \begin{lstlisting}[style=PythonStyle]
-# Latihan 3: Perhitungan stok yang tidak konsisten
+
 stok = {"pensil": 10, "buku": 5, "pulpen": 8}
 
 def tambah_stok(item, jumlah):
     if item in stok:
-        stok[item] = stok[item] + jumlah    # Tidak memvalidasi jumlah negatif
+        stok[item] = stok[item] + jumlah    
     else:
         stok[item] = jumlah
 
@@ -602,7 +599,7 @@ def kurang_stok(item, jumlah):
     if item in stok and stok[item] - jumlah >= 0:
         stok[item] = stok[item] - jumlah
     else:
-        stok[item] = 0     # Logika salah: men-set 0 meski stok awal sudah negatif
+        stok[item] = 0     
 
 def transaksi():
     keranjang = {"pensil": 3, "buku": 2}
@@ -617,7 +614,7 @@ def transaksi():
 def main():
     print("Stok awal:", stok)
     transaksi()
-    tambah_stok("pulpen", -3)   # Kesalahan logika besar, tapi tidak terlihat langsung
+    tambah_stok("pulpen", -3)   
     transaksi()
     print("Stok akhir:", stok)
 
