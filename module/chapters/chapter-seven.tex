@@ -1,5 +1,12 @@
 \chapter{File Input dan Output (File I/O) di Python}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menjelaskan cara program menyimpan data ke berkas dan membacanya kembali agar data tidak hilang saat program selesai.
+  \item Mengolah isi berkas untuk menyaring data yang dibutuhkan dan menyusun ringkasannya.
+  \item Menangani kegagalan yang dapat muncul saat bekerja dengan berkas, misalnya berkas yang tidak ditemukan.
+\end{daftarrapat}
+
 \section{Pendahuluan}
 
 File Input dan Output (File I/O) merupakan salah satu keterampilan dasar yang penting dalam pemrograman. Hampir setiap aplikasi modern membutuhkan cara untuk menyimpan, membaca, dan memproses data yang tersimpan dalam file, baik untuk keperluan penyimpanan jangka panjang maupun untuk bertukar informasi antar program. Dalam konteks bahasa Python, operasi file I/O menjadi sangat mudah dilakukan berkat dukungan fungsi bawaan dan pustaka standar yang lengkap.
@@ -25,7 +32,9 @@ Selain itu, penting juga memahami konsep \textit{encoding} dan karakter newline.
 
 \noindent\textbf{Contoh Kode:}
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Membaca dan Menulis File Teks di Python}]
+Listing~\ref{lst:b7-membaca-menulis-file-teks} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Membaca dan Menulis File Teks di Python}, label={lst:b7-membaca-menulis-file-teks}]
 # Membuka file untuk menulis
 with open("data.txt", "w", encoding="utf-8") as f:
     f.write("Baris pertama\n")
@@ -59,7 +68,9 @@ Selain efisiensi, keterbacaan kode juga perlu diperhatikan. Pemrosesan file yang
 
 \noindent\textbf{Contoh isi file \texttt{log\_aktivitas.txt}:}
 
-\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}]
+Listing~\ref{lst:b7-log-aktivitas} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}, label={lst:b7-log-aktivitas}]
 [08:45] Starting system check...
 [09:00] User login successful
 [09:15] Launching Python script for data processing
@@ -72,7 +83,9 @@ Selain efisiensi, keterbacaan kode juga perlu diperhatikan. Pemrosesan file yang
 
 \noindent\textbf{Contoh 1: Menyaring Baris Berdasarkan Kata Kunci}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menyaring baris file yang mengandung kata kunci tertentu}]
+Listing~\ref{lst:b7-menyaring-baris-file-mengandung-kata-kunci} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Menyaring baris file yang mengandung kata kunci tertentu}, label={lst:b7-menyaring-baris-file-mengandung-kata-kunci}]
 # Menyaring baris yang mengandung kata "Python"
 with open("log_aktivitas.txt", "r", encoding="utf-8") as file:
     for baris in file:
@@ -84,7 +97,9 @@ Contoh pertama menunjukkan proses sederhana untuk menampilkan semua baris yang m
 
 \noindent\textbf{Contoh 2: Menghitung Kemunculan Kata Tertentu}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menghitung jumlah kemunculan kata dalam file}]
+Listing~\ref{lst:b7-menghitung-jumlah-kemunculan-kata-dalam-file} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung jumlah kemunculan kata dalam file}, label={lst:b7-menghitung-jumlah-kemunculan-kata-dalam-file}]
 # Menghitung berapa kali kata "error" muncul di dalam file
 jumlah_error = 0
 
@@ -115,7 +130,7 @@ Selain itu, saat bekerja dengan file CSV, penting untuk memperhatikan tipe data 
 
 \noindent\textbf{Contoh 1: Menulis File CSV Menggunakan \texttt{DictWriter}}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menulis data ke file CSV menggunakan csv.DictWriter}]
+\begin{lstlisting}[style=PythonStyle, caption={Menulis data ke file CSV menggunakan csv.DictWriter}, label={lst:b7-menulis-data-ke-file-csv-menggunakan}]
 import csv
 
 data = [
@@ -134,14 +149,16 @@ with open("nilai_mahasiswa.csv", "w", newline="", encoding="utf-8") as file:
 print("File nilai_mahasiswa.csv berhasil dibuat.")
 \end{lstlisting}
 
-Kode di atas membuat file baru bernama \texttt{nilai\_mahasiswa.csv} dan menulis daftar data mahasiswa ke dalamnya.  
+Kode pada Listing~\ref{lst:b7-menulis-data-ke-file-csv-menggunakan} membuat file baru bernama \texttt{nilai\_mahasiswa.csv} dan menulis daftar data mahasiswa ke dalamnya.  
 Setiap baris data direpresentasikan sebagai dictionary dengan kunci \texttt{"Nama"} dan \texttt{"Nilai"}.  
 Metode \texttt{writeheader()} digunakan untuk menulis baris pertama berisi nama kolom, sedangkan \texttt{writerows()} menulis seluruh isi daftar data.  
 Parameter \texttt{newline=""} penting agar tidak muncul baris kosong tambahan di antara data pada sistem operasi tertentu.\\
 
 \noindent\textbf{Isi file yang dihasilkan (\texttt{nilai\_mahasiswa.csv}):}
 
-\begin{lstlisting}[language=bash, caption={Hasil isi file nilai_mahasiswa.csv}]
+Listing~\ref{lst:b7-nilai-mahasiswa} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Hasil isi file nilai_mahasiswa.csv}, label={lst:b7-nilai-mahasiswa}]
 Nama,Nilai
 Andi,85.5
 Budi,90.0
@@ -155,7 +172,9 @@ Nilai di kolom \texttt{Nilai} dikonversi ke tipe \texttt{float} sebelum ditampil
 
 \noindent\textbf{Contoh 2: Membaca File CSV Menggunakan \texttt{DictReader}}
 
-\begin{lstlisting}[style=PythonStyle, caption={Membaca data CSV menggunakan csv.DictReader}]
+Listing~\ref{lst:b7-membaca-data-csv-menggunakan-csv-dictreader} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Membaca data CSV menggunakan csv.DictReader}, label={lst:b7-membaca-data-csv-menggunakan-csv-dictreader}]
 import csv
 
 with open("nilai_mahasiswa.csv", "r", encoding="utf-8") as file:
@@ -170,7 +189,9 @@ with open("nilai_mahasiswa.csv", "r", encoding="utf-8") as file:
 
 \noindent\textbf{Output di terminal:}
 
-\begin{lstlisting}[language=bash, caption={Hasil output pembacaan file CSV}]
+Listing~\ref{lst:b7-hasil-output-pembacaan-file-csv} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Hasil output pembacaan file CSV}, label={lst:b7-hasil-output-pembacaan-file-csv}]
 Andi memperoleh nilai 85.50
 Budi memperoleh nilai 90.00
 Citra memperoleh nilai 78.00
@@ -197,7 +218,9 @@ Terakhir, hasil ringkasan sering kali perlu disimpan ke dalam file agar dapat di
 
 \noindent\textbf{Contoh 1: Menghitung Rata-Rata dari File CSV}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menghitung rata-rata nilai mahasiswa dari file CSV}]
+Listing~\ref{lst:b7-menghitung-rata-rata-nilai-mahasiswa-dari} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung rata-rata nilai mahasiswa dari file CSV}, label={lst:b7-menghitung-rata-rata-nilai-mahasiswa-dari}]
 import csv
 
 total_nilai = 0
@@ -217,7 +240,9 @@ Contoh pertama menunjukkan proses menghitung rata-rata nilai dari file \texttt{n
 
 \noindent\textbf{Contoh 2: Menyimpan Hasil Ringkasan ke File Baru}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menyimpan hasil ringkasan dalam file teks terformat}]
+Listing~\ref{lst:b7-menyimpan-hasil-ringkasan-dalam-file-teks} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Menyimpan hasil ringkasan dalam file teks terformat}, label={lst:b7-menyimpan-hasil-ringkasan-dalam-file-teks}]
 # Menyimpan hasil ringkasan ke file laporan.txt
 with open("laporan.txt", "w", encoding="utf-8") as file:
     file.write("Laporan Ringkasan Nilai Mahasiswa\n")
@@ -258,7 +283,9 @@ Prinsip-prinsip sederhana ini membantu menjaga keamanan data dan meminimalkan ri
 
 \noindent\textbf{Contoh 1: Penanganan Error Menggunakan \texttt{try--except--finally}}
 
-\begin{lstlisting}[style=PythonStyle, caption={Penanganan error dasar saat membuka file}]
+Listing~\ref{lst:b7-penanganan-error-dasar-saat-membuka-file} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Penanganan error dasar saat membuka file}, label={lst:b7-penanganan-error-dasar-saat-membuka-file}]
 try:
     file = open("data_tidak_ada.txt", "r", encoding="utf-8")
     isi = file.read()
@@ -282,7 +309,9 @@ Pendekatan ini menekankan pentingnya memastikan bahwa setiap file yang dibuka ha
 
 \noindent\textbf{Contoh 2: Praktik Terbaik Menggunakan \texttt{with}}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menggunakan context manager untuk keamanan file I/O}]
+Listing~\ref{lst:b7-menggunakan-context-manager-keamanan-file-i} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Menggunakan context manager untuk keamanan file I/O}, label={lst:b7-menggunakan-context-manager-keamanan-file-i}]
 try:
     with open("data_mahasiswa.txt", "r", encoding="utf-8") as file:
         for baris in file:
@@ -324,7 +353,9 @@ Tujuan latihan ini adalah untuk membiasakan mahasiswa dengan proses membaca dan 
 
 \noindent\textbf{Contoh isi file \texttt{catatan.txt}:}
 
-\begin{lstlisting}[language=bash, caption={Isi file catatan.txt yang dihasilkan}]
+Listing~\ref{lst:b7-catatan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Isi file catatan.txt yang dihasilkan}, label={lst:b7-catatan}]
 Hari ini belajar Python dasar.
 Mempelajari cara membaca dan menulis file teks.
 File I/O sangat penting untuk menyimpan data program.
@@ -345,7 +376,9 @@ Latihan ini melatih kemampuan mahasiswa dalam menggunakan kondisi, pencarian kat
 
 \noindent\textbf{Contoh isi file input \texttt{log\_aktivitas.txt}:}
 
-\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}]
+Listing~\ref{lst:b7-log-aktivitas-2} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file log_aktivitas.txt}, label={lst:b7-log-aktivitas-2}]
 [08:45] Starting system check...
 [09:00] User login successful
 [09:15] Loading configuration file
@@ -359,7 +392,9 @@ Latihan ini melatih kemampuan mahasiswa dalam menggunakan kondisi, pencarian kat
 
 \noindent\textbf{Contoh hasil file output \texttt{ringkasan\_error.txt}:}
 
-\begin{lstlisting}[language=bash, caption={Isi file ringkasan_error.txt yang dihasilkan}]
+Listing~\ref{lst:b7-ringkasan-error} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Isi file ringkasan_error.txt yang dihasilkan}, label={lst:b7-ringkasan-error}]
 Baris yang mengandung kata "error" atau "failed":
 
 [09:30] ERROR: Missing configuration file
@@ -383,7 +418,9 @@ Tujuan latihan ini adalah agar mahasiswa terbiasa bekerja dengan format CSV dan 
 
 \noindent\textbf{Contoh isi file input \texttt{nilai\_mahasiswa.csv}:}
 
-\begin{lstlisting}[language=bash, caption={Cuplikan isi file nilai_mahasiswa.csv}]
+Listing~\ref{lst:b7-nilai-mahasiswa-2} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file nilai_mahasiswa.csv}, label={lst:b7-nilai-mahasiswa-2}]
 Nama,Mata Kuliah,Nilai
 Andi,Algoritma,85
 Budi,Algoritma,90
@@ -396,7 +433,9 @@ Gilang,Basis Data,81
 
 \noindent\textbf{Contoh hasil file output \texttt{mahasiswa\_unggul.csv}:}
 
-\begin{lstlisting}[language=bash, caption={Isi file mahasiswa_unggul.csv yang dihasilkan}]
+Listing~\ref{lst:b7-mahasiswa-unggul} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Isi file mahasiswa_unggul.csv yang dihasilkan}, label={lst:b7-mahasiswa-unggul}]
 Nama,Mata Kuliah,Nilai
 Andi,Algoritma,85
 Budi,Algoritma,90
@@ -418,7 +457,9 @@ Latihan ini melatih mahasiswa untuk menggabungkan berbagai konsep sebelumnya —
 
 \noindent\textbf{Contoh isi file input \texttt{nilai\_mahasiswa.csv}:}
 
-\begin{lstlisting}[language=bash, caption={Cuplikan isi file nilai_mahasiswa.csv}]
+Listing~\ref{lst:b7-nilai-mahasiswa-3} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Cuplikan isi file nilai_mahasiswa.csv}, label={lst:b7-nilai-mahasiswa-3}]
 Nama,Mata Kuliah,Nilai
 Andi,Algoritma,85
 Budi,Algoritma,90
@@ -431,7 +472,9 @@ Gilang,Basis Data,81
 
 \noindent\textbf{Contoh hasil file output \texttt{laporan\_rata\_nilai.txt}:}
 
-\begin{lstlisting}[language=bash, caption={Isi file laporan_rata_nilai.txt yang dihasilkan}]
+Listing~\ref{lst:b7-laporan-rata-nilai} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Isi file laporan_rata_nilai.txt yang dihasilkan}, label={lst:b7-laporan-rata-nilai}]
 Laporan Ringkasan Nilai Mahasiswa
 =================================
 Jumlah data   : 7
@@ -458,5 +501,11 @@ Bab ini membahas konsep dasar pengelolaan file di Python, mulai dari membaca dan
 
 Selanjutnya, mahasiswa juga diperkenalkan pada pengolahan file CSV menggunakan modul \texttt{csv}, yang memungkinkan pembacaan dan penulisan data dalam format tabel sederhana. Melalui latihan-latihan yang disediakan, mahasiswa belajar menerapkan teknik agregasi seperti menghitung total dan rata-rata nilai serta membuat ringkasan laporan secara otomatis. Dengan demikian, setelah mempelajari bab ini, mahasiswa diharapkan mampu mengelola file eksternal secara efisien, menghasilkan data terformat dengan benar, dan memanfaatkan kemampuan File I/O untuk mendukung berbagai aplikasi pemrograman yang lebih kompleks.
 
-
-
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: Input and output} \cite{py-tut-io}: membaca dan menulis file, termasuk pemakaian \texttt{with}.
+  \item \textit{Built-in functions: open()} \cite{py-functions-open}: parameter fungsi \texttt{open()}.
+  \item \textit{csv — CSV file reading and writing} \cite{py-csv}: \texttt{reader()}, \texttt{writer()}, dan \texttt{DictReader}.
+  \item \textit{PEP 343 – The “with” Statement} \cite{pep343}: latar belakang pernyataan \texttt{with}.
+  \item \textit{Think Python, 3rd edition. Bab 13: Files and Databases} \cite{thinkpython-ch13}: contoh pengolahan file.
+\end{daftarrapat}

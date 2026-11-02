@@ -1,12 +1,19 @@
 \chapter{Pemrograman Graphical User Interface (GUI) 2}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menambahkan gambar, menu, dan navigasi antarhalaman agar aplikasi lebih lengkap.
+  \item Menampilkan kumpulan data dalam bentuk tabel yang mudah ditelusuri pengguna.
+  \item Membuat animasi sederhana yang dapat dikendalikan pengguna lewat papan ketik.
+\end{daftarrapat}
+
 \section{Menampilkan Gambar Menggunakan File Dialog}
 
 Tkinter menyediakan objek \texttt{PhotoImage} untuk menampilkan gambar pada aplikasi. Gambar dapat dimuat dari file dan dipasang pada widget \texttt{Label}. Untuk memungkinkan pengguna memilih gambar sendiri, Tkinter menyediakan fungsi \texttt{askopenfilename()} dari modul \texttt{filedialog}. Dengan menggabungkan satu tombol, satu label, dan file dialog, aplikasi sederhana dapat dibuat untuk menampilkan gambar yang dipilih pengguna.
 
-Dalam penerapannya, tombol digunakan untuk membuka dialog pemilihan file. Jika pengguna memilih gambar, file tersebut dimuat sebagai objek \texttt{PhotoImage} lalu ditampilkan pada Label. Agar gambar muncul dengan benar, referensinya harus disimpan sehingga tidak terhapus oleh sistem memori Python. Contoh berikut menunjukkan implementasi dasar dari proses tersebut.
+Dalam penerapannya, tombol digunakan untuk membuka dialog pemilihan file. Jika pengguna memilih gambar, file tersebut dimuat sebagai objek \texttt{PhotoImage} lalu ditampilkan pada Label. Agar gambar muncul dengan benar, referensinya harus disimpan sehingga tidak terhapus oleh sistem memori Python. Contoh berikut menunjukkan implementasi dasar dari proses tersebut (Listing~\ref{lst:b12-menampilkan-gambar-dengan-class}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Menampilkan Gambar dengan Class}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Menampilkan Gambar dengan Class}, label={lst:b12-menampilkan-gambar-dengan-class}]
 import tkinter as tk
 from tkinter import filedialog
 
@@ -45,9 +52,9 @@ Pada contoh di atas, tombol digunakan untuk membuka file dialog sehingga penggun
 
 Menu merupakan komponen antarmuka yang digunakan untuk memberikan daftar perintah dalam bentuk \textit{menu bar} di bagian atas jendela. Melalui menu, pengguna dapat memilih perintah tertentu seperti membuka form lain, menyimpan data, atau mengubah pengaturan aplikasi. Tkinter menyediakan kelas \texttt{Menu} yang memungkinkan pengembang membuat menu bar dan menambahkan item menu secara sederhana. Dengan menghubungkan item menu ke sebuah method, menu dapat berinteraksi langsung dengan komponen dalam aplikasi.
 
-Untuk memahami konsep dasar menu, contoh berikut memperlihatkan sebuah item menu yang berfungsi mengubah judul jendela. Ketika pengguna memilih menu tersebut, sebuah method dipanggil dan judul jendela diperbarui. Contoh ini menunjukkan bagaimana menu dapat dihubungkan dengan logika program dengan cara yang mudah dan terorganisasi menggunakan pendekatan berbasis kelas.
+Untuk memahami konsep dasar menu, contoh berikut memperlihatkan sebuah item menu yang berfungsi mengubah judul jendela. Ketika pengguna memilih menu tersebut, sebuah method dipanggil dan judul jendela diperbarui. Contoh ini menunjukkan bagaimana menu dapat dihubungkan dengan logika program dengan cara yang mudah dan terorganisasi menggunakan pendekatan berbasis kelas (Listing~\ref{lst:b12-menu-mengubah-judul-window-menggunakan-class}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Menu untuk Mengubah Judul Window Menggunakan Class}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Menu untuk Mengubah Judul Window Menggunakan Class}, label={lst:b12-menu-mengubah-judul-window-menggunakan-class}]
 import tkinter as tk
 
 class MenuDemo(tk.Tk):
@@ -85,9 +92,9 @@ Pada contoh di atas, menu bar dibuat di dalam konstruktor kelas \texttt{MenuDemo
 
 Dalam aplikasi Tkinter, pengembang dapat membuat lebih dari satu form atau jendela agar fitur aplikasi dapat dipisahkan dengan rapi. Salah satu cara untuk membuka form lain adalah melalui menu, sehingga pengguna dapat melakukan navigasi dengan memilih item menu tertentu. Tkinter menyediakan kelas \texttt{Toplevel} untuk membuat jendela tambahan yang berdiri sendiri tetapi tetap terhubung dengan aplikasi utama.
 
-Pada contoh ini, form utama akan memiliki menu bernama “Navigasi.” Ketika pengguna memilih “Buka Form Kedua,” sebuah form baru akan muncul. Form kedua dibuat pada file terpisah dan hanya merupakan jendela kosong tanpa komponen tambahan. Contoh ini menunjukkan struktur navigasi antar file secara sederhana.
+Pada contoh ini, form utama akan memiliki menu bernama “Navigasi.” Ketika pengguna memilih “Buka Form Kedua,” sebuah form baru akan muncul. Form kedua dibuat pada file terpisah dan hanya merupakan jendela kosong tanpa komponen tambahan. Contoh ini menunjukkan struktur navigasi antar file secara sederhana (Listing~\ref{lst:b12-main-window}).
 
-\begin{lstlisting}[style=PythonStyle, caption={main_window.py: Form Utama dengan Menu Navigasi}]
+\begin{lstlisting}[style=PythonStyle, caption={main_window.py: Form Utama dengan Menu Navigasi}, label={lst:b12-main-window}]
 import tkinter as tk
 from second_form import SecondForm
 
@@ -123,7 +130,9 @@ if __name__ == "__main__":
     app.mainloop()
 \end{lstlisting}
 
-\begin{lstlisting}[style=PythonStyle, caption={second_form.py: Form Kedua Kosong}]
+Listing~\ref{lst:b12-second-form} melanjutkan contoh tersebut.
+
+\begin{lstlisting}[style=PythonStyle, caption={second_form.py: Form Kedua Kosong}, label={lst:b12-second-form}]
 import tkinter as tk
 
 class SecondForm(tk.Toplevel):
@@ -140,9 +149,9 @@ Dalam contoh ini, form kedua dibuat sebagai kelas \texttt{SecondForm} yang mewar
 
 Pada Tkinter, tampilan data dalam bentuk tabel dapat dibuat menggunakan widget \texttt{ttk.Treeview} dari modul \texttt{tkinter.ttk}. Meskipun Tkinter tidak memiliki widget tabel khusus seperti di spreadsheet, \texttt{Treeview} dapat berfungsi sebagai tabel sederhana dengan beberapa kolom dan banyak baris. Widget ini sering digunakan untuk menampilkan data yang terstruktur, misalnya daftar mahasiswa, data barang, atau hasil perhitungan. Setiap baris pada \texttt{Treeview} disebut \textit{item}, sedangkan kolom-kolomnya dapat diberi nama dan lebar tertentu sesuai kebutuhan.
 
-Untuk membuat tabel, pengembang perlu mendefinisikan nama kolom, judul header, serta menambahkan baris data satu per satu. Selain itu, biasanya ditambahkan scrollbar agar pengguna dapat menggulir tabel ketika jumlah datanya banyak. Pengguna juga dapat memilih salah satu baris, kemudian data dari baris terpilih tersebut dapat diambil dan ditampilkan di Label atau diproses lebih lanjut. Dengan kombinasi sederhana antara \texttt{Treeview}, \texttt{Scrollbar}, dan \texttt{Button}, mahasiswa sudah dapat membangun tampilan tabel dasar yang cukup untuk banyak kasus aplikasi pemula.
+Untuk membuat tabel, pengembang perlu mendefinisikan nama kolom, judul header, serta menambahkan baris data satu per satu. Selain itu, biasanya ditambahkan scrollbar agar pengguna dapat menggulir tabel ketika jumlah datanya banyak. Pengguna juga dapat memilih salah satu baris, kemudian data dari baris terpilih tersebut dapat diambil dan ditampilkan di Label atau diproses lebih lanjut. Dengan kombinasi sederhana antara \texttt{Treeview}, \texttt{Scrollbar}, dan \texttt{Button}, mahasiswa sudah dapat membangun tampilan tabel dasar yang cukup untuk banyak kasus aplikasi pemula (Listing~\ref{lst:b12-tabel-data-dengan-ttk-treeview}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Tabel Data dengan ttk.Treeview}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Tabel Data dengan ttk.Treeview}, label={lst:b12-tabel-data-dengan-ttk-treeview}]
 import tkinter as tk
 from tkinter import ttk
 
@@ -213,9 +222,9 @@ Pada contoh di atas, \texttt{ttk.Treeview} digunakan sebagai tabel dengan dua ko
 
 Bagian ini membahas penggunaan \texttt{Canvas} untuk menampilkan gambar dan bentuk-bentuk geometris menggunakan \texttt{Tkinter}. Contoh implementasi ini memuat sebuah berkas gambar berformat PNG ke dalam \texttt{Canvas} dan menambahkan dua objek grafis: persegi dan segitiga. Pendekatan ini memperlihatkan cara menggabungkan elemen gambar raster dengan bentuk vektor dalam satu area tampilan.
 
-Kelas \texttt{CanvasShapesDemo} berfungsi sebagai jendela utama. \texttt{Canvas} berwarna putih disiapkan sebagai tempat penempatan objek. Gambar PNG dimuat dengan \texttt{PhotoImage} dan ditempatkan di koordinat awal \texttt{(0,0)} menggunakan \texttt{create\_image()}. Fungsi \texttt{gambar\_bentuk()} kemudian digunakan untuk menghasilkan objek persegi dan segitiga. Persegi digambar menggunakan \texttt{create\_rectangle()} dengan garis berwarna biru, sedangkan segitiga dibentuk melalui \texttt{create\_polygon()} dengan kombinasi garis berwarna merah dan isian berwarna merah muda.
+Kelas \texttt{CanvasShapesDemo} berfungsi sebagai jendela utama. \texttt{Canvas} berwarna putih disiapkan sebagai tempat penempatan objek. Gambar PNG dimuat dengan \texttt{PhotoImage} dan ditempatkan di koordinat awal \texttt{(0,0)} menggunakan \texttt{create\_image()}. Fungsi \texttt{gambar\_bentuk()} kemudian digunakan untuk menghasilkan objek persegi dan segitiga. Persegi digambar menggunakan \texttt{create\_rectangle()} dengan garis berwarna biru, sedangkan segitiga dibentuk melalui \texttt{create\_polygon()} dengan kombinasi garis berwarna merah dan isian berwarna merah muda (Listing~\ref{lst:b12-menggambar-persegi-segitiga-canvas}).
 
-\begin{lstlisting}[language=Python, style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Menggambar persegi dan segitiga pada Canvas}, label={lst:b12-menggambar-persegi-segitiga-canvas}]
 import tkinter as tk
 
 class CanvasShapesDemo(tk.Tk):
@@ -263,9 +272,9 @@ if __name__ == "__main__":
 
 Bagian ini menjelaskan pembuatan animasi halus menggunakan \texttt{Canvas} pada \texttt{Tkinter}. Tidak seperti pendekatan dasar yang mengubah posisi berdasarkan interval tetap, contoh berikut menggunakan teknik \textit{smooth animation} melalui kombinasi \textbf{delta time} dan \textbf{frame rate konstan} (60 FPS). Pendekatan ini membuat gerakan lebih stabil dan mulus meskipun performa sistem berubah.
 
-Kelas \texttt{AnimasiCanvas} menyiapkan sebuah \texttt{Canvas} berwarna putih sebagai area animasi, lalu membuat objek lingkaran sebagai bola yang bergerak mendatar. Kecepatan bola dinyatakan dalam satuan piksel per detik, sementara pergerakan aktual dihitung menggunakan delta time agar jarak tempuh per frame tetap konsisten. Ketika bola menyentuh batas kiri atau kanan, nilai kecepatannya dibalik untuk menghasilkan efek pantulan. Penggunaan \texttt{after()} dengan interval sekitar 16 ms menghasilkan laju animasi mendekati 60 FPS sehingga tampilan menjadi lebih halus.
+Kelas \texttt{AnimasiCanvas} menyiapkan sebuah \texttt{Canvas} berwarna putih sebagai area animasi, lalu membuat objek lingkaran sebagai bola yang bergerak mendatar. Kecepatan bola dinyatakan dalam satuan piksel per detik, sementara pergerakan aktual dihitung menggunakan delta time agar jarak tempuh per frame tetap konsisten. Ketika bola menyentuh batas kiri atau kanan, nilai kecepatannya dibalik untuk menghasilkan efek pantulan. Penggunaan \texttt{after()} dengan interval sekitar 16 ms menghasilkan laju animasi mendekati 60 FPS sehingga tampilan menjadi lebih halus (Listing~\ref{lst:b12-animasi-bola-canvas}).
 
-\begin{lstlisting}[language=Python, style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Animasi bola pada Canvas}, label={lst:b12-animasi-bola-canvas}]
 import tkinter as tk
 import time
 
@@ -332,9 +341,9 @@ if __name__ == "__main__":
 
 Bagian ini menjelaskan teknik pengendalian objek grafis pada \texttt{Canvas} menggunakan input keyboard dengan pendekatan animasi halus. Berbeda dari metode dasar yang menggeser objek beberapa piksel setiap kali tombol ditekan, implementasi berikut menggunakan konsep \textbf{velocity} (kecepatan), \textbf{delta time}, dan \textbf{frame rate konstan} untuk menghasilkan gerakan yang lebih mulus dan responsif.
 
-Kelas \texttt{TriangleControlDemo} menampilkan sebuah segitiga pada \texttt{Canvas}. Alih-alih memindahkan segitiga secara langsung setiap kali tombol panah ditekan, tombol panah digunakan untuk mengubah komponen kecepatan horizontal dan vertikal. Nilai kecepatan inilah yang kemudian diproses oleh loop animasi 60 FPS untuk menghitung jarak perpindahan berdasarkan delta time. Ketika tombol dilepas, kecepatan pada arah tersebut dihapus sehingga objek berhenti dengan mulus. Pendekatan ini menghasilkan kontrol yang lebih stabil, halus, dan cocok untuk pembuatan game atau simulasi sederhana menggunakan \texttt{Tkinter}.
+Kelas \texttt{TriangleControlDemo} menampilkan sebuah segitiga pada \texttt{Canvas}. Alih-alih memindahkan segitiga secara langsung setiap kali tombol panah ditekan, tombol panah digunakan untuk mengubah komponen kecepatan horizontal dan vertikal. Nilai kecepatan inilah yang kemudian diproses oleh loop animasi 60 FPS untuk menghitung jarak perpindahan berdasarkan delta time. Ketika tombol dilepas, kecepatan pada arah tersebut dihapus sehingga objek berhenti dengan mulus. Pendekatan ini menghasilkan kontrol yang lebih stabil, halus, dan cocok untuk pembuatan game atau simulasi sederhana menggunakan \texttt{Tkinter} (Listing~\ref{lst:b12-mengendalikan-segitiga-dengan-papan-ketik}).
 
-\begin{lstlisting}[language=Python, style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Mengendalikan segitiga dengan papan ketik}, label={lst:b12-mengendalikan-segitiga-dengan-papan-ketik}]
 import tkinter as tk
 import time
 
@@ -483,3 +492,13 @@ Syarat:
     \item Pastikan \texttt{Treeview} dikonfigurasi dengan \texttt{show="headings"} dan memiliki header kolom yang jelas, serta mekanisme pemilihan baris menggunakan \texttt{selection()}.
 \end{enumerate}
 
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{Tkinter dialogs} \cite{py-dialog}: \texttt{tkinter.filedialog} dan \texttt{askopenfilename}.
+  \item \textit{TkDocs Tutorial: Menus} \cite{tkdocs-menus}: menu aplikasi.
+  \item \textit{tkinter.ttk — Tk themed widgets} \cite{py-ttk}: \textit{widget} \texttt{ttk}, termasuk \texttt{Treeview}.
+  \item \textit{TkDocs Tutorial: Treeview} \cite{tkdocs-tree}: contoh pemakaian \texttt{Treeview}.
+  \item \textit{TkDocs Tutorial: Canvas} \cite{tkdocs-canvas}: menggambar pada \textit{canvas}.
+  \item \textit{after manual page} \cite{tcl-after}: penjadwalan perintah untuk animasi dengan \texttt{after}.
+  \item \textit{tkinter: Bindings and events} \cite{py-tkinter-bindings}: menangani masukan papan ketik dengan \texttt{bind}.
+\end{daftarrapat}

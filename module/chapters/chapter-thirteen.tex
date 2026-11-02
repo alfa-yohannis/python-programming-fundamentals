@@ -1,5 +1,12 @@
 \chapter{Debugging}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Membedakan jenis kesalahan pada program berdasarkan saat kemunculan dan gejalanya.
+  \item Menelusuri sumber kesalahan secara sistematis dengan membaca pesan kesalahan dan mengamati nilai data.
+  \item Memanfaatkan alat bantu \textit{debugging} untuk menjalankan program langkah demi langkah.
+\end{daftarrapat}
+
 \section{Pengenalan Debugging}
 
 Debugging adalah proses sistematis untuk menemukan, menganalisis, dan memperbaiki kesalahan atau bug dalam sebuah program. Dalam pemrograman Python, kegiatan ini menjadi keterampilan dasar yang sangat penting karena Python merupakan bahasa yang sensitif terhadap struktur dan penulisan kode, sehingga kesalahan kecil seperti indentasi atau penulisan variabel dapat menyebabkan program gagal berjalan. Melalui debugging, seorang programmer berupaya memahami sumber masalah, menelusuri alur eksekusi program, serta memastikan bahwa program menghasilkan output yang benar sesuai dengan tujuan awal.
@@ -13,9 +20,9 @@ Proses debugging juga berperan penting dalam meningkatkan efisiensi pengembangan
 
 Syntax Error adalah jenis kesalahan yang terjadi ketika Python menemukan penulisan kode yang tidak sesuai dengan aturan sintaks bahasa Python. Kesalahan ini muncul sebelum program dijalankan (pada tahap parsing), sehingga Python langsung menghentikan eksekusi dan menampilkan pesan error. Syntax Error sering muncul karena kesalahan pengetikan seperti kurangnya titik dua, kurangnya tanda kurung, kesalahan indentasi, atau penulisan perintah yang tidak valid. Dalam pembelajaran Python pemula, jenis error ini adalah yang paling sering ditemui, terutama ketika mahasiswa baru mengenal struktur dasar seperti percabangan, perulangan, dan fungsi. Untuk memperbaiki Syntax Error, programmer harus membaca pesan error dengan teliti, mengamati nomor baris yang ditunjukkan oleh Python, dan memeriksa kembali struktur penulisan kode pada bagian tersebut.
 
-Contoh Syntax Error sederhana dapat dilihat pada kode berikut. Pada contoh ini, kesalahan terjadi karena programmer lupa menambahkan titik dua setelah pernyataan \texttt{if}, sehingga Python tidak dapat memahami struktur blok kode yang diinginkan. Ketika dieksekusi, Python akan menampilkan pesan kesalahan seperti \texttt{SyntaxError: expected ':'} atau pesan serupa, yang menunjukkan bahwa bagian tersebut tidak mengikuti aturan sintaks Python.
+Contoh Syntax Error sederhana dapat dilihat pada kode berikut. Pada contoh ini, kesalahan terjadi karena programmer lupa menambahkan titik dua setelah pernyataan \texttt{if}, sehingga Python tidak dapat memahami struktur blok kode yang diinginkan. Ketika dieksekusi, Python akan menampilkan pesan kesalahan seperti \texttt{SyntaxError: expected ':'} atau pesan serupa, yang menunjukkan bahwa bagian tersebut tidak mengikuti aturan sintaks Python (Listing~\ref{lst:b13-syntax-error-kurang-tanda-titik-dua}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Syntax Error: kurang tanda titik dua}, label={lst:b13-syntax-error-kurang-tanda-titik-dua}]
 # Contoh Syntax Error: kurang tanda titik dua
 nilai = 75
 
@@ -23,9 +30,9 @@ if nilai >= 70
     print("Lulus")
 \end{lstlisting}
 
-Untuk memperbaiki error tersebut, programmer perlu menambahkan titik dua pada akhir pernyataan \texttt{if}, sehingga Python mengenali bahwa baris berikutnya adalah bagian dari blok kondisi.
+Untuk memperbaiki error tersebut, programmer perlu menambahkan titik dua pada akhir pernyataan \texttt{if}, sehingga Python mengenali bahwa baris berikutnya adalah bagian dari blok kondisi (Listing~\ref{lst:b13-perbaikan-syntax-error}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan Syntax Error}, label={lst:b13-perbaikan-syntax-error}]
 # Perbaikan Syntax Error
 nilai = 75
 
@@ -37,9 +44,9 @@ if nilai >= 70:
 
 Runtime Error adalah jenis kesalahan yang terjadi ketika program sudah berhasil melewati proses parsing dan mulai dijalankan, tetapi menemui kondisi yang membuat eksekusi program berhenti secara tiba-tiba. Berbeda dengan Syntax Error yang muncul sebelum program dijalankan, Runtime Error muncul di tengah eksekusi ketika Python menemukan operasi yang tidak dapat dilakukan, seperti pembagian dengan nol, akses elemen list di indeks yang tidak ada, membuka file yang tidak ditemukan, atau penggunaan variabel yang belum didefinisikan. Karena error ini hanya muncul ketika alur program benar-benar berjalan, programmer sering kali harus memahami skenario dan konteks yang menyebabkan kondisi tersebut terjadi. Dalam proses debugging, Runtime Error mengajarkan pentingnya memvalidasi input, memastikan variabel telah diinisialisasi, dan menangani kondisi yang tidak terduga menggunakan mekanisme seperti \texttt{try-except}.
 
-Contoh Runtime Error berikut memperlihatkan kasus pembagian dengan nol. Secara sintaks, kode terlihat benar, tetapi saat program dijalankan, nilai \texttt{pembagi} adalah nol sehingga Python tidak dapat melakukan operasi matematika tersebut dan menghasilkan \texttt{ZeroDivisionError}. Pesan error ini menunjukkan bahwa masalah terjadi pada saat runtime, bukan pada penulisan sintaks.
+Contoh Runtime Error berikut memperlihatkan kasus pembagian dengan nol. Secara sintaks, kode terlihat benar, tetapi saat program dijalankan, nilai \texttt{pembagi} adalah nol sehingga Python tidak dapat melakukan operasi matematika tersebut dan menghasilkan \texttt{ZeroDivisionError}. Pesan error ini menunjukkan bahwa masalah terjadi pada saat runtime, bukan pada penulisan sintaks (Listing~\ref{lst:b13-runtime-error-pembagian-dengan-nol}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Runtime Error: pembagian dengan nol}, label={lst:b13-runtime-error-pembagian-dengan-nol}]
 # Contoh Runtime Error: pembagian dengan nol
 angka = 10
 pembagi = 0
@@ -48,9 +55,9 @@ hasil = angka / pembagi  # Error saat dijalankan
 print("Hasil:", hasil)
 \end{lstlisting}
 
-Untuk memperbaiki error tersebut, programmer dapat memeriksa nilai pembagi terlebih dahulu sebelum melakukan operasi, atau menggunakan blok \texttt{try-except} untuk menangani kemungkinan error sehingga program tetap dapat berjalan tanpa berhenti tiba-tiba.
+Untuk memperbaiki error tersebut, programmer dapat memeriksa nilai pembagi terlebih dahulu sebelum melakukan operasi, atau menggunakan blok \texttt{try-except} untuk menangani kemungkinan error sehingga program tetap dapat berjalan tanpa berhenti tiba-tiba (Listing~\ref{lst:b13-perbaikan-runtime-error-menggunakan-pengecekan}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan Runtime Error menggunakan pengecekan}, label={lst:b13-perbaikan-runtime-error-menggunakan-pengecekan}]
 # Perbaikan Runtime Error menggunakan pengecekan
 angka = 10
 pembagi = 0
@@ -62,9 +69,9 @@ else:
     print("Error: pembagi tidak boleh nol.")
 \end{lstlisting}
 
-Contoh berikut menunjukkan penggunaan \texttt{try-except} untuk menangani error secara lebih fleksibel:
+Contoh berikut menunjukkan penggunaan \texttt{try-except} untuk menangani error secara lebih fleksibel (Listing~\ref{lst:b13-perbaikan-runtime-error-menggunakan-try-except}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan Runtime Error menggunakan try-except}, label={lst:b13-perbaikan-runtime-error-menggunakan-try-except}]
 # Perbaikan Runtime Error menggunakan try-except
 angka = 10
 pembagi = 0
@@ -80,9 +87,9 @@ except ZeroDivisionError:
 
 Logic Error adalah jenis kesalahan yang terjadi ketika program berjalan tanpa menghasilkan pesan error, tetapi output yang dihasilkan tidak sesuai dengan apa yang diharapkan. Pada jenis error ini, Python tidak mendeteksi adanya masalah pada sintaks maupun proses eksekusi, sehingga program tetap berjalan normal meskipun logikanya salah. Logic Error sering kali menjadi kesalahan yang paling sulit ditemukan oleh pemula karena tidak ada peringatan langsung dari Python; satu-satunya indikator kesalahan adalah hasil program yang tidak sesuai. Penyebab umum Logic Error antara lain penggunaan operator yang salah, kondisi percabangan yang keliru, perhitungan yang tidak sesuai, atau kesalahan dalam merancang alur algoritma. Untuk menemukan Logic Error, programmer perlu memahami alur logika program secara mendalam, memeriksa nilai variabel pada setiap langkah, dan menggunakan teknik seperti print debugging atau penggunaan debugger untuk melacak aliran eksekusi.
 
-Contoh berikut menunjukkan Logic Error sederhana ketika seorang programmer bermaksud menentukan apakah suatu nilai dinyatakan lulus atau tidak berdasarkan batas minimal 70. Namun, programmer secara tidak sengaja menggunakan operator perbandingan yang salah (\texttt{<=} bukannya \texttt{>=}), sehingga output program menjadi berlawanan dengan yang seharusnya. Meskipun program berjalan tanpa error, hasilnya tidak sesuai dengan logika yang diharapkan.
+Contoh berikut menunjukkan Logic Error sederhana ketika seorang programmer bermaksud menentukan apakah suatu nilai dinyatakan lulus atau tidak berdasarkan batas minimal 70. Namun, programmer secara tidak sengaja menggunakan operator perbandingan yang salah (\texttt{<=} bukannya \texttt{>=}), sehingga output program menjadi berlawanan dengan yang seharusnya. Meskipun program berjalan tanpa error, hasilnya tidak sesuai dengan logika yang diharapkan (Listing~\ref{lst:b13-logic-error-penggunaan-operator-salah}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Logic Error: penggunaan operator yang salah}, label={lst:b13-logic-error-penggunaan-operator-salah}]
 # Contoh Logic Error: penggunaan operator yang salah
 nilai = 85
 
@@ -92,9 +99,9 @@ else:
     print("Tidak lulus")
 \end{lstlisting}
 
-Untuk memperbaiki Logic Error tersebut, programmer harus memperbaiki operator perbandingan sehingga logika kondisi kembali sesuai dengan aturan kelulusan yang benar.
+Untuk memperbaiki Logic Error tersebut, programmer harus memperbaiki operator perbandingan sehingga logika kondisi kembali sesuai dengan aturan kelulusan yang benar (Listing~\ref{lst:b13-perbaikan-logic-error}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan Logic Error}, label={lst:b13-perbaikan-logic-error}]
 # Perbaikan Logic Error
 nilai = 85
 
@@ -104,9 +111,9 @@ else:
     print("Tidak lulus")
 \end{lstlisting}
 
-Logic Error juga dapat muncul dalam perhitungan matematis. Misalnya, seorang programmer ingin menghitung rata-rata tiga angka tetapi lupa membagi jumlah seluruh nilai dengan jumlah elemen yang benar.
+Logic Error juga dapat muncul dalam perhitungan matematis. Misalnya, seorang programmer ingin menghitung rata-rata tiga angka tetapi lupa membagi jumlah seluruh nilai dengan jumlah elemen yang benar (Listing~\ref{lst:b13-logic-error-lain-perhitungan-rata-rata}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Logic Error lain: perhitungan rata-rata yang salah}, label={lst:b13-logic-error-lain-perhitungan-rata-rata}]
 # Contoh Logic Error lain: perhitungan rata-rata yang salah
 a = 80
 b = 90
@@ -116,9 +123,9 @@ rata = (a + b + c) / 2   # Seharusnya dibagi 3
 print("Rata-rata:", rata)
 \end{lstlisting}
 
-Perbaikan yang benar adalah sebagai berikut:
+Perbaikan yang benar adalah sebagai berikut (Listing~\ref{lst:b13-perbaikan-perhitungan-rata-rata}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan perhitungan rata-rata}, label={lst:b13-perbaikan-perhitungan-rata-rata}]
 # Perbaikan perhitungan rata-rata
 a = 80
 b = 90
@@ -135,9 +142,9 @@ print("Rata-rata:", rata)
 
 Print debugging adalah teknik debugging paling sederhana dan sering digunakan oleh pemula maupun programmer berpengalaman ketika ingin memahami alur eksekusi program. Teknik ini dilakukan dengan menambahkan pernyataan \texttt{print()} pada bagian-bagian tertentu dari kode untuk menampilkan nilai variabel, kondisi tertentu, atau tahapan alur program. Dengan cara ini, programmer dapat mengetahui apakah variabel memiliki nilai yang sesuai, apakah blok kode tertentu dieksekusi, atau apakah perhitungan yang dilakukan berjalan sebagaimana mestinya. Keuntungan dari teknik ini adalah sangat mudah digunakan dan tidak memerlukan alat tambahan. Namun, print debugging juga memiliki keterbatasan: jika digunakan secara berlebihan, kode menjadi berantakan dan sulit dibaca, terutama pada program yang lebih kompleks.
 
-Contoh berikut memperlihatkan bagaimana print debugging digunakan untuk melacak nilai sebuah variabel yang berubah di dalam sebuah perulangan. Dalam situasi nyata, programmer dapat menempatkan \texttt{print()} di beberapa titik untuk memastikan logika program berjalan sesuai harapan.
+Contoh berikut memperlihatkan bagaimana print debugging digunakan untuk melacak nilai sebuah variabel yang berubah di dalam sebuah perulangan. Dalam situasi nyata, programmer dapat menempatkan \texttt{print()} di beberapa titik untuk memastikan logika program berjalan sesuai harapan (Listing~\ref{lst:b13-print-debugging-melacak-perubahan-nilai}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh print debugging untuk melacak perubahan nilai}, label={lst:b13-print-debugging-melacak-perubahan-nilai}]
 # Contoh print debugging untuk melacak perubahan nilai
 total = 0
 
@@ -148,9 +155,9 @@ for i in range(1, 6):
 print("Total akhir:", total)
 \end{lstlisting}
 
-Print debugging juga dapat membantu mendeteksi Logic Error. Misalnya, program berikut dimaksudkan menghitung jumlah bilangan genap, namun programmer secara tidak sengaja menggunakan kondisi yang salah. Dengan menambahkan \texttt{print()}, programmer dapat melihat nilai dan kondisi mana yang tidak sesuai.
+Print debugging juga dapat membantu mendeteksi Logic Error. Misalnya, program berikut dimaksudkan menghitung jumlah bilangan genap, namun programmer secara tidak sengaja menggunakan kondisi yang salah. Dengan menambahkan \texttt{print()}, programmer dapat melihat nilai dan kondisi mana yang tidak sesuai (Listing~\ref{lst:b13-logic-error-ditemukan-dengan-bantuan-print}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Logic Error yang ditemukan dengan bantuan print debugging}, label={lst:b13-logic-error-ditemukan-dengan-bantuan-print}]
 # Contoh Logic Error yang ditemukan dengan bantuan print debugging
 angka = [1, 2, 3, 4, 5, 6]
 jumlah_genap = 0
@@ -164,9 +171,9 @@ for x in angka:
 print("Jumlah bilangan genap:", jumlah_genap)
 \end{lstlisting}
 
-Dengan melihat hasil output, programmer dapat menyadari bahwa program justru menjumlahkan bilangan ganjil, bukan genap. Setelah logika diperbaiki, print debugging dapat kembali digunakan untuk memastikan bahwa program berjalan sesuai dengan harapan.
+Dengan melihat hasil output, programmer dapat menyadari bahwa program justru menjumlahkan bilangan ganjil, bukan genap. Setelah logika diperbaiki, print debugging dapat kembali digunakan untuk memastikan bahwa program berjalan sesuai dengan harapan (Listing~\ref{lst:b13-perbaikan-kondisi}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan kondisi}, label={lst:b13-perbaikan-kondisi}]
 # Perbaikan kondisi
 angka = [1, 2, 3, 4, 5, 6]
 jumlah_genap = 0
@@ -184,35 +191,35 @@ print("Jumlah bilangan genap:", jumlah_genap)
 
 Traceback adalah pesan yang ditampilkan Python ketika terjadi error pada saat program dijalankan. Pesan ini berisi informasi penting mengenai lokasi kesalahan, baris kode yang menyebabkan error, dan jenis error yang muncul. Memahami traceback merupakan salah satu kemampuan dasar yang harus dimiliki pemrogram, karena pesan ini membantu mengarahkan programmer ke sumber masalah tanpa harus menebak-nebak. Traceback biasanya dimulai dari informasi mengenai file tempat error terjadi, nomor baris, potongan kode yang bermasalah, hingga jenis error seperti \texttt{SyntaxError}, \texttt{ZeroDivisionError}, atau \texttt{NameError}. Dengan membaca traceback secara sistematis, programmer dapat mengidentifikasi pola error, memahami aliran eksekusi sebelum terjadinya kesalahan, dan memperbaiki kode dengan lebih efisien.
 
-Contoh berikut menunjukkan sebuah traceback ketika programmer mencoba mengakses variabel yang belum didefinisikan. Python menampilkan pesan \texttt{NameError}, yang berarti nama variabel tersebut tidak ditemukan dalam ruang lingkup program.
+Contoh berikut menunjukkan sebuah traceback ketika programmer mencoba mengakses variabel yang belum didefinisikan. Python menampilkan pesan \texttt{NameError}, yang berarti nama variabel tersebut tidak ditemukan dalam ruang lingkup program (Listing~\ref{lst:b13-nameerror-menghasilkan-traceback}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh NameError yang menghasilkan traceback}, label={lst:b13-nameerror-menghasilkan-traceback}]
 # Contoh NameError yang menghasilkan traceback
 x = 10
 print(y)   # 'y' belum didefinisikan
 \end{lstlisting}
 
-Jika program di atas dijalankan, Python akan menampilkan traceback seperti berikut:
+Jika program di atas dijalankan, Python akan menampilkan traceback seperti berikut (Listing~\ref{lst:b13-traceback-nameerror}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Traceback untuk NameError}, label={lst:b13-traceback-nameerror}]
 Traceback (most recent call last):
   File "contoh.py", line 3, in <module>
     print(y)
 NameError: name 'y' is not defined
 \end{lstlisting}
 
-Perbaikan dapat dilakukan dengan mendefinisikan variabel \texttt{y} sebelum digunakan:
+Perbaikan dapat dilakukan dengan mendefinisikan variabel \texttt{y} sebelum digunakan (Listing~\ref{lst:b13-perbaikan-nameerror}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan NameError}, label={lst:b13-perbaikan-nameerror}]
 # Perbaikan NameError
 x = 10
 y = 5
 print(y)
 \end{lstlisting}
 
-Traceback juga sangat membantu dalam kasus error yang lebih kompleks, seperti ketika fungsi dipanggil dengan jumlah argumen yang tidak sesuai. Contoh berikut memperlihatkan kesalahan pemanggilan fungsi yang menyebabkan \texttt{TypeError}.
+Traceback juga sangat membantu dalam kasus error yang lebih kompleks, seperti ketika fungsi dipanggil dengan jumlah argumen yang tidak sesuai. Contoh berikut memperlihatkan kesalahan pemanggilan fungsi yang menyebabkan \texttt{TypeError} (Listing~\ref{lst:b13-typeerror-jumlah-argumen-salah}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh TypeError: jumlah argumen salah}, label={lst:b13-typeerror-jumlah-argumen-salah}]
 # Contoh TypeError: jumlah argumen salah
 def tambah(a, b):
     return a + b
@@ -220,18 +227,18 @@ def tambah(a, b):
 hasil = tambah(10)  # Harusnya dua argumen
 \end{lstlisting}
 
-Output traceback yang muncul:
+Output traceback yang muncul (Listing~\ref{lst:b13-traceback-typeerror-karena-jumlah-argumen-salah}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Traceback untuk TypeError karena jumlah argumen salah}, label={lst:b13-traceback-typeerror-karena-jumlah-argumen-salah}]
 Traceback (most recent call last):
   File "contoh2.py", line 5, in <module>
     hasil = tambah(10)
 TypeError: tambah() missing 1 required positional argument: 'b'
 \end{lstlisting}
 
-Untuk memperbaikinya, fungsi harus dipanggil dengan jumlah argumen yang benar:
+Untuk memperbaikinya, fungsi harus dipanggil dengan jumlah argumen yang benar (Listing~\ref{lst:b13-perbaikan-typeerror}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan TypeError}, label={lst:b13-perbaikan-typeerror}]
 # Perbaikan TypeError
 def tambah(a, b):
     return a + b
@@ -244,17 +251,17 @@ print(hasil)
 
 Membaca pesan error adalah langkah penting dalam proses debugging karena pesan tersebut memberikan petunjuk langsung mengenai penyebab terjadinya kesalahan. Dalam Python, pesan error biasanya terdiri dari tiga bagian utama: jenis error, lokasi terjadinya error (baris dan nama file), serta keterangan tambahan yang menjelaskan apa yang salah. Dengan memahami struktur pesan error, programmer dapat mengidentifikasi akar permasalahan tanpa harus menebak-nebak. Misalnya, error seperti \texttt{NameError} menunjukkan bahwa sebuah variabel belum didefinisikan, \texttt{TypeError} biasanya terkait dengan operasi atau pemanggilan fungsi yang tidak kompatibel, dan \texttt{ValueError} muncul ketika nilai yang diberikan ke suatu fungsi berada di luar rentang yang diperbolehkan. Membaca pesan error secara cermat akan mempercepat proses perbaikan dan menghemat banyak waktu dibanding mencoba-coba memperbaiki kode tanpa arah yang jelas.
 
-Contoh berikut menunjukkan bagaimana Python memberikan pesan error ketika programmer mencoba mengonversi string yang tidak valid menjadi bilangan integer. Kesalahan ini sering dilakukan oleh pemula ketika mengolah input pengguna yang belum divalidasi.
+Contoh berikut menunjukkan bagaimana Python memberikan pesan error ketika programmer mencoba mengonversi string yang tidak valid menjadi bilangan integer. Kesalahan ini sering dilakukan oleh pemula ketika mengolah input pengguna yang belum divalidasi (Listing~\ref{lst:b13-valueerror-string-tidak-dapat-dikonversi-menjadi}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh ValueError: string tidak dapat dikonversi menjadi integer}, label={lst:b13-valueerror-string-tidak-dapat-dikonversi-menjadi}]
 # Contoh ValueError: string tidak dapat dikonversi menjadi integer
 angka = int("abc")  # "abc" bukan angka
 print(angka)
 \end{lstlisting}
 
-Output pesan error yang muncul adalah sebagai berikut:
+Output pesan error yang muncul adalah sebagai berikut (Listing~\ref{lst:b13-pesan-valueerror-saat-konversi-gagal}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Pesan ValueError saat konversi gagal}, label={lst:b13-pesan-valueerror-saat-konversi-gagal}]
 Traceback (most recent call last):
   File "contoh3.py", line 2, in <module>
     angka = int("abc")
@@ -263,9 +270,9 @@ ValueError: invalid literal for int() with base 10: 'abc'
 
 Dari pesan tersebut, dapat dilihat bahwa Python memberi tahu bahwa literal yang diberikan tidak valid untuk konversi ke integer. Informasi ini cukup jelas sehingga programmer dapat segera memahami bahwa input tersebut harus divalidasi atau ditangani sebelum dilakukan konversi.
 
-Contoh lain adalah ketika Python menemukan bahwa tipe data yang digunakan tidak sesuai dengan operasi yang dilakukan. Misalnya, seorang programmer secara tidak sengaja mencoba menjumlahkan angka dengan string, yang tidak diperbolehkan dalam Python.
+Contoh lain adalah ketika Python menemukan bahwa tipe data yang digunakan tidak sesuai dengan operasi yang dilakukan. Misalnya, seorang programmer secara tidak sengaja mencoba menjumlahkan angka dengan string, yang tidak diperbolehkan dalam Python (Listing~\ref{lst:b13-typeerror-operasi-tidak-sesuai-tipe}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh TypeError: operasi tidak sesuai tipe}, label={lst:b13-typeerror-operasi-tidak-sesuai-tipe}]
 # Contoh TypeError: operasi tidak sesuai tipe
 a = 10
 b = "20"
@@ -274,18 +281,18 @@ hasil = a + b  # Tidak bisa menjumlahkan int dengan string
 print(hasil)
 \end{lstlisting}
 
-Output pesan error yang muncul adalah:
+Output pesan error yang muncul adalah (Listing~\ref{lst:b13-pesan-typeerror-karena-tipe-tidak-sesuai}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Pesan TypeError karena tipe tidak sesuai}, label={lst:b13-pesan-typeerror-karena-tipe-tidak-sesuai}]
 Traceback (most recent call last):
   File "contoh4.py", line 5, in <module>
     hasil = a + b
 TypeError: unsupported operand type(s) for +: 'int' and 'str'
 \end{lstlisting}
 
-Berdasarkan pesan ini, programmer dapat langsung menyadari bahwa kesalahan disebabkan oleh perbedaan tipe data. Untuk memperbaikinya, programmer dapat mengonversi string menjadi integer terlebih dahulu atau sebaliknya, tergantung tujuan program.
+Berdasarkan pesan ini, programmer dapat langsung menyadari bahwa kesalahan disebabkan oleh perbedaan tipe data. Untuk memperbaikinya, programmer dapat mengonversi string menjadi integer terlebih dahulu atau sebaliknya, tergantung tujuan program (Listing~\ref{lst:b13-perbaikan-typeerror-2}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan TypeError}, label={lst:b13-perbaikan-typeerror-2}]
 # Perbaikan TypeError
 a = 10
 b = "20"
@@ -305,9 +312,9 @@ Module \texttt{pdb} (Python Debugger) adalah alat debugging bawaan Python yang m
 
 Cara paling umum menggunakan \texttt{pdb} adalah dengan menyisipkan perintah \texttt{import pdb; pdb.set\_trace()} pada bagian kode yang ingin diperiksa. Ketika program mencapai baris tersebut, eksekusi akan berhenti dan debugger akan masuk ke mode interaktif. Dalam mode ini, programmer dapat menggunakan berbagai perintah seperti \texttt{n} (next) untuk menjalankan baris berikutnya, \texttt{s} (step) untuk masuk ke dalam fungsi, \texttt{c} (continue) untuk melanjutkan program hingga breakpoint berikutnya, dan \texttt{p} untuk menampilkan nilai variabel. Dengan memanfaatkan fitur-fitur ini, programmer dapat secara bertahap memahami bagaimana nilai berubah dan bagaimana alur program berjalan.
 
-Contoh berikut memperlihatkan bagaimana \texttt{pdb} digunakan untuk memeriksa perhitungan yang menghasilkan output yang tidak sesuai. Tanpa debugger, programmer mungkin kesulitan menemukan kesalahan logika karena program tetap berjalan normal.
+Contoh berikut memperlihatkan bagaimana \texttt{pdb} digunakan untuk memeriksa perhitungan yang menghasilkan output yang tidak sesuai. Tanpa debugger, programmer mungkin kesulitan menemukan kesalahan logika karena program tetap berjalan normal (Listing~\ref{lst:b13-penggunaan-pdb-mendebug-kesalahan-logika}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan pdb untuk mendebug kesalahan logika}, label={lst:b13-penggunaan-pdb-mendebug-kesalahan-logika}]
 # Contoh penggunaan pdb untuk mendebug kesalahan logika
 def hitung_diskon(harga, diskon):
     hasil = harga - harga * diskon  # Logika salah (diskon seharusnya persentase)
@@ -319,17 +326,17 @@ total = hitung_diskon(100000, 20)  # Maksudnya 20% tapi ditulis 20
 print("Total harga:", total)
 \end{lstlisting}
 
-Saat program dijalankan, debugger akan berhenti pada baris \texttt{pdb.set\_trace()} dan menampilkan prompt \texttt{(Pdb)} seperti berikut:
+Saat program dijalankan, debugger akan berhenti pada baris \texttt{pdb.set\_trace()} dan menampilkan prompt \texttt{(Pdb)} seperti berikut (Listing~\ref{lst:b13-program-berhenti-pdb-set-trace}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Program berhenti pada pdb.set_trace()}, label={lst:b13-program-berhenti-pdb-set-trace}]
 > contoh_pdb.py(8)<module>()
 -> total = hitung_diskon(100000, 20)
 (Pdb)
 \end{lstlisting}
 
-Pada titik ini, programmer dapat menjalankan berbagai perintah debugging, misalnya:
+Pada titik ini, programmer dapat menjalankan berbagai perintah debugging, misalnya (Listing~\ref{lst:b13-perintah-dalam-pdb}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Contoh perintah di dalam pdb}, label={lst:b13-perintah-dalam-pdb}]
 (Pdb) n
 > contoh_pdb.py(9)<module>()
 -> print("Total harga:", total)
@@ -340,9 +347,9 @@ Pada titik ini, programmer dapat menjalankan berbagai perintah debugging, misaln
 
 Hasil di atas menunjukkan bahwa total harga justru bernilai negatif karena kesalahan dalam interpretasi nilai diskon. Dengan mengetahui hal ini, programmer dapat memperbaiki logika perhitungannya.
 
-Berikut versi perbaikan fungsi:
+Berikut versi perbaikan fungsi (Listing~\ref{lst:b13-perbaikan-logika-diskon}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Perbaikan logika diskon}, label={lst:b13-perbaikan-logika-diskon}]
 # Perbaikan logika diskon
 def hitung_diskon(harga, diskon_persen):
     diskon = harga * (diskon_persen / 100)
@@ -352,9 +359,9 @@ total = hitung_diskon(100000, 20)
 print("Total harga:", total)
 \end{lstlisting}
 
-Selain \texttt{set\_trace()}, \texttt{pdb} juga dapat dijalankan langsung dari terminal tanpa mengubah kode sumber, dengan perintah:
+Selain \texttt{set\_trace()}, \texttt{pdb} juga dapat dijalankan langsung dari terminal tanpa mengubah kode sumber, dengan perintah (Listing~\ref{lst:b13-menjalankan-program-langsung-dengan-pdb}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan program langsung dengan pdb}, label={lst:b13-menjalankan-program-langsung-dengan-pdb}]
 python -m pdb nama_program.py
 \end{lstlisting}
 
@@ -368,9 +375,9 @@ Fungsi \texttt{breakpoint()} adalah cara modern dan lebih ringkas untuk mengakti
 
 Dengan menggunakan \texttt{breakpoint()}, programmer dapat menghentikan alur eksekusi program di titik tertentu, memeriksa nilai variabel, menjalankan perintah interaktif, dan menelusuri logika kode baris demi baris. Fitur ini sangat bermanfaat ketika menghadapi bug yang muncul hanya dalam kondisi tertentu atau ketika perlu memeriksa nilai variabel pada tahap tertentu dalam proses perhitungan. Dibandingkan print debugging, penggunaan \texttt{breakpoint()} jauh lebih fleksibel karena memberikan akses penuh ke konteks eksekusi program tanpa perlu mengotori kode dengan banyak pernyataan cetak sementara.
 
-Berikut contoh sederhana penggunaan \texttt{breakpoint()} untuk memeriksa proses perulangan yang menghasilkan output tidak sesuai harapan. Dengan memanggil debugger pada titik tertentu, programmer dapat memahami perubahan nilai variabel secara langsung.
+Berikut contoh sederhana penggunaan \texttt{breakpoint()} untuk memeriksa proses perulangan yang menghasilkan output tidak sesuai harapan. Dengan memanggil debugger pada titik tertentu, programmer dapat memahami perubahan nilai variabel secara langsung (Listing~\ref{lst:b13-penggunaan-breakpoint-debugging}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan breakpoint() untuk debugging}, label={lst:b13-penggunaan-breakpoint-debugging}]
 # Contoh penggunaan breakpoint() untuk debugging
 angka = [10, 20, 30, 40]
 total = 0
@@ -383,17 +390,17 @@ for x in angka:
 print("Total akhir:", total)
 \end{lstlisting}
 
-Saat program dijalankan, eksekusi akan berhenti pada baris \texttt{breakpoint()} dan masuk ke debugger bawaan Python. Output yang muncul pada terminal akan terlihat seperti ini:
+Saat program dijalankan, eksekusi akan berhenti pada baris \texttt{breakpoint()} dan masuk ke debugger bawaan Python. Output yang muncul pada terminal akan terlihat seperti ini (Listing~\ref{lst:b13-program-berhenti-breakpoint}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Program berhenti pada breakpoint()}, label={lst:b13-program-berhenti-breakpoint}]
 > contoh_breakpoint.py(6)<module>()
 -> total += x
 (Pdb)
 \end{lstlisting}
 
-Dalam mode debugger tersebut, programmer dapat menjalankan berbagai perintah seperti:
+Dalam mode debugger tersebut, programmer dapat menjalankan berbagai perintah seperti (Listing~\ref{lst:b13-memeriksa-nilai-variabel-dalam-debugger}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Memeriksa nilai variabel di dalam debugger}, label={lst:b13-memeriksa-nilai-variabel-dalam-debugger}]
 (Pdb) p x
 10
 (Pdb) p total
@@ -405,9 +412,9 @@ Dalam mode debugger tersebut, programmer dapat menjalankan berbagai perintah sep
 
 Dengan cara ini, programmer dapat memeriksa nilai variabel \texttt{x} dan \texttt{total} di setiap iterasi, sehingga dapat lebih mudah menemukan kesalahan logika apabila terjadi perhitungan yang tidak sesuai.
 
-Fungsi \texttt{breakpoint()} juga mendukung penggunaan debugger lain. Misalnya, jika programmer ingin menggunakan \texttt{ipdb} sebagai debugger default, cukup mengatur variabel lingkungan berikut sebelum menjalankan program:
+Fungsi \texttt{breakpoint()} juga mendukung penggunaan debugger lain. Misalnya, jika programmer ingin menggunakan \texttt{ipdb} sebagai debugger default, cukup mengatur variabel lingkungan berikut sebelum menjalankan program (Listing~\ref{lst:b13-mengganti-debugger-lewat-pythonbreakpoint}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Mengganti debugger lewat PYTHONBREAKPOINT}, label={lst:b13-mengganti-debugger-lewat-pythonbreakpoint}]
 export PYTHONBREAKPOINT=ipdb.set_trace
 python program.py
 \end{lstlisting}
@@ -425,9 +432,9 @@ Visual Studio Code (VS Code) adalah salah satu code editor yang paling populer u
 
 Untuk mengaktifkan debugging Python di VS Code, pertama-tama pengguna harus memasang ekstensi resmi “Python” dari Microsoft. Setelah terpasang, VS Code secara otomatis mengenali file Python dan menyediakan tombol “Run and Debug” pada bagian atas jendela editor. Pengguna dapat menambahkan breakpoint dengan cara mengklik area kosong di sebelah kiri nomor baris. Saat debugging dimulai, VS Code akan menghentikan eksekusi program pada breakpoint tersebut dan menampilkan antarmuka debugging lengkap, termasuk nilai variabel, panel output, dan kontrol eksekusi seperti \textit{continue}, \textit{step over}, \textit{step into}, dan \textit{step out}. Hal ini memudahkan programmer memeriksa nilai yang berubah pada setiap langkah dan mendeteksi kesalahan logika lebih cepat dibanding debugging manual.
 
-Contoh berikut menunjukkan kode Python sederhana yang dapat didebug menggunakan VS Code. Program ini memiliki potensi kesalahan logika jika perhitungan tidak dilakukan dengan benar, sehingga debugging diperlukan untuk menelusuri langkah perhitungan secara interaktif.
+Contoh berikut menunjukkan kode Python sederhana yang dapat didebug menggunakan VS Code. Program ini memiliki potensi kesalahan logika jika perhitungan tidak dilakukan dengan benar, sehingga debugging diperlukan untuk menelusuri langkah perhitungan secara interaktif (Listing~\ref{lst:b13-program-akan-didebug-vs-code}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh program yang akan didebug di VS Code}, label={lst:b13-program-akan-didebug-vs-code}]
 # Contoh program yang akan didebug di VS Code
 def hitung_total(harga, jumlah):
     total = harga * jumlah
@@ -443,9 +450,9 @@ if __name__ == "__main__":
     main()
 \end{lstlisting}
 
-Untuk menjalankan debugging di VS Code, pengguna dapat membuat file konfigurasi \texttt{launch.json} pada folder \texttt{.vscode}. VS Code biasanya dapat membuat file ini secara otomatis, tetapi berikut contoh konfigurasi minimal untuk menjalankan debugging Python:
+Untuk menjalankan debugging di VS Code, pengguna dapat membuat file konfigurasi \texttt{launch.json} pada folder \texttt{.vscode}. VS Code biasanya dapat membuat file ini secara otomatis, tetapi berikut contoh konfigurasi minimal untuk menjalankan debugging Python (Listing~\ref{lst:b13-launch}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Konfigurasi launch.json}, label={lst:b13-launch}]
 {
     "version": "0.2.0",
     "configurations": [
@@ -462,9 +469,9 @@ Untuk menjalankan debugging di VS Code, pengguna dapat membuat file konfigurasi 
 
 Setelah konfigurasi dibuat, pengguna cukup menekan tombol \textbf{F5} untuk memulai debugging. VS Code akan menjalankan program dan berhenti pada breakpoint yang sudah ditandai. Pada titik ini, programmer dapat memeriksa nilai variabel melalui panel “Variables”, menambahkan ekspresi pemantauan melalui “Watch”, melihat urutan pemanggilan fungsi pada “Call Stack”, serta mengeksekusi kode langkah demi langkah untuk memahami bagaimana nilai berubah.
 
-Contoh output di integrated terminal ketika menjalankan program tanpa error:
+Contoh output di integrated terminal ketika menjalankan program tanpa error (Listing~\ref{lst:b13-keluaran-program-terminal-vs-code}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran program di terminal VS Code}, label={lst:b13-keluaran-program-terminal-vs-code}]
 Total: 75000
 \end{lstlisting}
 
@@ -495,9 +502,9 @@ Latihan berikut dirancang untuk menguji kemampuan debugging tingkat lanjut mengg
 
 \subsection*{Latihan 1: Perhitungan Statistik dengan Shared Mutable State}
 
-Program berikut berusaha menghitung rata-rata, median, dan modus dari sebuah list. Namun hasil yang ditampilkan tidak konsisten, terutama ketika fungsi dipanggil lebih dari sekali. Masalahnya tidak muncul dari satu baris saja, tetapi dari interaksi variabel yang berbagi state antar fungsi.
+Program berikut berusaha menghitung rata-rata, median, dan modus dari sebuah list. Namun hasil yang ditampilkan tidak konsisten, terutama ketika fungsi dipanggil lebih dari sekali. Masalahnya tidak muncul dari satu baris saja, tetapi dari interaksi variabel yang berbagi state antar fungsi (Listing~\ref{lst:b13-program-statistik-latihan-1}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Program statistik untuk Latihan 1}, label={lst:b13-program-statistik-latihan-1}]
 cache = {"sum": 0, "count": 0}
 
 def hitung_rata(data):
@@ -508,7 +515,7 @@ def hitung_rata(data):
 
 def median(data):
     data.sort()     
-    mid = len(data) 
+    mid = len(data) // 2
     return data[mid]
 
 def modus(data):
@@ -535,9 +542,9 @@ Mahasiswa harus menemukan bagaimana perubahan list oleh \texttt{median()}, serta
 
 \subsection*{Latihan 2: Pengelompokan Data dengan Referensi List yang Tersembunyi}
 
-Program berikut berusaha mengelompokkan data penjualan berdasarkan bulan. Setiap transaksi memiliki informasi bulan (1--12) dan nilai penjualan. Hasil yang diharapkan adalah sebuah dictionary yang berisi daftar nilai penjualan untuk setiap bulan, serta total penjualan per bulan. Namun, output yang dihasilkan program tampak aneh: beberapa bulan memiliki data yang sama persis, atau total penjualan per bulan menjadi tidak masuk akal. Kesalahan tidak muncul sebagai error sintaks ataupun runtime, melainkan berasal dari penggunaan list yang saling berbagi referensi secara tidak sengaja. Mahasiswa diminta menggunakan debugger di VS Code untuk memantau isi dictionary dan list pada setiap langkah, serta menemukan bagaimana satu perubahan pada satu bulan dapat memengaruhi bulan lain.
+Program berikut berusaha mengelompokkan data penjualan berdasarkan bulan. Setiap transaksi memiliki informasi bulan (1--12) dan nilai penjualan. Hasil yang diharapkan adalah sebuah dictionary yang berisi daftar nilai penjualan untuk setiap bulan, serta total penjualan per bulan. Namun, output yang dihasilkan program tampak aneh: beberapa bulan memiliki data yang sama persis, atau total penjualan per bulan menjadi tidak masuk akal. Kesalahan tidak muncul sebagai error sintaks ataupun runtime, melainkan berasal dari penggunaan list yang saling berbagi referensi secara tidak sengaja. Mahasiswa diminta menggunakan debugger di VS Code untuk memantau isi dictionary dan list pada setiap langkah, serta menemukan bagaimana satu perubahan pada satu bulan dapat memengaruhi bulan lain (Listing~\ref{lst:b13-program-pengelompokan-penjualan-latihan-2}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Program pengelompokan penjualan untuk Latihan 2}, label={lst:b13-program-pengelompokan-penjualan-latihan-2}]
 
 
 def kelompokkan_penjualan(transaksi):
@@ -583,9 +590,9 @@ Petunjuk: gunakan breakpoint di dalam fungsi \texttt{kelompokkan\_penjualan()} d
 
 \subsection*{Latihan 3: Sistem Inventori dengan Perhitungan Stok yang Tidak Stabil}
 
-Program ini mensimulasikan sistem inventori. Hasil akhir kadang benar, kadang salah, tergantung urutan pemanggilan fungsi. Bug berasal dari interaksi kompleks antar fungsi: mutasi dictionary, penggunaan objek yang direferensikan ulang, serta kesalahan kecil dalam logika penambahan dan pengurangan stok.
+Program ini mensimulasikan sistem inventori. Hasil akhir kadang benar, kadang salah, tergantung urutan pemanggilan fungsi. Bug berasal dari interaksi kompleks antar fungsi: mutasi dictionary, penggunaan objek yang direferensikan ulang, serta kesalahan kecil dalam logika penambahan dan pengurangan stok (Listing~\ref{lst:b13-program-inventori-latihan-3}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Program inventori untuk Latihan 3}, label={lst:b13-program-inventori-latihan-3}]
 
 stok = {"pensil": 10, "buku": 5, "pulpen": 8}
 
@@ -624,4 +631,11 @@ if __name__ == "__main__":
 
 Latihan ini menuntut mahasiswa memeriksa nilai \texttt{stok} pada setiap perubahan, memahami bagaimana nilai menjadi salah, dan menemukan interaksi bug yang tidak langsung terlihat hanya dari membaca kode.
 
-
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: Errors and Exceptions} \cite{py-tut-errors}: kesalahan sintaks, \textit{exception}, dan contoh \textit{traceback}.
+  \item \textit{traceback — Print or retrieve a stack traceback} \cite{py-traceback}: modul \texttt{traceback}.
+  \item \textit{pdb — The Python Debugger} \cite{py-pdb}: perintah \textit{debugger} \texttt{pdb}.
+  \item \textit{PEP 553 – Built-in breakpoint()} \cite{pep553}: latar belakang fungsi \texttt{breakpoint()}.
+  \item \textit{Python debugging in VS Code} \cite{vscode-debug}: \textit{breakpoint} dan \texttt{launch.json} di VS Code.
+\end{daftarrapat}

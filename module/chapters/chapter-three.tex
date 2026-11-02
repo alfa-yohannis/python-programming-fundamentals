@@ -1,5 +1,12 @@
 \chapter{Operator dan Pengkondisian}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menyusun ekspresi untuk menghitung nilai, membandingkan data, dan menggabungkan beberapa kondisi.
+  \item Menyusun alur keputusan agar program bertindak berbeda sesuai kondisi yang terpenuhi.
+  \item Memilih bentuk percabangan yang paling sesuai dengan masalah, sehingga program tetap mudah dibaca.
+\end{daftarrapat}
+
 \section{Operator}
 Operator adalah karakter khusus yang digunakan untuk melakukan operasi terhadap variabel dan nilai. Di Python terdapat berbagai jenis operator, namun pada chapter ini kita hanya akan membahas beberapa operator yang paling umum digunakan, yaitu:
 
@@ -12,37 +19,35 @@ Operator adalah karakter khusus yang digunakan untuk melakukan operasi terhadap 
 \end{enumerate}
 
 \subsection{Operator Aritmatika}
-\begin{frame}[fragile]{Operator Aritmatika di Python}
-Operator ini dipakai untuk melakukan operasi dasar dalam matematika, seperti penjumlahan, pengurangan, perkalian, pembagian, dan sebagainya.
-
-\end{frame}
+Operator ini dipakai untuk melakukan operasi dasar dalam matematika, seperti penjumlahan, pengurangan, perkalian, pembagian, dan sebagainya. Tabel~\ref{tab:b3-aritmatika} mendaftar operator tersebut.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Operator} & \textbf{Keterangan} \\
-\hline
-\texttt{+} & Operator penjumlahan \\
-\hline
-\texttt{-} & Operator pengurangan \\
-\hline
-\texttt{*} & Operator perkalian \\
-\hline
-\texttt{/} & Operator pembagian \\
-\hline
-\texttt{//} & Operator pembagian bulat (\textit{floor division}) \\
-\hline
-\texttt{\%} & Operator modulus (sisa hasil bagi) \\
-\hline
-\texttt{**} & Operator perpangkatan \\
-\hline
-\end{tabular}
-\caption{Daftar Operator Aritmatika di Python}
+  \centering
+  \caption{Daftar Operator Aritmatika di Python}
+  \label{tab:b3-aritmatika}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Operator} & \textbf{Keterangan} \\
+    \hline
+    \texttt{+} & Operator penjumlahan \\
+    \hline
+    \texttt{-} & Operator pengurangan \\
+    \hline
+    \texttt{*} & Operator perkalian \\
+    \hline
+    \texttt{/} & Operator pembagian \\
+    \hline
+    \texttt{//} & Operator pembagian bulat (\textit{floor division}) \\
+    \hline
+    \texttt{\%} & Operator modulus (sisa hasil bagi) \\
+    \hline
+    \texttt{**} & Operator perpangkatan \\
+    \hline
+  \end{tabularx}
 \end{table}
 
-Berikut adalah contoh penggunaan operator aritmatika dalam Python:
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: arithmetic_operator.py}]
+Listing~\ref{lst:b3-arithmetic} berisi contoh penggunaan operator aritmatika dalam Python:
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: arithmetic_operator.py}, label={lst:b3-arithmetic}]
 a = 5
 b = 2
 
@@ -55,7 +60,7 @@ print("a % b =", a % b)
 print("a ** b =", a ** b)
 \end{lstlisting}
 
-Kode di atas mendemonstrasikan berbagai operasi aritmatika yang dapat dilakukan di Python menggunakan operator bawaan. Berikut adalah penjelasan dari setiap operasi:
+Kode pada Listing~\ref{lst:b3-arithmetic} mendemonstrasikan berbagai operasi aritmatika yang dapat dilakukan di Python menggunakan operator bawaan. Berikut adalah penjelasan dari setiap operasi:
 \begin{itemize}
     \item Penjumlahan (+)
     \begin{itemize}
@@ -93,39 +98,83 @@ Kode di atas mendemonstrasikan berbagai operasi aritmatika yang dapat dilakukan 
     \end{itemize}
 \end{itemize}
 
+
+Keluaran program tersebut ada pada Listing~\ref{lst:b3-arithmetic-out}.
+
+\begin{lstlisting}[language=bash, caption={Keluaran arithmetic_operator.py}, label={lst:b3-arithmetic-out}]
+a + b = 7
+a - b = 3
+a * b = 10
+a / b = 2.5
+a // b = 2
+a % b = 1
+a ** b = 25
+\end{lstlisting}
+
+Tiga operator perlu perhatian lebih. Operator \texttt{/} selalu menghasilkan \texttt{float} walaupun hasil baginya bulat, sehingga \texttt{6 / 2} menghasilkan \texttt{3.0}. Operator \texttt{//} membulatkan ke bawah, termasuk untuk bilangan negatif, sehingga \texttt{-7 // 2} menghasilkan \texttt{-4}. Operator \texttt{\%} berguna untuk memeriksa kelipatan, karena bilangan genap memberi sisa 0 saat dibagi 2.
+
+Hubungan \texttt{//} dan \texttt{\%} dirumuskan pada Persamaan~\eqref{eq:b3-sisa-bagi} \cite{py-ref-expressions}. Untuk $a = 5$ dan $b = 2$, persamaan ini menjadi $5 = 2 \times 2 + 1$.
+
+\begin{equation}
+  a = (a \mathbin{//} b) \times b + (a \mathbin{\%} b)
+  \label{eq:b3-sisa-bagi}
+\end{equation}
+
+Bila satu ekspresi memuat beberapa operator, Python mengerjakannya menurut prioritas pada Tabel~\ref{tab:b3-prioritas}, sama seperti urutan hitung di sekolah. Operator dengan prioritas sama dikerjakan dari kiri ke kanan, kecuali \texttt{**} yang dikerjakan dari kanan ke kiri, sehingga \texttt{2 ** 3 ** 2} menghasilkan 512. Tanda kurung selalu dikerjakan lebih dahulu dan membuat maksud kode lebih jelas.
+
+\begin{table}[H]
+  \centering
+  \caption{Prioritas operator aritmatika, dari yang paling dahulu dikerjakan}
+  \label{tab:b3-prioritas}
+  \begin{tabularx}{\textwidth}{clXl}
+    \hline
+    \textbf{Urutan} & \textbf{Operator} & \textbf{Contoh} & \textbf{Hasil} \\
+    \hline
+    1 & \texttt{( )} & \texttt{(2 + 3) * 4} & 20 \\
+    \hline
+    2 & \texttt{**} & \texttt{2 ** 3} & 8 \\
+    \hline
+    3 & \texttt{*}, \texttt{/}, \texttt{//}, \texttt{\%} & \texttt{2 + 3 * 4} & 14 \\
+    \hline
+    4 & \texttt{+}, \texttt{-} & \texttt{7 - 2 + 1} & 6 \\
+    \hline
+  \end{tabularx}
+\end{table}
+
 \subsection{Operator \textit{Assignment}}
 Operator \textit{assignment} adalah operator yang digunakan untuk memberikan nilai pada variabel. 
 Selain \textit{assignment} dasar dengan tanda sama dengan (\texttt{=}), Python juga menyediakan operator 
-\textit{assignment} gabungan (\textit{augmented assignment}) yang mengombinasikan operasi aritmatika dengan assignment.
+\textit{assignment} gabungan (\textit{augmented assignment}) yang mengombinasikan operasi aritmatika dengan assignment. Tabel~\ref{tab:b3-assignment} mendaftar operator tersebut.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Operator} & \textbf{Keterangan} \\
-\hline
-\texttt{=} & Assignment, memberikan nilai ke variabel \\
-\hline
-\texttt{+=} & Penjumlahan sekaligus assignment (\texttt{x += y} $\Rightarrow$ \texttt{x = x + y}) \\
-\hline
-\texttt{-=} & Pengurangan sekaligus assignment (\texttt{x -= y} $\Rightarrow$ \texttt{x = x - y}) \\
-\hline
-\texttt{*=} & Perkalian sekaligus assignment (\texttt{x *= y} $\Rightarrow$ \texttt{x = x * y}) \\
-\hline
-\texttt{/=} & Pembagian sekaligus assignment (\texttt{x /= y} $\Rightarrow$ \texttt{x = x / y}) \\
-\hline
-\texttt{//=} & Floor division sekaligus assignment (\texttt{x //= y} $\Rightarrow$ \texttt{x = x // y}) \\
-\hline
-\texttt{\%=} & Modulo sekaligus assignment (\texttt{x \%= y} $\Rightarrow$ \texttt{x = x \% y}) \\
-\hline
-\texttt{**=} & Perpangkatan sekaligus assignment (\texttt{x **= y} $\Rightarrow$ \texttt{x = x ** y}) \\
-\hline
-\end{tabular}
-\caption{Daftar Operator Assignment di Python}
+  \centering
+  \caption{Daftar Operator Assignment di Python}
+  \label{tab:b3-assignment}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Operator} & \textbf{Keterangan} \\
+    \hline
+    \texttt{=} & Assignment, memberikan nilai ke variabel \\
+    \hline
+    \texttt{+=} & Penjumlahan sekaligus assignment (\texttt{x += y} $\Rightarrow$ \texttt{x = x + y}) \\
+    \hline
+    \texttt{-=} & Pengurangan sekaligus assignment (\texttt{x -= y} $\Rightarrow$ \texttt{x = x - y}) \\
+    \hline
+    \texttt{*=} & Perkalian sekaligus assignment (\texttt{x *= y} $\Rightarrow$ \texttt{x = x * y}) \\
+    \hline
+    \texttt{/=} & Pembagian sekaligus assignment (\texttt{x /= y} $\Rightarrow$ \texttt{x = x / y}) \\
+    \hline
+    \texttt{//=} & Floor division sekaligus assignment (\texttt{x //= y} $\Rightarrow$ \texttt{x = x // y}) \\
+    \hline
+    \texttt{\%=} & Modulo sekaligus assignment (\texttt{x \%= y} $\Rightarrow$ \texttt{x = x \% y}) \\
+    \hline
+    \texttt{**=} & Perpangkatan sekaligus assignment (\texttt{x **= y} $\Rightarrow$ \texttt{x = x ** y}) \\
+    \hline
+  \end{tabularx}
 \end{table}
 
-Berikut adalah contoh penggunaan operator assignment dalam Python:
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: assignment_operator.py}]
+Listing~\ref{lst:b3-assignment} berisi contoh penggunaan operator assignment dalam Python:
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: assignment_operator.py}, label={lst:b3-assignment}]
 x = 10
 print("x =", x)
 
@@ -151,7 +200,7 @@ x **= 2
 print("x **= 2 ->", x)
 \end{lstlisting}
 
-Kode di atas mendemonstrasikan berbagai operator assignment yang dapat digunakan di Python. 
+Kode pada Listing~\ref{lst:b3-assignment} mendemonstrasikan berbagai operator assignment yang dapat digunakan di Python. 
 Berikut adalah penjelasan dari setiap operator:
 \begin{itemize}
     \item Assignment (=)
@@ -195,33 +244,48 @@ Berikut adalah penjelasan dari setiap operator:
     \end{itemize}
 \end{itemize}
 
+
+Listing~\ref{lst:b3-assignment-out} menampilkan keluarannya. Setelah \texttt{x /= 4}, nilai \texttt{x} menjadi \texttt{float} dan tetap \texttt{float} pada baris-baris berikutnya. Operator gabungan hanya penulisan ringkas dari bentuk panjangnya, dan paling sering dipakai untuk menambah total di dalam perulangan, seperti \texttt{total += nilai}.
+
+\begin{lstlisting}[language=bash, caption={Keluaran assignment_operator.py}, label={lst:b3-assignment-out}]
+x = 10
+x += 5 -> 15
+x -= 3 -> 12
+x *= 2 -> 24
+x /= 4 -> 6.0
+x //= 2 -> 3.0
+x %= 3 -> 0.0
+x **= 2 -> 0.0
+\end{lstlisting}
+
 \subsection{Operator Perbandingan}
 Operator perbandingan digunakan untuk membandingkan dua nilai. 
-Hasil dari operator ini selalu berupa nilai boolean (\texttt{True} atau \texttt{False}).
+Hasil dari operator ini selalu berupa nilai boolean (\texttt{True} atau \texttt{False}). Tabel~\ref{tab:b3-perbandingan} mendaftar operator tersebut, dan Listing~\ref{lst:b3-comparison} memakai semuanya.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Operator} & \textbf{Keterangan} \\
-\hline
-\texttt{==} & Sama dengan \\
-\hline
-\texttt{!=} & Tidak sama dengan \\
-\hline
-\texttt{>} & Lebih besar dari \\
-\hline
-\texttt{<} & Lebih kecil dari \\
-\hline
-\texttt{>=} & Lebih besar atau sama dengan \\
-\hline
-\texttt{<=} & Lebih kecil atau sama dengan \\
-\hline
-\end{tabular}
-\caption{Daftar Operator Perbandingan di Python}
+  \centering
+  \caption{Daftar Operator Perbandingan di Python}
+  \label{tab:b3-perbandingan}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Operator} & \textbf{Keterangan} \\
+    \hline
+    \texttt{==} & Sama dengan \\
+    \hline
+    \texttt{!=} & Tidak sama dengan \\
+    \hline
+    \texttt{>} & Lebih besar dari \\
+    \hline
+    \texttt{<} & Lebih kecil dari \\
+    \hline
+    \texttt{>=} & Lebih besar atau sama dengan \\
+    \hline
+    \texttt{<=} & Lebih kecil atau sama dengan \\
+    \hline
+  \end{tabularx}
 \end{table}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: comparison_operator.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: comparison_operator.py}, label={lst:b3-comparison}]
 a = 5
 b = 2
 
@@ -233,26 +297,75 @@ print("a >= b:", a >= b)
 print("a <= b:", a <= b)
 \end{lstlisting}
 
+\begin{lstlisting}[language=bash, caption={Keluaran comparison_operator.py}, label={lst:b3-comparison-out}]
+a == b: False
+a != b: True
+a > b: True
+a < b: False
+a >= b: True
+a <= b: False
+\end{lstlisting}
+
+Listing~\ref{lst:b3-comparison-out} menampilkan keluarannya. Tanda \texttt{=} dan \texttt{==} sering tertukar. Tanda \texttt{=} menyimpan nilai, sedangkan \texttt{==} menanyakan apakah dua nilai sama. Menulis \texttt{if nilai = 75:} menghasilkan \texttt{SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?}.
+
+Listing~\ref{lst:b3-compare-more} memperlihatkan tiga perilaku lain, dan keluarannya ada pada Listing~\ref{lst:b3-compare-more-out}. Python mengizinkan perbandingan berantai seperti \texttt{60 <= nilai <= 100}, yang mudah dibaca seperti notasi matematika. Teks dan angka tidak pernah sama, sehingga \texttt{"5" == 5} bernilai \texttt{False}. Dua nilai \texttt{float} juga bisa berbeda sedikit karena cara penyimpanannya, sehingga \texttt{0.1 + 0.2 == 0.3} bernilai \texttt{False}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: perbandingan_lain.py}, label={lst:b3-compare-more}]
+nilai = 75
+print(60 <= nilai <= 100)
+print("5" == 5)
+print(0.1 + 0.2 == 0.3)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran perbandingan_lain.py}, label={lst:b3-compare-more-out}]
+True
+False
+False
+\end{lstlisting}
+
+
 \subsection{Operator Logika}
-Operator logika digunakan untuk menggabungkan ekspresi boolean.
+Operator logika digunakan untuk menggabungkan ekspresi boolean. Tabel~\ref{tab:b3-logika} mendaftar operator tersebut, dan Tabel~\ref{tab:b3-kebenaran} merinci hasil tiap kombinasinya.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Operator} & \textbf{Keterangan} \\
-\hline
-\texttt{and} & Bernilai \texttt{True} jika kedua kondisi bernilai benar \\
-\hline
-\texttt{or} & Bernilai \texttt{True} jika salah satu kondisi bernilai benar \\
-\hline
-\texttt{not} & Membalikkan nilai boolean (True menjadi False, sebaliknya) \\
-\hline
-\end{tabular}
-\caption{Daftar Operator Logika di Python}
+  \centering
+  \caption{Daftar Operator Logika di Python}
+  \label{tab:b3-logika}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Operator} & \textbf{Keterangan} \\
+    \hline
+    \texttt{and} & Bernilai \texttt{True} jika kedua kondisi bernilai benar \\
+    \hline
+    \texttt{or} & Bernilai \texttt{True} jika salah satu kondisi bernilai benar \\
+    \hline
+    \texttt{not} & Membalikkan nilai boolean (True menjadi False, sebaliknya) \\
+    \hline
+  \end{tabularx}
 \end{table}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: logical_operator.py}]
+\begin{table}[H]
+  \centering
+  \caption{Hasil operator logika untuk tiap kombinasi nilai}
+  \label{tab:b3-kebenaran}
+  \begin{tabularx}{\textwidth}{ccXXX}
+    \hline
+    \textbf{\texttt{x}} & \textbf{\texttt{y}} & \textbf{\texttt{x and y}} & \textbf{\texttt{x or y}} & \textbf{\texttt{not x}} \\
+    \hline
+    \texttt{True} & \texttt{True} & \texttt{True} & \texttt{True} & \texttt{False} \\
+    \hline
+    \texttt{True} & \texttt{False} & \texttt{False} & \texttt{True} & \texttt{False} \\
+    \hline
+    \texttt{False} & \texttt{True} & \texttt{False} & \texttt{True} & \texttt{True} \\
+    \hline
+    \texttt{False} & \texttt{False} & \texttt{False} & \texttt{False} & \texttt{True} \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+Listing~\ref{lst:b3-logical} mencoba satu baris dari tabel tersebut, yaitu \texttt{x} bernilai \texttt{True} dan \texttt{y} bernilai \texttt{False}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: logical_operator.py}, label={lst:b3-logical}]
 x = True
 y = False
 
@@ -261,25 +374,53 @@ print("x or y:", x or y)
 print("not x:", not x)
 \end{lstlisting}
 
+\begin{lstlisting}[language=bash, caption={Keluaran logical_operator.py}, label={lst:b3-logical-out}]
+x and y: False
+x or y: True
+not x: False
+\end{lstlisting}
+
+Keluaran pada Listing~\ref{lst:b3-logical-out} sesuai dengan tabel. Dalam praktik, operator logika menggabungkan hasil perbandingan. Syarat kelulusan biasanya berupa gabungan seperti ini: nilai harus cukup, dan kehadiran juga harus cukup. Listing~\ref{lst:b3-syarat} menuliskan aturan itu, dan Listing~\ref{lst:b3-syarat-out} menampilkan hasilnya. Mahasiswa pada contoh ini tidak lulus karena kehadirannya kurang, walaupun nilainya cukup.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: syarat_lulus.py}, label={lst:b3-syarat}]
+nilai = 75
+kehadiran = 60
+
+lulus = nilai >= 60 and kehadiran >= 75
+boleh_remedial = nilai >= 60 or kehadiran >= 75
+
+print("Lulus:", lulus)
+print("Boleh remedial:", boleh_remedial)
+print("Tidak lulus:", not lulus)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran syarat_lulus.py}, label={lst:b3-syarat-out}]
+Lulus: False
+Boleh remedial: True
+Tidak lulus: True
+\end{lstlisting}
+
+
 \subsection{Operator \textit{Membership}}
 Operator \textit{membership} digunakan untuk memeriksa apakah suatu nilai (biasanya berupa karakter atau substring) 
-terdapat di dalam sebuah string. Hasil dari operasi ini berupa nilai boolean (\texttt{True} atau \texttt{False}).
+terdapat di dalam sebuah string. Hasil dari operasi ini berupa nilai boolean (\texttt{True} atau \texttt{False}). Tabel~\ref{tab:b3-membership} mendaftar operator tersebut, dan Listing~\ref{lst:b3-membership} memberi contohnya.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Operator} & \textbf{Keterangan} \\
-\hline
-\texttt{in} & Bernilai \texttt{True} jika nilai ada di dalam string \\
-\hline
-\texttt{not in} & Bernilai \texttt{True} jika nilai tidak ada di dalam string \\
-\hline
-\end{tabular}
-\caption{Daftar Operator \textit{Membership} di Python}
+  \centering
+  \caption{Daftar Operator \textit{Membership} di Python}
+  \label{tab:b3-membership}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Operator} & \textbf{Keterangan} \\
+    \hline
+    \texttt{in} & Bernilai \texttt{True} jika nilai ada di dalam string \\
+    \hline
+    \texttt{not in} & Bernilai \texttt{True} jika nilai tidak ada di dalam string \\
+    \hline
+  \end{tabularx}
 \end{table}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: membership_operator.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: membership_operator.py}, label={lst:b3-membership}]
 text = "Python Programming"
 
 print("'Py' in text:", "Py" in text)         # True
@@ -288,38 +429,53 @@ print("'Java' not in text:", "Java" not in text) # True
 print("'P' in text:", "P" in text)           # True
 \end{lstlisting}
 
+Pemeriksaan ini membedakan huruf besar dan kecil. Operator yang sama juga berlaku untuk kumpulan data seperti \texttt{list}, misalnya untuk memeriksa nama dalam daftar peserta. Listing~\ref{lst:b3-membership-list} memperlihatkan keduanya, dan mencetak \texttt{False}, \texttt{True}, lalu \texttt{False}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: membership_list.py}, label={lst:b3-membership-list}]
+text = "Python Programming"
+print("py" in text)
+
+kelas_pagi = ["Rani", "Dani", "Sinta"]
+print("Dani" in kelas_pagi)
+print("Budi" in kelas_pagi)
+\end{lstlisting}
+
 \section{Pengkondisian}
 Pengkondisian adalah konsep penting dalam pemrograman yang memungkinkan pengambilan keputusan berdasarkan kondisi tertentu. Di Python, pengkondisian bisa diimplementasikan menggunakan beberapa struktur dasar seperti if, elif, else, match, dan operator ternary.
 
-\subsection{If}
-If digunakan untuk mengeksekusi blok kode tertentu hanya jika kondisi yang diberikan bernilai true. Bentuk dasarnya adalah:
+Program tanpa percabangan selalu menjalankan baris yang sama. Percabangan membuat program memilih baris yang dijalankan berdasarkan data. Polanya dekat dengan aturan sehari-hari: jika hujan, bawa payung, dan jika tidak, payung ditinggal di rumah.
 
-\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if}]
+\subsection{If}
+If digunakan untuk mengeksekusi blok kode tertentu hanya jika kondisi yang diberikan bernilai true. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-if}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if}, label={lst:b3-bentuk-if}]
 if kondisi:
     # Blok kode yang akan dieksekusi jika kondisi bernilai true
 \end{lstlisting}
 
-Contoh Penggunaan:
+Listing~\ref{lst:b3-if} memberi contoh penggunaannya:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_statement.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_statement.py}, label={lst:b3-if}]
 nilai = 75
 if nilai >= 70:
     print("Lulus")
 \end{lstlisting}
 
-\subsection{If-Else}
-If-else memungkinkan kita untuk menentukan blok kode alternatif yang akan dijalankan jika kondisi tidak terpenuhi. Bentuk dasarnya adalah:
+Karena \texttt{nilai} bernilai 75, kondisinya benar dan program mencetak \texttt{Lulus}. Bila \texttt{nilai} diganti menjadi 60, tidak ada yang tercetak, karena \texttt{if} tanpa \texttt{else} tidak punya jalur lain. Baris yang dijalankan bersyarat ditandai dengan indentasi. Tanpa indentasi, Python menghasilkan \texttt{IndentationError: expected an indented block after 'if' statement on line 2}.
 
-\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if-else}]
+\subsection{If-Else}
+If-else memungkinkan kita untuk menentukan blok kode alternatif yang akan dijalankan jika kondisi tidak terpenuhi. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-if-else}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if-else}, label={lst:b3-bentuk-if-else}]
 if kondisi:
     # Blok kode yang akan dieksekusi jika kondisi bernilai true
 else:
     # Blok kode yang akan dieksekusi jika kondisi bernilai false
 \end{lstlisting}
 
-Contoh Penggunaan:
+Listing~\ref{lst:b3-if-else} memberi contoh penggunaannya:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_else_statement.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_else_statement.py}, label={lst:b3-if-else}]
 nilai = 65
 if nilai >= 70:
     print("Lulus")
@@ -327,10 +483,12 @@ else:
     print("Tidak Lulus")
 \end{lstlisting}
 
-\subsection{If-Elif-Else (Percabangan Multi Kondisi)}
-If-elif-else memungkinkan kita untuk menentukan beberapa kondisi dan blok kode yang akan dijalankan jika kondisi tersebut bernilai true. Bentuk dasarnya adalah:
+Pada bentuk ini, tepat satu dari dua blok selalu berjalan. Kata \texttt{else} tidak punya kondisi sendiri, karena ia menangkap semua nilai yang tidak memenuhi kondisi \texttt{if}. Untuk \texttt{nilai} 65, program mencetak \texttt{Tidak Lulus}.
 
-\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if-elif-else}]
+\subsection{If-Elif-Else (Percabangan Multi Kondisi)}
+If-elif-else memungkinkan kita untuk menentukan beberapa kondisi dan blok kode yang akan dijalankan jika kondisi tersebut bernilai true. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-elif}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar if-elif-else}, label={lst:b3-bentuk-elif}]
 if kondisi1:
     # Blok kode yang akan dieksekusi jika kondisi1 bernilai true
 elif kondisi2:
@@ -339,9 +497,9 @@ else:
     # Blok kode yang akan dieksekusi jika kondisi1 dan kondisi2 bernilai false
 \end{lstlisting}
 
-Contoh Penggunaan:
+Listing~\ref{lst:b3-elif} memberi contoh penggunaannya:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_elif_else_statement.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: if_elif_else_statement.py}, label={lst:b3-elif}]
 nilai = 65
 if nilai >= 90:
     print("A")
@@ -353,10 +511,54 @@ else:
     print("D")
 \end{lstlisting}
 
-\subsection{\textit{Nested-If}}
-\textit{Nested-if} adalah struktur if yang digunakan untuk membuat blok kode yang bersarang. Bentuk dasarnya adalah:
+Kondisi diperiksa dari atas ke bawah, dan pemeriksaan berhenti pada kondisi benar yang pertama. Gambar~\ref{fig:b3-alur-elif} menggambarkan alur Listing~\ref{lst:b3-elif}. Untuk \texttt{nilai} 65, ketiga kondisi salah, sehingga program mencetak \texttt{D}.
 
-\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar nested-if}]
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    font=\footnotesize,
+    kotak/.style={draw, rounded corners, minimum height=0.8cm, minimum width=2.9cm, align=center},
+    panah/.style={-{Stealth[length=2mm]}, thick}
+  ]
+    \node[kotak, fill=orange!12] (k1) at (0,0) {\texttt{nilai >= 90}?};
+    \node[kotak, fill=orange!12] (k2) at (0,-1.5) {\texttt{nilai >= 80}?};
+    \node[kotak, fill=orange!12] (k3) at (0,-3.0) {\texttt{nilai >= 70}?};
+    \node[kotak, fill=blue!8] (a) at (4.8,0) {Cetak \texttt{A}};
+    \node[kotak, fill=blue!8] (b) at (4.8,-1.5) {Cetak \texttt{B}};
+    \node[kotak, fill=blue!8] (c) at (4.8,-3.0) {Cetak \texttt{C}};
+    \node[kotak, fill=blue!8] (d) at (0,-4.5) {Cetak \texttt{D}};
+    \node[kotak, fill=green!10] (selesai) at (4.8,-4.5) {Baris berikutnya};
+    \draw[panah] (k1) -- node[above] {ya} (a);
+    \draw[panah] (k2) -- node[above] {ya} (b);
+    \draw[panah] (k3) -- node[above] {ya} (c);
+    \draw[panah] (k1) -- node[right] {tidak} (k2);
+    \draw[panah] (k2) -- node[right] {tidak} (k3);
+    \draw[panah] (k3) -- node[right] {tidak} (d);
+    \draw[panah] (d) -- (selesai);
+    \draw[panah] (a.east) -- ++(0.5,0) |- (selesai.east);
+    \draw[panah] (b.east) -- ++(0.5,0);
+    \draw[panah] (c.east) -- ++(0.5,0);
+  \end{tikzpicture}
+  \caption{Alur if-elif-else pada program penentuan nilai huruf}
+  \label{fig:b3-alur-elif}
+\end{figure}
+
+Karena pemeriksaan berhenti pada kondisi benar yang pertama, urutan kondisi menentukan hasil. Listing~\ref{lst:b3-urutan-salah} menulis batas terendah lebih dahulu. Nilai 95 memenuhi kondisi pertama, sehingga program mencetak \texttt{C} dan dua kondisi di bawahnya tidak pernah diperiksa. Susunan yang benar dimulai dari batas tertinggi, seperti pada Listing~\ref{lst:b3-elif}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: urutan_salah.py}, label={lst:b3-urutan-salah}]
+nilai = 95
+if nilai >= 70:
+    print("C")
+elif nilai >= 80:
+    print("B")
+elif nilai >= 90:
+    print("A")
+\end{lstlisting}
+
+\subsection{\textit{Nested-If}}
+\textit{Nested-if} adalah struktur if yang digunakan untuk membuat blok kode yang bersarang. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-nested}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar nested-if}, label={lst:b3-bentuk-nested}]
 if kondisi1:
     # Blok kode yang akan dieksekusi jika kondisi1 bernilai true
     if kondisi2:
@@ -367,9 +569,9 @@ else:
     # Blok kode yang akan dieksekusi jika kondisi1 bernilai false
 \end{lstlisting}
 
-Contoh Penggunaan:
+Listing~\ref{lst:b3-nested} memberi contoh penggunaannya:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_if_statement.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_if_statement.py}, label={lst:b3-nested}]
 usia = 25
 punya_surat_izin_mengemudi = True
 
@@ -383,10 +585,22 @@ else:
     print("Kamu belum dewasa.")
 \end{lstlisting}
 
-\subsection{\textit{Match}}
-Sejak Python 3.10, tersedia struktur kontrol baru bernama \texttt{match} yang mirip dengan \texttt{switch-case} di bahasa pemrograman lain. Dengan \texttt{match}, kita dapat mencocokkan sebuah nilai terhadap beberapa pola sekaligus. Bentuk dasarnya adalah:
+Kondisi dalam hanya diperiksa bila kondisi luar benar. Program ini mencetak \texttt{Kamu sudah dewasa.}, lalu \texttt{Kamu boleh mengemudi.}. Bentuk bersarang cocok ketika tiap tingkat punya tindakan sendiri, seperti pesan berbeda untuk orang yang belum dewasa dan orang yang belum punya SIM.
 
-\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar match}]
+Bila hanya ada satu tindakan di tingkat terdalam, \texttt{and} menghasilkan kode yang lebih datar. Listing~\ref{lst:b3-nested-and} setara dengan jalur terdalam pada Listing~\ref{lst:b3-nested}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_dengan_and.py}, label={lst:b3-nested-and}]
+usia = 25
+punya_surat_izin_mengemudi = True
+
+if usia >= 18 and punya_surat_izin_mengemudi:
+    print("Kamu boleh mengemudi.")
+\end{lstlisting}
+
+\subsection{\textit{Match}}
+Sejak Python 3.10, tersedia struktur kontrol baru bernama \texttt{match} yang mirip dengan \texttt{switch-case} di bahasa pemrograman lain. Dengan \texttt{match}, kita dapat mencocokkan sebuah nilai terhadap beberapa pola sekaligus. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-match}:
+
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar match}, label={lst:b3-bentuk-match}]
 match variabel / value:
     case pola1:
         # blok kode jika sesuai pola1
@@ -396,9 +610,9 @@ match variabel / value:
         # blok kode default jika tidak ada yang cocok
 \end{lstlisting}
 
-Berikut contoh penggunaannya:
+Listing~\ref{lst:b3-match} memberi contoh penggunaannya:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: match.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: match.py}, label={lst:b3-match}]
 hari = "Senin"
 
 match hari:
@@ -410,19 +624,33 @@ match hari:
         print("Hari biasa.")
 \end{lstlisting}
 
+Nilai \texttt{hari} dibandingkan dengan tiap \texttt{case} dari atas ke bawah, dan hanya blok pertama yang cocok yang dijalankan. Program ini mencetak \texttt{Awal minggu, semangat kerja!}. Pola \texttt{_} cocok dengan nilai apa pun, sehingga berperan seperti \texttt{else} dan ditulis paling akhir.
+
+Beberapa nilai dapat digabung dalam satu \texttt{case} dengan tanda \texttt{|}, seperti pada Listing~\ref{lst:b3-match-or}, yang mencetak \texttt{Akhir pekan}. Bentuk \texttt{match} paling mudah dibaca ketika satu variabel dibandingkan dengan beberapa nilai tetap. Untuk rentang seperti \texttt{nilai >= 80}, \texttt{if-elif-else} lebih sesuai. Python versi sebelum 3.10 tidak mengenal \texttt{match} dan akan menghasilkan \texttt{SyntaxError}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: match_beberapa_nilai.py}, label={lst:b3-match-or}]
+hari = "Minggu"
+
+match hari:
+    case "Sabtu" | "Minggu":
+        print("Akhir pekan")
+    case _:
+        print("Hari kerja")
+\end{lstlisting}
+
 \subsection{Operator Ternary (\textit{Conditional Expression})}
 
 Python mendukung bentuk singkat dari struktur \texttt{if-else} yang disebut dengan
 \textit{conditional expression} atau sering dikenal sebagai \textit{ternary operator}.
-Sintaksnya adalah:
+Sintaksnya ada pada Listing~\ref{lst:b3-bentuk-ternary}:
 
-\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar ternary operator di Python}]
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar ternary operator di Python}, label={lst:b3-bentuk-ternary}]
 nilai_jika_true if kondisi else nilai_jika_false
 \end{lstlisting}
 
-Contoh penggunaannya:
+Listing~\ref{lst:b3-ternary} memberi contoh penggunaannya, dan program ini mencetak \texttt{Status: Dewasa}:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: ternary_operator.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: ternary_operator.py}, label={lst:b3-ternary}]
 usia = 20
 
 status = "Dewasa" if usia >= 18 else "Anak-anak"
@@ -430,14 +658,47 @@ status = "Dewasa" if usia >= 18 else "Anak-anak"
 print("Status:", status)
 \end{lstlisting}
 
-Kode di atas setara dengan:
+Kode pada Listing~\ref{lst:b3-ternary} setara dengan Listing~\ref{lst:b3-ternary-if}:
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk if-else yang setara dengan operator ternary}, label={lst:b3-ternary-if}]
 if usia >= 18:
     status = "Dewasa"
 else:
     status = "Anak-anak"
 \end{lstlisting}
+
+Bentuk ini cocok untuk memilih satu dari dua nilai dalam satu baris. Bila kondisinya panjang atau masing-masing cabang perlu lebih dari satu perintah, \texttt{if-else} biasa lebih mudah dibaca.
+
+\subsection{Memilih Bentuk Percabangan}
+Tabel~\ref{tab:b3-pilih} merangkum kapan tiap bentuk percabangan dipakai.
+
+\begin{table}[H]
+  \centering
+  \caption{Panduan memilih bentuk percabangan}
+  \label{tab:b3-pilih}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Bentuk} & \textbf{Dipakai ketika} \\
+    \hline
+    \texttt{if} & Ada tindakan yang hanya dilakukan bila kondisi benar \\
+    \hline
+    \texttt{if-else} & Ada dua jalur, dan salah satunya selalu dijalankan \\
+    \hline
+    \texttt{if-elif-else} & Ada lebih dari dua jalur, termasuk kondisi berupa rentang \\
+    \hline
+    \textit{nested-if} & Tiap tingkat kondisi punya tindakan sendiri \\
+    \hline
+    \texttt{match} & Satu variabel dibandingkan dengan beberapa nilai tetap \\
+    \hline
+    \textit{ternary} & Memilih satu dari dua nilai dalam satu baris \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\section{Ringkasan}
+Operator aritmatika menghitung nilai, operator perbandingan dan \textit{membership} menghasilkan \texttt{True} atau \texttt{False}, dan operator logika menggabungkan hasil tersebut. Prioritas operator menentukan urutan pengerjaan, dan tanda kurung membuat urutan itu jelas.
+
+Percabangan memakai hasil perbandingan untuk memilih baris yang dijalankan. Pada \texttt{if-elif-else}, kondisi diperiksa dari atas dan berhenti pada kondisi benar yang pertama, sehingga urutannya menentukan hasil.
 
 \section{Latihan}
 Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman tentang program Python yang telah dibahas:
@@ -456,11 +717,12 @@ Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman
     \item Grade E jika rata-rata kurang dari 49,99
 \end{itemize}
 
-\item \textbf{Latihan 2:} Buatlah program untuk menghitung \textit{Body Mass Index} (BMI) seseorang dengan rumus:
+\item \textbf{Latihan 2:} Buatlah program untuk menghitung \textit{Body Mass Index} (BMI) seseorang dengan rumus pada Persamaan~\eqref{eq:b3-bmi}:
 
-\[
-BMI = \frac{berat \ (kg)}{(tinggi \ (m))^2}
-\]
+\begin{equation}
+  BMI = \frac{berat \ (kg)}{(tinggi \ (m))^2}
+  \label{eq:b3-bmi}
+\end{equation}
 
 \begin{itemize}
     \item Program meminta input berat badan (kg) dan tinggi badan (cm).
@@ -500,7 +762,7 @@ BMI = \frac{berat \ (kg)}{(tinggi \ (m))^2}
 \begin{itemize}
     \item Email harus berupa alamat email dengan domain \texttt{pradita.ac.id}
     \item Password harus memiliki panjang minimal 8 karakter
-    \item Gunakan \textit{data dummy} (statis), misalnya email \texttt{mahasiswa@pradita.ac.id} dan password \texttt{password123}, untuk proses pencocokan
+    \item Gunakan \textit{data dummy} (statis), misalnya email \path{mahasiswa@pradita.ac.id} dan password \texttt{password123}, untuk proses pencocokan
 \end{itemize}
 
 \item \textbf{Latihan 5:} Buatlah program kalkulator sederhana yang:
@@ -512,3 +774,11 @@ BMI = \frac{berat \ (kg)}{(tinggi \ (m))^2}
 \end{itemize}
 
 \end{enumerate}
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Language Reference: Expressions} \cite{py-ref-expressions}: aturan operator aritmatika, perbandingan, logika, dan \textit{membership}.
+  \item \textit{The Python Tutorial: More Control Flow Tools} \cite{py-tut-controlflow}: pernyataan \texttt{if} dan \texttt{match}.
+  \item \textit{PEP 636 – Structural Pattern Matching: Tutorial} \cite{pep636}: tutorial pernyataan \texttt{match}.
+  \item \textit{PEP 308 – Conditional Expressions} \cite{pep308}: latar belakang ekspresi kondisional atau operator ternary.
+\end{daftarrapat}

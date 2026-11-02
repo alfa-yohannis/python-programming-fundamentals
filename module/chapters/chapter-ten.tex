@@ -4,6 +4,12 @@
 \chapter{Unit Test di Python}
 \label{ch:unit-test-python}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menjelaskan manfaat pengujian unit dalam menjaga kualitas program sejak awal pengembangan.
+  \item Menulis pengujian untuk fungsi dan kelas, lalu membaca hasilnya untuk menemukan sumber kesalahan.
+  \item Memanfaatkan pengujian untuk memastikan perubahan kode tidak merusak fitur yang sudah berjalan.
+\end{daftarrapat}
 
 %----------------------------------------
 \section{Pendahuluan}
@@ -94,12 +100,14 @@ Secara umum, struktur dasar test dalam \texttt{unittest} terdiri dari:
     Test dapat dijalankan langsung melalui perintah \texttt{python -m unittest} dari terminal, atau dengan menambahkan blok standar:
 \end{enumerate}
 
+Listing~\ref{lst:main-block} menunjukkan contoh kodenya.
+
 \begin{lstlisting}[style=PythonStyle, caption={Blok eksekusi test bawaan}, label={lst:main-block}]
 if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Contoh sederhana strukturnya dapat dijelaskan sebagai berikut (placeholder tanpa isi fungsi):
+Contoh sederhana strukturnya dapat dijelaskan sebagai berikut (placeholder tanpa isi fungsi) (Listing~\ref{lst:unittest-structure}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Struktur dasar kelas unit test di Python}, label={lst:unittest-structure}]
 import unittest
@@ -127,35 +135,35 @@ Setelah test dibuat, ada beberapa cara untuk menjalankannya menggunakan modul \t
 
 \begin{enumerate}
     \item \textbf{Menjalankan langsung dari berkas Python.}  
-    Jika test disimpan dalam file seperti \texttt{test\_fungsi.py}, maka jalankan:
-    \begin{lstlisting}[language=bash]
-    python test_fungsi.py
-    \end{lstlisting}
+    Jika test disimpan dalam file seperti \texttt{test\_fungsi.py}, maka jalankan (Listing~\ref{lst:b10-menjalankan-satu-berkas-test}):
+\begin{lstlisting}[language=bash, caption={Menjalankan satu berkas test}, label={lst:b10-menjalankan-satu-berkas-test}]
+python test_fungsi.py
+\end{lstlisting}
     Blok \texttt{if \_\_name\_\_ == "\_\_main\_\_"} memastikan test otomatis berjalan saat file dijalankan secara langsung.
 
     \item \textbf{Menggunakan perintah bawaan \texttt{unittest}.}  
-    Jalankan semua test dalam satu direktori menggunakan:
-    \begin{lstlisting}[language=bash]
-    python -m unittest discover
-    \end{lstlisting}
+    Jalankan semua test dalam satu direktori menggunakan (Listing~\ref{lst:b10-menjalankan-semua-test-dalam-satu-direktori}):
+\begin{lstlisting}[language=bash, caption={Menjalankan semua test dalam satu direktori}, label={lst:b10-menjalankan-semua-test-dalam-satu-direktori}]
+python -m unittest discover
+\end{lstlisting}
     Perintah ini akan mencari seluruh berkas dengan pola nama \texttt{test\_*.py} atau \texttt{*\_test.py} dan mengeksekusinya.
 
     \item \textbf{Menjalankan test tertentu saja.}  
-    Jika hanya ingin menjalankan satu test case atau metode tertentu:
-    \begin{lstlisting}[language=bash]
-    python -m unittest test_fungsi.TestNamaFungsi.test_kasus_1
-    \end{lstlisting}
+    Jika hanya ingin menjalankan satu test case atau metode tertentu (Listing~\ref{lst:b10-menjalankan-satu-metode-test-tertentu}):
+\begin{lstlisting}[language=bash, caption={Menjalankan satu metode test tertentu}, label={lst:b10-menjalankan-satu-metode-test-tertentu}]
+python -m unittest test_fungsi.TestNamaFungsi.test_kasus_1
+\end{lstlisting}
 
     \item \textbf{Menambah tingkat keluaran (verbosity).}  
-    Gunakan opsi \texttt{-v} untuk menampilkan nama test dan status hasil secara lebih rinci:
-    \begin{lstlisting}[language=bash]
-    python -m unittest -v
-    \end{lstlisting}
+    Gunakan opsi \texttt{-v} untuk menampilkan nama test dan status hasil secara lebih rinci (Listing~\ref{lst:b10-menjalankan-test-dengan-opsi-verbose}):
+\begin{lstlisting}[language=bash, caption={Menjalankan test dengan opsi verbose}, label={lst:b10-menjalankan-test-dengan-opsi-verbose}]
+python -m unittest -v
+\end{lstlisting}
 \end{enumerate}
 
-Hasil eksekusi akan menampilkan laporan yang mudah dibaca, misalnya:
+Hasil eksekusi akan menampilkan laporan yang mudah dibaca, misalnya (Listing~\ref{lst:b10-laporan-hasil-test}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Contoh laporan hasil test}, label={lst:b10-laporan-hasil-test}]
 test_kasus_1 (test_fungsi.TestNamaFungsi) ... ok
 
 ----------------------------------------------------------------------
@@ -197,10 +205,10 @@ Langkah-langkah umum untuk menulis unit test pada fungsi adalah sebagai berikut:
     \texttt{assertEqual}, \texttt{assertTrue}, \texttt{assertFalse}, dan \texttt{assertRaises}.
 
     \item \textbf{Jalankan test dan periksa hasilnya.}  
-    Gunakan perintah:
-    \begin{lstlisting}[language=bash]
-    python -m unittest test_fungsi.py
-    \end{lstlisting}
+    Gunakan perintah (Listing~\ref{lst:b10-menjalankan-test-fungsi}):
+\begin{lstlisting}[language=bash, caption={Menjalankan test fungsi}, label={lst:b10-menjalankan-test-fungsi}]
+python -m unittest test_fungsi.py
+\end{lstlisting}
 \end{enumerate}
 
 Dengan mengikuti enam langkah tersebut, Anda dapat menguji fungsi apa pun yang memiliki input dan output yang terdefinisi dengan baik.
@@ -208,7 +216,7 @@ Dengan mengikuti enam langkah tersebut, Anda dapat menguji fungsi apa pun yang m
 \subsection{Contoh Placeholder}
 
 Berikut contoh sederhana fungsi dan pengujiannya.  
-Misalkan kita memiliki fungsi \texttt{add(a, b)} yang bertugas menjumlahkan dua bilangan.
+Misalkan kita memiliki fungsi \texttt{add(a, b)} yang bertugas menjumlahkan dua bilangan (Listing~\ref{lst:fungsi-add}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Fungsi yang akan diuji}, label={lst:fungsi-add}]
 # file: fungsi.py
@@ -217,7 +225,7 @@ def add(a, b):
     return a + b
 \end{lstlisting}
 
-Kemudian, kita buat berkas terpisah untuk pengujian unitnya:
+Kemudian, kita buat berkas terpisah untuk pengujian unitnya (Listing~\ref{lst:test-fungsi}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh pengujian fungsi sederhana}, label={lst:test-fungsi}]
 # file: test_fungsi.py
@@ -238,15 +246,15 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Untuk menjalankan pengujian, gunakan perintah:
+Untuk menjalankan pengujian, gunakan perintah (Listing~\ref{lst:b10-menjalankan-test-beberapa-fungsi}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan test untuk beberapa fungsi}, label={lst:b10-menjalankan-test-beberapa-fungsi}]
 python -m unittest test_fungsi.py
 \end{lstlisting}
 
-Keluaran yang diharapkan:
+Keluaran yang diharapkan (Listing~\ref{lst:b10-keluaran-test-fungsi-diharapkan}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran test fungsi yang diharapkan}, label={lst:b10-keluaran-test-fungsi-diharapkan}]
 ...
 ----------------------------------------------------------------------
 Ran 3 tests in 0.001s
@@ -290,7 +298,7 @@ Keduanya diuji dengan memanggilnya via \texttt{NamaKelas.method(...)} atau melal
 \subsection{Menggunakan \texttt{setUp} dan \texttt{tearDown}}
 
 Gunakan \texttt{setUp} untuk menyiapkan objek/lingkungan sebelum setiap test case dijalankan, dan \texttt{tearDown} untuk membersihkan setelahnya.  
-Hal ini memastikan setiap test berjalan dalam kondisi yang segar (\emph{fresh}) dan terisolasi.
+Hal ini memastikan setiap test berjalan dalam kondisi yang segar (\emph{fresh}) dan terisolasi (Listing~\ref{lst:calculator-impl}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode kelas contoh untuk diuji}, label={lst:calculator-impl}]
 # file: calculator.py
@@ -334,6 +342,8 @@ class Calculator:
             raise ValueError(f"nilai tidak valid: {s}") from e
         return cls(memory=val)
 \end{lstlisting}
+
+Listing~\ref{lst:test-method} melanjutkan contoh tersebut.
 
 \begin{lstlisting}[style=PythonStyle, caption={Pengujian method kelas dengan unittest}, label={lst:test-method}]
 # file: test_calculator.py
@@ -398,16 +408,16 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Untuk menjalankan pengujian:
+Untuk menjalankan pengujian (Listing~\ref{lst:b10-menjalankan-test-kelas-calculator}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan test kelas Calculator}, label={lst:b10-menjalankan-test-kelas-calculator}]
 python -m unittest test_calculator.py --verbose
 \end{lstlisting}
 
 \noindent
-Keluaran yang diharapkan (ilustrasi):
+Keluaran yang diharapkan (ilustrasi) (Listing~\ref{lst:b10-ilustrasi-keluaran-test-kelas-calculator}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Ilustrasi keluaran test kelas Calculator}, label={lst:b10-ilustrasi-keluaran-test-kelas-calculator}]
 test_add_dengan_variansi_input (test_calculator.TestCalculatorMethods) ... ok
 test_add_mengembalikan_hasil_dan_update_memory (test_calculator.TestCalculatorMethods) ... ok
 test_divide_normal (test_calculator.TestCalculatorMethods) ... ok
@@ -450,7 +460,7 @@ Tiga metode ini adalah yang paling sering digunakan dalam unit test sederhana.
     \item \texttt{assertFalse(expr)} — memastikan bahwa ekspresi bernilai salah.
 \end{itemize}
 
-Jika kondisi tidak terpenuhi, unittest akan menandai test tersebut sebagai gagal dan mencetak pesan perbandingan nilai aktual vs nilai ekspektasi.
+Jika kondisi tidak terpenuhi, unittest akan menandai test tersebut sebagai gagal dan mencetak pesan perbandingan nilai aktual vs nilai ekspektasi (Listing~\ref{lst:assert-basic}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan assertEqual, assertTrue, dan assertFalse}, label={lst:assert-basic}]
 import unittest
@@ -474,9 +484,9 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Ketika test dijalankan, hasil yang diharapkan:
+Ketika test dijalankan, hasil yang diharapkan (Listing~\ref{lst:b10-keluaran-test-assertion-dasar}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran test assertion dasar}, label={lst:b10-keluaran-test-assertion-dasar}]
 ...
 ----------------------------------------------------------------------
 Ran 2 tests in 0.000s
@@ -504,7 +514,7 @@ Ada dua bentuk umum penggunaan:
     \item \textbf{Sebagai pemanggilan langsung.}
 \end{enumerate}
 
-Contoh:
+Contoh (Listing~\ref{lst:assertraises}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan assertRaises}, label={lst:assertraises}]
 import unittest
@@ -531,9 +541,9 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Ketika dijalankan:
+Ketika dijalankan (Listing~\ref{lst:b10-keluaran-test-assertraises}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran test assertRaises}, label={lst:b10-keluaran-test-assertraises}]
 ...
 ----------------------------------------------------------------------
 Ran 3 tests in 0.001s
@@ -546,7 +556,7 @@ Penggunaan \texttt{assertRaises} penting karena memungkinkan kita menguji skenar
 \subsection{\texttt{subTest} untuk Menguji Beberapa Kasus}
 
 Jika satu fungsi perlu diuji dengan berbagai kombinasi input, kita bisa menggunakan \texttt{subTest}.  
-Fitur ini membantu menjalankan banyak variasi pengujian di dalam satu metode tanpa menghentikan eksekusi setelah satu kasus gagal.
+Fitur ini membantu menjalankan banyak variasi pengujian di dalam satu metode tanpa menghentikan eksekusi setelah satu kasus gagal (Listing~\ref{lst:subtest}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Penggunaan subTest untuk beberapa kasus input}, label={lst:subtest}]
 import unittest
@@ -571,9 +581,9 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Hasil eksekusi:
+Hasil eksekusi (Listing~\ref{lst:b10-keluaran-test-subtest-lolos}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran test subTest yang lolos}, label={lst:b10-keluaran-test-subtest-lolos}]
 ...
 ----------------------------------------------------------------------
 Ran 1 test in 0.000s
@@ -581,9 +591,9 @@ Ran 1 test in 0.000s
 OK
 \end{lstlisting}
 
-Jika salah satu subTest gagal, laporan akan tetap menampilkan semua kasus dan menunjukkan kombinasi input mana yang menyebabkan kegagalan, contohnya:
+Jika salah satu subTest gagal, laporan akan tetap menampilkan semua kasus dan menunjukkan kombinasi input mana yang menyebabkan kegagalan, contohnya (Listing~\ref{lst:b10-keluaran-saat-salah-satu-subtest-gagal}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat salah satu subTest gagal}, label={lst:b10-keluaran-saat-salah-satu-subtest-gagal}]
 FAIL: test_multiply_variatif (__main__.TestSubTest) (a=2, b=3)
 AssertionError: 5 != 6
 \end{lstlisting}
@@ -604,9 +614,9 @@ Pemahaman terhadap format hasil dan pesan error akan membantu kita mendiagnosis 
 
 \subsection{Menjalankan via CLI: \texttt{python -m unittest}}
 
-Cara paling umum untuk menjalankan unit test adalah menggunakan modul \texttt{unittest} melalui perintah baris (Command Line Interface / CLI).
+Cara paling umum untuk menjalankan unit test adalah menggunakan modul \texttt{unittest} melalui perintah baris (Command Line Interface / CLI) (Listing~\ref{lst:b10-menjalankan-file-test-tertentu}).
 
-\begin{lstlisting}[language=bash, caption={Menjalankan file test tertentu}]
+\begin{lstlisting}[language=bash, caption={Menjalankan file test tertentu}, label={lst:b10-menjalankan-file-test-tertentu}]
 python -m unittest test_fungsi.py
 \end{lstlisting}
 
@@ -616,34 +626,34 @@ Secara default, hanya test yang namanya diawali dengan \texttt{test\_} yang akan
 Selain menjalankan satu file, kita juga dapat:
 
 \begin{itemize}
-    \item \textbf{Menjalankan semua test dalam proyek (discovery):}
-    \begin{lstlisting}[language=bash]
-    python -m unittest discover
-    \end{lstlisting}
+    \item \textbf{Menjalankan semua test dalam proyek (discovery):} (Listing~\ref{lst:b10-menjalankan-semua-test-dengan-discovery})
+\begin{lstlisting}[language=bash, caption={Menjalankan semua test dengan discovery}, label={lst:b10-menjalankan-semua-test-dengan-discovery}]
+python -m unittest discover
+\end{lstlisting}
     Perintah ini akan mencari seluruh berkas dengan pola nama \texttt{test\_*.py} atau \texttt{*\_test.py} di direktori saat ini dan subdirektorinya.
 
-    \item \textbf{Menjalankan test tertentu saja:}
-    \begin{lstlisting}[language=bash]
-    python -m unittest test_fungsi.TestAddFunction.test_penjumlahan_positif
-    \end{lstlisting}
+    \item \textbf{Menjalankan test tertentu saja:} (Listing~\ref{lst:b10-menjalankan-test-tertentu-saja})
+\begin{lstlisting}[language=bash, caption={Menjalankan test tertentu saja}, label={lst:b10-menjalankan-test-tertentu-saja}]
+python -m unittest test_fungsi.TestAddFunction.test_penjumlahan_positif
+\end{lstlisting}
     Berguna untuk mengeksekusi hanya satu test case spesifik tanpa menjalankan semua test lainnya.
 
-    \item \textbf{Menambah tingkat keluaran (verbosity):}
-    \begin{lstlisting}[language=bash]
-    python -m unittest -v
-    \end{lstlisting}
+    \item \textbf{Menambah tingkat keluaran (verbosity):} (Listing~\ref{lst:b10-menambah-tingkat-keluaran-dengan-opsi-verbose})
+\begin{lstlisting}[language=bash, caption={Menambah tingkat keluaran dengan opsi verbose}, label={lst:b10-menambah-tingkat-keluaran-dengan-opsi-verbose}]
+python -m unittest -v
+\end{lstlisting}
     Opsi \texttt{-v} (\emph{verbose}) akan menampilkan nama setiap test case dan status hasilnya secara lebih rinci.
 
-    \item \textbf{Menjalankan beberapa test sekaligus:}
-    \begin{lstlisting}[language=bash]
-    python -m unittest test_fungsi test_calculator
-    \end{lstlisting}
+    \item \textbf{Menjalankan beberapa test sekaligus:} (Listing~\ref{lst:b10-menjalankan-beberapa-modul-test-sekaligus})
+\begin{lstlisting}[language=bash, caption={Menjalankan beberapa modul test sekaligus}, label={lst:b10-menjalankan-beberapa-modul-test-sekaligus}]
+python -m unittest test_fungsi test_calculator
+\end{lstlisting}
     Kita dapat mencantumkan beberapa modul test sekaligus dalam satu perintah.
 \end{itemize}
 
-Contoh hasil eksekusi dengan opsi verbose:
+Contoh hasil eksekusi dengan opsi verbose (Listing~\ref{lst:b10-keluaran-dengan-opsi-verbose}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran dengan opsi verbose}, label={lst:b10-keluaran-dengan-opsi-verbose}]
 test_penjumlahan_positif (test_fungsi.TestAddFunction) ... ok
 test_penjumlahan_negatif (test_fungsi.TestAddFunction) ... ok
 test_penjumlahan_nol (test_fungsi.TestAddFunction) ... ok
@@ -661,18 +671,28 @@ Penjelasan hasil:
     \item \texttt{ERROR} $\rightarrow$ Terjadi error yang tidak ditangani (exception) di luar mekanisme assertion.
 \end{itemize}
 
-Dalam mode non-verbose (tanpa \texttt{-v}), simbol yang digunakan lebih ringkas:
-\begin{center}
-\begin{tabular}{ll}
-\texttt{.} & Test berhasil (passed) \\
-\texttt{F} & Test gagal (failed) \\
-\texttt{E} & Test error (exception tak tertangani) \\
-\end{tabular}
-\end{center}
+Dalam mode non-verbose (tanpa \texttt{-v}), simbol yang digunakan lebih ringkas, seperti pada Tabel~\ref{tab:b10-simbol}.
+
+\begin{table}[H]
+  \centering
+  \caption{Simbol hasil test pada mode non-verbose}
+  \label{tab:b10-simbol}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    \textbf{Simbol} & \textbf{Arti} \\
+    \hline
+    \texttt{.} & Test berhasil (passed) \\
+    \hline
+    \texttt{F} & Test gagal (failed) \\
+    \hline
+    \texttt{E} & Test error (exception tak tertangani) \\
+    \hline
+  \end{tabularx}
+\end{table}
 
 \noindent
-Contoh output minimal:
-\begin{lstlisting}[language=bash]
+Contoh output minimal (Listing~\ref{lst:b10-keluaran-ringkas-saat-satu-test-gagal}):
+\begin{lstlisting}[language=bash, caption={Keluaran ringkas saat satu test gagal}, label={lst:b10-keluaran-ringkas-saat-satu-test-gagal}]
 ..F
 ======================================================================
 FAIL: test_penjumlahan_nol (test_fungsi.TestAddFunction)
@@ -712,13 +732,15 @@ Berikut penjelasan struktur laporan tersebut:
     Ditampilkan di bagian akhir, misalnya:
 \end{itemize}
 
-\begin{lstlisting}[language=bash]
+Listing~\ref{lst:b10-baris-ringkasan-saat-ada-test-gagal} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Baris ringkasan saat ada test yang gagal}, label={lst:b10-baris-ringkasan-saat-ada-test-gagal}]
 FAILED (failures=1)
 \end{lstlisting}
 
-Selain \texttt{FAIL}, mungkin juga muncul status \texttt{ERROR} jika test menghasilkan exception yang tidak ditangani, misalnya:
+Selain \texttt{FAIL}, mungkin juga muncul status \texttt{ERROR} jika test menghasilkan exception yang tidak ditangani, misalnya (Listing~\ref{lst:b10-keluaran-saat-test-berstatus-error}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat test berstatus ERROR}, label={lst:b10-keluaran-saat-test-berstatus-error}]
 E
 ======================================================================
 ERROR: test_divide_zero (test_calculator.TestCalculatorMethods)
@@ -746,10 +768,10 @@ Perbedaan utama:
 \begin{enumerate}
     \item Perhatikan baris paling bawah, karena di sanalah letak pesan error utama.
     \item Gunakan nomor baris (\texttt{line X}) untuk langsung menuju sumber kesalahan di editor.
-    \item Jika test sering gagal dengan pesan yang sama, pertimbangkan menambahkan pesan khusus di assertion:
-    \begin{lstlisting}[style=PythonStyle]
-    self.assertEqual(add(2, 3), 5, "Fungsi add tidak menjumlahkan dengan benar")
-    \end{lstlisting}
+    \item Jika test sering gagal dengan pesan yang sama, pertimbangkan menambahkan pesan khusus di assertion (Listing~\ref{lst:b10-assertion-dengan-pesan-tambahan}):
+\begin{lstlisting}[style=PythonStyle, caption={Assertion dengan pesan tambahan}, label={lst:b10-assertion-dengan-pesan-tambahan}]
+self.assertEqual(add(2, 3), 5, "Fungsi add tidak menjumlahkan dengan benar")
+\end{lstlisting}
 \end{enumerate}
 
 Dengan memahami format laporan ini, Anda akan lebih cepat menelusuri bug dan memperbaiki kode yang diuji.  
@@ -771,7 +793,7 @@ Jika seluruh test berstatus \texttt{OK}, maka dapat dipastikan refactoring tidak
 Ketika fitur baru ditambahkan ke dalam proyek, test baru juga harus dibuat agar cakupan pengujian meningkat.  
 Prinsip utamanya adalah: setiap fungsi baru sebaiknya memiliki setidaknya satu test yang menguji perilaku utamanya.
 
-Sebagai contoh, misalkan kita menambahkan fungsi baru \texttt{subtract(a, b)} ke modul \texttt{fungsi.py}:
+Sebagai contoh, misalkan kita menambahkan fungsi baru \texttt{subtract(a, b)} ke modul \texttt{fungsi.py} (Listing~\ref{lst:fungsi-subtract}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Menambahkan fungsi baru}, label={lst:fungsi-subtract}]
 # file: fungsi.py
@@ -783,7 +805,7 @@ def subtract(a, b):
     return a - b
 \end{lstlisting}
 
-Untuk menguji fungsi baru tersebut, kita dapat menambah satu kelas test baru atau cukup memperluas kelas test yang sudah ada:
+Untuk menguji fungsi baru tersebut, kita dapat menambah satu kelas test baru atau cukup memperluas kelas test yang sudah ada (Listing~\ref{lst:test-subtract}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Menambahkan test untuk fungsi baru}, label={lst:test-subtract}]
 # file: test_fungsi.py
@@ -803,15 +825,15 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Kemudian jalankan kembali semua test:
+Kemudian jalankan kembali semua test (Listing~\ref{lst:b10-menjalankan-kembali-semua-test}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan kembali semua test}, label={lst:b10-menjalankan-kembali-semua-test}]
 python -m unittest -v
 \end{lstlisting}
 
-Hasil keluaran:
+Hasil keluaran (Listing~\ref{lst:b10-keluaran-setelah-test-baru-ditambahkan}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran setelah test baru ditambahkan}, label={lst:b10-keluaran-setelah-test-baru-ditambahkan}]
 test_add (test_fungsi.TestMathFunctions) ... ok
 test_subtract (test_fungsi.TestMathFunctions) ... ok
 
@@ -832,24 +854,24 @@ Agar test tetap mudah dipahami dan dikelola oleh banyak pengembang, diperlukan p
 \begin{enumerate}
     \item \textbf{Gunakan nama test yang deskriptif.}  
     Nama metode test harus menjelaskan apa yang diuji dan kondisi yang diharapkan.  
-    Misalnya:
-    \begin{lstlisting}[style=PythonStyle]
-    def test_divide_munculkan_error_jika_bagi_nol(self):
-        ...
-    \end{lstlisting}
+    Misalnya (Listing~\ref{lst:b10-nama-test-deskriptif}):
+\begin{lstlisting}[style=PythonStyle, caption={Contoh nama test yang deskriptif}, label={lst:b10-nama-test-deskriptif}]
+def test_divide_munculkan_error_jika_bagi_nol(self):
+    ...
+\end{lstlisting}
     Nama seperti ini langsung memberi tahu pembaca apa tujuan test tanpa perlu membuka isi kode.
 
     \item \textbf{Pisahkan test per modul atau fitur.}  
-    Gunakan struktur folder yang mencerminkan struktur aplikasi, misalnya:
-    \begin{lstlisting}[language=bash]
-    project/
-    ├── app/
-    │   ├── fungsi.py
-    │   └── kalkulator.py
-    └── tests/
-        ├── test_fungsi.py
-        └── test_kalkulator.py
-    \end{lstlisting}
+    Gunakan struktur folder yang mencerminkan struktur aplikasi, misalnya (Listing~\ref{lst:b10-susunan-folder-test}):
+\begin{lstlisting}[language=bash, caption={Susunan folder kode dan test}, label={lst:b10-susunan-folder-test}]
+project/
+|-- app/
+|   |-- fungsi.py
+|   `-- kalkulator.py
+`-- tests/
+    |-- test_fungsi.py
+    `-- test_kalkulator.py
+\end{lstlisting}
     Hal ini memudahkan penemuan dan pemeliharaan test.
 
     \item \textbf{Hindari duplikasi kode test.}  
@@ -867,9 +889,9 @@ Agar test tetap mudah dipahami dan dikelola oleh banyak pengembang, diperlukan p
 
 \paragraph{Contoh Perbaikan Refactoring Aman}
 
-Misalnya fungsi berikut awalnya ditulis secara tidak efisien:
+Misalnya fungsi berikut awalnya ditulis secara tidak efisien (Listing~\ref{lst:b10-fungsi-multiply-sebelum-refactoring}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Fungsi multiply sebelum refactoring}, label={lst:b10-fungsi-multiply-sebelum-refactoring}]
 def multiply(a, b):
     result = 0
     for _ in range(b):
@@ -877,16 +899,16 @@ def multiply(a, b):
     return result
 \end{lstlisting}
 
-Lalu kita refactor menjadi versi lebih ringkas:
+Lalu kita refactor menjadi versi lebih ringkas (Listing~\ref{lst:b10-fungsi-multiply-sesudah-refactoring}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Fungsi multiply sesudah refactoring}, label={lst:b10-fungsi-multiply-sesudah-refactoring}]
 def multiply(a, b):
     return a * b
 \end{lstlisting}
 
-Dengan menjalankan semua test yang telah ada sebelumnya, kita bisa memastikan bahwa perubahan tidak mempengaruhi perilaku eksternal:
+Dengan menjalankan semua test yang telah ada sebelumnya, kita bisa memastikan bahwa perubahan tidak mempengaruhi perilaku eksternal (Listing~\ref{lst:b10-menjalankan-test-setelah-refactoring}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan test setelah refactoring}, label={lst:b10-menjalankan-test-setelah-refactoring}]
 python -m unittest
 \end{lstlisting}
 
@@ -911,7 +933,7 @@ Dengan menerapkan prinsip di atas, proyek Python akan tetap stabil, mudah dipeli
 Tujuan latihan ini adalah untuk membiasakan Anda menulis dan menjalankan unit test menggunakan modul bawaan \texttt{unittest} pada fungsi-fungsi sederhana.  
 Anda akan menulis fungsi matematika dasar (penjumlahan, pengurangan, perkalian, dan pembagian), kemudian menguji setiap fungsi menggunakan beberapa skenario input.
 
-\paragraph{Tujuan Pembelajaran:}
+\paragraph{Tujuan Latihan:}
 \begin{itemize}
     \item Mampu membuat fungsi Python sederhana yang memiliki perilaku deterministik.
     \item Mampu menulis \textit{unit test} untuk memverifikasi hasil fungsi.
@@ -921,7 +943,7 @@ Anda akan menulis fungsi matematika dasar (penjumlahan, pengurangan, perkalian, 
 \paragraph{Langkah-Langkah:}
 \begin{enumerate}
     \item Buat berkas baru bernama \texttt{mathutils.py}.  
-    Tuliskan beberapa fungsi matematika sederhana di dalamnya:
+    Tuliskan beberapa fungsi matematika sederhana di dalamnya (Listing~\ref{lst:mathutils}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Modul fungsi matematika sederhana}, label={lst:mathutils}]
 # file: mathutils.py
@@ -948,6 +970,8 @@ def divide(a, b):
     \item Buat file test baru bernama \texttt{test\_mathutils.py}.  
     File ini akan berisi \textit{unit test} untuk menguji keempat fungsi di atas.
 \end{enumerate}
+
+Listing~\ref{lst:test-mathutils} menunjukkan contoh kodenya.
 
 \begin{lstlisting}[style=PythonStyle, caption={Pengujian fungsi matematika menggunakan unittest}, label={lst:test-mathutils}]
 # file: test_mathutils.py
@@ -985,15 +1009,15 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \paragraph{Menjalankan Test:}
-Jalankan test dari terminal menggunakan perintah:
+Jalankan test dari terminal menggunakan perintah (Listing~\ref{lst:b10-menjalankan-test-latihan-1}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan test pada Latihan 1}, label={lst:b10-menjalankan-test-latihan-1}]
 python -m unittest -v
 \end{lstlisting}
 
-Output yang diharapkan:
+Output yang diharapkan (Listing~\ref{lst:b10-keluaran-diharapkan-latihan-1}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran yang diharapkan pada Latihan 1}, label={lst:b10-keluaran-diharapkan-latihan-1}]
 test_add (test_mathutils.TestMathUtils) ... ok
 test_subtract (test_mathutils.TestMathUtils) ... ok
 test_multiply (test_mathutils.TestMathUtils) ... ok
@@ -1031,7 +1055,7 @@ Latihan ini bertujuan untuk melatih pemahaman Anda dalam menulis pengujian unit 
 Berbeda dengan fungsi biasa, method dalam kelas sering kali bergantung pada atribut instance (misalnya saldo akun, skor permainan, atau status login).  
 Oleh karena itu, pengujian harus memastikan bahwa perubahan state terjadi sesuai yang diharapkan setelah method dijalankan.
 
-\paragraph{Tujuan Pembelajaran:}
+\paragraph{Tujuan Latihan:}
 \begin{itemize}
     \item Mampu menguji method yang mengubah nilai atribut internal objek.
     \item Menggunakan \texttt{setUp()} dan \texttt{tearDown()} untuk menyiapkan lingkungan uji.
@@ -1041,7 +1065,7 @@ Oleh karena itu, pengujian harus memastikan bahwa perubahan state terjadi sesuai
 \paragraph{Deskripsi Tugas:}
 
 Anda akan membuat sebuah kelas sederhana bernama \texttt{BankAccount} yang memiliki perilaku dasar seperti menyetor uang, menarik uang, dan memeriksa saldo.  
-Kelas ini akan diuji menggunakan \texttt{unittest} untuk memastikan semua operasi berjalan dengan benar.
+Kelas ini akan diuji menggunakan \texttt{unittest} untuk memastikan semua operasi berjalan dengan benar (Listing~\ref{lst:bankaccount}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Kelas BankAccount yang memiliki state internal}, label={lst:bankaccount}]
 # file: bank_account.py
@@ -1076,7 +1100,7 @@ class BankAccount:
 
 \paragraph{Tugas Pengujian:}
 
-Buat file \texttt{test\_bank\_account.py} yang berisi serangkaian test untuk memverifikasi perilaku kelas tersebut.
+Buat file \texttt{test\_bank\_account.py} yang berisi serangkaian test untuk memverifikasi perilaku kelas tersebut (Listing~\ref{lst:test-bankaccount}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Pengujian method dengan state menggunakan unittest}, label={lst:test-bankaccount}]
 # file: test_bank_account.py
@@ -1124,15 +1148,15 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \paragraph{Menjalankan Test:}
-Eksekusi test di terminal:
+Eksekusi test di terminal (Listing~\ref{lst:b10-menjalankan-test-latihan-2}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Menjalankan test pada Latihan 2}, label={lst:b10-menjalankan-test-latihan-2}]
 python -m unittest -v
 \end{lstlisting}
 
-Hasil keluaran yang diharapkan:
+Hasil keluaran yang diharapkan (Listing~\ref{lst:b10-keluaran-diharapkan-latihan-2}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran yang diharapkan pada Latihan 2}, label={lst:b10-keluaran-diharapkan-latihan-2}]
 test_deposit_berhasil (test_bank_account.TestBankAccount) ... ok
 test_deposit_tidak_valid (test_bank_account.TestBankAccount) ... ok
 test_get_balance_awal (test_bank_account.TestBankAccount) ... ok
@@ -1165,3 +1189,11 @@ OK
 Latihan ini menunjukkan pentingnya isolasi state antar test.  
 Setiap pengujian harus dapat berjalan sendiri-sendiri tanpa dipengaruhi hasil test lain.  
 Prinsip ini menjamin bahwa unit test tetap stabil, mudah dirawat, dan akurat menggambarkan perilaku sesungguhnya dari kelas yang diuji.
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{unittest — Unit testing framework} \cite{py-unittest}: \texttt{TestCase}, \texttt{setUp}, \texttt{tearDown}, \texttt{assertRaises}, \texttt{subTest}, dan antarmuka baris perintah.
+  \item \textit{Unit Test} \cite{fowler-unit-test}: pengertian \textit{unit test}.
+  \item \textit{The Hitchhiker's Guide to Python: Testing Your Code} \cite{hitchhiker-testing}: kebiasaan menulis pengujian di Python.
+  \item \textit{Refactoring} \cite{fowler-refactoring}: pengertian \textit{refactoring}.
+\end{daftarrapat}

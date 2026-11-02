@@ -1,10 +1,19 @@
 \chapter{Pendahuluan}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menjelaskan perkembangan singkat komputer dan bahasa pemrograman dari masa ke masa.
+  \item Membedakan cara kerja \textit{compiler} dan \textit{interpreter} beserta kelebihan dan kekurangan masing-masing.
+  \item Menyiapkan lingkungan pemrograman di komputer sendiri, lalu menulis dan menjalankan program pertama.
+\end{daftarrapat}
+
 \section{Sejarah Pemrograman dan Python}
 
 Pemrograman komputer dimulai pada abad ke-19 dengan penemuan mesin analitik oleh Charles Babbage dan program pertama yang ditulis oleh Ada Lovelace. Sejak itu, pemrograman telah berkembang pesat dengan munculnya bahasa-bahasa pemrograman awal seperti Fortran, COBOL, dan Lisp pada tahun 1950-an. Pada tahun 1970-an dan 1980-an, bahasa pemrograman seperti C, Pascal, dan Basic memperkenalkan konsep-konsep baru dalam pemrograman. Kini, berbagai bahasa pemrograman modern seperti Python, JavaScript, dan Rust digunakan dalam berbagai aplikasi.
 
 Python merupakan bahasa pemrograman \textit{high-level} serbaguna yang pertama kali diperkenalkan pada tahun 1991 oleh Guido van Rossum (GvR). Bahasa ini dirancang agar mudah dipahami dan memiliki struktur kode yang jelas (\textit{readable}), serta mendukung fitur penanganan kesalahan (\textit{exception handling}). Dengan tujuan tersebut, Python berhasil berkembang menjadi bahasa pemrograman yang dapat dimanfaatkan di berbagai bidang. Python merupakan bahasa pemrograman multi-paradigma, yang artinya dapat menggunakan gaya/metode beragam dalam penulisan kode. Saat ini, Python banyak digunakan untuk pengembangan aplikasi web (\textit{server-side}), analisis data, hingga penerapan kecerdasan buatan dan pembelajaran mesin (\textit{machine learning}).
+
+Python dibuat di CWI, Belanda, sebagai penerus bahasa bernama ABC \cite{py-history}. Guido van Rossum mulai mengerjakannya pada liburan Natal 1989, berbekal pengalaman membuat bahasa ABC. Dari bahasa itu Python mewarisi antara lain pemakaian indentasi untuk mengelompokkan perintah \cite{py-faq-general}. Namanya tidak berasal dari ular, melainkan dari acara komedi BBC \textit{Monty Python's Flying Circus} \cite{py-faq-general}.
 
 \section{Python Sebagai Bahasa Interpreter}
 Python merupakan bahasa pemrograman yang termasuk ke dalam kategori
@@ -18,6 +27,10 @@ menjalankannya secara langsung. Hal ini membuat proses pengembangan
 program menggunakan Python menjadi lebih fleksibel, karena kita bisa
 langsung menuliskan kode dan melihat hasil eksekusinya tanpa melalui
 tahap kompilasi.
+
+Perbedaan keduanya mirip dua cara menerjemahkan. \textit{Compiler} seperti penerjemah buku: seluruh naskah diterjemahkan dulu, lalu hasilnya dapat dibaca kapan saja tanpa penerjemah. \textit{Interpreter} seperti juru bahasa di seminar: kalimat diterjemahkan saat itu juga, dan juru bahasa harus hadir setiap kali acara berlangsung.
+
+Pembagian ini tidak sepenuhnya tegas pada Python, karena Python menerjemahkan kode lebih dahulu menjadi \textit{bytecode} sebelum menjalankannya \cite{py-glossary-interpreted}. Langkah itu terjadi otomatis, sehingga berkas sumber tetap dapat dijalankan langsung tanpa membuat berkas program terlebih dahulu.
 
 \begin{figure}[H]
 	\centering
@@ -60,12 +73,16 @@ Untuk menginstal Python di Windows, ikuti langkah-langkah berikut:
 \item Jalankan file installer \texttt{.exe} dan ikuti petunjuk untuk menyelesaikan instalasi.
 \item Saat instalasi, centang opsi \textbf{``Add Python to PATH''} agar Python otomatis dikenali di Command Prompt.
 \item Ikuti petunjuk instalasi hingga selesai.
-\item Verifikasi instalasi dengan membuka Command Prompt lalu ketik:
-\begin{verbatim}
-    python --version
-    pip --version
-\end{verbatim}
+\item Verifikasi instalasi dengan membuka Command Prompt lalu ketik (Listing~\ref{lst:b1-memeriksa-instalasi-windows}):
+\begin{lstlisting}[language=bash, caption={Memeriksa instalasi Python di Windows}, label={lst:b1-memeriksa-instalasi-windows}]
+python --version
+pip --version
+\end{lstlisting}
 \end{enumerate}
+
+PATH adalah daftar folder yang diperiksa sistem operasi saat sebuah perintah diketik. Bila folder Python tidak ada dalam daftar itu, Command Prompt menjawab bahwa perintah \texttt{python} tidak dikenali, walaupun Python sudah terpasang. Bila hal ini terjadi, jalankan ulang installer dan centang opsi tersebut.
+
+Perintah verifikasi menampilkan nomor versi, misalnya \texttt{Python 3.12.3}. Program \texttt{pip} adalah pengelola paket, yaitu alat untuk memasang pustaka tambahan yang dibuat orang lain.
 
 \section{Instalasi di macOS}
 
@@ -74,33 +91,37 @@ Untuk menginstal Python di macOS, ikuti langkah-langkah berikut:
 \begin{enumerate}
 \item Unduh installer Python terbaru dari \href{https://www.python.org/downloads/macos/}{python.org}.
 \item Jalankan file installer \texttt{.pkg} dan ikuti petunjuk hingga selesai.
-\item Alternatif lain, Anda bisa menggunakan Homebrew dengan menjalankan perintah berikut di Terminal:
-\begin{verbatim}
-    brew install python
-\end{verbatim}
-\item Setelah instalasi selesai, verifikasi dengan perintah:
-\begin{verbatim}
-    python3 --version
-    pip3 --version
-\end{verbatim}
+\item Alternatif lain, Anda bisa menggunakan Homebrew dengan menjalankan perintah berikut di Terminal (Listing~\ref{lst:b1-memasang-dengan-homebrew}):
+\begin{lstlisting}[language=bash, caption={Memasang Python dengan Homebrew}, label={lst:b1-memasang-dengan-homebrew}]
+brew install python
+\end{lstlisting}
+\item Setelah instalasi selesai, verifikasi dengan perintah (Listing~\ref{lst:b1-memeriksa-instalasi-macos}):
+\begin{lstlisting}[language=bash, caption={Memeriksa instalasi Python di macOS}, label={lst:b1-memeriksa-instalasi-macos}]
+python3 --version
+pip3 --version
+\end{lstlisting}
 \end{enumerate}
+
+Homebrew adalah pengelola paket untuk macOS, sehingga perintah \texttt{brew} hanya berjalan bila Homebrew sudah terpasang. Pada macOS dan Linux, perintahnya biasanya \texttt{python3} dan \texttt{pip3}, agar tidak tertukar dengan versi lama Python.
 
 \section{Instalasi di Linux}
 
 Untuk menginstal Python di Linux, ikuti langkah-langkah berikut:
 
 \begin{enumerate}
-\item Buka terminal dan jalankan perintah berikut untuk memastikan repositori diperbarui dan Python terpasang:
-\begin{verbatim}
-    sudo apt update
-    sudo apt install python3 python3-pip
-\end{verbatim}
-\item Verifikasi instalasi dengan perintah:
-\begin{verbatim}
-    python3 --version
-    pip3 --version
-\end{verbatim}
+\item Buka terminal dan jalankan perintah berikut untuk memastikan repositori diperbarui dan Python terpasang (Listing~\ref{lst:b1-memasang-linux}):
+\begin{lstlisting}[language=bash, caption={Memasang Python di Linux}, label={lst:b1-memasang-linux}]
+sudo apt update
+sudo apt install python3 python3-pip
+\end{lstlisting}
+\item Verifikasi instalasi dengan perintah (Listing~\ref{lst:b1-memeriksa-instalasi-linux}):
+\begin{lstlisting}[language=bash, caption={Memeriksa instalasi Python di Linux}, label={lst:b1-memeriksa-instalasi-linux}]
+python3 --version
+pip3 --version
+\end{lstlisting}
 \end{enumerate}
+
+Perintah \texttt{sudo} menjalankan perintah sebagai administrator, sehingga sistem akan meminta kata sandi. Perintah \texttt{apt update} memperbarui daftar paket, dan \texttt{apt install} memasang paket yang disebutkan. Perintah \texttt{apt} berlaku untuk Debian, Ubuntu, dan turunannya, sedangkan distribusi lain memakai pengelola paket yang berbeda.
 
 \section{IDE dan Editor untuk Python}
 
@@ -122,19 +143,24 @@ Dalam praktikum Python, terdapat beberapa pilihan IDE atau editor yang bisa digu
     \item Sekarang Anda dapat mulai menulis dan menjalankan kode Python di dalam VS Code.
 \end{enumerate}
 
+Setelah berkas \texttt{.py} dibuka, program dapat dijalankan dengan tombol \textit{Run Python File} di pojok kanan atas VS Code \cite{vscode-python}. Keluarannya tampil di panel terminal di bagian bawah. Cara ini menjalankan perintah yang sama dengan yang dibahas pada bagian panduan menjalankan program.
+
 \section{Kode Python: hello_world.py}
 \label{sec:hello-world-code}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: hello_world.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: hello_world.py}, label={lst:b1-hello-world}]
 print("Hello World!")
 \end{lstlisting}
 
-Kode di atas merupakan program Python sederhana yang mencetak "Hello World!" ke konsol. Berikut penjelasan dari setiap bagian kode tersebut:
+Kode pada Listing~\ref{lst:b1-hello-world} merupakan program Python sederhana yang mencetak "Hello World!" ke konsol. Berikut penjelasan dari setiap bagian kode tersebut:
 
 \begin{itemize}
 \item \texttt{print(...)} – \texttt{print} adalah fungsi bawaan (\textit{built-in function}) di Python yang digunakan untuk menampilkan output ke layar atau konsol.
 \item \texttt{"Hello World!"} – Merupakan sebuah string (teks) yang ditulis di dalam tanda kutip ganda. Nilai string ini akan menjadi argumen yang dikirim ke fungsi \texttt{print}.
 \end{itemize}
+
+
+Program tersebut mencetak \texttt{Hello World!}. Python ketat terhadap penulisan. Tanda kutip yang tidak ditutup, seperti \texttt{print("Hello World!)}, menghasilkan \texttt{SyntaxError: unterminated string literal (detected at line 1)}. Huruf besar dan kecil juga dibedakan, sehingga \texttt{Print("Hello")} menghasilkan \texttt{NameError: name 'Print' is not defined. Did you mean: 'print'?}.
 
 \section{Panduan Menjalankan Program Python}
 
@@ -142,20 +168,25 @@ Untuk menjalankan program Python di atas, ikuti langkah-langkah berikut:
 
 \begin{enumerate}
 	\item Buka terminal atau command prompt.
-	\item Navigasikan ke direktori tempat file `hello_world.py` disimpan.
-	\begin{verbatim}
-		cd /path/ke/direktori
-	\end{verbatim}
-	\item Jalankan perintah berikut untuk mengkompilasi program:
-	\begin{verbatim}
-		python hello_world.py
-	\end{verbatim}
+	\item Navigasikan ke direktori tempat file `hello_world.py` disimpan (Listing~\ref{lst:b1-pindah-ke-folder-program}).
+\begin{lstlisting}[language=bash, caption={Pindah ke folder program}, label={lst:b1-pindah-ke-folder-program}]
+cd /path/ke/direktori
+\end{lstlisting}
+	\item Jalankan perintah berikut untuk menjalankan program (Listing~\ref{lst:b1-hello-world-2}):
+\begin{lstlisting}[language=bash, caption={Menjalankan hello_world.py}, label={lst:b1-hello-world-2}]
+python hello_world.py
+\end{lstlisting}
 	\item Jika tidak ada error, program akan dijalankan dan menampilkan "Hello World!" di konsol.
 \end{enumerate}
 
+
+Perintah \texttt{cd} pindah ke folder tempat berkas disimpan. Pada macOS dan Linux, gunakan \texttt{python3} sebagai pengganti \texttt{python}. Bila folder atau nama berkas salah, Python menampilkan pesan \texttt{can't open file} dengan keterangan \texttt{No such file or directory}. Periksa kembali folder aktif dan penulisan nama berkas.
+
 \section{Kode Python: hello_with_input.py}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: hello_with_input.py}]
+Listing~\ref{lst:b1-hello-with-input} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: hello_with_input.py}, label={lst:b1-hello-with-input}]
 nama = input("Masukkan nama Anda: ") # Menerima input dari pengguna
 
 print("Hello " + nama + "!") # Menampilkan output dengan input pengguna
@@ -169,13 +200,25 @@ Berikut penjelasan dari setiap bagian kode tersebut:
 \end{itemize}
 
 
+Listing~\ref{lst:b1-hello-input-out} menampilkan contoh sesi saat pengguna mengetik \texttt{Rani}. Program berhenti di baris \texttt{input()} sampai pengguna menekan Enter. Hasil \texttt{input()} selalu berupa teks, dan tanda \texttt{+} pada teks berarti menyambung. Bab berikutnya membahas cara mengubah teks tersebut menjadi angka.
+
+\begin{lstlisting}[language=bash, caption={Contoh sesi hello_with_input.py}, label={lst:b1-hello-input-out}]
+Masukkan nama Anda: Rani
+Hello Rani!
+\end{lstlisting}
+
+\section{Ringkasan}
+Python adalah bahasa tingkat tinggi yang dijalankan oleh \textit{interpreter}, sehingga kode dapat langsung dicoba tanpa tahap kompilasi tersendiri. Menyiapkan lingkungan kerja berarti memasang Python, memastikan perintahnya dikenali terminal, dan memasang editor seperti Visual Studio Code.
+
+Program pertama memakai dua fungsi bawaan: \texttt{print()} untuk menampilkan keluaran dan \texttt{input()} untuk menerima masukan. Dua cara menjalankannya adalah lewat terminal dan lewat tombol di editor.
+
 \section{Latihan}
 
 Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman tentang program Python yang telah dibahas:
 
 \begin{enumerate}
-\item \label{sec:first-exercise} \textbf{Latihan 1:} Buat file baru dengan nama \textbf{introduction.py} yang dimana program harus menerima input nama, program studi, dan tahun angkatan dari pengguna kemudian mencetak pesan dengan format yang ditentukan
-\begin{lstlisting}[style=PythonStyle, caption={Latihan 1}]
+\item \label{sec:first-exercise} \textbf{Latihan 1:} Buat file baru dengan nama \textbf{introduction.py} yang dimana program harus menerima input nama, program studi, dan tahun angkatan dari pengguna kemudian mencetak pesan dengan format yang ditentukan (Listing~\ref{lst:b1-latihan-1})
+\begin{lstlisting}[style=PythonStyle, caption={Latihan 1}, label={lst:b1-latihan-1}]
 nama = input("Masukkan nama Anda: ")
 prodi = input("Masukkan program studi Anda: ")
 angkatan = input("Masukkan tahun angkatan Anda: ")
@@ -183,9 +226,9 @@ angkatan = input("Masukkan tahun angkatan Anda: ")
 print("Halo! Nama saya " + nama + ". Saya mahasiswa program studi " + prodi + " tahun angkatan " + angkatan + ".")
 \end{lstlisting}
 
-Contoh input dan output yang diberikan ketika program dijalankan:
+Contoh input dan output yang diberikan ketika program dijalankan (Listing~\ref{lst:b1-masukan-keluaran-latihan-1}):
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash, caption={Contoh masukan dan keluaran Latihan 1}, label={lst:b1-masukan-keluaran-latihan-1}]
 Input:
 Masukkan Nama Anda: Bob Smith
 Masukkan Program Studi Anda: Informatika
@@ -193,11 +236,11 @@ Masukkan Tahun Angkatan: 2025
 
 Output:
 Halo! Nama saya Bob Smith. Saya mahasiswa program studi Informatika tahun angkatan 2025.
-\end{verbatim}
+\end{lstlisting}
 
-\item \textbf{Latihan 2:} Latihan ini bertujuan untuk belajar memformat teks (\textit{string}) menggunakan \textbf{f-string}, membuat output lebih rapi tanpa perlu menggunakan operator \texttt{+} sebagai penghubung antara teks. Buat file baru dengan nama \textbf{introduction_with_fstring.py} dan isinya mirip dengan \hyperref[sec:first-exercise]{Latihan 1}, namun format outputnya menggunakan \textbf{f-string}
+\item \textbf{Latihan 2:} Latihan ini bertujuan untuk belajar memformat teks (\textit{string}) menggunakan \textbf{f-string}, membuat output lebih rapi tanpa perlu menggunakan operator \texttt{+} sebagai penghubung antara teks. Buat file baru dengan nama \textbf{introduction_with_fstring.py} dan isinya mirip dengan \hyperref[sec:first-exercise]{Latihan 1}, namun format outputnya menggunakan \textbf{f-string} (Listing~\ref{lst:b1-latihan-2})
 
-\begin{lstlisting}[style=PythonStyle, caption={Latihan 2}]
+\begin{lstlisting}[style=PythonStyle, caption={Latihan 2}, label={lst:b1-latihan-2}]
 nama = input("Masukkan nama Anda: ")
 prodi = input("Masukkan program studi Anda: ")
 angkatan = input("Masukkan angkatan Anda: ")
@@ -205,18 +248,18 @@ angkatan = input("Masukkan angkatan Anda: ")
 print(f"Halo! Nama saya {nama}. Saya mahasiswa program studi {prodi} tahun angkatan {angkatan}. Output dihasilkan menggunakan f-string")
 \end{lstlisting}
 
-Contoh input dan output yang diberikan ketika program dijalankan:
+Contoh input dan output yang diberikan ketika program dijalankan (Listing~\ref{lst:b1-masukan-keluaran-latihan-2}):
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash, caption={Contoh masukan dan keluaran Latihan 2}, label={lst:b1-masukan-keluaran-latihan-2}]
 Input:
 Masukkan Nama Anda: Bob Smith
 Masukkan Program Studi Anda: Informatika
 Masukkan Tahun Angkatan: 2025
 
 Output:
-Halo! Nama saya Bob Smith. Saya mahasiswa program studi Informatika tahun angkatan 2025. 
+Halo! Nama saya Bob Smith. Saya mahasiswa program studi Informatika tahun angkatan 2025.
 Output dihasilkan menggunakan f-string
-\end{verbatim}
+\end{lstlisting}
 
 \item \textbf{Latihan 3:} \textit{Escape Character} merupakan karakter khusus yang digunakan (biasanya diawali dengan \texttt{\textbackslash}) yang digunakan di dalam string untuk mengatur penataan teks atau menampilkan karakter spesial. Dengan escape character, kita bisa:
 
@@ -227,24 +270,24 @@ Output dihasilkan menggunakan f-string
     \item Menampilkan backslash asli: \texttt{\textbackslash\textbackslash}
 \end{itemize}
 
-Buat file baru dengan nama \textbf{escape_character.py} dan isinya seperti berikut:
+Buat file baru dengan nama \textbf{escape_character.py} dan isinya seperti berikut (Listing~\ref{lst:b1-latihan-3}):
 
-\begin{lstlisting}[style=PythonStyle, caption={Latihan 3}]
+\begin{lstlisting}[style=PythonStyle, caption={Latihan 3}, label={lst:b1-latihan-3}]
 print("Hello\nWorld") # Membuat teks pindah baris
 print("Hello\tWorld") # Menambahkan tabulasi
 print("Hello \"World") # Menulis tanda kutip di dalam string
 print("Hello \\ World") # Menampilkan backslash asli
 \end{lstlisting}
 
-Output yang akan dihasilkan dari program di atas adalah:
+Output yang akan dihasilkan dari program di atas adalah (Listing~\ref{lst:b1-keluaran-latihan-3}):
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash, caption={Keluaran Latihan 3}, label={lst:b1-keluaran-latihan-3}]
 Hello
 World
-Hello	World
+Hello   World
 Hello "World
 Hello \ World
-\end{verbatim}
+\end{lstlisting}
 \end{enumerate}
 
 \section{Soal Latihan}
@@ -258,8 +301,8 @@ Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda menge
 	\item Umur
 	\item Hobi
 \end{itemize}
-	Cetak output dengan format berikut menggunakan \textbf{f-string}. Berikut merupakan contoh input dan output yang diharapkan:
-\begin{verbatim}
+	Cetak output dengan format berikut menggunakan \textbf{f-string}. Berikut merupakan contoh input dan output yang diharapkan (Listing~\ref{lst:b1-masukan-keluaran-soal-1}):
+\begin{lstlisting}[language=bash, caption={Contoh masukan dan keluaran Soal 1}, label={lst:b1-masukan-keluaran-soal-1}]
 Input:
 Masukkan Nama Lengkap: Jane Hopkins
 Masukkan Usia Anda: 20
@@ -267,26 +310,46 @@ Masukkan Hobi Anda: Ngoding
 
 Output:
 Halo, nama saya Jane Hopkins. Saya berusia 20 tahun dan hobi saya adalah Ngoding.
-\end{verbatim}
+\end{lstlisting}
 
 \item \textbf{Soal 2:}  
-Buat program bernama \texttt{quote.py} yang menampilkan kutipan favoritmu. Gunakan \textbf{escape character} untuk menampilkan tanda kutip di dalam string. Contoh output:
+Buat program bernama \texttt{quote.py} yang menampilkan kutipan favoritmu. Gunakan \textbf{escape character} untuk menampilkan tanda kutip di dalam string. Contoh output (Listing~\ref{lst:b1-masukan-keluaran-soal-2}):
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash, caption={Contoh masukan dan keluaran Soal 2}, label={lst:b1-masukan-keluaran-soal-2}]
 Input:
-Masukkan kutipan favoritmu dari Albert Einstein: "Imagination is more important 
+Masukkan kutipan favoritmu dari Albert Einstein: "Imagination is more important
 than knowledge."
 
 Output:
 Kata Albert Einstein: "Imagination is more important than knowledge."
-\end{verbatim}
+\end{lstlisting}
 
-\item \textbf{Soal 3:} Buat program bernama \texttt{schedule.py} yang menampilkan jadwal kuliah. Gunakan \textbf{tabulasi} (\texttt{\textbackslash t}) untuk merapikan kolom. Contoh output:
+\item \textbf{Soal 3:} Buat program bernama \texttt{schedule.py} yang menampilkan jadwal kuliah. Gunakan \textbf{tabulasi} (\texttt{\textbackslash t}) untuk merapikan kolom. Contoh output ada pada Tabel~\ref{tab:b1-jadwal}:
 
-\begin{tabular}{l l l}
+\begin{table}[H]
+  \centering
+  \caption{Contoh jadwal kuliah pada Soal 3}
+  \label{tab:b1-jadwal}
+  \begin{tabularx}{\linewidth}{llX}
+    \hline
     \textbf{Hari} & \textbf{Waktu} & \textbf{Mata Kuliah} \\
+    \hline
     Senin & 07.00 & Algoritma \\
+    \hline
     Selasa & 09.00 & Basis Data \\
+    \hline
     Selasa & 13.00 & Pemrograman Dasar \\
-\end{tabular}
+    \hline
+  \end{tabularx}
+\end{table}
 \end{enumerate}
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{Timeline of Computer History: Computers} \cite{chm-timeline}: linimasa sejarah komputer, termasuk ENIAC dan UNIVAC.
+  \item \textit{History and License} \cite{py-history}: asal usul Python dan bahasa pendahulunya.
+  \item \textit{General Python FAQ} \cite{py-faq-general}: alasan Python dibuat dan penciptanya.
+  \item \textit{Glossary: interpreted} \cite{py-glossary-interpreted}: arti bahasa \textit{interpreted} dibandingkan bahasa \textit{compiled}.
+  \item \textit{Python Setup and Usage} \cite{py-using}: instalasi dan pemakaian Python di Windows, macOS, dan platform Unix.
+  \item \textit{Getting Started with Python in VS Code} \cite{vscode-python}: menyiapkan VS Code untuk proyek Python.
+\end{daftarrapat}

@@ -1,5 +1,12 @@
 \chapter{Penanganan Kesalahan}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Membedakan kesalahan penulisan kode dari kesalahan yang baru muncul saat program berjalan.
+  \item Menyusun penanganan kesalahan agar program tidak berhenti mendadak dan tetap memberi pesan yang jelas.
+  \item Merancang jenis kesalahan sendiri yang sesuai dengan aturan program, misalnya untuk memeriksa masukan pengguna.
+\end{daftarrapat}
+
 \section{Pendahuluan}
 
 Dalam proses pemrograman, kesalahan atau error merupakan hal yang tidak dapat dihindari. Seorang pemrogram pemula sering kali menemukan programnya berhenti tiba-tiba, menampilkan pesan kesalahan yang panjang dan membingungkan. Namun, seiring dengan meningkatnya pemahaman, kesalahan tersebut dapat dilihat bukan sebagai kegagalan, melainkan sebagai bagian penting dari proses belajar dan pengembangan perangkat lunak.
@@ -15,16 +22,16 @@ Dalam pemrograman, kesalahan atau \textit{error} merupakan kondisi yang menyebab
 
 \subsection*{Kesalahan Sintaks (Syntax Error)}
 
-Kesalahan sintaks terjadi ketika penulisan kode tidak sesuai dengan aturan bahasa Python. Interpreter Python akan mendeteksi kesalahan ini sebelum program dijalankan. Karena itu, kesalahan sintaks mencegah program untuk dieksekusi sama sekali.
+Kesalahan sintaks terjadi ketika penulisan kode tidak sesuai dengan aturan bahasa Python. Interpreter Python akan mendeteksi kesalahan ini sebelum program dijalankan. Karena itu, kesalahan sintaks mencegah program untuk dieksekusi sama sekali (Listing~\ref{lst:b9-kesalahan-sintaks}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh kesalahan sintaks}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh kesalahan sintaks}, label={lst:b9-kesalahan-sintaks}]
 # Contoh kesalahan sintaks: tanda kurung kurang
 print("Halo dunia"
 \end{lstlisting}
 
-Ketika dijalankan, Python akan menampilkan pesan kesalahan seperti berikut:
+Ketika dijalankan, Python akan menampilkan pesan kesalahan seperti berikut (Listing~\ref{lst:b9-pesan-kesalahan-sintaks}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Pesan kesalahan sintaks}, label={lst:b9-pesan-kesalahan-sintaks}]
 SyntaxError: unexpected EOF while parsing
 \end{lstlisting}
 
@@ -32,17 +39,17 @@ Pesan tersebut menandakan bahwa interpreter mendeteksi akhir baris yang tidak se
 
 \subsection*{Kesalahan Saat Berjalan (Runtime Error)}
 
-Kesalahan jenis ini hanya muncul ketika program dijalankan. Artinya, kode sudah benar secara sintaks, tetapi ketika dijalankan muncul kondisi yang tidak dapat ditangani. Contoh paling umum adalah pembagian dengan nol.
+Kesalahan jenis ini hanya muncul ketika program dijalankan. Artinya, kode sudah benar secara sintaks, tetapi ketika dijalankan muncul kondisi yang tidak dapat ditangani. Contoh paling umum adalah pembagian dengan nol (Listing~\ref{lst:b9-kesalahan-runtime}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh kesalahan runtime}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh kesalahan runtime}, label={lst:b9-kesalahan-runtime}]
 # Contoh kesalahan runtime: pembagian dengan nol
 hasil = 10 / 0
 print(hasil)
 \end{lstlisting}
 
-Ketika dijalankan, Python akan menampilkan pesan seperti berikut:
+Ketika dijalankan, Python akan menampilkan pesan seperti berikut (Listing~\ref{lst:b9-pesan-kesalahan-pembagian-dengan-nol}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Pesan kesalahan pembagian dengan nol}, label={lst:b9-pesan-kesalahan-pembagian-dengan-nol}]
 ZeroDivisionError: division by zero
 \end{lstlisting}
 
@@ -60,9 +67,9 @@ Berbeda dengan kesalahan sintaks, kesalahan runtime tidak menghentikan keseluruh
     \item \texttt{TypeError} – operasi dilakukan pada tipe data yang tidak sesuai.
 \end{itemize}
 
-Contoh berikut memperlihatkan beberapa exception umum:
+Contoh berikut memperlihatkan beberapa exception umum (Listing~\ref{lst:b9-beberapa-exception-umum}):
 
-\begin{lstlisting}[style=PythonStyle, caption={Beberapa contoh exception umum}]
+\begin{lstlisting}[style=PythonStyle, caption={Beberapa contoh exception umum}, label={lst:b9-beberapa-exception-umum}]
 # IndexError
 angka = [1, 2, 3]
 print(angka[5])
@@ -79,9 +86,9 @@ Setiap contoh di atas akan menghasilkan jenis exception yang berbeda.
 
 \subsection*{Mengapa Perlu Menangani Exception?}
 
-Tanpa mekanisme penanganan exception, setiap kesalahan yang terjadi akan langsung menghentikan program. Dalam aplikasi nyata, hal ini tidak dapat diterima, terutama ketika program berinteraksi dengan pengguna atau sistem eksternal seperti file, jaringan, atau basis data. Misalnya, jika pengguna salah mengetikkan nama file, seharusnya program tidak langsung berhenti, melainkan menampilkan pesan yang ramah seperti:
+Tanpa mekanisme penanganan exception, setiap kesalahan yang terjadi akan langsung menghentikan program. Dalam aplikasi nyata, hal ini tidak dapat diterima, terutama ketika program berinteraksi dengan pengguna atau sistem eksternal seperti file, jaringan, atau basis data. Misalnya, jika pengguna salah mengetikkan nama file, seharusnya program tidak langsung berhenti, melainkan menampilkan pesan yang ramah seperti (Listing~\ref{lst:b9-keluaran-saat-berkas-tidak-ditemukan}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat berkas tidak ditemukan}, label={lst:b9-keluaran-saat-berkas-tidak-ditemukan}]
 File tidak ditemukan. Silakan periksa kembali nama file Anda.
 \end{lstlisting}
 
@@ -104,9 +111,9 @@ Setelah memahami konsep dasar exception, langkah selanjutnya adalah mempelajari 
 
 Blok \texttt{try-except} digunakan untuk mencoba menjalankan potongan kode yang mungkin menghasilkan error, dan menangkap kesalahan tersebut jika benar terjadi. Dengan demikian, alur program tetap dapat dilanjutkan secara normal.
 
-Struktur umumnya dapat ditulis sebagai berikut:
+Struktur umumnya dapat ditulis sebagai berikut (Listing~\ref{lst:b9-struktur-dasar-try-except}):
 
-\begin{lstlisting}[style=PythonStyle, caption={Struktur dasar try-except di Python}]
+\begin{lstlisting}[style=PythonStyle, caption={Struktur dasar try-except di Python}, label={lst:b9-struktur-dasar-try-except}]
 try:
     # Kode yang mungkin menimbulkan exception
     operasi_berisiko()
@@ -126,9 +133,9 @@ Dengan cara ini, program tidak langsung berhenti saat error muncul — melainkan
 
 \subsection*{Contoh Sederhana Penanganan Exception}
 
-Perhatikan contoh berikut. Kita mencoba membagi dua angka yang diinput oleh pengguna, tetapi bisa saja pengguna memasukkan nilai nol yang menyebabkan error pembagian.
+Perhatikan contoh berikut. Kita mencoba membagi dua angka yang diinput oleh pengguna, tetapi bisa saja pengguna memasukkan nilai nol yang menyebabkan error pembagian (Listing~\ref{lst:b9-sederhana-penggunaan-try-except}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh sederhana penggunaan try-except}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh sederhana penggunaan try-except}, label={lst:b9-sederhana-penggunaan-try-except}]
 try:
     a = int(input("Masukkan angka pertama: "))
     b = int(input("Masukkan angka kedua: "))
@@ -138,17 +145,17 @@ except ZeroDivisionError:
     print("Error: Tidak dapat membagi dengan nol!")
 \end{lstlisting}
 
-Jika pengguna memasukkan nilai kedua sebagai nol, maka keluaran program akan seperti berikut:
+Jika pengguna memasukkan nilai kedua sebagai nol, maka keluaran program akan seperti berikut (Listing~\ref{lst:b9-keluaran-saat-pembagi-bernilai-nol}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat pembagi bernilai nol}, label={lst:b9-keluaran-saat-pembagi-bernilai-nol}]
 Masukkan angka pertama: 10
 Masukkan angka kedua: 0
 Error: Tidak dapat membagi dengan nol!
 \end{lstlisting}
 
-Sedangkan jika pengguna memasukkan dua angka valid, program akan menampilkan hasil pembagiannya tanpa gangguan.
+Sedangkan jika pengguna memasukkan dua angka valid, program akan menampilkan hasil pembagiannya tanpa gangguan (Listing~\ref{lst:b9-keluaran-saat-kedua-angka-valid}).
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat kedua angka valid}, label={lst:b9-keluaran-saat-kedua-angka-valid}]
 Masukkan angka pertama: 10
 Masukkan angka kedua: 2
 Hasil pembagian: 5.0
@@ -158,9 +165,9 @@ Dengan demikian, meskipun terjadi kesalahan, program tidak berhenti secara tiba-
 
 \subsection*{Menangkap Semua Jenis Kesalahan}
 
-Kadang kita tidak tahu secara pasti jenis kesalahan apa yang akan terjadi. Dalam kasus seperti itu, kita dapat menangkap semua jenis exception tanpa menyebutkan nama exception-nya.
+Kadang kita tidak tahu secara pasti jenis kesalahan apa yang akan terjadi. Dalam kasus seperti itu, kita dapat menangkap semua jenis exception tanpa menyebutkan nama exception-nya (Listing~\ref{lst:b9-menangkap-semua-jenis-exception}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Menangkap semua jenis exception}]
+\begin{lstlisting}[style=PythonStyle, caption={Menangkap semua jenis exception}, label={lst:b9-menangkap-semua-jenis-exception}]
 try:
     x = int(input("Masukkan angka: "))
     y = 10 / x
@@ -173,9 +180,9 @@ Namun, praktik ini \textbf{tidak disarankan} untuk program besar, karena menyuli
 
 \subsection*{Menggunakan Pesan Error Kustom}
 
-Selain menampilkan pesan umum, kita dapat menampilkan pesan yang lebih informatif dengan menangkap objek exception. Python memungkinkan kita mendapatkan detail error melalui kata kunci \texttt{as}.
+Selain menampilkan pesan umum, kita dapat menampilkan pesan yang lebih informatif dengan menangkap objek exception. Python memungkinkan kita mendapatkan detail error melalui kata kunci \texttt{as} (Listing~\ref{lst:b9-penggunaan-pesan-error-kustom}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Penggunaan pesan error kustom}]
+\begin{lstlisting}[style=PythonStyle, caption={Penggunaan pesan error kustom}, label={lst:b9-penggunaan-pesan-error-kustom}]
 try:
     nama_file = input("Masukkan nama file: ")
     with open(nama_file) as f:
@@ -186,9 +193,9 @@ except FileNotFoundError as e:
     print("File tidak ditemukan. Silakan periksa nama file Anda.")
 \end{lstlisting}
 
-Contoh hasil eksekusi ketika pengguna memasukkan nama file yang salah:
+Contoh hasil eksekusi ketika pengguna memasukkan nama file yang salah (Listing~\ref{lst:b9-keluaran-saat-nama-berkas-salah}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat nama berkas salah}, label={lst:b9-keluaran-saat-nama-berkas-salah}]
 Masukkan nama file: data_tidak_ada.txt
 Terjadi kesalahan: [Errno 2] No such file or directory: 'data_tidak_ada.txt'
 File tidak ditemukan. Silakan periksa nama file Anda.
@@ -214,9 +221,9 @@ Dalam praktiknya, satu potongan kode bisa saja berpotensi menimbulkan berbagai j
 
 \subsection*{Menangani Beberapa Exception Secara Terpisah}
 
-Kita dapat menambahkan lebih dari satu blok \texttt{except} untuk menangani jenis kesalahan yang berbeda-beda. Dengan cara ini, program dapat memberikan respon yang lebih tepat sesuai dengan situasi yang terjadi.
+Kita dapat menambahkan lebih dari satu blok \texttt{except} untuk menangani jenis kesalahan yang berbeda-beda. Dengan cara ini, program dapat memberikan respon yang lebih tepat sesuai dengan situasi yang terjadi (Listing~\ref{lst:b9-menangani-beberapa-exception-secara-terpisah}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Menangani beberapa exception secara terpisah}]
+\begin{lstlisting}[style=PythonStyle, caption={Menangani beberapa exception secara terpisah}, label={lst:b9-menangani-beberapa-exception-secara-terpisah}]
 try:
     a = int(input("Masukkan angka pertama: "))
     b = int(input("Masukkan angka kedua: "))
@@ -228,15 +235,17 @@ except ValueError:
     print("Error: Input harus berupa angka, bukan teks.")
 \end{lstlisting}
 
-Berikut contoh hasil eksekusinya:
+Berikut contoh hasil eksekusinya (Listing~\ref{lst:b9-keluaran-except-terpisah-saat-pembagi-bernilai}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran except terpisah saat pembagi bernilai nol}, label={lst:b9-keluaran-except-terpisah-saat-pembagi-bernilai}]
 Masukkan angka pertama: 10
 Masukkan angka kedua: 0
 Error: Tidak dapat membagi dengan nol.
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash]
+Keluarannya ada pada Listing~\ref{lst:b9-keluaran-except-terpisah-saat-masukan-berupa}.
+
+\begin{lstlisting}[language=bash, caption={Keluaran except terpisah saat masukan berupa teks}, label={lst:b9-keluaran-except-terpisah-saat-masukan-berupa}]
 Masukkan angka pertama: sepuluh
 Masukkan angka kedua: 2
 Error: Input harus berupa angka, bukan teks.
@@ -246,9 +255,9 @@ Dengan pendekatan ini, setiap error yang berbeda dapat ditangani dengan cara yan
 
 \subsection*{Menggabungkan Beberapa Exception dalam Satu Blok}
 
-Terkadang beberapa jenis exception dapat ditangani dengan cara yang sama. Untuk kasus seperti ini, Python memungkinkan kita menulis beberapa nama exception dalam satu blok \texttt{except} menggunakan tanda kurung.
+Terkadang beberapa jenis exception dapat ditangani dengan cara yang sama. Untuk kasus seperti ini, Python memungkinkan kita menulis beberapa nama exception dalam satu blok \texttt{except} menggunakan tanda kurung (Listing~\ref{lst:b9-menggabungkan-beberapa-exception-dalam-satu-blok}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Menggabungkan beberapa exception dalam satu blok}]
+\begin{lstlisting}[style=PythonStyle, caption={Menggabungkan beberapa exception dalam satu blok}, label={lst:b9-menggabungkan-beberapa-exception-dalam-satu-blok}]
 try:
     nilai = int(input("Masukkan angka: "))
     hasil = 100 / nilai
@@ -257,14 +266,16 @@ except (ZeroDivisionError, ValueError):
     print("Error: Input tidak valid atau pembagian dengan nol.")
 \end{lstlisting}
 
-Hasilnya akan sama baik ketika pengguna memasukkan nilai nol maupun teks yang tidak bisa diubah menjadi angka:
+Hasilnya akan sama baik ketika pengguna memasukkan nilai nol maupun teks yang tidak bisa diubah menjadi angka (Listing~\ref{lst:b9-keluaran-except-gabungan-saat-masukan-bernilai}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran except gabungan saat masukan bernilai nol}, label={lst:b9-keluaran-except-gabungan-saat-masukan-bernilai}]
 Masukkan angka: 0
 Error: Input tidak valid atau pembagian dengan nol.
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash]
+Keluarannya ada pada Listing~\ref{lst:b9-keluaran-except-gabungan-saat-masukan-berupa}.
+
+\begin{lstlisting}[language=bash, caption={Keluaran except gabungan saat masukan berupa teks}, label={lst:b9-keluaran-except-gabungan-saat-masukan-berupa}]
 Masukkan angka: abc
 Error: Input tidak valid atau pembagian dengan nol.
 \end{lstlisting}
@@ -274,36 +285,43 @@ Teknik ini berguna ketika penanganan kedua jenis kesalahan cukup serupa dan tida
 \subsection*{Hierarki Exception di Python}
 
 Python memiliki sistem hierarki exception di mana semua jenis kesalahan diturunkan dari kelas dasar \texttt{BaseException}. Sebagian besar exception yang sering kita tangani berasal dari turunan \texttt{Exception}.  
-Gambaran sederhananya sebagai berikut:
+Gambaran sederhananya ada pada Gambar~\ref{fig:b9-hierarki}:
 
-\begin{center}
-\begin{tikzpicture}[node distance=1.3cm, every node/.style={font=\ttfamily}]
-\node (base) {BaseException};
-\node (exc) [below of=base] {Exception};
-\node (zero) [below left of=exc, xshift=-0.8cm] {ZeroDivisionError};
-\node (value) [below of=exc] {ValueError};
-\node (type) [below right of=exc, xshift=0.8cm] {TypeError};
-\node (file) [below right of=value, xshift=0.8cm] {FileNotFoundError};
-\draw[->] (exc) -- (base);
-\draw[->] (zero) -- (exc);
-\draw[->] (value) -- (exc);
-\draw[->] (type) -- (exc);
-\draw[->] (file) -- (exc);
-\end{tikzpicture}
-\end{center}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    font=\scriptsize\ttfamily,
+    kotak/.style={draw, rounded corners, minimum height=0.7cm, minimum width=2.7cm, align=center},
+    panah/.style={-{Stealth[length=2mm]}, thick}
+  ]
+    \node[kotak, fill=praditagreen!15] (base) at (0,0) {BaseException};
+    \node[kotak, fill=blue!8] (exc) at (0,-1.3) {Exception};
+    \node[kotak, fill=orange!12] (zero) at (-4.35,-2.8) {ZeroDivisionError};
+    \node[kotak, fill=orange!12] (value) at (-1.45,-2.8) {ValueError};
+    \node[kotak, fill=orange!12] (type) at (1.45,-2.8) {TypeError};
+    \node[kotak, fill=orange!12] (file) at (4.35,-2.8) {FileNotFoundError};
+    \draw[panah] (exc) -- (base);
+    \draw[panah] (zero) -- (exc);
+    \draw[panah] (value) -- (exc);
+    \draw[panah] (type) -- (exc);
+    \draw[panah] (file) -- (exc);
+  \end{tikzpicture}
+  \caption{Hierarki \textit{exception} di Python}
+  \label{fig:b9-hierarki}
+\end{figure}
 
-Artinya, jika kita menangkap \texttt{Exception} saja, maka semua jenis kesalahan yang merupakan turunannya juga akan tertangkap. Namun, untuk alasan kejelasan dan debugging yang efektif, sebaiknya kita menangkap jenis exception yang spesifik.
+Artinya, jika kita menangkap \texttt{Exception} saja, maka semua jenis kesalahan yang merupakan turunannya juga akan tertangkap. Namun, untuk alasan kejelasan dan debugging yang efektif, sebaiknya kita menangkap jenis exception yang spesifik (Listing~\ref{lst:b9-menangkap-seluruh-exception-menggunakan-kelas-induk}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Menangkap seluruh exception menggunakan kelas induk}]
+\begin{lstlisting}[style=PythonStyle, caption={Menangkap seluruh exception menggunakan kelas induk}, label={lst:b9-menangkap-seluruh-exception-menggunakan-kelas-induk}]
 try:
     x = int("abc")  # menyebabkan ValueError
 except Exception as e:
     print("Terjadi kesalahan:", e)
 \end{lstlisting}
 
-Keluaran program:
+Keluaran program (Listing~\ref{lst:b9-keluaran-saat-kesalahan-ditangkap-oleh-kelas}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat kesalahan ditangkap oleh kelas induk}, label={lst:b9-keluaran-saat-kesalahan-ditangkap-oleh-kelas}]
 Terjadi kesalahan: invalid literal for int() with base 10: 'abc'
 \end{lstlisting}
 
@@ -311,9 +329,9 @@ Dengan menangkap kelas induk \texttt{Exception}, semua jenis kesalahan turunan a
 
 \subsection*{Menggunakan \texttt{as} untuk Mendapatkan Objek Exception}
 
-Dalam contoh sebelumnya, kita telah melihat bahwa kata kunci \texttt{as} digunakan untuk menangkap objek exception dan menyimpannya dalam variabel. Objek ini berisi informasi penting seperti pesan error, nama exception, dan atribut tambahan lainnya.
+Dalam contoh sebelumnya, kita telah melihat bahwa kata kunci \texttt{as} digunakan untuk menangkap objek exception dan menyimpannya dalam variabel. Objek ini berisi informasi penting seperti pesan error, nama exception, dan atribut tambahan lainnya (Listing~\ref{lst:b9-menggunakan-as-menangkap-objek-exception}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Menggunakan 'as' untuk menangkap objek exception}]
+\begin{lstlisting}[style=PythonStyle, caption={Menggunakan 'as' untuk menangkap objek exception}, label={lst:b9-menggunakan-as-menangkap-objek-exception}]
 try:
     angka = int(input("Masukkan angka: "))
     hasil = 100 / angka
@@ -323,17 +341,17 @@ except Exception as e:
     print("Pesan kesalahan:", e)
 \end{lstlisting}
 
-Contoh hasil ketika pengguna memasukkan nilai nol:
+Contoh hasil ketika pengguna memasukkan nilai nol (Listing~\ref{lst:b9-isi-objek-exception-saat-masukan-bernilai}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Isi objek exception saat masukan bernilai nol}, label={lst:b9-isi-objek-exception-saat-masukan-bernilai}]
 Masukkan angka: 0
 Tipe kesalahan: ZeroDivisionError
 Pesan kesalahan: division by zero
 \end{lstlisting}
 
-Atau jika pengguna memasukkan teks:
+Atau jika pengguna memasukkan teks (Listing~\ref{lst:b9-isi-objek-exception-saat-masukan-berupa}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Isi objek exception saat masukan berupa teks}, label={lst:b9-isi-objek-exception-saat-masukan-berupa}]
 Masukkan angka: abc
 Tipe kesalahan: ValueError
 Pesan kesalahan: invalid literal for int() with base 10: 'abc'
@@ -357,9 +375,9 @@ Selain blok \texttt{try} dan \texttt{except}, Python juga menyediakan dua blok t
 
 Blok \texttt{else} digunakan setelah \texttt{except}, dan hanya akan dijalankan jika tidak terjadi exception dalam blok \texttt{try}. Dengan kata lain, kode di dalam \texttt{else} hanya berjalan ketika semua operasi di \texttt{try} berhasil.
 
-Struktur lengkapnya sebagai berikut:
+Struktur lengkapnya sebagai berikut (Listing~\ref{lst:b9-struktur-lengkap-try-except-else}):
 
-\begin{lstlisting}[style=PythonStyle, caption={Struktur lengkap try-except-else}]
+\begin{lstlisting}[style=PythonStyle, caption={Struktur lengkap try-except-else}, label={lst:b9-struktur-lengkap-try-except-else}]
 try:
     # kode utama yang mungkin menyebabkan exception
 except JenisException:
@@ -368,9 +386,9 @@ else:
     # kode ini hanya berjalan jika tidak ada error
 \end{lstlisting}
 
-Contoh penerapan:
+Contoh penerapan (Listing~\ref{lst:b9-penggunaan-blok-else}):
 
-\begin{lstlisting}[style=PythonStyle, caption={Penggunaan blok else}]
+\begin{lstlisting}[style=PythonStyle, caption={Penggunaan blok else}, label={lst:b9-penggunaan-blok-else}]
 try:
     angka = int(input("Masukkan angka: "))
     hasil = 100 / angka
@@ -382,16 +400,16 @@ else:
     print("Hasil perhitungan:", hasil)
 \end{lstlisting}
 
-Hasil eksekusi ketika pengguna memasukkan angka valid:
+Hasil eksekusi ketika pengguna memasukkan angka valid (Listing~\ref{lst:b9-keluaran-blok-else-saat-masukan-valid}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran blok else saat masukan valid}, label={lst:b9-keluaran-blok-else-saat-masukan-valid}]
 Masukkan angka: 5
 Hasil perhitungan: 20.0
 \end{lstlisting}
 
-Dan ketika terjadi error:
+Dan ketika terjadi error (Listing~\ref{lst:b9-keluaran-saat-terjadi-error-sehingga-blok}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat terjadi error sehingga blok else dilewati}, label={lst:b9-keluaran-saat-terjadi-error-sehingga-blok}]
 Masukkan angka: 0
 Error: Pembagian dengan nol tidak diperbolehkan.
 \end{lstlisting}
@@ -400,9 +418,9 @@ Blok \texttt{else} sangat bermanfaat untuk memisahkan logika utama dari logika p
 
 \subsection*{Blok Finally}
 
-Blok \texttt{finally} berfungsi untuk mengeksekusi kode yang harus dijalankan dalam kondisi apa pun — baik terjadi error maupun tidak. Biasanya, blok ini digunakan untuk melakukan tindakan pembersihan (\textit{cleanup}) seperti menutup file, melepaskan koneksi jaringan, atau menghapus data sementara.
+Blok \texttt{finally} berfungsi untuk mengeksekusi kode yang harus dijalankan dalam kondisi apa pun — baik terjadi error maupun tidak. Biasanya, blok ini digunakan untuk melakukan tindakan pembersihan (\textit{cleanup}) seperti menutup file, melepaskan koneksi jaringan, atau menghapus data sementara (Listing~\ref{lst:b9-struktur-penggunaan-blok-finally}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Struktur penggunaan blok finally}]
+\begin{lstlisting}[style=PythonStyle, caption={Struktur penggunaan blok finally}, label={lst:b9-struktur-penggunaan-blok-finally}]
 try:
     # operasi utama
 except:
@@ -411,9 +429,9 @@ finally:
     # selalu dijalankan, baik ada error maupun tidak
 \end{lstlisting}
 
-Contoh penerapan nyata: membaca file dan memastikan file selalu ditutup.
+Contoh penerapan nyata: membaca file dan memastikan file selalu ditutup (Listing~\ref{lst:b9-penggunaan-finally-pembersihan}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan finally untuk pembersihan}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan finally untuk pembersihan}, label={lst:b9-penggunaan-finally-pembersihan}]
 try:
     f = open("data.txt", "r")
     isi = f.read()
@@ -425,9 +443,9 @@ finally:
     f.close()
 \end{lstlisting}
 
-Jika file tidak ditemukan, maka hasilnya:
+Jika file tidak ditemukan, maka hasilnya (Listing~\ref{lst:b9-keluaran-blok-finally-saat-berkas-tidak}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran blok finally saat berkas tidak ditemukan}, label={lst:b9-keluaran-blok-finally-saat-berkas-tidak}]
 Error: File tidak ditemukan.
 Menutup file...
 Traceback (most recent call last):
@@ -436,9 +454,9 @@ Traceback (most recent call last):
 UnboundLocalError: local variable 'f' referenced before assignment
 \end{lstlisting}
 
-Terjadi error baru karena variabel \texttt{f} belum pernah dibuat. Untuk menghindarinya, sebaiknya kita melakukan pemeriksaan terlebih dahulu sebelum menutup file.
+Terjadi error baru karena variabel \texttt{f} belum pernah dibuat. Untuk menghindarinya, sebaiknya kita melakukan pemeriksaan terlebih dahulu sebelum menutup file (Listing~\ref{lst:b9-menangani-variabel-dengan-aman-finally}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Menangani variabel dengan aman di finally}]
+\begin{lstlisting}[style=PythonStyle, caption={Menangani variabel dengan aman di finally}, label={lst:b9-menangani-variabel-dengan-aman-finally}]
 f = None
 try:
     f = open("data.txt", "r")
@@ -452,15 +470,15 @@ finally:
         print("File berhasil ditutup.")
 \end{lstlisting}
 
-Hasil keluaran saat file tidak ada:
+Hasil keluaran saat file tidak ada (Listing~\ref{lst:b9-keluaran-saat-berkas-tidak-ada}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat berkas tidak ada}, label={lst:b9-keluaran-saat-berkas-tidak-ada}]
 Error: File tidak ditemukan.
 \end{lstlisting}
 
-Dan ketika file ada:
+Dan ketika file ada (Listing~\ref{lst:b9-keluaran-saat-berkas-ada}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat berkas ada}, label={lst:b9-keluaran-saat-berkas-ada}]
 Isi file: Halo, ini contoh isi file.
 File berhasil ditutup.
 \end{lstlisting}
@@ -469,27 +487,30 @@ Dengan menggunakan \texttt{finally}, kita menjamin bahwa tindakan penting sepert
 
 \subsection*{Diagram Alur Try-Except-Else-Finally}
 
-Berikut diagram sederhana untuk menggambarkan alur eksekusi blok-blok tersebut:
+Gambar~\ref{fig:b9-alur-try} menggambarkan alur eksekusi blok-blok tersebut:
 
-\begin{center}
-\begin{tikzpicture}[node distance=1.5cm, font=\small, align=center]
-\node (start) [draw, rounded corners] {\textbf{Mulai}};
-\node (try) [below of=start, draw, rounded corners, fill=blue!5] {\textbf{Blok try}};
-\node (error?) [below of=try, draw, diamond, aspect=2, fill=yellow!10] {\textbf{Terjadi Exception?}};
-\node (except) [below left of=error?, xshift=-1.2cm, draw, rounded corners, fill=red!10] {\textbf{Blok except}};
-\node (else) [below right of=error?, xshift=1.2cm, draw, rounded corners, fill=green!10] {\textbf{Blok else}};
-\node (finally) [below of=error?, yshift=-.5cm, draw, rounded corners, fill=orange!10] {\textbf{Blok finally}};
-\node (end) [below of=finally, draw, rounded corners] {\textbf{Selesai}};
-
-\draw[->] (start) -- (try);
-\draw[->] (try) -- (error?);
-\draw[->] (error?) -- node[left]{\textbf{Ya}} (except);
-\draw[->] (error?) -- node[right]{\textbf{Tidak}} (else);
-\draw[->] (except) |- (finally);
-\draw[->] (else) |- (finally);
-\draw[->] (finally) -- (end);
-\end{tikzpicture}
-\end{center}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=1.5cm, font=\footnotesize, align=center]
+  \node (start) [draw, rounded corners] {\textbf{Mulai}};
+  \node (try) [below of=start, draw, rounded corners, fill=blue!8] {\textbf{Blok try}};
+  \node (error?) [below of=try, draw, diamond, aspect=2, fill=orange!12] {\textbf{Terjadi Exception?}};
+  \node (except) [below left of=error?, xshift=-2.4cm, draw, rounded corners, fill=red!22] {\textbf{Blok except}};
+  \node (else) [below right of=error?, xshift=2.4cm, draw, rounded corners, fill=green!10] {\textbf{Blok else}};
+  \node (finally) [below of=error?, yshift=-.5cm, draw, rounded corners, fill=orange!12] {\textbf{Blok finally}};
+  \node (end) [below of=finally, draw, rounded corners] {\textbf{Selesai}};
+  
+  \draw[-{Stealth[length=2mm]}, thick] (start) -- (try);
+  \draw[-{Stealth[length=2mm]}, thick] (try) -- (error?);
+  \draw[-{Stealth[length=2mm]}, thick] (error?) -- node[above left]{\textbf{Ya}} (except);
+  \draw[-{Stealth[length=2mm]}, thick] (error?) -- node[above right]{\textbf{Tidak}} (else);
+  \draw[-{Stealth[length=2mm]}, thick] (except) |- (finally);
+  \draw[-{Stealth[length=2mm]}, thick] (else) |- (finally);
+  \draw[-{Stealth[length=2mm]}, thick] (finally) -- (end);
+  \end{tikzpicture}
+  \caption{Alur eksekusi \texttt{try}, \texttt{except}, \texttt{else}, dan \texttt{finally}}
+  \label{fig:b9-alur-try}
+\end{figure}
 
 Diagram di atas menunjukkan bahwa blok \texttt{finally} selalu dijalankan, baik ada exception maupun tidak.
 
@@ -516,9 +537,9 @@ Sebagai contoh, dalam sebuah aplikasi keuangan, kita mungkin ingin membuat kesal
 
 \subsection*{Cara Mendefinisikan Class Exception Sendiri}
 
-Untuk membuat exception baru, kita cukup mendefinisikan kelas Python yang diturunkan (\textit{inherit}) dari kelas dasar \texttt{Exception}. Kita juga dapat menambahkan konstruktor khusus atau atribut tambahan sesuai kebutuhan.
+Untuk membuat exception baru, kita cukup mendefinisikan kelas Python yang diturunkan (\textit{inherit}) dari kelas dasar \texttt{Exception}. Kita juga dapat menambahkan konstruktor khusus atau atribut tambahan sesuai kebutuhan (Listing~\ref{lst:b9-mendefinisikan-custom-exception-sederhana}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh mendefinisikan custom exception sederhana}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh mendefinisikan custom exception sederhana}, label={lst:b9-mendefinisikan-custom-exception-sederhana}]
 class InputNegatifError(Exception):
     """Exception yang muncul jika input bernilai negatif."""
     pass
@@ -536,9 +557,9 @@ except InputNegatifError as e:
     print("Terjadi kesalahan:", e)
 \end{lstlisting}
 
-Ketika pengguna memasukkan angka negatif, hasilnya akan seperti berikut:
+Ketika pengguna memasukkan angka negatif, hasilnya akan seperti berikut (Listing~\ref{lst:b9-keluaran-saat-pengguna-memasukkan-angka-negatif}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran saat pengguna memasukkan angka negatif}, label={lst:b9-keluaran-saat-pengguna-memasukkan-angka-negatif}]
 Masukkan angka: -9
 Terjadi kesalahan: Tidak bisa menghitung akar dari bilangan negatif!
 \end{lstlisting}
@@ -548,9 +569,9 @@ Mekanisme ini sangat berguna untuk mengendalikan alur logika program secara ters
 
 \subsection*{Menambahkan Atribut dan Konstruktor Khusus}
 
-Kita juga dapat menambahkan informasi tambahan pada exception buatan sendiri, misalnya nilai input yang menyebabkan error, atau pesan khusus yang dapat diproses lebih lanjut.
+Kita juga dapat menambahkan informasi tambahan pada exception buatan sendiri, misalnya nilai input yang menyebabkan error, atau pesan khusus yang dapat diproses lebih lanjut (Listing~\ref{lst:b9-custom-exception-dengan-atribut-tambahan}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Custom exception dengan atribut tambahan}]
+\begin{lstlisting}[style=PythonStyle, caption={Custom exception dengan atribut tambahan}, label={lst:b9-custom-exception-dengan-atribut-tambahan}]
 class NilaiTidakValidError(Exception):
     """Exception untuk nilai yang berada di luar rentang tertentu."""
     def __init__(self, nilai, pesan="Nilai di luar rentang yang diperbolehkan."):
@@ -569,9 +590,9 @@ except NilaiTidakValidError as e:
     print(f"Error: {e.pesan} (nilai: {e.nilai})")
 \end{lstlisting}
 
-Keluaran program:
+Keluaran program (Listing~\ref{lst:b9-keluaran-exception-dengan-atribut-tambahan}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran exception dengan atribut tambahan}, label={lst:b9-keluaran-exception-dengan-atribut-tambahan}]
 Error: Nilai di luar rentang yang diperbolehkan. (nilai: 150)
 \end{lstlisting}
 
@@ -579,9 +600,9 @@ Dengan menambahkan atribut seperti \texttt{nilai}, kita dapat melacak konteks ke
 
 \subsection*{Studi Kasus: Validasi Input Pengguna}
 
-Sebagai ilustrasi penerapan nyata, perhatikan contoh berikut: kita akan membuat sistem sederhana yang meminta pengguna memasukkan usia. Program harus menolak nilai yang tidak masuk akal, seperti angka negatif atau usia lebih dari 120 tahun, dengan menggunakan custom exception.
+Sebagai ilustrasi penerapan nyata, perhatikan contoh berikut: kita akan membuat sistem sederhana yang meminta pengguna memasukkan usia. Program harus menolak nilai yang tidak masuk akal, seperti angka negatif atau usia lebih dari 120 tahun, dengan menggunakan custom exception (Listing~\ref{lst:b9-studi-kasus-validasi-input-usia-dengan}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Studi kasus: validasi input usia dengan custom exception}]
+\begin{lstlisting}[style=PythonStyle, caption={Studi kasus: validasi input usia dengan custom exception}, label={lst:b9-studi-kasus-validasi-input-usia-dengan}]
 class UsiaTidakValidError(Exception):
     """Exception untuk usia yang tidak logis."""
     def __init__(self, usia, pesan="Usia tidak valid."):
@@ -606,23 +627,23 @@ except ValueError:
     print("Error: Input harus berupa angka.")
 \end{lstlisting}
 
-Keluaran contoh:
+Keluaran contoh (Listing~\ref{lst:b9-keluaran-validasi-usia-negatif}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran validasi untuk usia negatif}, label={lst:b9-keluaran-validasi-usia-negatif}]
 Masukkan usia Anda: -5
 Error: Usia tidak boleh negatif. (diberikan: -5)
 \end{lstlisting}
 
-Atau:
+Atau (Listing~\ref{lst:b9-keluaran-validasi-usia-terlalu-besar}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran validasi untuk usia terlalu besar}, label={lst:b9-keluaran-validasi-usia-terlalu-besar}]
 Masukkan usia Anda: 130
 Error: Usia terlalu besar untuk manusia. (diberikan: 130)
 \end{lstlisting}
 
-Dan jika pengguna memasukkan nilai yang valid:
+Dan jika pengguna memasukkan nilai yang valid (Listing~\ref{lst:b9-keluaran-validasi-usia-benar}):
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash, caption={Keluaran validasi untuk usia yang benar}, label={lst:b9-keluaran-validasi-usia-benar}]
 Masukkan usia Anda: 25
 Usia Anda adalah: 25
 \end{lstlisting}
@@ -740,3 +761,10 @@ Latihan-latihan ini diharapkan dapat membantu Anda memahami konsep dasar hingga 
 Pada bab ini, Anda telah mempelajari bahwa kesalahan (\textit{error}) adalah bagian alami dari pemrograman dan dapat ditangani secara elegan menggunakan mekanisme \textbf{exception}. Kita membedakan antara \textit{syntax error} (terdeteksi sebelum eksekusi) dan \textit{runtime error}/\textbf{exception} (muncul saat program berjalan). Dengan blok \texttt{try-except}, alur program tidak perlu terhenti; Anda dapat memberikan pesan yang ramah, mengambil tindakan pemulihan, dan menjaga pengalaman pengguna. Kita juga meninjau pola lanjut seperti \texttt{else} (dijalankan saat tidak ada error) dan \texttt{finally} (selalu dijalankan untuk \textit{cleanup}), serta menangani banyak jenis exception secara spesifik agar debugging lebih mudah dan kode lebih jelas. Selain itu, Anda belajar membuat \textbf{custom exception} untuk mengekspresikan aturan bisnis/domain secara eksplisit.
 
 Fondasi ini menjadi pasangan erat bagi praktik \textbf{pengujian} dalam pengembangan perangkat lunak yang andal. Dengan pemahaman exception handling yang kuat, Anda siap melangkah ke pengujian otomatis (misalnya dengan \texttt{unittest}) guna memverifikasi perilaku fungsi, mencegah regresi, dan mempertahankan kualitas kode seiring perubahan. Intinya: gunakan \texttt{try-except-else-finally} untuk mengendalikan alur saat terjadi kondisi tak terduga, manfaatkan exception yang spesifik (atau custom) untuk kejelasan, dan lengkapi dengan pengujian yang baik agar program tetap \textit{robust}, mudah dirawat, dan dapat diandalkan.
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: Errors and Exceptions} \cite{py-tut-errors}: kesalahan sintaks, penanganan \textit{exception}, dan \textit{exception} buatan sendiri.
+  \item \textit{Built-in Exceptions} \cite{py-exceptions}: hierarki \textit{exception} bawaan.
+  \item \textit{The Python Language Reference: The try statement} \cite{py-ref-try}: aturan \texttt{try}, \texttt{except}, \texttt{else}, dan \texttt{finally}.
+\end{daftarrapat}

@@ -1,23 +1,32 @@
 \chapter{Struktur Data Bawaan dalam Python}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Membedakan jenis struktur data berdasarkan sifatnya, misalnya apakah isinya berurutan, dapat diubah, atau harus unik.
+  \item Memilih struktur data yang paling sesuai dengan kebutuhan suatu masalah.
+  \item Mengolah data bertingkat secara bertahap dengan menggabungkan perulangan dan percabangan.
+\end{daftarrapat}
+
 \section{Pendahuluan}
 Struktur data adalah cara menyimpan dan mengatur data agar dapat digunakan secara efisien dalam program.
 Python menyediakan berbagai struktur data bawaan seperti \texttt{list}, \texttt{tuple}, \texttt{dictionary}, dan \texttt{set}.
 Pemahaman terhadap struktur data sangat penting karena menjadi dasar dalam pengolahan informasi dan pengembangan algoritma.
 
-\begin{lstlisting}[style=PythonStyle]
+Memilih struktur data mirip memilih tempat menyimpan barang di kamar kos. Buku disusun berurutan di rak, surat penting dicari lewat label pada mapnya, dan koleksi prangko cukup disimpan satu per jenis. Tiap cara penyimpanan memudahkan satu jenis pencarian. Listing~\ref{lst:b6-pendahuluan} memperlihatkan contoh paling sederhana.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh list sederhana}, label={lst:b6-pendahuluan}]
 data = [10, 20, 30]
 print(data[0])  # Mengakses elemen pertama
 \end{lstlisting}
-Kode di atas menggunakan list untuk menyimpan tiga nilai dan menampilkan elemen pertama.
+Kode pada Listing~\ref{lst:b6-pendahuluan} menggunakan list untuk menyimpan tiga nilai dan menampilkan elemen pertama, yaitu \texttt{10}. Posisi elemen dihitung mulai dari 0, sehingga elemen pertama berada pada indeks 0.
 
 % =====================================================
 \section{List}
 List adalah struktur data berurutan (sequential) yang bersifat mutable, artinya elemen di dalamnya dapat diubah setelah dibuat. 
 List digunakan untuk menyimpan kumpulan data yang sejenis atau campuran, seperti daftar nama, nilai, atau hasil input pengguna. 
-Karena bersifat dinamis, kita dapat menambah, membaca, memperbarui, dan menghapus elemen kapan pun diperlukan.
+Karena bersifat dinamis, kita dapat menambah, membaca, memperbarui, dan menghapus elemen kapan pun diperlukan, seperti pada Listing~\ref{lst:b6-list}.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membaca dan mengubah isi list}, label={lst:b6-list}]
 buah = ["apel", "jeruk", "mangga"]
 
 print("Daftar buah:", buah)
@@ -30,13 +39,44 @@ buah.remove("mangga")
 print("Setelah diubah:", buah)
 \end{lstlisting}
 
-Kode di atas memperlihatkan bagaimana list dapat dimodifikasi dengan mudah. 
+Kode pada Listing~\ref{lst:b6-list} memperlihatkan bagaimana list dapat dimodifikasi dengan mudah. 
 Program dimulai dengan tiga elemen awal, lalu menampilkan isi list dan elemen pertama. 
 Nilai pada posisi tertentu dapat diubah langsung dengan indeks, elemen baru dapat ditambahkan dengan \texttt{append()}, 
 dan elemen tertentu dapat dihapus dengan \texttt{remove()}. 
 List menjadi struktur dasar yang sangat penting karena fleksibel dan mudah digunakan dalam berbagai situasi.
 
-    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+\begin{lstlisting}[language=bash, caption={Keluaran kode pengubahan list}, label={lst:b6-list-out}]
+Daftar buah: ['apel', 'jeruk', 'mangga']
+Buah pertama: apel
+Setelah diubah: ['apel', 'anggur', 'pisang']
+\end{lstlisting}
+
+Listing~\ref{lst:b6-list-out} menunjukkan bahwa \texttt{jeruk} tertimpa \texttt{anggur}, \texttt{pisang} masuk di posisi paling akhir, dan \texttt{mangga} hilang. Listing~\ref{lst:b6-index} memperlihatkan cara lain membaca isi list, dengan keluaran pada Listing~\ref{lst:b6-index-out}. Indeks negatif dihitung dari belakang, sehingga \texttt{nilai[-1]} adalah elemen terakhir. Bentuk \texttt{nilai[1:3]} mengambil potongan dari indeks 1 sampai sebelum indeks 3, dan \texttt{len()} menghitung jumlah elemen. Mengakses indeks yang tidak ada, seperti \texttt{nilai[4]} pada list berisi empat elemen, menghasilkan \texttt{IndexError}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: indeks_list.py}, label={lst:b6-index}]
+nilai = [70, 80, 90, 100]
+
+print(nilai[0])
+print(nilai[3])
+print(nilai[-1])
+print(nilai[1:3])
+print(len(nilai))
+print(nilai[4])
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran indeks_list.py}, label={lst:b6-index-out}]
+70
+100
+100
+[80, 90]
+4
+IndexError: list index out of range
+\end{lstlisting}
+
+Listing~\ref{lst:b6-penjualan} menerapkan list pada kasus nyata, yaitu menghitung total penjualan. Variabel \texttt{total} mulai dari 0, lalu bertambah pada tiap putaran. Format \texttt{\{total:,\}} menambahkan koma sebagai pemisah ribuan, sehingga program mencetak \texttt{Total penjualan minggu ini: Rp540,000}.
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung total penjualan dari list}, label={lst:b6-penjualan}]
 penjualan = [120000, 85000, 95000, 110000, 130000]
 
 total = 0
@@ -45,15 +85,15 @@ for p in penjualan:
 
 print("Total penjualan minggu ini:",
       f"Rp{total:,}")
-    \end{lstlisting}
+\end{lstlisting}
 
 % =====================================================
 \section{Tuple}
 Tuple mirip dengan list, tetapi bersifat \textit{immutable}, artinya elemen di dalamnya tidak dapat diubah setelah dibuat. 
 Struktur ini cocok digunakan untuk menyimpan data yang bersifat tetap seperti koordinat, ukuran gambar, warna RGB, atau data konfigurasi. 
-Jika ingin melakukan perubahan, kita harus membuat tuple baru berdasarkan tuple lama.
+Jika ingin melakukan perubahan, kita harus membuat tuple baru berdasarkan tuple lama, seperti pada Listing~\ref{lst:b6-tuple}.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membaca tuple dan membuat tuple baru}, label={lst:b6-tuple}]
 koordinat = (10, 20)
 print("Koordinat awal:", koordinat)
 print("Nilai x:", koordinat[0])
@@ -63,12 +103,17 @@ koordinat_baru = (koordinat[0], 25)
 print("Koordinat baru:", koordinat_baru)
 \end{lstlisting}
 
-Kode di atas menunjukkan bahwa tuple dapat dibaca seperti list, 
+Kode pada Listing~\ref{lst:b6-tuple} menunjukkan bahwa tuple dapat dibaca seperti list, 
 tetapi tidak bisa dimodifikasi secara langsung. 
 Untuk "memperbarui" data, kita membuat tuple baru dari data lama. 
 Karena bersifat tetap, tuple aman digunakan untuk data yang tidak boleh berubah selama program berjalan.
 
-    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+Program tersebut mencetak \texttt{(10, 20)}, \texttt{10}, lalu \texttt{(10, 25)}. Mengubah isi tuple secara langsung, seperti \texttt{koordinat[0] = 15}, menghasilkan \texttt{TypeError: 'tuple' object does not support item assignment}. Isi tuple juga dapat dibongkar ke beberapa variabel sekaligus dengan \texttt{lintang, bujur = lokasi}. Tuple berisi satu elemen wajib memakai koma, karena \texttt{(5)} hanya angka 5 dalam kurung, sedangkan \texttt{(5,)} adalah tuple.
+
+Listing~\ref{lst:b6-lokasi} memakai tuple untuk koordinat, karena lintang dan bujur sebuah tempat selalu berpasangan dan tidak berubah selama program berjalan.
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Koordinat lokasi disimpan sebagai tuple}, label={lst:b6-lokasi}]
 lokasi = (6.256, 106.618)  # koordinat Serpong
 
 print("Koordinat Lokasi:")
@@ -77,16 +122,16 @@ print("Bujur  :", lokasi[1])
 
 # tuple tidak dapat diubah
 # lokasi[0] = 6.300  # akan menyebabkan error
-    \end{lstlisting}
+\end{lstlisting}
 
 % =====================================================
 \section{Dictionary (Map)}
 Dictionary adalah struktur data yang menyimpan pasangan \texttt{key:value}. 
 Setiap \texttt{key} bersifat unik dan digunakan untuk mengakses nilainya secara langsung. 
 Struktur ini sangat berguna untuk merepresentasikan data berlabel, seperti identitas pengguna, data mahasiswa, atau konfigurasi sistem. 
-Kita dapat menambah, membaca, memperbarui, maupun menghapus pasangan data dengan mudah.
+Kita dapat menambah, membaca, memperbarui, maupun menghapus pasangan data dengan mudah, seperti pada Listing~\ref{lst:b6-dict}.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membaca dan mengubah isi dictionary}, label={lst:b6-dict}]
 mahasiswa = {"nama": "Andi", "umur": 20, "jurusan": "Informatika"}
 
 print("Data awal:", mahasiswa)
@@ -100,13 +145,40 @@ del mahasiswa["jurusan"]
 print("Setelah diubah:", mahasiswa)
 \end{lstlisting}
 
-Kode di atas menunjukkan bagaimana dictionary memungkinkan pengelolaan data berbasis label. 
+Kode pada Listing~\ref{lst:b6-dict} menunjukkan bagaimana dictionary memungkinkan pengelolaan data berbasis label. 
 Kita dapat membaca nilai tertentu dengan menyebutkan kuncinya, 
 menambahkan data baru dengan menetapkan pasangan \texttt{key:value}, 
 memperbarui nilai yang sudah ada, atau menghapus entri dengan \texttt{del}. 
 Struktur ini sangat efisien untuk data berpasangan dan sering digunakan dalam aplikasi nyata seperti penyimpanan data pengguna atau pengaturan sistem.
 
-    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+\begin{lstlisting}[language=bash, caption={Keluaran kode pengubahan dictionary}, label={lst:b6-dict-out}]
+Data awal: {'nama': 'Andi', 'umur': 20, 'jurusan': 'Informatika'}
+Nama mahasiswa: Andi
+Setelah diubah: {'nama': 'Andi', 'umur': 21, 'kota': 'Tangerang'}
+\end{lstlisting}
+
+Pada Listing~\ref{lst:b6-dict-out}, baris \texttt{mahasiswa["umur"] = 21} memperbarui nilai karena kuncinya sudah ada, sedangkan baris berikutnya menambah pasangan baru karena kuncinya belum ada. Dictionary mirip buku alamat: nomor telepon dicari lewat nama, tanpa perlu tahu posisinya di halaman berapa.
+
+Membaca kunci yang tidak ada dengan tanda kurung siku menghasilkan \texttt{KeyError}. Metode \texttt{get()} lebih aman untuk data yang mungkin kosong, seperti terlihat pada Listing~\ref{lst:b6-dict-get} dan keluarannya pada Listing~\ref{lst:b6-dict-get-out}. Tanpa nilai cadangan, \texttt{get()} mengembalikan \texttt{None}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: dictionary_get.py}, label={lst:b6-dict-get}]
+mahasiswa = {"nama": "Andi", "umur": 20}
+
+print(mahasiswa.get("kota"))
+print(mahasiswa.get("kota", "Belum diisi"))
+print(mahasiswa["kota"])
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran dictionary_get.py}, label={lst:b6-dict-get-out}]
+None
+Belum diisi
+KeyError: 'kota'
+\end{lstlisting}
+
+Listing~\ref{lst:b6-pelanggan} menelusuri seluruh isi dictionary dengan \texttt{items()}, yang memberikan kunci dan nilai pada tiap putaran. Format \texttt{:<6} menjadikan teks rata kiri selebar enam karakter, sehingga titik dua pada Listing~\ref{lst:b6-pelanggan-out} tampil lurus.
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Menampilkan data pelanggan dari dictionary}, label={lst:b6-pelanggan}]
 pelanggan = {
     "nama": "Sinta Dewi",
     "usia": 28,
@@ -122,16 +194,25 @@ for k, v in pelanggan.items():
 pelanggan["usia"] = 29
 print("\nUsia diperbarui:",
       pelanggan["usia"])
-    \end{lstlisting}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran kode data pelanggan}, label={lst:b6-pelanggan-out}]
+Data Pelanggan:
+Nama  : Sinta Dewi
+Usia  : 28
+Kota  : Tangerang
+
+Usia diperbarui: 29
+\end{lstlisting}
 
 % =====================================================
 \section{Set}
 Set adalah struktur data yang berisi kumpulan elemen unik dan tidak memiliki urutan tertentu. 
 Python secara otomatis menghapus elemen duplikat, sehingga setiap nilai di dalam set hanya muncul satu kali. 
 Struktur ini sering digunakan untuk memfilter data unik, melakukan operasi himpunan seperti gabungan dan irisan, 
-atau memeriksa keanggotaan suatu elemen dalam kumpulan data.
+atau memeriksa keanggotaan suatu elemen dalam kumpulan data, seperti pada Listing~\ref{lst:b6-set}.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Operasi dasar pada set}, label={lst:b6-set}]
 angka = {1, 2, 3, 3, 2}
 print("Data awal:", angka)
 
@@ -146,12 +227,24 @@ print("Gabungan:", angka | angka_lain)
 print("Irisan:", angka & angka_lain)
 \end{lstlisting}
 
-Kode di atas memperlihatkan bahwa set secara otomatis menghapus nilai duplikat 
+Kode pada Listing~\ref{lst:b6-set} memperlihatkan bahwa set secara otomatis menghapus nilai duplikat 
 dan memungkinkan penambahan atau penghapusan elemen dengan mudah. 
 Operasi seperti gabungan (\texttt{|}) dan irisan (\texttt{\&}) dapat dilakukan untuk menggabungkan atau mencari elemen yang sama di antara dua set. 
 Struktur ini sangat efisien untuk memastikan keunikan data dan operasi pencarian cepat.
 
-    \begin{lstlisting}[style=PythonStyle, numbers=left, firstnumber=1]
+\begin{lstlisting}[language=bash, caption={Keluaran kode operasi set}, label={lst:b6-set-out}]
+Data awal: {1, 2, 3}
+Setelah diubah: {1, 3, 4, 5}
+Gabungan: {1, 3, 4, 5, 6}
+Irisan: {3, 4}
+\end{lstlisting}
+
+Baris pertama Listing~\ref{lst:b6-set-out} menunjukkan bahwa angka 2 dan 3 yang ditulis dua kali hanya tersimpan sekali. Set tidak punya urutan, sehingga isinya tidak dapat diakses dengan indeks. Menulis \texttt{produk[0]} menghasilkan \texttt{TypeError: 'set' object is not subscriptable}, sedangkan pemeriksaan \texttt{"kopi" in produk} tetap berjalan. Set kosong dibuat dengan \texttt{set()}, karena \texttt{\{\}} menghasilkan dictionary kosong. Selain gabungan dan irisan, operator \texttt{-} memberikan selisih, misalnya \texttt{\{1, 2, 3\} - \{3, 4\}} menghasilkan \texttt{\{1, 2\}}.
+
+Listing~\ref{lst:b6-produk} memakai set untuk membuang nama produk yang tercatat ganda. Urutan produk yang tercetak dapat berbeda setiap kali program dijalankan, karena set tidak menyimpan urutan.
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Menyaring nama produk unik dengan set}, label={lst:b6-produk}]
 produk = {"kopi", "teh", "gula", "kopi", "susu"}
 
 print("Daftar produk unik:")
@@ -163,16 +256,16 @@ produk.add("keju")
 print("\nSetelah ditambah:")
 for p in produk:
     print("-", p)
-    \end{lstlisting}
+\end{lstlisting}
 
 
 % =====================================================
 \section{Range}
 Range adalah struktur bawaan Python yang digunakan untuk menghasilkan urutan angka secara efisien. 
 Objek ini sering digunakan dalam perulangan untuk mengontrol jumlah iterasi tanpa perlu membuat daftar angka secara manual. 
-Tidak seperti list, \texttt{range} tidak menyimpan seluruh nilai di memori, melainkan menghasilkan angka satu per satu saat dibutuhkan, sehingga lebih hemat sumber daya.
+Tidak seperti list, \texttt{range} tidak menyimpan seluruh nilai di memori, melainkan menghasilkan angka satu per satu saat dibutuhkan, sehingga lebih hemat sumber daya. Listing~\ref{lst:b6-range} memperlihatkan dua cara memakainya.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Dua cara memakai range}, label={lst:b6-range}]
 for i in range(3):
     print("Iterasi ke-", i)
 
@@ -180,10 +273,19 @@ angka = list(range(1, 6))
 print("Daftar angka:", angka)
 \end{lstlisting}
 
-Contoh di atas menunjukkan penggunaan \texttt{range()} dalam dua bentuk. 
+Contoh pada Listing~\ref{lst:b6-range} menunjukkan penggunaan \texttt{range()} dalam dua bentuk. 
 Pertama, untuk mengatur jumlah pengulangan di dalam perulangan \texttt{for}. 
 Kedua, untuk membuat daftar angka berurutan dengan fungsi \texttt{list()}. 
 Dengan \texttt{range()}, kita dapat membuat urutan angka dengan batas awal, akhir, dan langkah tertentu tanpa membebani memori.
+
+\begin{lstlisting}[language=bash, caption={Keluaran kode range}, label={lst:b6-range-out}]
+Iterasi ke- 0
+Iterasi ke- 1
+Iterasi ke- 2
+Daftar angka: [1, 2, 3, 4, 5]
+\end{lstlisting}
+
+Keluaran tersebut ada pada Listing~\ref{lst:b6-range-out}. Penghematan memorinya dapat diukur. Pada Python 3.12 di komputer 64-bit, \texttt{range(1000000)} memakai 48 byte, sedangkan \texttt{list(range(1000000))} memakai sekitar 8 juta byte. Sebuah \texttt{range} hanya menyimpan batas awal, batas akhir, dan langkahnya.
 
 
 % =====================================================
@@ -191,9 +293,9 @@ Dengan \texttt{range()}, kita dapat membuat urutan angka dengan batas awal, akhi
 Struktur data bertingkat adalah struktur yang di dalamnya terdapat struktur data lain. 
 Contohnya adalah list di dalam list, atau dictionary di dalam list. 
 Struktur seperti ini berguna untuk menyimpan data yang lebih kompleks, seperti tabel, daftar objek, atau data dalam format JSON. 
-Dengan menggunakan struktur bertingkat, kita dapat merepresentasikan hubungan antar data secara lebih alami.
+Dengan menggunakan struktur bertingkat, kita dapat merepresentasikan hubungan antar data secara lebih alami. Listing~\ref{lst:b6-nested} memberi dua contohnya.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={List di dalam list dan dictionary di dalam list}, label={lst:b6-nested}]
 matriks = [
     [1, 2, 3],
     [4, 5, 6]
@@ -209,18 +311,27 @@ mahasiswa = [
 print("Nama mahasiswa kedua:", mahasiswa[1]["nama"])
 \end{lstlisting}
 
-Contoh di atas memperlihatkan dua bentuk struktur bertingkat. 
+Contoh pada Listing~\ref{lst:b6-nested} memperlihatkan dua bentuk struktur bertingkat. 
 Pertama, list di dalam list yang digunakan untuk menyimpan data berbentuk dua dimensi seperti matriks. 
 Kedua, list yang berisi dictionary yang digunakan untuk menyimpan daftar data berstruktur, misalnya data mahasiswa. 
 Struktur seperti ini umum digunakan untuk pengolahan data yang bersifat hierarkis, penyimpanan data JSON, maupun hasil query dari basis data.
 
+Akses ke data bertingkat dibaca dari kiri ke kanan, satu tingkat setiap kali. Pada \texttt{matriks[0][1]}, \texttt{matriks[0]} mengambil baris pertama, yaitu \texttt{[1, 2, 3]}, lalu \texttt{[1]} mengambil elemen kedua dari baris itu, sehingga hasilnya 2. Pada \texttt{mahasiswa[1]["nama"]}, \texttt{mahasiswa[1]} mengambil dictionary kedua, lalu \texttt{["nama"]} mengambil nilainya, sehingga hasilnya \texttt{Budi}.
+
 % =====================================================
 \section{Perkalian Matriks Menggunakan List}
 Matriks dapat direpresentasikan sebagai list dua dimensi, di mana setiap elemen di dalam list utama berisi list lain yang mewakili baris. 
-Perkalian matriks dilakukan dengan menjumlahkan hasil kali antara elemen-elemen baris dari matriks pertama dan kolom dari matriks kedua. 
+Perkalian matriks dilakukan dengan menjumlahkan hasil kali antara elemen-elemen baris dari matriks pertama dan kolom dari matriks kedua, seperti pada Persamaan~\eqref{eq:b6-perkalian-matriks}. 
 Konsep ini banyak digunakan dalam berbagai bidang seperti pemrosesan citra, machine learning, dan grafik komputer.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{equation}
+  C_{ij} = \sum_{k} A_{ik} \times B_{kj}
+  \label{eq:b6-perkalian-matriks}
+\end{equation}
+
+Indeks $i$ menunjuk baris pada matriks pertama, $j$ menunjuk kolom pada matriks kedua, dan $k$ menelusuri pasangan elemen yang dikalikan. Banyak kolom matriks pertama harus sama dengan banyak baris matriks kedua. Listing~\ref{lst:b6-matriks} menerapkan persamaan ini dengan tiga tingkat perulangan.
+
+\begin{lstlisting}[style=PythonStyle, caption={Perkalian dua matriks dengan perulangan bertingkat}, label={lst:b6-matriks}]
 A = [
     [1, 2, 3],
     [4, 5, 6]
@@ -253,19 +364,31 @@ for row in C:
     print(row)
 \end{lstlisting}
 
-Contoh di atas menunjukkan bagaimana dua matriks dapat dikalikan menggunakan list bersarang. 
+Contoh pada Listing~\ref{lst:b6-matriks} menunjukkan bagaimana dua matriks dapat dikalikan menggunakan list bersarang. 
 Matriks \texttt{A} berukuran dua baris dan tiga kolom dikalikan dengan matriks \texttt{B} berukuran tiga baris dan dua kolom. 
 Hasilnya adalah matriks baru \texttt{C} berukuran dua baris dan dua kolom. 
-Proses perhitungan dilakukan dengan menggunakan \textit{nested loop} di dalam \textit{list comprehension}, 
+Proses perhitungan dilakukan dengan menggunakan \textit{nested loop}, 
 di mana setiap elemen hasil merupakan penjumlahan hasil kali antara baris pada matriks pertama dan kolom pada matriks kedua. 
 Pendekatan ini memperlihatkan bagaimana struktur data sederhana seperti list dapat digunakan untuk menyelesaikan perhitungan matematis secara efisien tanpa memerlukan pustaka tambahan.
+
+\begin{lstlisting}[language=bash, caption={Keluaran kode perkalian matriks}, label={lst:b6-matriks-out}]
+1*7 + 2*9 + 3*11 = 58
+1*8 + 2*10 + 3*12 = 64
+4*7 + 5*9 + 6*11 = 139
+4*8 + 5*10 + 6*12 = 154
+Hasil akhir matriks C:
+[58, 64]
+[139, 154]
+\end{lstlisting}
+
+Listing~\ref{lst:b6-matriks-out} memperlihatkan tiap langkah perhitungan. Baris pertamanya adalah Persamaan~\eqref{eq:b6-perkalian-matriks} untuk $i = 0$ dan $j = 0$, yaitu $1 \times 7 + 2 \times 9 + 3 \times 11 = 58$. Variabel \texttt{total} dikembalikan ke 0 sebelum tiap elemen dihitung, karena tiap elemen \texttt{C} punya jumlah sendiri.
 
 \section{Mengolah Data Bersarang dengan Perulangan dan Kondisi}
 Struktur data bersarang sering digunakan dalam situasi di mana setiap elemen di dalam kumpulan data memiliki beberapa atribut. 
 Dengan memanfaatkan perulangan bertingkat (\textit{nested loop}) dan kondisi, kita dapat menelusuri dan memproses data tersebut dengan lebih terarah. 
-Pendekatan ini banyak digunakan dalam pengolahan data, analisis hasil survei, atau pembuatan laporan berdasarkan kriteria tertentu.
+Pendekatan ini banyak digunakan dalam pengolahan data, analisis hasil survei, atau pembuatan laporan berdasarkan kriteria tertentu. Listing~\ref{lst:b6-kategori} memberi contohnya.
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Menentukan kategori nilai dari data bersarang}, label={lst:b6-kategori}]
 mahasiswa = [
     {"nama": "Andi", "nilai": [80, 85, 90]},
     {"nama": "Budi", "nilai": [60, 70, 65]},
@@ -288,10 +411,43 @@ for m in mahasiswa:
     print(f"{m['nama']} - Rata-rata: {rata:.1f} ({kategori})")
 \end{lstlisting}
 
-Contoh di atas memperlihatkan bagaimana list yang berisi dictionary dan list lain di dalamnya dapat diolah menggunakan dua tingkat perulangan. 
+Contoh pada Listing~\ref{lst:b6-kategori} memperlihatkan bagaimana list yang berisi dictionary dan list lain di dalamnya dapat diolah menggunakan dua tingkat perulangan. 
 Perulangan pertama menelusuri setiap mahasiswa, sedangkan perulangan kedua menjumlahkan nilai-nilai mereka untuk menghitung rata-rata. 
 Kondisi \texttt{if} kemudian digunakan untuk menentukan kategori hasil belajar berdasarkan nilai rata-rata tersebut. 
 Contoh ini menggabungkan konsep struktur data bersarang, perulangan bertingkat, dan logika percabangan dalam satu program sederhana yang menggambarkan situasi dunia nyata.
+
+\begin{lstlisting}[language=bash, caption={Keluaran kode kategori nilai}, label={lst:b6-kategori-out}]
+Andi - Rata-rata: 85.0 (Sangat Baik)
+Budi - Rata-rata: 65.0 (Perlu Perbaikan)
+Citra - Rata-rata: 95.0 (Sangat Baik)
+\end{lstlisting}
+
+Listing~\ref{lst:b6-kategori-out} menampilkan hasilnya. Andi masuk kategori \texttt{Sangat Baik} karena rata-ratanya tepat 85, dan batas \texttt{rata >= 85} menyertakan angka itu.
+
+\section{Memilih Struktur Data}
+Tabel~\ref{tab:b6-perbandingan} merangkum sifat tiap struktur data. Pertanyaan yang membantu saat memilih adalah apakah urutan penting, apakah isinya akan berubah, dan bagaimana data akan dicari. Bila data dicari lewat posisi, gunakan \texttt{list} atau \texttt{tuple}. Bila dicari lewat nama, gunakan \texttt{dictionary}. Bila yang penting hanya ada atau tidaknya suatu nilai, gunakan \texttt{set}.
+
+\begin{table}[H]
+  \centering
+  \caption{Perbandingan struktur data bawaan Python}
+  \label{tab:b6-perbandingan}
+  \begin{tabularx}{\textwidth}{lllllX}
+    \hline
+    \textbf{Struktur} & \textbf{Berurutan} & \textbf{Dapat diubah} & \textbf{Duplikat} & \textbf{Akses} & \textbf{Cocok untuk} \\
+    \hline
+    \texttt{list} & Ya & Ya & Boleh & Indeks & Daftar yang isinya berubah \\
+    \hline
+    \texttt{tuple} & Ya & Tidak & Boleh & Indeks & Data tetap, seperti koordinat \\
+    \hline
+    \texttt{dictionary} & Ya & Ya & Kunci unik & Kunci & Data berlabel \\
+    \hline
+    \texttt{set} & Tidak & Ya & Tidak & Keanggotaan & Data unik dan operasi himpunan \\
+    \hline
+    \texttt{range} & Ya & Tidak & Tidak & Indeks & Deret angka untuk perulangan \\
+    \hline
+  \end{tabularx}
+\end{table}
+
 
 % =====================================================
 \section{Latihan}
@@ -306,9 +462,9 @@ Sebuah kelas memiliki daftar nilai ujian yang disimpan dalam bentuk \texttt{list
 Mahasiswa diminta untuk menentukan nilai tertinggi, nilai terendah, 
 dan memeriksa apakah nilai tertentu ada di dalam daftar tersebut.  
 
-Gunakan struktur data berikut sebagai dasar:
+Gunakan struktur data berikut sebagai dasar (Listing~\ref{lst:b6-data-nilai-ujian-latihan}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Data nilai ujian untuk latihan}, label={lst:b6-data-nilai-ujian-latihan}]
 nilai_ujian = [78, 85, 90, 67, 88, 92, 74, 90, 81]
 \end{lstlisting}
 
@@ -330,9 +486,9 @@ Mahasiswa diminta untuk menampilkan data yang telah diurutkan dalam dua cara:
 (1) dari nilai tertinggi ke terendah, dan  
 (2) dari nilai terendah ke tertinggi.
 
-Gunakan struktur data berikut sebagai dasar:
+Gunakan struktur data berikut sebagai dasar (Listing~\ref{lst:b6-data-nilai-latihan-pengurutan}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Data nilai untuk latihan pengurutan}, label={lst:b6-data-nilai-latihan-pengurutan}]
 nilai = [85, 90, 78, 92, 88, 75, 95]
 \end{lstlisting}
 
@@ -342,9 +498,9 @@ Tentukan dua hasil pengurutan berikut:
   \item \textbf{Descending}: dari nilai terbesar ke terkecil.
 \end{itemize}
 
-Hasil akhir yang diharapkan memiliki bentuk struktur data seperti berikut:
+Hasil akhir yang diharapkan memiliki bentuk struktur data seperti berikut (Listing~\ref{lst:b6-bentuk-hasil-pengurutan-diharapkan}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk hasil pengurutan yang diharapkan}, label={lst:b6-bentuk-hasil-pengurutan-diharapkan}]
 urut_ascending = [75, 78, 85, 88, 90, 92, 95]
 urut_descending = [95, 92, 90, 88, 85, 78, 75]
 \end{lstlisting}
@@ -365,9 +521,9 @@ dan metode \texttt{.sort()} untuk mengurutkan data numerik secara menaik dan men
 Terdapat dua struktur data yang saling melengkapi. 
 Struktur pertama menyimpan daftar produk dan harganya, 
 sementara struktur kedua menyimpan daftar produk dan jumlah stok yang tersedia. 
-Kedua struktur disusun dalam bentuk list berisi dictionary seperti berikut:
+Kedua struktur disusun dalam bentuk list berisi dictionary seperti berikut (Listing~\ref{lst:b6-data-produk-latihan}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Data produk untuk latihan}, label={lst:b6-data-produk-latihan}]
 produk_harga = [
     {"nama": "Laptop", "harga": 9500000},
     {"nama": "Mouse", "harga": 150000},
@@ -388,9 +544,9 @@ dengan harga di bawah batas tertentu dan stok di atas jumlah tertentu,
 kemudian menggabungkannya ke dalam satu struktur data baru yang berisi 
 \texttt{nama}, \texttt{harga}, dan \texttt{stok}. 
 
-Hasil akhir yang diharapkan berbentuk seperti berikut:
+Hasil akhir yang diharapkan berbentuk seperti berikut (Listing~\ref{lst:b6-bentuk-hasil-penyaringan-produk-diharapkan}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk hasil penyaringan produk yang diharapkan}, label={lst:b6-bentuk-hasil-penyaringan-produk-diharapkan}]
 produk_terpilih = [
     {"nama": "Mouse", "harga": 150000, "stok": 25},
     {"nama": "Keyboard", "harga": 350000, "stok": 10}
@@ -403,9 +559,9 @@ Struktur ini merepresentasikan data hasil seleksi yang memenuhi kriteria dan sud
 \item \textbf{Operasi Himpunan Menggunakan Set} \\
 Dua kelompok data mewakili pelanggan dari dua cabang toko yang berbeda. 
 Setiap kelompok disimpan dalam bentuk \texttt{set} karena setiap nama pelanggan bersifat unik.  
-Mahasiswa diminta melakukan berbagai operasi himpunan untuk menganalisis kesamaan dan perbedaan antar cabang.
+Mahasiswa diminta melakukan berbagai operasi himpunan untuk menganalisis kesamaan dan perbedaan antar cabang (Listing~\ref{lst:b6-data-pelanggan-dua-cabang-latihan}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Data pelanggan dua cabang untuk latihan}, label={lst:b6-data-pelanggan-dua-cabang-latihan}]
 cabang_a = {"Andi", "Budi", "Citra", "Dewi", "Eka"}
 cabang_b = {"Budi", "Dewi", "Farah", "Gilang", "Hadi"}
 \end{lstlisting}
@@ -418,9 +574,9 @@ Gunakan operasi berikut untuk menemukan hasilnya:
   \item \textbf{Selisih Simetris (XOR)}: pelanggan yang hanya berbelanja di salah satu cabang saja.
 \end{itemize}
 
-Hasil akhir diharapkan memiliki bentuk struktur data seperti berikut:
+Hasil akhir diharapkan memiliki bentuk struktur data seperti berikut (Listing~\ref{lst:b6-bentuk-hasil-operasi-himpunan-diharapkan}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Bentuk hasil operasi himpunan yang diharapkan}, label={lst:b6-bentuk-hasil-operasi-himpunan-diharapkan}]
 pelanggan_and = {"Budi", "Dewi"}
 pelanggan_or = {"Andi", "Budi", "Citra", "Dewi", "Eka", "Farah", "Gilang", "Hadi"}
 pelanggan_not_in_a = {"Farah", "Gilang", "Hadi"}
@@ -436,4 +592,15 @@ analisis pelanggan, pencocokan data, maupun perbandingan hasil survei.
 \section{Kesimpulan}
 Python memiliki berbagai struktur data bawaan yang fleksibel dan mudah digunakan.
 Pemahaman tentang list, tuple, dictionary, dan set menjadi dasar penting sebelum mempelajari algoritma dan struktur data lanjutan.
+
+List cocok untuk data berurutan yang berubah, tuple untuk data tetap, dictionary untuk data berlabel, dan set untuk nilai unik. Range menghasilkan deret angka tanpa banyak memakai memori. Struktur bertingkat menggabungkan semuanya untuk data yang lebih rumit, dan aksesnya dibaca satu tingkat setiap kali.
 Dengan menguasai struktur data ini, programmer dapat menulis kode yang lebih efisien, terstruktur, dan mudah dipelihara.
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: Data Structures} \cite{py-tut-ds}: \textit{list}, \textit{tuple}, \textit{set}, dan \textit{dictionary}.
+  \item \textit{Built-in Types} \cite{py-stdtypes}: sifat dan operasi tiap tipe koleksi bawaan, termasuk \textit{range}.
+  \item \textit{Think Python, 3rd edition. Bab 9: Lists} \cite{thinkpython-ch9}: pemakaian \textit{list}.
+  \item \textit{Think Python, 3rd edition. Bab 10: Dictionaries} \cite{thinkpython-ch10}: pemakaian \textit{dictionary}.
+  \item \textit{Think Python, 3rd edition. Bab 11: Tuples} \cite{thinkpython-ch11}: pemakaian \textit{tuple}.
+\end{daftarrapat}

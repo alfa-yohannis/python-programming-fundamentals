@@ -1,9 +1,19 @@
 \chapter{Variabel, Konstanta, Tipe Data Dasar, dan Konversi Tipe Data}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menjelaskan peran variabel dan konstanta dalam menyimpan data, serta menamainya agar mudah dipahami.
+  \item Membedakan jenis data dasar beserta kegunaannya, sehingga dapat memilih jenis yang tepat untuk tiap data.
+  \item Mengubah data dari satu jenis ke jenis lain sesuai kebutuhan program, lalu mengenali kegagalan yang dapat muncul saat pengubahan.
+\end{daftarrapat}
+
 \section{Variabel}
 
 Variabel merupakan tempat penyimpanan sementara yang digunakan untuk menampung data selama program berjalan, sehingga data tersebut dapat digunakan kembali. Berbeda dengan bahasa pemrograman \textit{static type} seperti C, C++, dan Java yang harus secara eksplisit menulis tipe data untuk variabel. Di Python, variabel memiliki tipe data yang dinamis (\textit{dynamic type}) dan dapat berubah sesuai dengan kebutuhan program.
-\newline
+
+Variabel dapat dibayangkan sebagai loker di kampus yang diberi label nama. Label adalah nama variabel, dan isi loker adalah nilainya. Isi loker bisa diganti kapan saja, sedangkan labelnya tetap, sehingga pemilik cukup mengingat label untuk mengambil isinya.
+
+Gambar~\ref{fig:python-variable-structure} menunjukkan tiga bagian sebuah variabel: nama di sebelah kiri, tanda sama dengan, dan nilai di sebelah kanan.
 
 \begin{figure}[H]
 	\centering
@@ -13,7 +23,30 @@ Variabel merupakan tempat penyimpanan sementara yang digunakan untuk menampung d
 \end{figure}
 
 \noindent
-Sumber gambar: \url{https://www.packetswitch.co.uk/python-variables-data-types/}
+Sumber Gambar~\ref{fig:python-variable-structure}: \url{https://www.packetswitch.co.uk/python-variables-data-types/}
+
+Tanda \texttt{=} berarti menyimpan nilai, berbeda dari arti sama dengan dalam matematika. Python mengerjakan sisi kanan lebih dahulu, lalu menyimpan hasilnya ke nama di sisi kiri. Karena itu, baris \texttt{stok = stok + 5} pada Listing~\ref{lst:b2-assign} masuk akal: nilai lama 10 ditambah 5, lalu hasilnya 15 disimpan kembali ke \texttt{stok}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: tambah_stok.py}, label={lst:b2-assign}]
+stok = 10
+stok = stok + 5
+print(stok)
+\end{lstlisting}
+
+Tipe data variabel tidak perlu ditulis, dan bisa berubah mengikuti nilainya. Listing~\ref{lst:b2-dynamic} menyimpan dua nilai berbeda jenis ke variabel yang sama, dan fungsi \texttt{type()} menampilkan tipenya pada Listing~\ref{lst:b2-dynamic-out}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: tipe_dinamis.py}, label={lst:b2-dynamic}]
+nilai = 10
+print(nilai, type(nilai))
+
+nilai = "sepuluh"
+print(nilai, type(nilai))
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran tipe_dinamis.py}, label={lst:b2-dynamic-out}]
+10 <class 'int'>
+sepuluh <class 'str'>
+\end{lstlisting}
 
 \subsection{Aturan Penamaan Variabel}
 
@@ -27,11 +60,23 @@ Pemberian nama variabel di Python harus mematuhi beberapa aturan penamaan yang d
 	\item Nama variabel tidak boleh mengandung kata kunci (\textit{keyword}) yang sudah terdefinisi dalam Python, seperti \texttt{def}, \texttt{for}, \texttt{if}, \texttt{return}, dan sebagainya.
 \end{itemize}
 
+Nama variabel membedakan huruf besar dan kecil. Pada Listing~\ref{lst:b2-case}, \texttt{nama} dan \texttt{Nama} adalah dua variabel berbeda, sehingga program mencetak \texttt{Rani}, lalu \texttt{Dani}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: huruf_besar_kecil.py}, label={lst:b2-case}]
+nama = "Rani"
+Nama = "Dani"
+
+print(nama)
+print(Nama)
+\end{lstlisting}
+
+Selain aturan wajib di atas, ada kebiasaan penamaan yang dianjurkan PEP 8 \cite{pep8}: nama variabel ditulis dengan huruf kecil, dan antarkata dipisahkan garis bawah, seperti \texttt{berat_badan}. Pilih nama yang menjelaskan isinya, karena \texttt{usia} lebih mudah dipahami daripada \texttt{u} saat kode dibaca lagi beberapa minggu kemudian.
+
 \subsection{Latihan Membuat Variabel}
 
-Buat file baru dengan nama \textbf{variable.py} dan buat variabel dengan nama \textbf{nama}, \textbf{usia}, dan \textbf{berat_badan} dengan tipe data yang sesuai dan nilai-nilai yang sesuai. Kemudian cetak variabel tersebut.
+Buat file baru dengan nama \textbf{variable.py} dan buat variabel dengan nama \textbf{nama}, \textbf{usia}, dan \textbf{berat_badan} dengan tipe data yang sesuai dan nilai-nilai yang sesuai. Kemudian cetak variabel tersebut (Listing~\ref{lst:b2-variable}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: variable.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: variable.py}, label={lst:b2-variable}]
 nama = "Stefani Laurensia"
 usia = 21
 berat_badan = 50.2
@@ -43,12 +88,14 @@ print(berat_badan)
 
 \subsection{Contoh Kesalahan Penamaan Variabel}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: variable.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh penamaan variabel yang salah}, label={lst:b2-salah-nama}]
 1angka = 200 # Nama variabel tidak boleh dimulai dengan angka
 nama lengkap = "Budi" # Nama variabel tidak boleh mengandung spasi
 gaji$ = 1000000 # Nama variabel tidak boleh mengandung simbol
 class = "Informatika" # class merupakan kata kunci untuk membuat sebuah class di Python sehingga melanggar aturan di mana nama variabel tidak boleh mengandung kata kunci
 \end{lstlisting}
+
+Semua baris pada Listing~\ref{lst:b2-salah-nama} menghasilkan \texttt{SyntaxError}. Python memeriksa penulisan seluruh berkas sebelum menjalankannya, sehingga satu nama yang salah membuat tidak ada satu baris pun yang berjalan.
 
 \section{Konstanta}
 
@@ -58,6 +105,23 @@ Konstanta adalah variabel yang seharusnya nilainya tidak berubah selama program 
 	\item Penandaan \texttt{Final} hanya \textbf{memberi peringatan pada type checker}, bukan mencegah perubahan di runtime.
 \end{itemize}
 
+Manfaat konstanta terlihat ketika nilai yang sama dipakai di banyak tempat. Listing~\ref{lst:b2-konstanta-pajak} memakai \texttt{PAJAK} untuk dua perhitungan, dan keluarannya ada pada Listing~\ref{lst:b2-konstanta-pajak-out}. Bila tarif pajak berubah, cukup satu baris yang diganti.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: pajak.py}, label={lst:b2-konstanta-pajak}]
+PAJAK = 0.11
+
+harga_buku = 200000
+harga_tas = 350000
+
+print("Pajak buku:", harga_buku * PAJAK)
+print("Pajak tas:", harga_tas * PAJAK)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran pajak.py}, label={lst:b2-konstanta-pajak-out}]
+Pajak buku: 22000.0
+Pajak tas: 38500.0
+\end{lstlisting}
+
 \subsection{Aturan Penamaan Konstanta}
 
 Untuk menandakan bahwa sebuah variabel adalah konstanta, kita bisa menggunakan huruf besar untuk membedakan dengan variabel biasa. Hal ini mengikuti aturan penamaan variabel yang dibuat oleh Python (\href{https://peps.python.org/pep-0008/}{PEP 8 - Style Guide for Python Code}).
@@ -65,7 +129,7 @@ Untuk menandakan bahwa sebuah variabel adalah konstanta, kita bisa menggunakan h
 \subsection{Latihan Membuat Konstanta}
 
 Buat file baru dengan nama \textbf{constant.py} dan buat konstanta dengan nama \textbf{PI} dan \textbf{GRAVITASI} dengan nilai yang sesuai. Kemudian cetak konstanta tersebut. Namun, berbeda dari bahasa pemrograman lain seperti C, C++, atau Java, di Python konstanta dapat diubah.
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: constant.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: constant.py}, label={lst:b2-constant}]
 from typing import Final
 
 PI: Final = 3.14
@@ -78,17 +142,41 @@ GRAVITASI = 10 # Nilai masih tetap bisa berubah, tapi tidak disarankan
 print(GRAVITASI)
 \end{lstlisting}
 
+Baris \texttt{GRAVITASI = 10} pada Listing~\ref{lst:b2-constant} tetap dijalankan tanpa pesan kesalahan, dan nilai yang tercetak berubah menjadi 10. Penanda \texttt{Final} hanya dibaca oleh \textit{type checker}, yaitu program pemeriksa kode seperti \texttt{mypy}, yang menandai baris tersebut sebelum program dijalankan.
+
 \section{Tipe Data Dasar}
 
 Tipe data merupakan jenis data yang bisa disimpan di program Python. Tipe data di Python memiliki banyak jenis, seperti \texttt{int}, \texttt{float}, \texttt{str}, \texttt{bool}, \texttt{list}, \texttt{tuple}, \texttt{dict}, dan \texttt{set}. Namun pada \textit{chapter} kali ini, kita akan fokus pada tipe data dasar, antara lain \texttt{int}, \texttt{float}, \texttt{str}, dan \texttt{bool}.
-\newline \newline
+
+
+Tipe data menentukan dua hal: nilai apa yang dapat disimpan, dan operasi apa yang dapat dilakukan terhadapnya. Angka dapat dikurangi, sedangkan teks tidak. Tabel~\ref{tab:b2-tipe-dasar} merangkum keempat tipe dasar.
+
+\begin{table}[H]
+  \centering
+  \caption{Tipe data dasar di Python}
+  \label{tab:b2-tipe-dasar}
+  \begin{tabularx}{\textwidth}{lXlX}
+    \hline
+    \textbf{Tipe} & \textbf{Menyimpan} & \textbf{Contoh nilai} & \textbf{Contoh kegunaan} \\
+    \hline
+    \texttt{int} & Bilangan bulat & \texttt{18}, \texttt{-5} & Usia, jumlah barang \\
+    \hline
+    \texttt{float} & Bilangan desimal & \texttt{5.5}, \texttt{3.14} & Berat badan, IPK \\
+    \hline
+    \texttt{str} & Teks & \texttt{"John"} & Nama, alamat \\
+    \hline
+    \texttt{bool} & Benar atau salah & \texttt{True}, \texttt{False} & Status lulus \\
+    \hline
+  \end{tabularx}
+\end{table}
+
 Berdasarkan kelompoknya, tipe data dasar di Python dapat dibedakan menjadi 3 kelompok, antara lain:
 
 \begin{enumerate}
 \item \textbf{Numeric} (Angka)
 \begin{enumerate}
 \item \textbf{Integer} (bilangan bulat)
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh nilai integer}, label={lst:b2-integer}]
 usia = 18
 jumlah_mahasiswa = 64
 nomor_rumah = 88
@@ -96,19 +184,25 @@ nomor_rumah = 88
 suhu = -5
 \end{lstlisting}
 
+Listing~\ref{lst:b2-integer} memuat bilangan bulat positif dan negatif. Integer di Python tidak punya batas ukuran selain memori komputer, sehingga \texttt{2 ** 100} tetap menghasilkan angka utuh \texttt{1267650600228229401496703205376}.
+
 \item \textbf{Float} (bilangan desimal)
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh nilai float}, label={lst:b2-float}]
 koordinat_x = 5.5
 koordinat_y = 7.8
 
-saldo = 10.500.075
+saldo = 10500.075
 \end{lstlisting}
+
+Python memakai titik sebagai pemisah desimal, dan tidak mengenal titik sebagai pemisah ribuan seperti penulisan angka di Indonesia. Menulis \texttt{10.500.075} menghasilkan \texttt{SyntaxError}. Garis bawah boleh dipakai agar angka besar mudah dibaca, sehingga \texttt{10_500.075} bernilai sama dengan isi \texttt{saldo} pada Listing~\ref{lst:b2-float}.
+
+Nilai \texttt{float} disimpan dalam bentuk biner, sehingga sebagian pecahan desimal hanya tersimpan sebagai pendekatan \cite{py-tut-floatingpoint}. Akibatnya, \texttt{0.1 + 0.2} menghasilkan \texttt{0.30000000000000004}. Selisih kecil ini wajar, dan perlu diingat saat membandingkan dua nilai \texttt{float}.
 \end{enumerate}
 
 \item \textbf{Teks} (Kata / Kalimat)
 \begin{enumerate}
 \item \textbf{String} (kumpulan karakter)
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh nilai string}, label={lst:b2-string}]
 nama = "John"
 quote = 'Programmer: A machine that turns coffee into code'
 pesan_email = """
@@ -117,13 +211,31 @@ Kepada Yth. John Doe,
 Terima kasih atas pesanan anda.
 """
 \end{lstlisting}
+
+Tanda kutip tunggal dan ganda pada Listing~\ref{lst:b2-string} sama artinya, sedangkan kutip tiga dipakai untuk teks beberapa baris. Angka di dalam tanda kutip adalah teks, sehingga perilakunya berbeda dari angka biasa. Listing~\ref{lst:b2-str-num} memperlihatkan ketiga kemungkinannya, dan keluarannya ada pada Listing~\ref{lst:b2-str-num-out}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: teks_dan_angka.py}, label={lst:b2-str-num}]
+print("10" + "5")
+print(10 + 5)
+print("10" + 5)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran teks_dan_angka.py}, label={lst:b2-str-num-out}]
+105
+15
+TypeError: can only concatenate str (not "int") to str
+\end{lstlisting}
+
+Tanda \texttt{+} pada dua teks berarti menyambung, dan pada dua angka berarti menjumlahkan. Python tidak mau menebak maksud pencampuran keduanya, sehingga baris terakhir menghasilkan \texttt{TypeError}.
 \end{enumerate}
 
 \item \textbf{Boolean} (Benar atau Salah)
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh nilai boolean}, label={lst:b2-boolean}]
 is_married = False
 is_single = True
 \end{lstlisting}
+
+Nilai pada Listing~\ref{lst:b2-boolean} ditulis dengan huruf besar di awal, karena \texttt{true} dan \texttt{false} tidak dikenal Python. Nilai \texttt{boolean} juga merupakan hasil dari perbandingan, misalnya \texttt{5 > 3} menghasilkan \texttt{True}. Bab berikutnya memakainya untuk pengambilan keputusan.
 \end{enumerate}
 
 \section{Konversi Tipe Data (\textit{Type Casting})}
@@ -131,27 +243,30 @@ is_single = True
 Kadang kita perlu mengubah tipe data dari satu jenis ke jenis lain agar Python bisa memprosesnya dengan benar.
 Misal, input dari pengguna melalui fungsi \texttt{input()} selalu mengembalikan tipe data string (str), tapi kita ingin melakukan perhitungan angka, maka kita harus mengubahnya menjadi int atau float.
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Fungsi} & \textbf{Keterangan} & \textbf{Contoh} \\
-\hline
-int() & Ubah menjadi bilangan bulat & int("10") → 10 \\
-\hline
-float() & Ubah menjadi bilangan desimal & float("3.14") → 3.14 \\
-\hline
-str() & Ubah menjadi teks & str(10) → "10" \\
-\hline
-bool() & Ubah menjadi True/False & bool(0) → False, bool(5) → True \\
-\hline
-\end{tabular}
-\caption{Fungsi Untuk Konversi Tipe Data di Python}
+Tabel~\ref{tab:b2-konversi} merangkum fungsi yang tersedia.
+
+\begin{table}[H]
+  \centering
+  \caption{Fungsi Untuk Konversi Tipe Data di Python}
+  \label{tab:b2-konversi}
+  \begin{tabularx}{\textwidth}{lXX}
+    \hline
+    \textbf{Fungsi} & \textbf{Keterangan} & \textbf{Contoh} \\
+    \hline
+    int() & Ubah menjadi bilangan bulat & int("10") → 10 \\
+    \hline
+    float() & Ubah menjadi bilangan desimal & float("3.14") → 3.14 \\
+    \hline
+    str() & Ubah menjadi teks & str(10) → "10" \\
+    \hline
+    bool() & Ubah menjadi True/False & bool(0) → False, bool(5) → True \\
+    \hline
+  \end{tabularx}
 \end{table}
 
 \subsection{Latihan Konversi Tipe Data}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: string_to_int.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: string_to_int.py}, label={lst:b2-string-to-int}]
 usia = input("Masukkan usia Anda: ")
 print("Tipe data sebelum konversi:", type(usia)) # Menampilkan tipe data sebelum konversi
 
@@ -162,7 +277,17 @@ usia_lima_tahun_kemudian = usia + 5 # Perhitungan usia 5 tahun kemudian
 print("Usia 5 tahun kemudian:", usia_lima_tahun_kemudian)
 \end{lstlisting}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: string_to_float.py}]
+Listing~\ref{lst:b2-string-to-int-out} menampilkan sesi saat pengguna mengetik 20. Fungsi \texttt{input()} menghasilkan teks, sehingga \texttt{int(usia)} wajib dilakukan sebelum penjumlahan pada Listing~\ref{lst:b2-string-to-int}.
+
+\begin{lstlisting}[language=bash, caption={Keluaran string_to_int.py}, label={lst:b2-string-to-int-out}]
+Masukkan usia Anda: 20
+Tipe data sebelum konversi: <class 'str'>
+Tipe data setelah konversi: <class 'int'>
+Usia 5 tahun kemudian: 25
+\end{lstlisting}
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: string_to_float.py}, label={lst:b2-string-to-float}]
 angka_str = "45.67"
 print("Sebelum konversi:", angka_str, type(angka_str))
 
@@ -170,7 +295,15 @@ angka_float = float(angka_str)
 print("Setelah konversi ke float:", angka_float, type(angka_float))
 \end{lstlisting}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: int_to_float.py}]
+\begin{lstlisting}[language=bash, caption={Keluaran string_to_float.py}, label={lst:b2-string-to-float-out}]
+Sebelum konversi: 45.67 <class 'str'>
+Setelah konversi ke float: 45.67 <class 'float'>
+\end{lstlisting}
+
+Pada Listing~\ref{lst:b2-string-to-float-out}, tampilan nilainya sama, tetapi tipenya berubah, sehingga hasil Listing~\ref{lst:b2-string-to-float} kini dapat dihitung.
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: int_to_float.py}, label={lst:b2-int-to-float}]
 angka_int = 10
 print("Sebelum konversi:", angka_int, type(angka_int))
 
@@ -178,7 +311,15 @@ angka_float = float(angka_int)
 print("Setelah konversi ke float:", angka_float, type(angka_float))
 \end{lstlisting}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: float_to_int.py}]
+\begin{lstlisting}[language=bash, caption={Keluaran int_to_float.py}, label={lst:b2-int-to-float-out}]
+Sebelum konversi: 10 <class 'int'>
+Setelah konversi ke float: 10.0 <class 'float'>
+\end{lstlisting}
+
+Listing~\ref{lst:b2-int-to-float} menambahkan bagian desimal \texttt{.0} tanpa mengubah besar nilainya, seperti terlihat pada Listing~\ref{lst:b2-int-to-float-out}.
+
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: float_to_int.py}, label={lst:b2-float-to-int}]
 angka_float = 3.99
 print("Sebelum konversi:", angka_float, type(angka_float))
 
@@ -186,10 +327,42 @@ angka_int = int(angka_float)
 print("Setelah konversi ke integer:", angka_int, type(angka_int))
 \end{lstlisting}
 
+\begin{lstlisting}[language=bash, caption={Keluaran float_to_int.py}, label={lst:b2-float-to-int-out}]
+Sebelum konversi: 3.99 <class 'float'>
+Setelah konversi ke integer: 3 <class 'int'>
+\end{lstlisting}
+
+Listing~\ref{lst:b2-float-to-int-out} menunjukkan bahwa \texttt{int()} pada Listing~\ref{lst:b2-float-to-int} memotong bagian desimal tanpa membulatkan. Untuk pembulatan, gunakan \texttt{round()}: \texttt{round(3.99)} menghasilkan 4, sedangkan \texttt{int(3.99)} menghasilkan 3 dan \texttt{int(-3.99)} menghasilkan -3.
+
+Konversi ke \texttt{bool} juga punya aturan sendiri. Angka 0 dan teks kosong menjadi \texttt{False}, sedangkan nilai lain menjadi \texttt{True}. Karena itu, \texttt{bool("False")} menghasilkan \texttt{True}, sebab teksnya tidak kosong. Listing~\ref{lst:b2-bool} dan keluarannya pada Listing~\ref{lst:b2-bool-out} memperlihatkan aturan ini.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: konversi_bool.py}, label={lst:b2-bool}]
+print(bool(0))
+print(bool(5))
+print(bool(""))
+print(bool("False"))
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran konversi_bool.py}, label={lst:b2-bool-out}]
+False
+True
+False
+True
+\end{lstlisting}
+
+Sebaliknya, angka yang akan disambung dengan teks perlu diubah dengan \texttt{str()}, seperti pada Listing~\ref{lst:b2-str}. Baris kedua mencetak teks dengan benar, sedangkan baris ketiga menghasilkan \texttt{TypeError}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: angka_ke_teks.py}, label={lst:b2-str}]
+usia = 20
+print("Usia saya " + str(usia) + " tahun")
+print("Usia saya " + usia + " tahun")
+\end{lstlisting}
+
+
 \subsection{Kesalahan dalam Konversi Tipe Data}
 Meskipun Python menyediakan fungsi bawaan untuk mengubah tipe data (\texttt{int()}, \texttt{float()}, \texttt{str()}, \texttt{bool()}), \textbf{tidak semua konversi bisa dilakukan dengan sukses}. Jika nilai yang dikonversi tidak sesuai dengan tipe data tujuan, maka program akan menghasilkan \textbf{error}. Berikut adalah contoh kesalahan dalam konversi tipe data:
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Kesalahan saat konversi ke integer}, label={lst:b2-konversi-salah}]
 # String huruf → Integer
 huruf = "abc"
 huruf_integer = int(huruf) 
@@ -201,13 +374,29 @@ angka_int = int(angka_str)
 # Output: ValueError: invalid literal for int() with base 10: '12.34'
 \end{lstlisting}
 
-Perhatikan pada contoh di atas bahwa program akan menghasilkan \textbf{error} ketika nilai yang dikonversi tidak sesuai dengan tipe data tujuan. Hal ini diakibatkan karena fungsi \texttt{int()} hanya dapat mengubah \textbf{string yang berisi bilangan bulat} menjadi tipe data \texttt{integer}.
+Perhatikan pada Listing~\ref{lst:b2-konversi-salah} bahwa program akan menghasilkan \textbf{error} ketika nilai yang dikonversi tidak sesuai dengan tipe data tujuan. Hal ini diakibatkan karena fungsi \texttt{int()} hanya dapat mengubah \textbf{string yang berisi bilangan bulat} menjadi tipe data \texttt{integer}.
 \par
 Apabila string berisi karakter non-angka (misalnya \texttt{"abc"}) atau bilangan desimal (misalnya \texttt{"12.34"}), maka Python tidak dapat memprosesnya langsung sebagai \texttt{integer} dan akan menampilkan pesan \texttt{ValueError}. Untuk kasus bilangan desimal dalam bentuk string, diperlukan dua tahap konversi, yaitu:
 \begin{enumerate}
 	\item Konversi string ke tipe data \texttt{float}.
 	\item Konversi tipe data \texttt{float} ke tipe data \texttt{integer}.
 \end{enumerate}
+
+Listing~\ref{lst:b2-dua-tahap} menerapkan kedua tahap tersebut. Program ini mencetak \texttt{12.34}, lalu \texttt{12}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: konversi_dua_tahap.py}, label={lst:b2-dua-tahap}]
+angka_str = "12.34"
+angka_float = float(angka_str)
+angka_int = int(angka_float)
+
+print(angka_float)
+print(angka_int)
+\end{lstlisting}
+
+\section{Ringkasan}
+Variabel menyimpan data dengan sebuah nama, dan tipenya mengikuti nilai yang disimpan. Konstanta adalah variabel yang disepakati tidak berubah, ditandai dengan huruf besar, walaupun Python tidak mencegah pengubahannya.
+
+Empat tipe dasar yang dipakai pada bab-bab berikutnya adalah \texttt{int}, \texttt{float}, \texttt{str}, dan \texttt{bool}. Konversi dibutuhkan terutama karena \texttt{input()} selalu menghasilkan teks. Konversi gagal dengan \texttt{ValueError} bila isi teks tidak sesuai dengan tipe tujuan.
 
 \section{Soal Latihan}
 
@@ -230,3 +419,12 @@ Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda menge
 \textbf{Hint:} Gunakan operator pengurangan \texttt{-} untuk menghitung usia saat ini.
 
 \end{enumerate}
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: An Informal Introduction to Python} \cite{py-tut-intro}: pengenalan variabel, angka, dan teks.
+  \item \textit{Built-in Types} \cite{py-stdtypes}: tipe numerik, Boolean, teks, dan koleksi bawaan.
+  \item \textit{The Python Tutorial: Floating-Point Arithmetic: Issues and Limitations} \cite{py-tut-floatingpoint}: alasan sebagian pecahan desimal hanya tersimpan sebagai pendekatan.
+  \item \textit{Built-in functions} \cite{py-functions}: fungsi \texttt{int()}, \texttt{float()}, \texttt{str()}, dan \texttt{bool()} untuk konversi tipe.
+  \item \textit{PEP 8 – Style Guide for Python Code} \cite{pep8}: konvensi penamaan variabel dan konstanta.
+\end{daftarrapat}

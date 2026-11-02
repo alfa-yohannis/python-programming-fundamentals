@@ -1,138 +1,169 @@
-\documentclass{book}
+\documentclass[11pt,b5paper]{book}
 
-\usepackage[a4paper,margin=3cm]{geometry}
-\usepackage{cite} % for IEEE-style citations
-\usepackage{listings}
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{1.5em}
+
 \usepackage{xcolor}
-\usepackage[hidelinks]{hyperref}
-\usepackage{graphicx}
-\usepackage{setspace}
-\usepackage{tcolorbox}
-\usepackage[strings]{underscore}
-\usepackage{float}
-\usepackage[utf8]{inputenc}  
-\usepackage{pmboxdraw}
+\usepackage{fontspec}
+\setmainfont[
+Path = fonts/,
+UprightFont = TitilliumWeb-Regular.ttf,
+BoldFont = TitilliumWeb-Bold.ttf,
+ItalicFont = TitilliumWeb-Italic.ttf,
+BoldItalicFont = TitilliumWeb-BoldItalic.ttf
+]{TitilliumWeb}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows.meta, trees, positioning}
+\usetikzlibrary{shapes.geometric,
+  positioning, shapes, shapes.multipart, backgrounds, arrows.meta, calc, fit, trees}
 
+\usepackage{amsmath}
+
+\usepackage{tabularx}
+\usepackage[b5paper,inner=2.5cm,
+  outer=2.0cm,
+  top=2.5cm,
+  bottom=2.5cm]{geometry}
+\usepackage[colorlinks=true, linkcolor=black, citecolor=blue, urlcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage[font=footnotesize, labelfont=bf, textfont=normalfont]{caption}
+
+% Garis bawah pada teks dan nama berkas tidak perlu di-escape.
+\usepackage[strings]{underscore}
+
+% Isi tabel dikecilkan agar muat berdekatan dengan teks yang merujuknya.
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\footnotesize}
+
+% Batas bawaan LaTeX terlalu ketat, sehingga tabel sering terdorong jauh dari
+% teksnya. Angka di bawah melonggarkan bagian halaman yang boleh diisi float.
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
+
+% Pemenggalan URL. Pemutusan hanya diizinkan pada tanda yang wajar, misalnya
+% garis miring dan titik, sehingga "https:" tidak terpotong.
+\usepackage{url}
+\Urlmuskip=0mu plus 0.1mu\relax
+\urlstyle{tt}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\?\do\=\do\&\do\#\do\+}
+\def\UrlBigBreaks{\do\/}
+
+% Kelonggaran tambahan agar baris berisi kode inline atau URL panjang tidak
+% melewati batas kolom.
+\setlength{\emergencystretch}{3em}
+\hyphenpenalty=1000
+\tolerance=2000
+\usepackage[numbers]{natbib}
+
+% Pola pemenggalan suku kata bahasa Indonesia.
+% Tanpa ini, pemenggalan memakai aturan bahasa Inggris dan sering salah.
+\usepackage[english,bahasai]{babel}
+
+% Perkecualian pemenggalan. Ditulis bila pola otomatis masih keliru.
+\hyphenation{me-rang-kum me-rang-kai me-nyu-sun meng-hi-tung
+  mem-ba-ngun me-nen-tu-kan ber-ja-lan per-min-ta-an ke-ter-lam-bat-an
+  peng-u-ku-ran pe-nyu-sun-an pem-ba-ca-an se-lu-ruh ser-ver}
+
+% Titillium Web tidak punya glyph panah.
+\usepackage{newunicodechar}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+
+% Nama bawaan babel adalah Bibliografi, dan ejaan bulannya masih Nopember.
+\addto\captionsbahasai{\renewcommand{\bibname}{Daftar Pustaka}}
+\addto\datebahasai{\def\today{\number\day~\ifcase\month\or Januari\or Februari\or Maret\or April\or Mei\or Juni\or Juli\or Agustus\or September\or Oktober\or November\or Desember\fi~\number\year}}
+
+% Halaman tidak diregangkan agar penuh sampai bawah, sehingga jarak antarbutir
+% dan antarseksi tetap sama di semua halaman.
+\raggedbottom
+
+% Daftar rapat untuk tujuan pembelajaran dan referensi di tiap bab.
+\newenvironment{daftarrapat}
+  {\begin{itemize}\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  {\end{itemize}}
+
+\usepackage{listings}
+
+% Python dipakai untuk seluruh contoh kode.
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  morekeywords={with, as, yield, async, await, match, case},
+  keywordstyle=\color{blue}\bfseries,
+  emph={tkinter, ttk, csv, unittest, pdb, timeit, tracemalloc, datetime, math, random},
+  emphstyle=\color{purple}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  frame=lines,
+  backgroundcolor=\color{lightgray!10},
+  tabsize=2,
+  captionpos=b,
+  showstringspaces=false
+}
+
+\lstdefinelanguage{bash}{
+  keywords={},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={cd, pip, pip3, python, python3},
+  ndkeywordstyle=\color{purple}\bfseries,
+  sensitive=true,
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  frame=lines,
+  backgroundcolor=\color{lightgray!10},
+  tabsize=2,
+  captionpos=b,
+  comment=[l]{\#},
+  showstringspaces=false
+}
+
+\newcommand{\HUGE}{\fontsize{40}{48}\selectfont}
 
 \renewcommand{\contentsname}{Daftar Isi}
 \renewcommand{\chaptername}{Bab}
 
-% Define Python language style for listings
-\lstdefinestyle{PythonStyle}{
-    language=Python,
-    basicstyle=\ttfamily\footnotesize,
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{gray}\itshape,
-    stringstyle=\color{red},
-    showstringspaces=false,
-    breaklines=true,
-    frame=lines,
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    backgroundcolor=\color{lightgray!10},
-    tabsize=4,
-    captionpos=b
-}
-
-\lstdefinestyle{sql}{
-	language=sql,
-	keywords={use, insert, into, values, select, from,
-	update, set, delete, create, where, join, left, right, inner, order, by, primary, key},
-	ndkeywords={max, min, varchar, int},
-	ndkeywordstyle=\color{purple}\bfseries,
-	basicstyle=\ttfamily\footnotesize,
-	keywordstyle=\color{blue},
-	commentstyle=\color{gray},
-	stringstyle=\color{red},
-	breaklines=true,
-	showstringspaces=false,
-	tabsize=2,
-	captionpos=b,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	frame=lines,
-	backgroundcolor=\color{lightgray!10},
-	comment=[l]{\#},
-	morecomment=[s]{/*}{*/},
-	commentstyle=\color{gray}\ttfamily,
-	string=[s]{'}{'},
-	morestring=[s]{"}{"},
-	%	stringstyle=\color{teal}\ttfamily,
-	%	showstringspaces=false
-}
-
-\lstdefinelanguage{bash} {
-	keywords={},
-	basicstyle=\ttfamily\small,
-	keywordstyle=\color{blue}\bfseries,
-	ndkeywords={iex},
-	ndkeywordstyle=\color{purple}\bfseries,
-	sensitive=true,
-	commentstyle=\color{gray},
-	stringstyle=\color{red},
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	breaklines=true,
-	frame=lines,
-	backgroundcolor=\color{lightgray!10},
-	tabsize=2,
-	comment=[l]{\#},
-	morecomment=[s]{/*}{*/},
-	commentstyle=\color{gray}\ttfamily,
-	stringstyle=\color{purple}\ttfamily,
-	showstringspaces=false,
-	captionpos=b
-}
-
+\definecolor{praditagreen}{RGB}{37, 113, 71}
 
 \begin{document}
-		
-	\begin{titlepage}
-		\centering
-		\vspace*{1cm}
-		
-		\Huge
-		\textbf{IF120203 - Modul Praktikum Pemrograman Dasar}
-		
-		\vspace{0.5cm}
-		
-		\LARGE
-		Universitas Pradita
-		
-		\vspace{1.5cm}
-		
-		\textit{Powered by ChatGPT}
-		
-		\vspace{2cm}
-		
-		\textbf{Alfa Yohannis, Ariya Panna}
-		
-		\vspace{0.8cm}
-		
-		\today
-		
-		\vfill
-	\end{titlepage}
-	
-	% Contents Page
-	\tableofcontents
 
-	\include{chapters/chapter-one}
-	\include{chapters/chapter-two}
-	\include{chapters/chapter-three}
-	\include{chapters/chapter-four}
-	\include{chapters/chapter-five}
-	\include{chapters/chapter-six}
-	\include{chapters/chapter-seven}
-	\include{chapters/chapter-eight}
-	\include{chapters/chapter-nine}
-	\include{chapters/chapter-ten}
-	\include{chapters/chapter-eleven}
-	\include{chapters/chapter-twelve}
-	\include{chapters/chapter-thirteen}
-	\include{chapters/chapter-fourteen}
-	\include{chapters/chapter-fifteen}
+  \include{titlepage}
+
+  % Contents Page
+  \tableofcontents
+
+  \include{chapters/chapter-one}
+  \include{chapters/chapter-two}
+  \include{chapters/chapter-three}
+  \include{chapters/chapter-four}
+  \include{chapters/chapter-five}
+  \include{chapters/chapter-six}
+  \include{chapters/chapter-seven}
+  \include{chapters/chapter-eight}
+  \include{chapters/chapter-nine}
+  \include{chapters/chapter-ten}
+  \include{chapters/chapter-eleven}
+  \include{chapters/chapter-twelve}
+  \include{chapters/chapter-thirteen}
+  \include{chapters/chapter-fourteen}
+  \include{chapters/chapter-fifteen}
+
+  \backmatter
+  \addcontentsline{toc}{chapter}{Daftar Pustaka}
+  \bibliographystyle{plainnat}
+  \bibliography{references}
+
 \end{document}

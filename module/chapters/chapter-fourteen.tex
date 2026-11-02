@@ -1,5 +1,12 @@
 \chapter{Mengukur Performa Kode}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menjelaskan alasan kinerja program perlu diperhatikan, terutama saat data yang diolah bertambah besar.
+  \item Mengukur waktu eksekusi dan pemakaian memori program secara sederhana.
+  \item Membandingkan dua algoritma untuk masalah yang sama berdasarkan hasil pengukuran.
+\end{daftarrapat}
+
 \section{Konsep Dasar: Algoritma Bisa Cepat atau Lambat}
 
 \subsection{Program yang Sama, Performa Berbeda}
@@ -8,9 +15,9 @@ Dalam pemrograman, dua program dapat menghasilkan keluaran yang sama tetapi memi
 
 \subsection{Contoh A: Algoritma Tidak Efisien}
 
-Contoh berikut menunjukkan sebuah program sederhana untuk mencari nilai tertentu dalam daftar. Meskipun hasilnya benar, cara yang digunakan tidak efisien karena melakukan iterasi berulang-ulang tanpa perlu. Program ini sengaja ditulis dengan cara yang lambat agar mahasiswa memahami prinsip dasar performa.
+Contoh berikut menunjukkan sebuah program sederhana untuk mencari nilai tertentu dalam daftar. Meskipun hasilnya benar, cara yang digunakan tidak efisien karena melakukan iterasi berulang-ulang tanpa perlu. Program ini sengaja ditulis dengan cara yang lambat agar mahasiswa memahami prinsip dasar performa (Listing~\ref{lst:b14-a-algoritma-tidak-efisien}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh A: Algoritma tidak efisien}, label={lst:b14-a-algoritma-tidak-efisien}]
 # Contoh A: Algoritma tidak efisien
 # Mencari sebuah angka dalam list tetapi menggunakan pendekatan lambat
 
@@ -30,9 +37,9 @@ Pada contoh di atas, fungsi menambahkan ribuan pengulangan yang tidak memberikan
 
 \subsection{Contoh B: Algoritma Lebih Efisien}
 
-Versi berikut menunjukkan solusi yang jauh lebih efisien. Fungsi hanya melakukan satu kali iterasi untuk mencari nilai yang dicari. Logikanya sama, tetapi jumlah instruksi yang dijalankan jauh lebih sedikit sehingga waktu eksekusinya lebih cepat. Contoh ini memperlihatkan bahwa performa yang lebih baik dapat dicapai tanpa mengubah hasil akhir program.
+Versi berikut menunjukkan solusi yang jauh lebih efisien. Fungsi hanya melakukan satu kali iterasi untuk mencari nilai yang dicari. Logikanya sama, tetapi jumlah instruksi yang dijalankan jauh lebih sedikit sehingga waktu eksekusinya lebih cepat. Contoh ini memperlihatkan bahwa performa yang lebih baik dapat dicapai tanpa mengubah hasil akhir program (Listing~\ref{lst:b14-b-algoritma-efisien}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh B: Algoritma efisien}, label={lst:b14-b-algoritma-efisien}]
 # Contoh B: Algoritma efisien
 # Mencari angka dalam list dengan satu kali iterasi
 
@@ -55,9 +62,9 @@ Perbedaan antara kedua contoh tidak terletak pada hasil akhirnya, melainkan pada
 
 Kecepatan eksekusi sebuah program menentukan seberapa cepat komputer dapat menyelesaikan sebuah tugas. Dalam konteks pembelajaran pemrograman dasar, mahasiswa sering kali hanya berfokus pada bagaimana membuat program “berjalan” dan menghasilkan keluaran yang benar. Namun, dalam aplikasi nyata, waktu eksekusi menjadi faktor penting karena program dapat memproses data dalam jumlah besar atau harus merespons pengguna secara cepat. Program yang lambat dapat menyebabkan pengguna menunggu terlalu lama, mengurangi produktivitas, dan bahkan membuat aplikasi dianggap tidak layak digunakan. Dengan memahami pengaruh kecepatan sejak awal, mahasiswa dapat membangun kebiasaan menulis kode yang lebih efisien serta mempertimbangkan bagaimana struktur logika dapat memengaruhi waktu komputasi.
 
-Contoh berikut menunjukkan dua cara menghitung jumlah elemen pada list yang memenuhi kondisi tertentu. Sama seperti pada bagian sebelumnya, keduanya memberikan hasil yang sama, namun waktu eksekusi dapat berbeda secara signifikan jika jumlah datanya besar.
+Contoh berikut menunjukkan dua cara menghitung jumlah elemen pada list yang memenuhi kondisi tertentu. Sama seperti pada bagian sebelumnya, keduanya memberikan hasil yang sama, namun waktu eksekusi dapat berbeda secara signifikan jika jumlah datanya besar (Listing~\ref{lst:b14-menghitung-jumlah-bilangan-genap}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Menghitung jumlah bilangan genap}, label={lst:b14-menghitung-jumlah-bilangan-genap}]
 # Menghitung jumlah bilangan genap
 
 # Cara lambat: menggunakan operasi yang tidak perlu
@@ -85,9 +92,9 @@ Dari contoh tersebut, mahasiswa dapat melihat bahwa tambahan operasi kecil saja 
 
 Selain kecepatan, penggunaan memori juga merupakan faktor penting dalam performa program. Memori komputer terbatas, terutama pada perangkat kecil seperti ponsel, tablet, atau mikrokomputer. Ketika sebuah program menggunakan memori lebih dari kapasitas yang tersedia, program dapat berjalan lambat, sering mengalami crash, atau menyebabkan laptop dan perangkat lain terasa berat. Prinsip ini perlu diperkenalkan pada mahasiswa pemula agar mereka memahami bahwa setiap struktur data memiliki konsekuensi memori, dan bahwa pilihan yang salah dapat memperburuk performa program.
 
-Contoh berikut memperlihatkan dua pendekatan sederhana untuk membuat salinan list. Versi pertama menggunakan cara yang tidak efisien dengan membuat salinan berkali-kali, sedangkan versi kedua hanya membuat satu salinan. Walaupun terlihat sederhana, pola penggunaan memori seperti ini sering muncul dalam program yang lebih kompleks.
+Contoh berikut memperlihatkan dua pendekatan sederhana untuk membuat salinan list. Versi pertama menggunakan cara yang tidak efisien dengan membuat salinan berkali-kali, sedangkan versi kedua hanya membuat satu salinan. Walaupun terlihat sederhana, pola penggunaan memori seperti ini sering muncul dalam program yang lebih kompleks (Listing~\ref{lst:b14-menggunakan-memori-tidak-efisien}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Menggunakan memori tidak efisien}, label={lst:b14-menggunakan-memori-tidak-efisien}]
 # Menggunakan memori tidak efisien
 def banyak_salinan(data):
     temp = data[:]   # salinan pertama
@@ -106,9 +113,9 @@ Dengan contoh tersebut, mahasiswa dapat memahami bahwa operasi sederhana seperti
 
 Dalam kehidupan sehari-hari, performa program berpengaruh langsung pada pengalaman pengguna berbagai aplikasi, mulai dari aplikasi mobile, permainan, navigasi web, hingga sistem pengolahan gambar. Jika sebuah aplikasi memproses data terlalu lama, pengguna dapat merasa tidak nyaman dan memilih aplikasi lain yang lebih cepat. Di sisi lain, aplikasi yang menggunakan memori secara berlebihan dapat menyebabkan perangkat menjadi panas, lambat, atau berhenti bekerja. Faktor-faktor ini menjadi pertimbangan utama dalam dunia rekayasa perangkat lunak dan industri teknologi.
 
-Sebagai contoh sederhana, pertimbangkan sebuah aplikasi yang menampilkan gambar mini (thumbnail) dari ratusan foto. Proses memperkecil gambar (resize) harus dilakukan dengan cepat agar pengguna tidak merasa menunggu terlalu lama. Jika algoritma yang dipilih tidak efisien, aplikasi dapat terasa lambat bahkan pada perangkat modern. Contoh berikut merupakan ilustrasi sederhana yang menunjukkan operasi resize pada banyak gambar, yang dapat menjadi bottleneck apabila dilakukan dengan cara yang tidak efisien.
+Sebagai contoh sederhana, pertimbangkan sebuah aplikasi yang menampilkan gambar mini (thumbnail) dari ratusan foto. Proses memperkecil gambar (resize) harus dilakukan dengan cepat agar pengguna tidak merasa menunggu terlalu lama. Jika algoritma yang dipilih tidak efisien, aplikasi dapat terasa lambat bahkan pada perangkat modern. Contoh berikut merupakan ilustrasi sederhana yang menunjukkan operasi resize pada banyak gambar, yang dapat menjadi bottleneck apabila dilakukan dengan cara yang tidak efisien (Listing~\ref{lst:b14-simulasi-resize-banyak-gambar-sederhana}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Simulasi resize pada banyak gambar (contoh sederhana)}, label={lst:b14-simulasi-resize-banyak-gambar-sederhana}]
 # Simulasi resize pada banyak gambar (contoh sederhana)
 from PIL import Image
 
@@ -130,9 +137,9 @@ Contoh tersebut menunjukkan salah satu proses umum dalam dunia nyata yang sensit
 
 Pengukuran waktu eksekusi merupakan langkah penting untuk mengetahui seberapa cepat sebuah fungsi atau algoritma berjalan. Salah satu cara paling sederhana adalah menggunakan modul \texttt{time}, khususnya fungsi \texttt{time()} yang mengembalikan waktu saat ini dalam detik. Dengan mencatat waktu sebelum dan sesudah sebuah fungsi dieksekusi, mahasiswa dapat menghitung selisih waktu sebagai durasi eksekusi. Pendekatan ini mudah dipahami dan sering digunakan dalam tahap awal pembelajaran performa program.
 
-Contoh berikut menunjukkan cara dasar menggunakan \texttt{time()} untuk mengukur berapa lama sebuah fungsi berjalan. Fungsi yang diukur hanyalah sebuah perulangan sederhana, namun prinsipnya sama untuk fungsi apa pun.
+Contoh berikut menunjukkan cara dasar menggunakan \texttt{time()} untuk mengukur berapa lama sebuah fungsi berjalan. Fungsi yang diukur hanyalah sebuah perulangan sederhana, namun prinsipnya sama untuk fungsi apa pun (Listing~\ref{lst:b14-mengukur-waktu-eksekusi-dengan-time}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Mengukur waktu eksekusi dengan time}, label={lst:b14-mengukur-waktu-eksekusi-dengan-time}]
 import time
 
 def hitung():
@@ -155,9 +162,9 @@ Contoh ini membantu mahasiswa memahami bahwa waktu eksekusi bergantung pada juml
 
 Meskipun \texttt{time} mudah digunakan, ia tidak selalu memberikan hasil yang akurat karena beberapa faktor seperti proses latar belakang, kondisi sistem, atau variasi kecil dalam eksekusi. Untuk menghasilkan pengukuran yang lebih konsisten dan reliabel, Python menyediakan modul \texttt{timeit}. Modul ini menjalankan sebuah pernyataan atau fungsi berkali-kali dan menghitung total waktu eksekusinya, kemudian memberikan nilai rata-rata yang lebih stabil.
 
-Penggunaan \texttt{timeit} sangat cocok untuk membandingkan dua versi kode atau dua algoritma yang berbeda. Contoh berikut memperlihatkan bagaimana \texttt{timeit} digunakan untuk membandingkan dua fungsi yang menghitung jumlah bilangan genap dalam sebuah list.
+Penggunaan \texttt{timeit} sangat cocok untuk membandingkan dua versi kode atau dua algoritma yang berbeda. Contoh berikut memperlihatkan bagaimana \texttt{timeit} digunakan untuk membandingkan dua fungsi yang menghitung jumlah bilangan genap dalam sebuah list (Listing~\ref{lst:b14-membandingkan-dua-cara-dengan-timeit}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membandingkan dua cara dengan timeit}, label={lst:b14-membandingkan-dua-cara-dengan-timeit}]
 import timeit
 
 def cara_lambat():
@@ -193,9 +200,9 @@ Setelah waktu eksekusi diperoleh, langkah selanjutnya adalah menginterpretasikan
 
 Interpretasi juga harus memperhatikan stabilitas hasil. Jika durasi eksekusi berbeda jauh antar percobaan, sangat mungkin terjadi gangguan dari proses sistem atau penggunaan \texttt{time()} yang kurang stabil. Dalam konteks ini, \texttt{timeit} biasanya memberikan gambaran yang lebih baik karena menjalankan kode dalam jumlah ulangan besar sebelum memberikan nilai waktu.
 
-Contoh berikut memperlihatkan bagaimana hasil pengukuran dapat dibandingkan secara sederhana:
+Contoh berikut memperlihatkan bagaimana hasil pengukuran dapat dibandingkan secara sederhana (Listing~\ref{lst:b14-membandingkan-dua-hasil-pengukuran-waktu}):
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membandingkan dua hasil pengukuran waktu}, label={lst:b14-membandingkan-dua-hasil-pengukuran-waktu}]
 # Hasil pengukuran misalnya:
 w_lambat = 0.85   # detik
 w_cepat = 0.12    # detik
@@ -213,9 +220,9 @@ Dengan membandingkan rasio waktu, mahasiswa dapat lebih mudah memahami seberapa 
 
 Selain waktu eksekusi, penggunaan memori merupakan aspek penting dalam menilai performa sebuah program. Python menyediakan modul bawaan bernama \texttt{tracemalloc} yang dapat digunakan untuk melacak berapa banyak memori yang dialokasikan selama program berjalan. Modul ini bekerja dengan mengaktifkan pelacakan memori, menjalankan bagian program tertentu, lalu mengambil informasi mengenai alokasi memori melalui snapshot. Penggunaan \texttt{tracemalloc} sangat bermanfaat terutama ketika mahasiswa ingin mengetahui bagian mana dari program yang menggunakan memori terbesar atau ketika hendak membandingkan dua versi algoritma.
 
-Berikut contoh sederhana penggunaan \texttt{tracemalloc} untuk mengukur memori yang digunakan saat membuat sebuah list berukuran besar.
+Berikut contoh sederhana penggunaan \texttt{tracemalloc} untuk mengukur memori yang digunakan saat membuat sebuah list berukuran besar (Listing~\ref{lst:b14-mengukur-pemakaian-memori-dengan-tracemalloc}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Mengukur pemakaian memori dengan tracemalloc}, label={lst:b14-mengukur-pemakaian-memori-dengan-tracemalloc}]
 import tracemalloc
 
 def buat_list_besar():
@@ -237,9 +244,9 @@ Nilai “memori saat ini” menunjukan jumlah memori yang terpakai pada saat pen
 
 Salah satu kemampuan paling berguna dari \texttt{tracemalloc} adalah kemampuannya membuat snapshot, yaitu gambaran lengkap penggunaan memori pada suatu titik waktu. Snapshot ini dapat dibandingkan dengan snapshot lain untuk mengetahui perbedaan alokasi memori antara dua bagian kode. Pendekatan ini sangat membantu ketika melakukan analisis yang lebih mendalam atau ketika mencoba mengidentifikasi kebocoran memori (memory leak), meskipun Python memiliki manajemen memori otomatis melalui garbage collector.
 
-Contoh berikut menunjukkan bagaimana membuat dua snapshot dan membandingkannya untuk melihat perubahan alokasi memori setelah sebuah fungsi dijalankan.
+Contoh berikut menunjukkan bagaimana membuat dua snapshot dan membandingkannya untuk melihat perubahan alokasi memori setelah sebuah fungsi dijalankan (Listing~\ref{lst:b14-membandingkan-dua-snapshot-memori}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membandingkan dua snapshot memori}, label={lst:b14-membandingkan-dua-snapshot-memori}]
 import tracemalloc
 
 def operasi_memori():
@@ -266,9 +273,9 @@ Hasil keluaran biasanya menampilkan file dan baris kode yang menyumbang alokasi 
 
 Setelah data memori dikumpulkan, langkah berikutnya adalah memahami apa arti dari perbedaan tersebut. Ketika membandingkan dua versi algoritma, selisih alokasi memori dapat memberi gambaran seberapa efisien algoritma dalam memanfaatkan sumber daya. Misalnya, jika versi pertama dari program membuat terlalu banyak salinan list, penggunaan memori akan meningkat secara signifikan dibanding versi kedua yang hanya menggunakan satu salinan.
 
-Contoh berikut menunjukkan perbandingan sederhana dua fungsi yang memproses list dengan cara berbeda. Salah satunya membuat salinan berulang kali, sedangkan yang lain memproses data secara langsung tanpa membuat salinan tambahan.
+Contoh berikut menunjukkan perbandingan sederhana dua fungsi yang memproses list dengan cara berbeda. Salah satunya membuat salinan berulang kali, sedangkan yang lain memproses data secara langsung tanpa membuat salinan tambahan (Listing~\ref{lst:b14-membandingkan-alokasi-memori-dua-fungsi}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Membandingkan alokasi memori dua fungsi}, label={lst:b14-membandingkan-alokasi-memori-dua-fungsi}]
 import tracemalloc
 
 def tidak_efisien():
@@ -314,9 +321,9 @@ Untuk memahami konsep performa secara konkret, dua algoritma pengurutan klasik d
 
 \textit{Selection sort} bekerja dengan mencari elemen terkecil dari bagian list yang belum terurut, kemudian menukarnya dengan elemen pertama dari bagian tersebut. Pendekatan ini melakukan jumlah perbandingan yang tetap, tetapi jumlah pertukaran relatif sedikit.
 
-Contoh implementasi kedua algoritma ditunjukkan pada kode berikut.
+Contoh implementasi kedua algoritma ditunjukkan pada kode berikut (Listing~\ref{lst:b14-insertion-sort}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Insertion Sort}, label={lst:b14-insertion-sort}]
 # Insertion Sort
 def insertion_sort(data):
     data = data[:]  # buat salinan agar tidak mengubah list asli
@@ -348,9 +355,9 @@ Dengan dua algoritma ini, mahasiswa dapat membandingkan performa berdasarkan wak
 
 Untuk mengukur waktu eksekusi secara lebih akurat, kedua algoritma dijalankan berulang kali menggunakan \texttt{timeit}. Pendekatan ini memastikan bahwa hasil pengukuran tidak terlalu dipengaruhi oleh gangguan kecil dari sistem operasi atau variasi beban CPU. Selain itu, hasil pengukuran disimpan ke dalam sebuah berkas teks agar mahasiswa dapat melihat riwayat pengujian dan melakukan analisis lebih lanjut. Penyimpanan hasil ke file juga mencerminkan praktik rekayasa perangkat lunak yang baik, yaitu mencatat hasil eksperimen secara teratur dan terstruktur.
 
-Pada contoh di bawah ini, setiap algoritma diuji beberapa kali dan hasil setiap eksekusi dicatat, baik ditampilkan di layar maupun disimpan ke file. Dengan cara ini, mahasiswa dapat mempelajari pola hasil pengukuran serta membandingkan konsistensi waktu eksekusi kedua algoritma.
+Pada contoh di bawah ini, setiap algoritma diuji beberapa kali dan hasil setiap eksekusi dicatat, baik ditampilkan di layar maupun disimpan ke file. Dengan cara ini, mahasiswa dapat mempelajari pola hasil pengukuran serta membandingkan konsistensi waktu eksekusi kedua algoritma (Listing~\ref{lst:b14-mengukur-waktu-dua-algoritma-pengurutan}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Mengukur waktu dua algoritma pengurutan}, label={lst:b14-mengukur-waktu-dua-algoritma-pengurutan}]
 import timeit
 import random
 
@@ -391,9 +398,9 @@ Dengan menganalisis hasil tersebut—baik yang ditampilkan di konsol maupun yang
 
 Meskipun kedua algoritma diimplementasikan tanpa membuat struktur data tambahan yang besar, tetap terdapat perbedaan kecil dalam pola alokasi memori yang dapat diamati menggunakan \texttt{tracemalloc}. \textit{Insertion sort} cenderung melakukan lebih banyak operasi pemindahan elemen di dalam list, sehingga dapat menimbulkan perubahan memori sementara lebih sering. Sebaliknya, \textit{selection sort} melakukan jumlah pertukaran yang lebih sedikit, sehingga pola alokasi memorinya cenderung lebih stabil. Perbedaan perilaku ini dapat diperlihatkan dengan melakukan pengukuran memori secara sistematis.
 
-Contoh berikut menunjukkan cara mengukur penggunaan memori untuk kedua algoritma dalam beberapa percobaan, kemudian mencatat hasilnya ke dalam file untuk dianalisis lebih lanjut. Pendekatan ini penting agar mahasiswa memahami bahwa analisis performa tidak boleh dilakukan hanya satu kali, melainkan harus diuji berkali-kali untuk mendapatkan gambaran yang konsisten.
+Contoh berikut menunjukkan cara mengukur penggunaan memori untuk kedua algoritma dalam beberapa percobaan, kemudian mencatat hasilnya ke dalam file untuk dianalisis lebih lanjut. Pendekatan ini penting agar mahasiswa memahami bahwa analisis performa tidak boleh dilakukan hanya satu kali, melainkan harus diuji berkali-kali untuk mendapatkan gambaran yang konsisten (Listing~\ref{lst:b14-mengukur-memori-dua-algoritma-pengurutan}).
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Mengukur memori dua algoritma pengurutan}, label={lst:b14-mengukur-memori-dua-algoritma-pengurutan}]
 import tracemalloc
 import random
 
@@ -443,3 +450,11 @@ Bab ini memperkenalkan konsep dasar performa program dan menjelaskan bagaimana d
 
 Selain itu, bab ini menekankan pentingnya pendekatan eksperimen dalam mengevaluasi performa kode. Pengujian yang dilakukan secara berulang, penyimpanan hasil ke file, dan perbandingan antar-algoritma membantu mahasiswa melihat pola performa secara lebih objektif. Dengan membiasakan diri melakukan analisis waktu dan memori sejak tahap awal pembelajaran, mahasiswa dapat mengembangkan intuisi yang lebih tajam tentang bagaimana struktur logika dan desain algoritma memengaruhi kinerja program. Pengetahuan ini menjadi fondasi penting sebelum mengembangkan perangkat lunak yang lebih kompleks, terutama ketika bekerja dengan data besar, aplikasi interaktif, atau sistem yang menuntut respons cepat dan efisiensi sumber daya.
 
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{Problem Solving with Algorithms and Data Structures using Python. Bab 2: Algorithm Analysis} \cite{pythonds-analysis}: analisis algoritma.
+  \item \textit{Problem Solving with Algorithms and Data Structures using Python. 2.3: Big O Notation} \cite{pythonds-bigo}: notasi Big O.
+  \item \textit{time — Time access and conversions} \cite{py-time}: pengukuran waktu dengan \texttt{time} dan \texttt{perf\_counter}.
+  \item \textit{timeit — Measure execution time of small code snippets} \cite{py-timeit}: pengukuran waktu potongan kode dengan \texttt{timeit}.
+  \item \textit{tracemalloc — Trace memory allocations} \cite{py-tracemalloc}: \texttt{take\_snapshot} dan \texttt{compare\_to}.
+\end{daftarrapat}

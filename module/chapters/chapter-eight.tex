@@ -1,5 +1,12 @@
 \chapter{Pemrograman Berorientasi Objek}
 
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Menjelaskan konsep kelas, objek, atribut, dan metode, lalu memodelkan benda nyata ke dalam program.
+  \item Menerapkan pewarisan untuk memakai ulang kode dan menyusun hubungan antarkelas.
+  \item Menerapkan polimorfisme agar objek yang berbeda dapat diperlakukan dengan cara yang sama.
+\end{daftarrapat}
+
 \section{Pengenalan OOP}
 
 Pemrograman Berorientasi Objek (Object-Oriented Programming, disingkat OOP) adalah paradigma pemrograman yang berfokus pada pembuatan \emph{objek} yang merepresentasikan entitas dunia nyata. Setiap objek memiliki \emph{atribut} (data) dan \emph{metode} (perilaku).
@@ -21,7 +28,9 @@ Beberapa konsep utama dalam OOP adalah:
 Contoh berikut menunjukkan perbedaan pendekatan prosedural dan OOP dalam konteks yang sama.
 
 \noindent\textbf{Pendekatan Prosedural}
-\begin{lstlisting}[style=PythonStyle, caption={Pendekatan Prosedural}]
+Listing~\ref{lst:b8-pendekatan-prosedural} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Pendekatan Prosedural}, label={lst:b8-pendekatan-prosedural}]
 # Data dan fungsi terpisah
 nama = "Rani"
 umur = 21
@@ -33,7 +42,9 @@ sapa(nama, umur)
 \end{lstlisting}
 
 \noindent\textbf{Pendekatan OOP}
-\begin{lstlisting}[style=PythonStyle, caption={Pendekatan Berorientasi Objek}]
+Listing~\ref{lst:b8-pendekatan-berorientasi-objek} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Pendekatan Berorientasi Objek}, label={lst:b8-pendekatan-berorientasi-objek}]
 # Data dan fungsi disatukan dalam satu kelas
 class Orang:
     def __init__(self, nama, umur):
@@ -73,7 +84,9 @@ Setiap objek yang dibuat dari kelas tersebut adalah \textbf{realisasi nyata} dar
 \textit{Objek = wujud nyata dari definisi tersebut.}
 \end{center}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kelas sebagai Definisi Objek}]
+Listing~\ref{lst:b8-kelas-sebagai-definisi-objek} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kelas sebagai Definisi Objek}, label={lst:b8-kelas-sebagai-definisi-objek}]
 # Definisi kelas Mahasiswa
 class Mahasiswa:
     def __init__(self, nama, nim):
@@ -93,9 +106,9 @@ Dengan demikian, kelas dapat dianggap sebagai \textbf{konsep}, sementara objek a
 
 \subsection{Membuat Kelas dan Objek}
 Untuk membuat kelas di Python, gunakan kata kunci \texttt{class}. Kelas didefinisikan satu kali, sedangkan objek dapat dibuat berkali-kali dari kelas tersebut.  
-Kita juga menggunakan metode khusus \texttt{__init__()} sebagai konstruktor untuk menetapkan nilai awal atribut.
+Kita juga menggunakan metode khusus \texttt{__init__()} sebagai konstruktor untuk menetapkan nilai awal atribut (Listing~\ref{lst:b8-membuat-kelas-objek}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Membuat Kelas dan Objek}]
+\begin{lstlisting}[style=PythonStyle, caption={Membuat Kelas dan Objek}, label={lst:b8-membuat-kelas-objek}]
 class Mobil:
     def __init__(self, merek, warna):
         self.merek = merek
@@ -119,15 +132,20 @@ mobil2.info()
     \item Konstruktor \texttt{\_\_init\_\_()} dipanggil secara otomatis ketika objek baru dibuat.
 \end{itemize}
 
-\begin{center}
-\begin{tikzpicture}[node distance=2.8cm, every node/.style={font=\small}]
-\node (class) [draw, rectangle, rounded corners, fill=gray!15, minimum width=4cm, minimum height=1cm] {Kelas (Definisi): \texttt{Mahasiswa}};
-\node (obj1) [below left=0.8cm and 1.3cm of class, draw, rectangle, rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm] {Objek: Rani};
-\node (obj2) [below right=0.8cm and 1.3cm of class, draw, rectangle, rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm] {Objek: Dani};
-\draw[->, thick] (class) -- (obj1);
-\draw[->, thick] (class) -- (obj2);
-\end{tikzpicture}
-\end{center}
+Gambar~\ref{fig:b8-kelas-objek} memperlihatkan hubungan satu kelas dengan dua objeknya.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=2.8cm, every node/.style={font=\footnotesize}]
+  \node (class) [draw, rectangle, rounded corners, fill=praditagreen!15, minimum width=4cm, minimum height=1cm] {Kelas (Definisi): \texttt{Mahasiswa}};
+  \node (obj1) [below left=0.8cm and 1.3cm of class, draw, rectangle, rounded corners, fill=blue!8, minimum width=3cm, minimum height=1cm] {Objek: Rani};
+  \node (obj2) [below right=0.8cm and 1.3cm of class, draw, rectangle, rounded corners, fill=blue!8, minimum width=3cm, minimum height=1cm] {Objek: Dani};
+  \draw[-{Stealth[length=2mm]}, thick] (class) -- (obj1);
+  \draw[-{Stealth[length=2mm]}, thick] (class) -- (obj2);
+  \end{tikzpicture}
+  \caption{Hubungan kelas \texttt{Mahasiswa} dengan dua objeknya}
+  \label{fig:b8-kelas-objek}
+\end{figure}
 
 \subsection*{Ringkasan}
 \begin{itemize}
@@ -153,9 +171,9 @@ Atribut dalam Python terbagi menjadi dua jenis utama:
 \end{enumerate}
 
 \noindent\textbf{Contoh Atribut Instans:}
-Atribut ini didefinisikan di dalam konstruktor \texttt{__init__()} dan berbeda untuk setiap objek.
+Atribut ini didefinisikan di dalam konstruktor \texttt{__init__()} dan berbeda untuk setiap objek (Listing~\ref{lst:b8-atribut-instans}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Atribut Instans}]
+\begin{lstlisting}[style=PythonStyle, caption={Atribut Instans}, label={lst:b8-atribut-instans}]
 class Mahasiswa:
     def __init__(self, nama, nim):
         self.nama = nama      # atribut instans
@@ -171,9 +189,9 @@ print(m2.nama)  # Dani
 Pada contoh di atas, \texttt{m1.nama} dan \texttt{m2.nama} adalah atribut instans yang menyimpan data berbeda pada setiap objek.
 
 \noindent\textbf{Contoh Atribut Kelas:}
-Atribut kelas dideklarasikan di luar konstruktor dan nilainya sama untuk semua objek.
+Atribut kelas dideklarasikan di luar konstruktor dan nilainya sama untuk semua objek (Listing~\ref{lst:b8-atribut-kelas}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Atribut Kelas}]
+\begin{lstlisting}[style=PythonStyle, caption={Atribut Kelas}, label={lst:b8-atribut-kelas}]
 class Mahasiswa:
     universitas = "Pradita University"  # atribut kelas
 
@@ -188,9 +206,9 @@ print(m1.universitas)  # Pradita University
 print(m2.universitas)  # Pradita University
 \end{lstlisting}
 
-Jika nilai atribut kelas diubah dari nama kelasnya, maka perubahan akan berlaku untuk semua objek.
+Jika nilai atribut kelas diubah dari nama kelasnya, maka perubahan akan berlaku untuk semua objek (Listing~\ref{lst:b8-perubahan-atribut-kelas}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Perubahan Atribut Kelas}]
+\begin{lstlisting}[style=PythonStyle, caption={Perubahan Atribut Kelas}, label={lst:b8-perubahan-atribut-kelas}]
 Mahasiswa.universitas = "Universitas Python"
 
 print(m1.universitas)  # Universitas Python
@@ -206,9 +224,9 @@ print(m2.universitas)  # Universitas Python
 \subsection{Metode dan \texttt{self}}
 
 Metode adalah fungsi yang didefinisikan di dalam kelas. Metode digunakan untuk mendeskripsikan \textbf{perilaku} dari objek.  
-Setiap metode memiliki parameter pertama bernama \texttt{self}, yang mereferensikan objek yang memanggil metode tersebut.
+Setiap metode memiliki parameter pertama bernama \texttt{self}, yang mereferensikan objek yang memanggil metode tersebut (Listing~\ref{lst:b8-metode-dengan-self}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Metode dengan self}]
+\begin{lstlisting}[style=PythonStyle, caption={Metode dengan self}, label={lst:b8-metode-dengan-self}]
 class Mahasiswa:
     def __init__(self, nama, nim):
         self.nama = nama
@@ -232,7 +250,9 @@ m2.sapa()
 \end{itemize}
 
 \noindent\textbf{Contoh dengan Perilaku Tambahan:}
-\begin{lstlisting}[style=PythonStyle, caption={Metode yang Mengubah Keadaan Objek}]
+Listing~\ref{lst:b8-metode-mengubah-keadaan-objek} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Metode yang Mengubah Keadaan Objek}, label={lst:b8-metode-mengubah-keadaan-objek}]
 class Mobil:
     def __init__(self, merek, kecepatan=0):
         self.merek = merek
@@ -258,17 +278,20 @@ Dalam contoh di atas:
 \subsection*{Hubungan Atribut dan Metode}
 Kombinasi atribut dan metode menjadikan setiap objek \emph{hidup} — ia memiliki keadaan (data) dan perilaku (aksi).  
 Keduanya tidak terpisahkan karena definisi objek selalu mencakup keduanya:  
-\emph{"Apa yang dimiliki" dan "apa yang dapat dilakukan".}
+\emph{"Apa yang dimiliki" dan "apa yang dapat dilakukan".} Gambar~\ref{fig:b8-atribut-metode} merangkum keduanya untuk kelas \texttt{Mobil}.
 
-\begin{center}
-\begin{tikzpicture}[node distance=4cm, every node/.style={font=\small}]
-\node (class) [draw, rectangle, rounded corners, fill=gray!15, minimum width=4cm, minimum height=1cm] {\textbf{Kelas:} \texttt{Mobil}};
-\node (attr) [below left of=class, draw, rectangle, rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm] {\textbf{Atribut:} merek, kecepatan};
-\node (method) [below right of=class, draw, rectangle, rounded corners, fill=green!10, minimum width=3cm, minimum height=1cm] {\textbf{Metode:} tambah\_kecepatan(), info()};
-\draw[->, thick] (class) -- (attr);
-\draw[->, thick] (class) -- (method);
-\end{tikzpicture}
-\end{center}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=4cm, every node/.style={font=\footnotesize}]
+  \node (class) [draw, rectangle, rounded corners, fill=praditagreen!15, minimum width=4cm, minimum height=1cm] {\textbf{Kelas:} \texttt{Mobil}};
+  \node (attr) [below left of=class, draw, rectangle, rounded corners, fill=blue!8, minimum width=3cm, minimum height=1cm] {\textbf{Atribut:} merek, kecepatan};
+  \node (method) [below right of=class, draw, rectangle, rounded corners, fill=green!10, minimum width=3cm, minimum height=1cm] {\textbf{Metode:} tambah\_kecepatan(), info()};
+  \draw[-{Stealth[length=2mm]}, thick] (class) -- (attr);
+  \draw[-{Stealth[length=2mm]}, thick] (class) -- (method);
+  \end{tikzpicture}
+  \caption{Atribut dan metode pada kelas \texttt{Mobil}}
+  \label{fig:b8-atribut-metode}
+\end{figure}
 
 
 \subsection*{Ringkasan}
@@ -302,7 +325,9 @@ Kelas turunan dapat:
 
 \noindent\textbf{Contoh Pewarisan Sederhana:}
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Pewarisan Dasar}]
+Listing~\ref{lst:b8-pewarisan-dasar} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Pewarisan Dasar}, label={lst:b8-pewarisan-dasar}]
 # Kelas induk
 class Kendaraan:
     def __init__(self, merek):
@@ -328,15 +353,18 @@ k1.info()
 m1.info()
 \end{lstlisting}
 
-Kelas \texttt{Mobil} di atas mewarisi struktur dari \texttt{Kendaraan}, tetapi menambahkan atribut baru (\texttt{jumlah\_pintu}) dan menimpa metode \texttt{info()} untuk menampilkan perilaku yang berbeda.
+Kelas \texttt{Mobil} di atas mewarisi struktur dari \texttt{Kendaraan}, tetapi menambahkan atribut baru (\texttt{jumlah\_pintu}) dan menimpa metode \texttt{info()} untuk menampilkan perilaku yang berbeda. Gambar~\ref{fig:b8-pewarisan} menggambarkan hubungan tersebut.
 
-\begin{center}
-\begin{tikzpicture}[node distance=2.8cm, every node/.style={font=\small}]
-\node (super) [draw, rectangle, rounded corners, fill=gray!15, minimum width=4cm, minimum height=1cm] {Kelas Induk: \texttt{Kendaraan}};
-\node (child) [below=1.5cm of super, draw, rectangle, rounded corners, fill=blue!10, minimum width=4cm, minimum height=1cm] {Kelas Turunan: \texttt{Mobil}};
-\draw[->, thick] (super) -- (child) node[midway, right] {mewarisi};
-\end{tikzpicture}
-\end{center}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=2.8cm, every node/.style={font=\footnotesize}]
+  \node (super) [draw, rectangle, rounded corners, fill=praditagreen!15, minimum width=4cm, minimum height=1cm] {Kelas Induk: \texttt{Kendaraan}};
+  \node (child) [below=1.5cm of super, draw, rectangle, rounded corners, fill=blue!8, minimum width=4cm, minimum height=1cm] {Kelas Turunan: \texttt{Mobil}};
+  \draw[-{Stealth[length=2mm]}, thick] (super) -- (child) node[midway, right] {mewarisi};
+  \end{tikzpicture}
+  \caption{Kelas \texttt{Mobil} mewarisi kelas \texttt{Kendaraan}}
+  \label{fig:b8-pewarisan}
+\end{figure}
 
 \noindent\textbf{Manfaat Pewarisan:}
 \begin{itemize}
@@ -347,7 +375,7 @@ Kelas \texttt{Mobil} di atas mewarisi struktur dari \texttt{Kendaraan}, tetapi m
 
 \noindent\textbf{Contoh Hierarki Pewarisan Lebih Dalam:}
 
-\begin{lstlisting}[style=PythonStyle, caption={Hierarki Tiga Tingkat}]
+\begin{lstlisting}[style=PythonStyle, caption={Hierarki Tiga Tingkat}, label={lst:b8-hierarki-tiga-tingkat}]
 class Kendaraan:
     def bergerak(self):
         print("Kendaraan bergerak")
@@ -369,7 +397,7 @@ for obj in [k, m, mb]:
     obj.bergerak()
 \end{lstlisting}
 
-Kode di atas memperlihatkan konsep pewarisan bertingkat (multi-level inheritance).  
+Kode pada Listing~\ref{lst:b8-hierarki-tiga-tingkat} memperlihatkan konsep pewarisan bertingkat (multi-level inheritance).  
 Setiap kelas dapat menimpa metode \texttt{bergerak()} dengan perilaku yang semakin spesifik.
 
 \subsection{Menggunakan \texttt{super()}}
@@ -379,7 +407,9 @@ Untuk itu, Python menyediakan fungsi \texttt{super()}.
 
 \noindent\textbf{Contoh Penggunaan \texttt{super()}:}
 
-\begin{lstlisting}[style=PythonStyle, caption={Menggunakan super() untuk Memanggil Konstruktor Induk}]
+Listing~\ref{lst:b8-menggunakan-super-memanggil-konstruktor-induk} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Menggunakan super() untuk Memanggil Konstruktor Induk}, label={lst:b8-menggunakan-super-memanggil-konstruktor-induk}]
 class Kendaraan:
     def __init__(self, merek):
         self.merek = merek
@@ -407,7 +437,9 @@ Tanpa \texttt{super()}, kita harus menulis ulang inisialisasi atribut dari kelas
 
 \noindent\textbf{Contoh Pewarisan Bertingkat dengan \texttt{super()}:}
 
-\begin{lstlisting}[style=PythonStyle, caption={super() dalam Pewarisan Bertingkat}]
+Listing~\ref{lst:b8-super-dalam-pewarisan-bertingkat} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={super() dalam Pewarisan Bertingkat}, label={lst:b8-super-dalam-pewarisan-bertingkat}]
 class Kendaraan:
     def __init__(self):
         print("Kendaraan dibuat")
@@ -425,8 +457,8 @@ class MobilBalap(Mobil):
 obj = MobilBalap()
 \end{lstlisting}
 
-Output:
-\begin{lstlisting}[language=bash, caption={Output Program}]
+Output (Listing~\ref{lst:b8-output-program}):
+\begin{lstlisting}[language=bash, caption={Output Program}, label={lst:b8-output-program}]
 Kendaraan dibuat
 Mobil dibuat
 Mobil balap dibuat
@@ -458,9 +490,9 @@ Polimorfisme membuat kode lebih fleksibel, mudah diperluas, dan tidak perlu diub
 Polimorfisme biasanya muncul bersama dengan \textbf{pewarisan} dan \textbf{overriding}.  
 Overriding berarti kelas turunan menulis ulang (menimpa) metode dari kelas induk untuk memberikan perilaku yang berbeda sesuai konteksnya sendiri.
 
-\textbf{Contoh Sederhana Polimorfisme:}
+\textbf{Contoh Sederhana Polimorfisme:} (Listing~\ref{lst:b8-polimorfisme-dengan-overriding})
 
-\begin{lstlisting}[style=PythonStyle, caption={Polimorfisme dengan Overriding}]
+\begin{lstlisting}[style=PythonStyle, caption={Polimorfisme dengan Overriding}, label={lst:b8-polimorfisme-dengan-overriding}]
 class Hewan:
     def suara(self):
         print("Hewan mengeluarkan suara.")
@@ -480,7 +512,9 @@ for h in hewan_list:
     h.suara()
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash, caption={Output Program}]
+Keluarannya ada pada Listing~\ref{lst:b8-output-program-2}.
+
+\begin{lstlisting}[language=bash, caption={Output Program}, label={lst:b8-output-program-2}]
 Hewan mengeluarkan suara.
 Meong
 Guk guk
@@ -496,9 +530,9 @@ Dalam contoh di atas:
 \textbf{Polimorfisme Tanpa Pewarisan Langsung (Duck Typing):}
 
 Python mendukung konsep \textbf{duck typing} —  
-yaitu bentuk polimorfisme di mana tipe objek tidak perlu sama, selama objek memiliki metode yang dibutuhkan.
+yaitu bentuk polimorfisme di mana tipe objek tidak perlu sama, selama objek memiliki metode yang dibutuhkan (Listing~\ref{lst:b8-duck-typing}).
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Duck Typing}]
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Duck Typing}, label={lst:b8-duck-typing}]
 class Burung:
     def terbang(self):
         print("Burung terbang di langit.")
@@ -515,7 +549,9 @@ uji_terbang(Burung())
 uji_terbang(Pesawat())
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash, caption={Output Program}]
+Keluarannya ada pada Listing~\ref{lst:b8-output-program-3}.
+
+\begin{lstlisting}[language=bash, caption={Output Program}, label={lst:b8-output-program-3}]
 Burung terbang di langit.
 Pesawat lepas landas di landasan.
 \end{lstlisting}
@@ -528,9 +564,9 @@ Konsep ini disebut “duck typing” dari pepatah:
 Artinya, Python tidak peduli dari kelas mana objek berasal —  
 selama objek memiliki metode yang diharapkan, maka objek tersebut dapat digunakan.
 
-\textbf{Polimorfisme dalam Hierarki Kelas:}
+\textbf{Polimorfisme dalam Hierarki Kelas:} (Listing~\ref{lst:b8-hierarki-pewarisan-dengan-polimorfisme})
 
-\begin{lstlisting}[style=PythonStyle, caption={Hierarki Pewarisan dengan Polimorfisme}]
+\begin{lstlisting}[style=PythonStyle, caption={Hierarki Pewarisan dengan Polimorfisme}, label={lst:b8-hierarki-pewarisan-dengan-polimorfisme}]
 class Kendaraan:
     def bergerak(self):
         print("Kendaraan bergerak.")
@@ -553,26 +589,31 @@ for k in kendaraan_list:
     k.bergerak()
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash, caption={Output Program}]
+Keluarannya ada pada Listing~\ref{lst:b8-output-program-4}.
+
+\begin{lstlisting}[language=bash, caption={Output Program}, label={lst:b8-output-program-4}]
 Mobil melaju di jalan.
 Kapal berlayar di laut.
 Pesawat terbang di udara.
 \end{lstlisting}
 
 Setiap objek dapat dipanggil dengan cara yang sama, yaitu \texttt{k.bergerak()},  
-namun hasil yang ditampilkan berbeda tergantung jenis objeknya — inilah hakikat dari polimorfisme.
+namun hasil yang ditampilkan berbeda tergantung jenis objeknya — inilah hakikat dari polimorfisme. Gambar~\ref{fig:b8-polimorfisme} memperlihatkan ketiga kelas turunan tersebut.
 
-\begin{center}
-\begin{tikzpicture}[node distance=1.6cm, every node/.style={font=\small}]
-\node (super) [draw, rectangle, rounded corners, fill=gray!15, minimum width=4cm, minimum height=1cm] {Kelas Induk: \texttt{Kendaraan}};
-\node (mobil) [below left=1.2cm and 2.0cm of super, draw, rectangle, rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm] {Kelas Turunan: \texttt{Mobil}};
-\node (kapal) [below=1.2cm of super, draw, rectangle, rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm] {Kelas Turunan: \texttt{Kapal}};
-\node (pesawat) [below right=1.2cm and 2.0cm of super, draw, rectangle, rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm] {Kelas Turunan: \texttt{Pesawat}};
-\draw[->, thick] (super) -- (mobil);
-\draw[->, thick] (super) -- (kapal);
-\draw[->, thick] (super) -- (pesawat);
-\end{tikzpicture}
-\end{center}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=1.6cm, every node/.style={font=\footnotesize}]
+  \node (super) [draw, rectangle, rounded corners, fill=praditagreen!15, minimum width=4cm, minimum height=1cm] {Kelas Induk: \texttt{Kendaraan}};
+  \node (mobil) [below left=1.2cm and 0.7cm of super, draw, rectangle, rounded corners, fill=blue!8, minimum width=3cm, minimum height=1cm] {Kelas Turunan: \texttt{Mobil}};
+  \node (kapal) [below=1.2cm of super, draw, rectangle, rounded corners, fill=blue!8, minimum width=3cm, minimum height=1cm] {Kelas Turunan: \texttt{Kapal}};
+  \node (pesawat) [below right=1.2cm and 0.7cm of super, draw, rectangle, rounded corners, fill=blue!8, minimum width=3cm, minimum height=1cm] {Kelas Turunan: \texttt{Pesawat}};
+  \draw[-{Stealth[length=2mm]}, thick] (super) -- (mobil);
+  \draw[-{Stealth[length=2mm]}, thick] (super) -- (kapal);
+  \draw[-{Stealth[length=2mm]}, thick] (super) -- (pesawat);
+  \end{tikzpicture}
+  \caption{Tiga kelas turunan dari \texttt{Kendaraan}}
+  \label{fig:b8-polimorfisme}
+\end{figure}
 
 \subsection*{Ringkasan}
 \begin{itemize}
@@ -595,7 +636,9 @@ Buat sebuah kelas bernama \texttt{Mahasiswa} dengan ketentuan berikut:
     \item Buat minimal dua objek dari kelas tersebut dan panggil metode \texttt{tampilkan\_info()} untuk masing-masing.
 \end{enumerate}
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh keluaran yang diharapkan (tidak harus identik)}]
+Listing~\ref{lst:b8-keluaran-diharapkan-tidak-harus-identik} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh keluaran yang diharapkan (tidak harus identik)}, label={lst:b8-keluaran-diharapkan-tidak-harus-identik}]
 Nama: Rani
 NIM: A11.2024.0001
 Jurusan: Informatika
@@ -621,7 +664,9 @@ Buat hierarki kelas berikut:
     \item Tambahkan konstruktor di setiap kelas dan panggil konstruktor induk menggunakan \texttt{super()}.
 \end{itemize}
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan}]
+Listing~\ref{lst:b8-penggunaan} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh penggunaan}, label={lst:b8-penggunaan}]
 k1 = Mobil("Toyota")
 k2 = SepedaMotor("Honda")
 
@@ -629,7 +674,9 @@ k1.bergerak()
 k2.bergerak()
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash, caption={Output Program}]
+Keluarannya ada pada Listing~\ref{lst:b8-output-program-5}.
+
+\begin{lstlisting}[language=bash, caption={Output Program}, label={lst:b8-output-program-5}]
 Mobil Toyota melaju di jalan raya.
 Sepeda motor Honda berjalan di aspal.
 \end{lstlisting}
@@ -643,7 +690,9 @@ Gunakan kelas-kelas dari latihan sebelumnya (\texttt{Kendaraan}, \texttt{Mobil},
     \item Gunakan satu loop untuk memanggil \texttt{bergerak()} pada semuanya.
 \end{enumerate}
 
-\begin{lstlisting}[language=bash, caption={Output yang Diharapkan}]
+Listing~\ref{lst:b8-output-diharapkan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, caption={Output yang Diharapkan}, label={lst:b8-output-diharapkan}]
 Mobil Toyota melaju di jalan raya.
 Sepeda motor Honda berjalan di aspal.
 Pesawat Garuda terbang di udara.
@@ -661,7 +710,9 @@ Rancang sebuah program kecil untuk mendemonstrasikan seluruh konsep OOP yang tel
     \item Gunakan polimorfisme untuk menghitung luas semua bangun dalam satu loop.
 \end{itemize}
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh Implementasi}]
+Listing~\ref{lst:b8-implementasi} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Contoh Implementasi}, label={lst:b8-implementasi}]
 import math
 
 class BangunDatar:
@@ -699,7 +750,9 @@ for b in bangun_list:
     print(f"Luas {b.__class__.__name__}: {b.luas():.2f}")
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash, caption={Output Program}]
+Keluarannya ada pada Listing~\ref{lst:b8-output-program-6}.
+
+\begin{lstlisting}[language=bash, caption={Output Program}, label={lst:b8-output-program-6}]
 Luas Persegi: 25.00
 Luas PersegiPanjang: 24.00
 Luas Lingkaran: 153.94
@@ -728,3 +781,10 @@ Bab ini membahas konsep dasar pemrograman berorientasi objek (OOP) di Python, me
 
 Selain itu, bab ini memperkenalkan polimorfisme sebagai kemampuan berbagai objek untuk merespons perintah yang sama dengan cara yang berbeda. Polimorfisme dan duck typing memberikan fleksibilitas tinggi dalam desain program, memungkinkan pengembang membuat sistem yang mudah diperluas, alami, dan sesuai dengan model dunia nyata. Pemahaman konsep-konsep ini menjadi fondasi penting untuk membangun program Python yang modular, dapat digunakan kembali, dan mudah dirawat.
 
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: Classes} \cite{py-tut-classes}: kelas, atribut, metode, dan pewarisan.
+  \item \textit{Built-in functions: super()} \cite{py-functions-super}: cara kerja \texttt{super()}.
+  \item \textit{Glossary: duck-typing} \cite{py-glossary-duck}: arti \textit{duck typing}.
+  \item \textit{Think Python, 3rd edition. Bab 17: Inheritance} \cite{thinkpython-ch17}: contoh pewarisan.
+\end{daftarrapat}

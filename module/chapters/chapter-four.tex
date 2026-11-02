@@ -1,13 +1,24 @@
-\chapter{Fungsi and Modul}
+\chapter{Fungsi dan Modul}
+
+\section*{Tujuan Pembelajaran}
+\begin{daftarrapat}
+  \item Memecah program menjadi fungsi-fungsi kecil yang masing-masing mengerjakan satu tugas dan dapat dipakai ulang.
+  \item Menjelaskan cara data masuk ke dan keluar dari sebuah fungsi, termasuk fungsi yang memanggil dirinya sendiri.
+  \item Mengelompokkan kode ke dalam modul dan memanfaatkan modul yang sudah tersedia agar program mudah dirawat.
+\end{daftarrapat}
 
 \section{Fungsi}
 Fungsi adalah blok kode terorganisir yang memiliki nama tertentu dan dapat dipanggil berulang kali untuk melakukan tugas spesifik, mengurangi redundansi kode, dan mempermudah pengelolaan program. Fungsi membantu kita menulis kode yang lebih rapi, modular, dan mudah dipelihara.
+
+Cara kerja fungsi mirip mesin fotokopi di perpustakaan kampus. Lembar asli dimasukkan, mesin mengerjakan proses yang sama setiap kali dipakai, lalu salinannya keluar. Pemakai cukup tahu apa yang dimasukkan dan apa yang keluar, tanpa perlu tahu isi mesinnya. Fungsi juga punya tiga bagian itu: masukan berupa parameter, proses berupa isi fungsi, dan keluaran berupa nilai kembalian.
+
+Tanpa fungsi, kode yang sama harus disalin ke banyak tempat. Bila ada kesalahan, semua salinan harus diperbaiki satu per satu. Dengan fungsi, perbaikan cukup dilakukan di satu tempat.
 
 \subsection{Fungsi Dasar Tanpa Parameter}
 
 Fungsi sederhana yang tidak menerima parameter dan tidak mengembalikan nilai. Fungsi ini hanya menjalankan perintah tertentu.
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: basic_function.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: basic_function.py}, label={lst:b4-basic-function}]
 def greet():
     print("Halo, selamat datang!")
 
@@ -15,13 +26,17 @@ def greet():
 greet()
 \end{lstlisting}
 
+Listing~\ref{lst:b4-basic-function} memperlihatkan dua langkah yang berbeda. Baris \texttt{def greet():} hanya mendefinisikan fungsi, dan isinya belum dijalankan. Isi fungsi baru berjalan ketika fungsi dipanggil dengan \texttt{greet()}. Saat dipanggil, program melompat ke isi fungsi, menjalankannya sampai selesai, lalu kembali ke baris setelah pemanggilan. Tanda kurung pada pemanggilan wajib ditulis, karena \texttt{greet} tanpa kurung hanya merujuk ke fungsinya tanpa menjalankan apa pun.
+
+Fungsi harus didefinisikan sebelum dipanggil. Python membaca berkas dari atas ke bawah, sehingga memanggil \texttt{greet()} sebelum baris \texttt{def} menghasilkan \texttt{NameError: name 'greet' is not defined}.
+
 \subsection{Fungsi dengan Parameter}
 
 Fungsi bisa memiliki parameter. Dengan adanya parameter, suatu nilai bisa di-sisipkan ke dalam fungsi secara dinamis saat pemanggilannya.
 
 Parameter sendiri merupakan istilah untuk variabel yang menempel pada fungsi, yang mengharuskan kita untuk menyisipkan nilai pada parameter tersebut saat pemanggilan fungsi.
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: parameter_function.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: parameter_function.py}, label={lst:b4-parameter-function}]
 def greet_with_name(nama):
     print(f"Halo, {nama}!")
 
@@ -29,12 +44,54 @@ def greet_with_name(nama):
 greet_with_name("Jessie")
 \end{lstlisting}
 
+Dua istilah pada Listing~\ref{lst:b4-parameter-function} sering tertukar. Parameter adalah nama yang ditulis pada definisi fungsi, yaitu \texttt{nama}. Argumen adalah nilai yang dikirim saat pemanggilan, yaitu \texttt{"Jessie"}. Saat fungsi dipanggil, nilai argumen disimpan ke parameter, lalu parameter dapat dipakai seperti variabel biasa di dalam fungsi.
+
+Jumlah argumen harus sesuai dengan jumlah parameter. Memanggil \texttt{greet_with_name()} tanpa argumen menghasilkan \texttt{TypeError: greet_with_name() missing 1 required positional argument: 'nama'}.
+
 \subsection{Fungsi dengan Nilai Kembalian (Return Value)}
 
 Fungsi dapat mengembalikan hasil yang dapat disimpan atau digunakan dalam perhitungan lain.
 
+Perbedaan \texttt{print} dan \texttt{return} perlu dipahami sejak awal. Pernyataan \texttt{print} hanya menampilkan nilai ke layar. Pernyataan \texttt{return} menyerahkan nilai kepada pemanggil, sehingga nilainya bisa disimpan atau dihitung lebih lanjut. Listing~\ref{lst:b4-return-print} membandingkan keduanya, dengan keluaran pada Listing~\ref{lst:b4-return-print-out}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: return_vs_print.py}, label={lst:b4-return-print}]
+def tambah_cetak(a, b):
+    print(a + b)
+
+def tambah_kembali(a, b):
+    return a + b
+
+hasil_cetak = tambah_cetak(5, 3)
+hasil_kembali = tambah_kembali(5, 3)
+
+print("hasil_cetak =", hasil_cetak)
+print("hasil_kembali =", hasil_kembali)
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran return_vs_print.py}, label={lst:b4-return-print-out}]
+8
+hasil_cetak = None
+hasil_kembali = 8
+\end{lstlisting}
+
+Fungsi \texttt{tambah_cetak()} menampilkan 8 saat dipanggil, tetapi tidak mengembalikan apa pun, sehingga \texttt{hasil_cetak} berisi \texttt{None}, nilai khusus Python yang berarti tidak ada nilai. Fungsi \texttt{tambah_kembali()} tidak menampilkan apa pun, tetapi hasilnya tersimpan dan bisa dipakai pada perhitungan berikutnya.
+
+Pernyataan \texttt{return} juga menghentikan fungsi saat itu juga. Pada Listing~\ref{lst:b4-return-stop}, pemanggilan \texttt{cek_nilai(75)} berhenti di \texttt{return} pertama, sehingga baris terakhir fungsi hanya dijalankan untuk nilai di bawah 60. Program ini mencetak \texttt{Lulus}, lalu \texttt{Tidak lulus}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: return_berhenti.py}, label={lst:b4-return-stop}]
+def cek_nilai(nilai):
+    if nilai >= 60:
+        return "Lulus"
+    return "Tidak lulus"
+
+print(cek_nilai(75))
+print(cek_nilai(40))
+\end{lstlisting}
+
 \subsubsection{Return Nilai Tunggal}
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_single_return.py}]
+Listing~\ref{lst:b4-function-with-single-return} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_single_return.py}, label={lst:b4-function-with-single-return}]
 def add(a, b):
     return a + b
 
@@ -43,7 +100,7 @@ print(summation_result)  # Output: 8
 \end{lstlisting}
 
 \subsubsection{Return Lebih dari Satu Nilai}
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_multiple_return.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_multiple_return.py}, label={lst:b4-multiple-return}]
 def operate(a, b):
     return a + b, a * b
 
@@ -52,11 +109,13 @@ print(sum_result)     # 9
 print(product_result) # 20
 \end{lstlisting}
 
+Pada Listing~\ref{lst:b4-multiple-return}, Python membungkus dua nilai itu menjadi satu \texttt{tuple}, yaitu \texttt{(9, 20)}. Baris \texttt{sum_result, product_result = operate(4, 5)} lalu membongkarnya ke dua variabel secara berurutan. Jumlah variabel di sisi kiri harus sama dengan jumlah nilai yang dikembalikan.
+
 \subsection{Fungsi dengan Parameter Default}
 
 Fungsi dapat memiliki nilai default untuk parameter jika argumen tidak diberikan saat pemanggilan.
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_default_parameter.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_default_parameter.py}, label={lst:b4-default-parameter}]
 def greet_you(name="Friend"):
     print(f"Hello, {name}!")
 
@@ -64,10 +123,14 @@ greet_you()        # Output: Hello, Friend!
 greet_you("Andrew")  # Output: Hello, Andrew!
 \end{lstlisting}
 
+Pemanggilan pertama pada Listing~\ref{lst:b4-default-parameter} tidak mengirim argumen, sehingga \texttt{name} memakai nilai \texttt{"Friend"}. Pemanggilan kedua mengirim \texttt{"Andrew"}, sehingga nilai bawaan diabaikan. Nilai bawaan cocok untuk pilihan yang jarang berubah, misalnya nilai minimal kelulusan.
+
+Parameter dengan nilai bawaan harus ditulis setelah parameter tanpa nilai bawaan. Menulis \texttt{def greet_you(name="Friend", age):} menghasilkan \texttt{SyntaxError: parameter without a default follows parameter with a default}.
+
 \subsection{Fungsi dengan Argumen Keyword dan Positional}
 Fungsi di Python bisa dipanggil menggunakan positional arguments atau keyword arguments. Positional argument adalah istilah untuk urutan parameter/argument fungsi. Pengisian argument saat pemanggilan fungsi harus urut sesuai dengan deklarasi parameternya. Keyword argument atau named argument adalah metode pengisian argument pemanggilan fungsi disertai nama parameter yang ditulis secara jelas (eksplisit).
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_keyword_and_positional.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_keyword_and_positional.py}, label={lst:b4-keyword-positional}]
 def student_info(name, age, major):
     print(f"{name}, {age} years old, majoring in {major}")
 
@@ -78,11 +141,20 @@ student_info("Delta", 20, "Computer Science")
 student_info(major="Information Systems", name="Echo", age=21)
 \end{lstlisting}
 
+\begin{lstlisting}[language=bash, caption={Keluaran function_with_keyword_and_positional.py}, label={lst:b4-keyword-positional-out}]
+Delta, 20 years old, majoring in Computer Science
+Echo, 21 years old, majoring in Information Systems
+\end{lstlisting}
+
+Listing~\ref{lst:b4-keyword-positional-out} menunjukkan bahwa kedua pemanggilan pada Listing~\ref{lst:b4-keyword-positional} mengisi parameter dengan benar, walaupun urutan argumen keyword berbeda dari definisi fungsi. Argumen keyword membuat pemanggilan lebih mudah dibaca, terutama saat parameternya banyak.
+
+Keduanya boleh digabung selama argumen positional ditulis lebih dahulu. Pemanggilan \texttt{student_info("Foxtrot", major="Data Science", age=22)} berjalan, sedangkan \texttt{student_info(name="Golf", 23, "Math")} menghasilkan \texttt{SyntaxError: positional argument follows keyword argument}.
+
 \subsection{Fungsi dengan Jumlah Argumen Variabel}
 
 Jika jumlah argumen tidak pasti, kita bisa menggunakan \texttt{*args}.
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_variable_arguments.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_variable_arguments.py}, label={lst:b4-variable-arguments}]
 def sum_numbers(*numbers):
     total = sum(numbers)
     print(f"Total: {total}")
@@ -91,11 +163,34 @@ sum_numbers(1, 2, 3, 4)  # Output: Total: 10
 sum_numbers(5, 6, 7)     # Output: Total: 18
 \end{lstlisting}
 
+Tanda bintang pada Listing~\ref{lst:b4-variable-arguments} mengumpulkan semua argumen ke dalam satu \texttt{tuple}. Nama \texttt{args} hanya kebiasaan, karena yang menentukan adalah tanda bintangnya, sehingga contoh ini memakai nama \texttt{numbers}. Listing~\ref{lst:b4-args-type} memperlihatkan isinya, dan program itu mencetak \texttt{<class 'tuple'>} lalu \texttt{(1, 2, 3)}. Karena berupa \texttt{tuple}, isinya bisa ditelusuri dengan perulangan atau dijumlahkan dengan \texttt{sum()}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: isi_args.py}, label={lst:b4-args-type}]
+def show_numbers(*numbers):
+    print(type(numbers))
+    print(numbers)
+
+show_numbers(1, 2, 3)
+\end{lstlisting}
+
 \subsection{Fungsi Rekursif}
 
 Fungsi yang memanggil dirinya sendiri. Biasanya digunakan untuk masalah yang dapat dipecah menjadi sub-masalah.
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: recursive_function.py}]
+Faktorial adalah contoh yang tepat, karena definisinya memang memakai dirinya sendiri, seperti pada Persamaan~\eqref{eq:b4-faktorial}.
+
+\begin{equation}
+  n! =
+  \begin{cases}
+    1 & \text{jika } n = 0 \text{ atau } n = 1 \\
+    n \times (n-1)! & \text{jika } n > 1
+  \end{cases}
+  \label{eq:b4-faktorial}
+\end{equation}
+
+Fungsi rekursif selalu punya dua bagian. Kasus dasar adalah kondisi yang langsung memberi jawaban tanpa memanggil dirinya lagi. Langkah rekursif memanggil dirinya dengan masalah yang lebih kecil, sehingga semakin dekat ke kasus dasar. Listing~\ref{lst:b4-recursive} menerjemahkan Persamaan~\eqref{eq:b4-faktorial} menjadi kode.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: recursive_function.py}, label={lst:b4-recursive}]
 def factorial(n):
     if n == 0 or n == 1:
         return 1
@@ -105,15 +200,58 @@ def factorial(n):
 print(factorial(5))  # Output: 120
 \end{lstlisting}
 
+Cara kerjanya mirip orang di ujung antrean yang ingin tahu nomor antreannya. Ia bertanya kepada orang di depannya, dan pertanyaan itu diteruskan sampai orang terdepan yang tahu bahwa nomornya 1. Jawaban lalu kembali ke belakang sambil ditambah satu pada tiap orang.
+
+Listing~\ref{lst:b4-recursive-trace} menambahkan \texttt{print} agar urutan itu terlihat. Keluaran pada Listing~\ref{lst:b4-recursive-trace-out} menunjukkan bahwa pemanggilan berjalan makin dalam sampai \texttt{factorial(1)}, lalu hasilnya dikembalikan dari yang paling dalam.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: recursive_trace.py}, label={lst:b4-recursive-trace}]
+def factorial(n):
+    print(f"factorial({n}) dipanggil")
+    if n == 0 or n == 1:
+        return 1
+    hasil = n * factorial(n - 1)
+    print(f"factorial({n}) mengembalikan {hasil}")
+    return hasil
+
+print(factorial(3))
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran recursive_trace.py}, label={lst:b4-recursive-trace-out}]
+factorial(3) dipanggil
+factorial(2) dipanggil
+factorial(1) dipanggil
+factorial(2) mengembalikan 2
+factorial(3) mengembalikan 6
+6
+\end{lstlisting}
+
+Fungsi rekursif tanpa kasus dasar akan terus memanggil dirinya. Python menghentikannya setelah sekitar seribu tingkat pemanggilan dengan pesan \texttt{RecursionError: maximum recursion depth exceeded}.
+
+\subsection{Ruang Lingkup Variabel}
+Variabel yang dibuat di dalam fungsi disebut variabel lokal, dan hanya dikenal di dalam fungsi tersebut. Saat fungsi selesai, variabel itu hilang. Pada Listing~\ref{lst:b4-scope}, variabel \texttt{diskon} dapat dipakai di dalam fungsi, tetapi baris terakhir menghasilkan \texttt{NameError: name 'diskon' is not defined} karena dijalankan di luar fungsi. Baris sebelumnya tetap mencetak \texttt{90000.0}.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: variabel_lokal.py}, label={lst:b4-scope}]
+def hitung_harga_akhir(harga):
+    diskon = harga * 0.1
+    return harga - diskon
+
+print(hitung_harga_akhir(100000))
+print(diskon)
+\end{lstlisting}
+
+Nilai yang dibutuhkan di luar fungsi sebaiknya dikembalikan dengan \texttt{return}, sedangkan nilai yang dibutuhkan fungsi sebaiknya dikirim lewat parameter. Dengan begitu, keluar masuknya data terlihat jelas dari baris pemanggilan.
+
 \section{Modul}
 
 Modul adalah file Python (\texttt{.py}) yang berisi kode seperti fungsi, variabel, atau kelas, yang bisa digunakan kembali di program lain. Modul membantu memecah program menjadi bagian-bagian yang lebih kecil dan terstruktur.
 
+Modul mirip buku rujukan di perpustakaan. Satu buku dapat dipakai banyak mahasiswa, dan tidak ada yang perlu menyalin isinya untuk memakainya. Program yang besar juga lebih mudah dirawat bila kodenya dibagi per urusan, misalnya perhitungan di satu berkas dan tampilan di berkas lain.
+
 \subsection{Membuat Modul}
 
-Modul sendiri dibuat dengan membuat file Python baru. Misalnya kita buat file \texttt{math_operations.py}:
+Modul sendiri dibuat dengan membuat file Python baru. Misalnya kita buat file \texttt{math_operations.py} seperti pada Listing~\ref{lst:b4-math-operations}:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: math_operations.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: math_operations.py}, label={lst:b4-math-operations}]
 def add(a, b):
     """Mengembalikan hasil penjumlahan a + b"""
     return a + b
@@ -137,9 +275,9 @@ def power(a, b):
     return a ** b
 \end{lstlisting}
 
-Lalu kita bisa menggunakan modul ini di file program lain:
+Lalu kita bisa menggunakan modul ini di file program lain, seperti pada Listing~\ref{lst:b4-calculator}:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: calculator.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: calculator.py}, label={lst:b4-calculator}]
 import math_operations
 
 print(math_operations.add(5, 3))        # Output: 8
@@ -149,11 +287,44 @@ print(math_operations.divide(10, 2))    # Output: 5.0
 print(math_operations.power(3, 4))      # Output: 81
 \end{lstlisting}
 
+Saat baris \texttt{import math_operations} dijalankan, Python mencari berkas \texttt{math_operations.py}, mula-mula di folder program utama, lalu di lokasi pustaka Python. Karena itu, kedua berkas pada contoh ini harus berada di folder yang sama. Nama modul ditulis tanpa akhiran \texttt{.py}.
+
+Fungsi dalam modul dipanggil dengan format \texttt{nama_modul.nama_fungsi()}. Format ini memperlihatkan asal fungsi, dan membuat dua modul boleh punya fungsi bernama sama tanpa bentrok. Salah menulis nama modul menghasilkan \texttt{ModuleNotFoundError: No module named 'math_operation'}.
+
+\subsection{Kode yang Berjalan Saat Modul Diimpor}
+Saat diimpor, seluruh kode di tingkat atas modul dijalankan sekali. Pada Listing~\ref{lst:b4-salam}, baris \texttt{print} di tengah berkas ikut berjalan ketika modul diimpor oleh Listing~\ref{lst:b4-salam-program}. Blok \texttt{if __name__ == "__main__":} hanya berjalan bila berkas itu dijalankan langsung, sehingga cocok untuk kode uji coba. Listing~\ref{lst:b4-salam-out} memperlihatkan perbedaan keduanya.
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: salam.py}, label={lst:b4-salam}]
+def sapa(nama):
+    return f"Halo, {nama}!"
+
+print("Baris ini berjalan saat modul dibaca")
+
+if __name__ == "__main__":
+    print(sapa("Penguji"))
+\end{lstlisting}
+
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: program_salam.py}, label={lst:b4-salam-program}]
+import salam
+
+print(salam.sapa("Rani"))
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Keluaran saat salam.py dan program_salam.py dijalankan}, label={lst:b4-salam-out}]
+$ python salam.py
+Baris ini berjalan saat modul dibaca
+Halo, Penguji!
+
+$ python program_salam.py
+Baris ini berjalan saat modul dibaca
+Halo, Rani!
+\end{lstlisting}
+
 \subsection{Mengimpor Modul dengan Alias}
 
-Kita bisa memberi nama alias saat mengimpor modul agar lebih ringkas:
+Kita bisa memberi nama alias saat mengimpor modul agar lebih ringkas, seperti pada Listing~\ref{lst:b4-calculator-alias}:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: calculator.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: calculator.py dengan alias}, label={lst:b4-calculator-alias}]
 import math_operations as mo
 
 print(mo.add(5, 3))        # Output: 8
@@ -163,55 +334,61 @@ print(mo.divide(10, 2))    # Output: 5.0
 print(mo.power(3, 4))      # Output: 81
 \end{lstlisting}
 
+Alias \texttt{mo} hanya berlaku di berkas yang menuliskannya, dan tidak mengubah nama berkas modul. Bentuk ini banyak dipakai untuk modul yang namanya panjang.
+
 \subsection{Menaruh Modul dalam Folder}
 
-Selain membuat modul di satu file, kita juga bisa menaruh modul di dalam folder supaya lebih rapi. Misalnya:
+Selain membuat modul di satu file, kita juga bisa menaruh modul di dalam folder supaya lebih rapi. Misalnya (Listing~\ref{lst:b4-susunan-folder-dengan-modul-dalam-folder}):
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash, caption={Susunan folder dengan modul di dalam folder utils}, label={lst:b4-susunan-folder-dengan-modul-dalam-folder}]
 project/
-│
-├── main.py
-└── utils/
-└── string_utils.py
-\end{verbatim}
+|
+|-- main.py
+`-- utils/
+    `-- string_utils.py
+\end{lstlisting}
 
-Isi \texttt{string_utils.py} misalnya:
+Isi \texttt{string_utils.py} misalnya (Listing~\ref{lst:b4-utils-string-utils}):
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: utils/string_utils.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: utils/string_utils.py}, label={lst:b4-utils-string-utils}]
 def to_upper(text):
-return text.upper()
+    return text.upper()
 
 def to_lower(text):
-return text.lower()
+    return text.lower()
 \end{lstlisting}
 
 Di \texttt{main.py}, kita bisa mengimpor modul ini dari folder \texttt{utils}:
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: main.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: main.py}, label={lst:b4-main-utils}]
 from utils import string_utils
 
 print(string_utils.to_upper("Python")) # Output: PYTHON
 print(string_utils.to_lower("Python")) # Output: python
 \end{lstlisting}
 
+Pernyataan \texttt{from utils import string_utils} pada Listing~\ref{lst:b4-main-utils} berarti: dari folder \texttt{utils}, ambil modul \texttt{string_utils}. Nama folder menjadi bagian dari jalur impor, sehingga folder \texttt{utils} harus berada di tempat yang sama dengan \texttt{main.py}.
+
 \subsection{Best Practice: Paket dengan __init__.py}
 
-Untuk project yang lebih besar atau modul yang akan digunakan di banyak file, sebaiknya folder modul dijadikan \textbf{package} dengan menambahkan file __init__.py:
+Untuk project yang lebih besar atau modul yang akan digunakan di banyak file, sebaiknya folder modul dijadikan \textbf{package} dengan menambahkan file __init__.py (Listing~\ref{lst:b4-init}):
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash, caption={Susunan folder paket dengan __init__.py}, label={lst:b4-init}]
 project/
-│
-├── main.py
-└── utils/
-├── __init__.py
-└── string_utils.py
-\end{verbatim}
+|
+|-- main.py
+`-- utils/
+    |-- __init__.py
+    `-- string_utils.py
+\end{lstlisting}
 
 Dengan __init__.py, Python mengenali folder sebagai package.
 
-Cara import tetap sama:
+Berkas ini boleh kosong. Bila berisi kode, kode itu berjalan sekali saat paket pertama kali diimpor. Contoh pada subbab sebelumnya tetap berjalan tanpa berkas ini, karena Python 3 mengenali folder biasa sebagai \textit{namespace package}. Menuliskan \texttt{__init__.py} tetap dianjurkan agar maksud folder itu terlihat jelas.
 
-\begin{lstlisting}[style=PythonStyle]
+Cara import tetap sama (Listing~\ref{lst:b4-mengimpor-modul-dari-paket-utils}):
+
+\begin{lstlisting}[style=PythonStyle, caption={Mengimpor modul dari paket utils}, label={lst:b4-mengimpor-modul-dari-paket-utils}]
 from utils import string_utils
 \end{lstlisting}
 
@@ -227,38 +404,47 @@ Python memiliki banyak modul bawaan yang bisa langsung digunakan tanpa instalasi
 
 \texttt{os} — untuk berinteraksi dengan sistem operasi, misal folder, file, path.
 
-Contoh penggunaan modul bawaan:
+Contoh penggunaan modul bawaan ada pada Listing~\ref{lst:b4-math}, Listing~\ref{lst:b4-random}, dan Listing~\ref{lst:b4-datetime}.
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: math_module.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: math_module.py}, label={lst:b4-math}]
 import math
 
 print(math.sqrt(16)) # Output: 4.0
 print(math.pi) # Output: 3.141592653589793
 \end{lstlisting}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: random_module.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: random_module.py}, label={lst:b4-random}]
 import random
 
 print(random.randint(1, 10)) # Output: angka acak antara 1 sampai 10
 \end{lstlisting}
 
-\begin{lstlisting}[style=PythonStyle, caption={Kode Python: datetime_module.py}]
+\begin{lstlisting}[style=PythonStyle, caption={Kode Python: datetime_module.py}, label={lst:b4-datetime}]
 from datetime import date
 
 today = date.today()
 print(today) # Output: tanggal hari ini, misal 2025-09-20
 \end{lstlisting}
 
+Hasil \texttt{math.sqrt(16)} adalah \texttt{4.0}, karena fungsi akar selalu mengembalikan \texttt{float}. Fungsi \texttt{random.randint(1, 10)} menyertakan kedua batasnya, sehingga angka 10 bisa muncul, berbeda dengan \texttt{range(1, 10)} yang berhenti di 9. Fungsi \texttt{date.today()} membaca tanggal dari sistem operasi, sehingga hasilnya berubah setiap hari.
+
 \subsubsection{Mengimpor Fungsi atau Variabel Tertentu}
 
-Jika hanya membutuhkan beberapa fungsi/variabel dari modul, bisa langsung diimpor:
+Jika hanya membutuhkan beberapa fungsi/variabel dari modul, bisa langsung diimpor, seperti pada Listing~\ref{lst:b4-from-import}:
 
-\begin{lstlisting}[style=PythonStyle]
+\begin{lstlisting}[style=PythonStyle, caption={Mengimpor fungsi dan variabel tertentu dari modul math}, label={lst:b4-from-import}]
 from math import sqrt, pi
 
 print(sqrt(36)) # Output: 6.0
 print(pi) # Output: 3.141592653589793
 \end{lstlisting}
+
+Bentuk ini membuat \texttt{sqrt} dan \texttt{pi} dapat dipakai tanpa awalan \texttt{math.}, sehingga kodenya lebih pendek. Kekurangannya, asal fungsi tidak lagi terlihat dari baris pemanggilan, dan variabel lain bernama \texttt{pi} di berkas yang sama akan menimpanya.
+
+\section{Ringkasan}
+Fungsi membungkus satu tugas dengan sebuah nama, sehingga kode dapat dipakai ulang dan diperbaiki di satu tempat. Data masuk lewat parameter dan keluar lewat \texttt{return}, sedangkan variabel di dalam fungsi tidak dikenal dari luar. Fungsi rekursif membutuhkan kasus dasar agar dapat berhenti.
+
+Modul mengelompokkan fungsi ke dalam berkas terpisah, dan folder berisi modul dapat disusun sebagai paket. Python juga menyediakan modul bawaan seperti \texttt{math}, \texttt{random}, dan \texttt{datetime} yang dapat langsung diimpor.
 
 \section{Latihan}
 
@@ -290,3 +476,11 @@ print(pi) # Output: 3.141592653589793
     Kemudian import modul tersebut di file program utama dan gunakan fungsi-fungsi tersebut.
 
 \end{enumerate}
+
+\section*{Referensi}
+\begin{daftarrapat}
+  \item \textit{The Python Tutorial: More Control Flow Tools} \cite{py-tut-controlflow}: mendefinisikan fungsi, nilai \textit{default}, \textit{keyword argument}, dan jumlah argumen variabel.
+  \item \textit{Think Python, 3rd edition. Bab 5: Conditionals and Recursion} \cite{thinkpython-ch5}: fungsi rekursif.
+  \item \textit{The Python Tutorial: Modules} \cite{py-tut-modules}: modul, paket, dan berkas \texttt{__init__.py}.
+  \item \textit{The Python Language Reference: The import system} \cite{py-ref-import}: cara kerja \texttt{import} dan pencarian modul.
+\end{daftarrapat}
