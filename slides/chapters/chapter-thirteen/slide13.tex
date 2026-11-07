@@ -17,7 +17,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-13:\\\LARGE{Debugging\\}
 \vspace{10pt}}
@@ -81,6 +81,17 @@
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Minta GenAI menjelaskan arti pesan kesalahan dan menyarankan tempat memasang \textit{breakpoint} atau \texttt{print}, tanpa meminta perbaikan kode.
+  \item Amati sendiri nilai variabel sampai penyebabnya ketemu. GenAI juga dapat diminta menanyakan nilai yang Anda harapkan dan nilai yang benar-benar muncul pada tiap langkah.
+  \item Kesalahan logika tidak memunculkan pesan kesalahan, sehingga kemampuan menelusuri nilai tetap dibutuhkan walaupun GenAI tersedia.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Pengenalan}
 \begin{frame}{Pengenalan Debugging}
@@ -837,6 +848,167 @@ intuitif, dan sangat membantu terutama bagi pemula.
     \item Gunakan Git untuk melacak perubahan dan mempermudah rollback.
 \end{itemize}
 
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Latihan 1: Perhitungan Statistik dengan Shared Mutable State}\par\medskip
+Program berikut berusaha menghitung rata-rata, median, dan modus dari sebuah list. Namun hasil yang ditampilkan tidak konsisten, terutama ketika fungsi dipanggil lebih dari sekali. Masalahnya tidak muncul dari satu baris saja, tetapi dari interaksi variabel yang berbagi state antar fungsi.
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+cache = {"sum": 0, "count": 0}
+
+def hitung_rata(data):
+    for x in data:
+        cache["sum"] += x
+        cache["count"] += 1
+    return cache["sum"] / cache["count"]
+
+def median(data):
+    data.sort()     
+    mid = len(data) // 2
+    return data[mid]
+
+def modus(data):
+    frekuensi = {}
+    for x in data:
+        frekuensi[x] = frekuensi.get(x, 0) + 1
+    sorted_items = sorted(frekuensi.items(), key=lambda y: y[1])
+    return sorted_items[-1][0]
+
+def main():
+    nilai = [70, 80, 80, 90, 100]
+    print("Rata-rata:", hitung_rata(nilai))
+    print("Median:", median(nilai))
+    print("Modus:", modus(nilai))
+    
+    print("Rata-rata 2:", hitung_rata(nilai))
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+Mahasiswa harus menemukan bagaimana perubahan list oleh \texttt{median()}, serta penggunaan \texttt{cache} global menyebabkan hasil yang kacau.
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mencari bug pada program statistik yang hasilnya berubah saat fungsi dipanggil berulang kali. Jangan tunjukkan letak bug atau perbaikannya. Tanyakan langkah debugging yang akan saya lakukan, misalnya variabel apa yang saya periksa dengan pdb, lalu beri petunjuk bila arah saya keliru. Setelah saya menemukan bug-nya, minta saya menjelaskan penyebabnya.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Latihan 2: Pengelompokan Data dengan Referensi List yang Tersembunyi}\par\medskip
+Program berikut berusaha mengelompokkan data penjualan berdasarkan bulan. Setiap transaksi memiliki informasi bulan (1--12) dan nilai penjualan. Hasil yang diharapkan adalah sebuah dictionary yang berisi daftar nilai penjualan untuk setiap bulan, serta total penjualan per bulan. Namun, output yang dihasilkan program tampak aneh: beberapa bulan memiliki data yang sama persis, atau total penjualan per bulan menjadi tidak masuk akal. Kesalahan tidak muncul sebagai error sintaks ataupun runtime, melainkan berasal dari penggunaan list yang saling berbagi referensi secara tidak sengaja. Mahasiswa diminta menggunakan debugger di VS Code untuk memantau isi dictionary dan list pada setiap langkah, serta menemukan bagaimana satu perubahan pada satu bulan dapat memengaruhi bulan lain.
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+def kelompokkan_penjualan(transaksi):
+
+    data_per_bulan = dict.fromkeys(range(1, 13), [])
+
+    for bulan, nilai in transaksi:
+        if bulan in data_per_bulan:
+            data_per_bulan[bulan].append(nilai)
+        else:
+            data_per_bulan[bulan] = [nilai]
+
+    return data_per_bulan
+
+def hitung_total_per_bulan(data_per_bulan):
+    total = {}
+    for bulan, daftar_nilai in data_per_bulan.items():
+        total[bulan] = sum(daftar_nilai)
+    return total
+
+def main():
+    transaksi = [
+        (1, 100_000),
+        (1, 150_000),
+        (2, 200_000),
+        (3, 50_000),
+        (3, 75_000),
+        (12, 300_000),
+    ]
+
+    data_per_bulan = kelompokkan_penjualan(transaksi)
+    print("Data per bulan:", data_per_bulan)
+
+    total = hitung_total_per_bulan(data_per_bulan)
+    print("Total per bulan:", total)
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+Petunjuk: gunakan breakpoint di dalam fungsi \texttt{kelompokkan\_penjualan()} dan perhatikan bagaimana isi \texttt{data\_per\_bulan} berubah pada setiap iterasi. Periksa pula apakah list untuk satu bulan benar-benar terpisah dari bulan lainnya, atau sebenarnya merujuk pada objek yang sama.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mencari bug pada program pengelompokan penjualan per bulan yang hasilnya tercampur. Jangan tunjukkan letak bug atau perbaikannya. Tanyakan cara saya memeriksa apakah beberapa list sebenarnya objek yang sama, lalu beri petunjuk bila arah saya keliru. Setelah saya menemukan bug-nya, minta saya menjelaskan penyebabnya.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+\textbf{Latihan 3: Sistem Inventori dengan Perhitungan Stok yang Tidak Stabil}\par\medskip
+Program ini mensimulasikan sistem inventori. Hasil akhir kadang benar, kadang salah, tergantung urutan pemanggilan fungsi. Bug berasal dari interaksi kompleks antar fungsi: mutasi dictionary, penggunaan objek yang direferensikan ulang, serta kesalahan kecil dalam logika penambahan dan pengurangan stok.
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+
+stok = {"pensil": 10, "buku": 5, "pulpen": 8}
+
+def tambah_stok(item, jumlah):
+    if item in stok:
+        stok[item] = stok[item] + jumlah    
+    else:
+        stok[item] = jumlah
+
+def kurang_stok(item, jumlah):
+    if item in stok and stok[item] - jumlah >= 0:
+        stok[item] = stok[item] - jumlah
+    else:
+        stok[item] = 0     
+
+def transaksi():
+    keranjang = {"pensil": 3, "buku": 2}
+    total = 0
+
+    for item, qty in keranjang.items():
+        kurang_stok(item, qty)
+        total += qty
+
+    return total
+
+def main():
+    print("Stok awal:", stok)
+    transaksi()
+    tambah_stok("pulpen", -3)   
+    transaksi()
+    print("Stok akhir:", stok)
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+Latihan ini menuntut mahasiswa memeriksa nilai \texttt{stok} pada setiap perubahan, memahami bagaimana nilai menjadi salah, dan menemukan interaksi bug yang tidak langsung terlihat hanya dari membaca kode.
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mencari bug pada program inventori yang hasilnya bergantung pada urutan pemanggilan fungsi. Jangan tunjukkan letak bug atau perbaikannya. Minta saya mencatat nilai stok setelah setiap pemanggilan fungsi, lalu beri petunjuk bila arah saya keliru. Setelah saya menemukan bug-nya, minta saya menjelaskan penyebabnya.
+\end{block}
 \end{frame}
 
 \section{Rangkuman}

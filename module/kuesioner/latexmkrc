@@ -1,0 +1,3 @@
+# Kuesioner dibangun dengan XeLaTeX. LuaLaTeX gagal menyematkan font yang
+# dimuat lewat jalur relatif ../fonts/.
+$pdf_mode = 5;

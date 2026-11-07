@@ -17,7 +17,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-14:\\\LARGE{Mengukur Kinerja\\}
 \vspace{10pt}}
@@ -81,6 +81,17 @@
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Sebelum mengukur, minta GenAI menjelaskan mengapa satu versi kode seharusnya lebih lambat dan memperkirakan waktu eksekusinya bila data menjadi dua kali lipat.
+  \item Catat perkiraan itu, lalu ukur sendiri dengan \texttt{timeit} dan \texttt{tracemalloc}.
+  \item Bila hasil pengukuran berbeda dari perkiraan GenAI, hasil pengukuran yang dipakai. Tanyakan perbedaan itu kembali ke GenAI untuk dicari penyebabnya.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Konsep Dasar: Algoritma Bisa Cepat atau Lambat}
 
@@ -593,6 +604,49 @@ print("Efisien       :", mem2)
     \item Berdasarkan hasil, coba jelaskan keterkaitan antara performa dengan pola data, struktur algoritma, serta cara memproses elemen.
 \end{itemize}
 
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+Ukur fungsi pada listing \textit{Contoh A: Algoritma tidak efisien} dan listing \textit{Contoh B: Algoritma efisien} dengan \texttt{timeit} untuk data berukuran 100, 1.000, dan 10.000 elemen. Catat hasilnya dalam sebuah tabel, lalu jelaskan bagaimana selisih waktunya berubah saat data membesar.
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mengukur dua fungsi dengan timeit untuk data berukuran 100, 1.000, dan 10.000 elemen. Jangan tuliskan kodenya. Tanyakan cara saya menyiapkan pengukuran yang adil, misalnya jumlah pengulangan, lalu beri petunjuk bila keliru. Setelah saya mengirim tabel hasil, minta saya menjelaskan polanya sebelum Anda menanggapi.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+Ukur pemakaian memori saat membuat \texttt{list(range(n))} dengan \texttt{tracemalloc} untuk tiga nilai \texttt{n} yang berbeda, lalu bandingkan dengan \texttt{range(n)} tanpa \texttt{list}. Jelaskan penyebab perbedaannya.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membandingkan pemakaian memori list(range(n)) dan range(n) dengan tracemalloc. Jangan tuliskan kodenya. Tanyakan dugaan saya tentang penyebab perbedaannya sebelum saya mengukur, lalu beri petunjuk bila keliru. Setelah saya mengirim hasil pengukuran, periksa penjelasan saya.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+Ulangi studi kasus pengurutan pada bab ini dengan data yang sudah terurut dan data yang terurut terbalik. Tentukan algoritma yang paling terpengaruh oleh kondisi awal data, lalu jelaskan alasannya.
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menguji algoritma pengurutan pada data yang sudah terurut dan yang terurut terbalik. Jangan tuliskan kodenya. Tanyakan algoritma mana yang saya duga paling terpengaruh dan alasannya, lalu beri petunjuk bila keliru. Setelah saya mengirim hasil pengukuran, periksa kesimpulan saya.
+\end{block}
 \end{frame}
 
 \section{Rangkuman}

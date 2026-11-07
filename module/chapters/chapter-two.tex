@@ -7,9 +7,13 @@
   \item Mengubah data dari satu jenis ke jenis lain sesuai kebutuhan program, lalu mengenali kegagalan yang dapat muncul saat pengubahan.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Bab ini banyak melatih tebakan tentang jenis data dan hasil konversinya. Mintalah GenAI memberi beberapa nilai, misalnya \texttt{"12"}, \texttt{12.0}, dan \texttt{True}, lalu tebak sendiri hasil \texttt{type()} dan hasil konversinya sebelum menjalankannya. Saat konversi gagal, tempelkan pesan \texttt{ValueError} ke GenAI dan minta penjelasan mengapa \texttt{int("3.5")} gagal sedangkan \texttt{int(3.5)} berhasil, tanpa meminta perbaikan kode. GenAI juga dapat diminta memeriksa apakah nama variabel dan konstanta yang Anda buat sudah mengikuti aturan penamaan di bab ini.
+
 \section{Variabel}
 
-Variabel merupakan tempat penyimpanan sementara yang digunakan untuk menampung data selama program berjalan, sehingga data tersebut dapat digunakan kembali. Berbeda dengan bahasa pemrograman \textit{static type} seperti C, C++, dan Java yang harus secara eksplisit menulis tipe data untuk variabel. Di Python, variabel memiliki tipe data yang dinamis (\textit{dynamic type}) dan dapat berubah sesuai dengan kebutuhan program.
+Variabel\index{variabel} merupakan tempat penyimpanan sementara yang digunakan untuk menampung data selama program berjalan, sehingga data tersebut dapat digunakan kembali. Berbeda dengan bahasa pemrograman \textit{static type} seperti C, C++, dan Java yang harus secara eksplisit menulis tipe data untuk variabel. Di Python, variabel memiliki tipe data yang dinamis (\textit{dynamic type}) dan dapat berubah sesuai dengan kebutuhan program.
 
 Variabel dapat dibayangkan sebagai loker di kampus yang diberi label nama. Label adalah nama variabel, dan isi loker adalah nilainya. Isi loker bisa diganti kapan saja, sedangkan labelnya tetap, sehingga pemilik cukup mengingat label untuk mengambil isinya.
 
@@ -17,13 +21,24 @@ Gambar~\ref{fig:python-variable-structure} menunjukkan tiga bagian sebuah variab
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{../shared_assets/images/python_variable_structure.png}
+	\begin{tikzpicture}[
+    font=\footnotesize,
+    kotak/.style={draw, rounded corners, minimum height=1cm, align=center, font=\large\ttfamily},
+    panah/.style={-{Stealth[length=2mm]}, thick}
+  ]
+    \node[kotak, fill=blue!8, minimum width=2.4cm] (nama) at (0,0) {nama};
+    \node[kotak, fill=orange!12, minimum width=1.1cm] (sama) at (2.4,0) {=};
+    \node[kotak, fill=green!10, minimum width=2.8cm] (nilai) at (4.9,0) {"Rani"};
+    \node (lnama) at (0,-1.5) {nama variabel};
+    \node (lsama) at (2.4,-1.5) {tanda penugasan};
+    \node (lnilai) at (5.1,-1.5) {nilai};
+    \draw[panah] (lnama) -- (nama);
+    \draw[panah] (lsama) -- (sama);
+    \draw[panah] (lnilai) -- (nilai);
+  \end{tikzpicture}
 	\caption{Struktur Variabel di Python}
 	\label{fig:python-variable-structure}
 \end{figure}
-
-\noindent
-Sumber Gambar~\ref{fig:python-variable-structure}: \url{https://www.packetswitch.co.uk/python-variables-data-types/}
 
 Tanda \texttt{=} berarti menyimpan nilai, berbeda dari arti sama dengan dalam matematika. Python mengerjakan sisi kanan lebih dahulu, lalu menyimpan hasilnya ke nama di sisi kiri. Karena itu, baris \texttt{stok = stok + 5} pada Listing~\ref{lst:b2-assign} masuk akal: nilai lama 10 ditambah 5, lalu hasilnya 15 disimpan kembali ke \texttt{stok}.
 
@@ -33,7 +48,7 @@ stok = stok + 5
 print(stok)
 \end{lstlisting}
 
-Tipe data variabel tidak perlu ditulis, dan bisa berubah mengikuti nilainya. Listing~\ref{lst:b2-dynamic} menyimpan dua nilai berbeda jenis ke variabel yang sama, dan fungsi \texttt{type()} menampilkan tipenya pada Listing~\ref{lst:b2-dynamic-out}.
+Tipe data variabel tidak perlu ditulis, dan bisa berubah mengikuti nilainya. Listing~\ref{lst:b2-dynamic} menyimpan dua nilai berbeda jenis ke variabel yang sama, dan fungsi\index{fungsi} \texttt{type()} menampilkan tipenya pada Listing~\ref{lst:b2-dynamic-out}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: tipe_dinamis.py}, label={lst:b2-dynamic}]
 nilai = 10
@@ -57,7 +72,7 @@ Pemberian nama variabel di Python harus mematuhi beberapa aturan penamaan yang d
 	\item Nama variabel tidak boleh dimulai dengan angka.
 	\item Nama variabel tidak boleh mengandung spasi.
 	\item Nama variabel tidak boleh mengandung simbol.
-	\item Nama variabel tidak boleh mengandung kata kunci (\textit{keyword}) yang sudah terdefinisi dalam Python, seperti \texttt{def}, \texttt{for}, \texttt{if}, \texttt{return}, dan sebagainya.
+	\item Nama variabel tidak boleh mengandung kata kunci (\textit{keyword}) yang sudah terdefinisi dalam Python, seperti \texttt{def}, \texttt{for}\index{for}, \texttt{if}, \texttt{return}, dan sebagainya.
 \end{itemize}
 
 Nama variabel membedakan huruf besar dan kecil. Pada Listing~\ref{lst:b2-case}, \texttt{nama} dan \texttt{Nama} adalah dua variabel berbeda, sehingga program mencetak \texttt{Rani}, lalu \texttt{Dani}.
@@ -99,7 +114,7 @@ Semua baris pada Listing~\ref{lst:b2-salah-nama} menghasilkan \texttt{SyntaxErro
 
 \section{Konstanta}
 
-Konstanta adalah variabel yang seharusnya nilainya tidak berubah selama program berjalan. Contohnya nilai \textbf{\textit{pi}} (3.14) atau gravitasi (9.81). Di Python, kita bisa menandai variabel sebagai Final dari modul \texttt{typing} untuk memberi tanda bahwa variabel tersebut dimaksudkan sebagai konstanta. Namun ada hal-hal yang perlu diperhatikan:
+Konstanta\index{konstanta} adalah variabel\index{variabel} yang seharusnya nilainya tidak berubah selama program berjalan. Contohnya nilai \textbf{\textit{pi}} (3.14) atau gravitasi (9.81). Di Python, kita bisa menandai variabel sebagai Final dari modul\index{modul} \texttt{typing} untuk memberi tanda bahwa variabel tersebut dimaksudkan sebagai konstanta. Namun ada hal-hal yang perlu diperhatikan:
 \begin{itemize}
 	\item Python tidak memaksa variabel \texttt{Final} agar tidak bisa diubah.
 	\item Penandaan \texttt{Final} hanya \textbf{memberi peringatan pada type checker}, bukan mencegah perubahan di runtime.
@@ -146,7 +161,7 @@ Baris \texttt{GRAVITASI = 10} pada Listing~\ref{lst:b2-constant} tetap dijalanka
 
 \section{Tipe Data Dasar}
 
-Tipe data merupakan jenis data yang bisa disimpan di program Python. Tipe data di Python memiliki banyak jenis, seperti \texttt{int}, \texttt{float}, \texttt{str}, \texttt{bool}, \texttt{list}, \texttt{tuple}, \texttt{dict}, dan \texttt{set}. Namun pada \textit{chapter} kali ini, kita akan fokus pada tipe data dasar, antara lain \texttt{int}, \texttt{float}, \texttt{str}, dan \texttt{bool}.
+Tipe data merupakan jenis data yang bisa disimpan di program Python. Tipe data di Python memiliki banyak jenis, seperti \texttt{int}, \texttt{float\index{float}}, \texttt{str}, \texttt{bool}, \texttt{list\index{list}}, \texttt{tuple\index{tuple}}, \texttt{dict}, dan \texttt{set}\index{set}. Namun pada bab ini, kita akan fokus pada tipe data dasar, antara lain \texttt{int}, \texttt{float}, \texttt{str}, dan \texttt{bool}.
 
 
 Tipe data menentukan dua hal: nilai apa yang dapat disimpan, dan operasi apa yang dapat dilakukan terhadapnya. Angka dapat dikurangi, sedangkan teks tidak. Tabel~\ref{tab:b2-tipe-dasar} merangkum keempat tipe dasar.
@@ -175,7 +190,7 @@ Berdasarkan kelompoknya, tipe data dasar di Python dapat dibedakan menjadi 3 kel
 \begin{enumerate}
 \item \textbf{Numeric} (Angka)
 \begin{enumerate}
-\item \textbf{Integer} (bilangan bulat)
+\item \textbf{Integer\index{integer}} (bilangan bulat)
 \begin{lstlisting}[style=PythonStyle, caption={Contoh nilai integer}, label={lst:b2-integer}]
 usia = 18
 jumlah_mahasiswa = 64
@@ -184,7 +199,7 @@ nomor_rumah = 88
 suhu = -5
 \end{lstlisting}
 
-Listing~\ref{lst:b2-integer} memuat bilangan bulat positif dan negatif. Integer di Python tidak punya batas ukuran selain memori komputer, sehingga \texttt{2 ** 100} tetap menghasilkan angka utuh \texttt{1267650600228229401496703205376}.
+Listing~\ref{lst:b2-integer} memuat bilangan bulat positif dan negatif. Integer di Python tidak punya batas ukuran selain memori\index{memori} komputer, sehingga \texttt{2 ** 100} tetap menghasilkan angka utuh \texttt{1267650600228229401496703205376}.
 
 \item \textbf{Float} (bilangan desimal)
 \begin{lstlisting}[style=PythonStyle, caption={Contoh nilai float}, label={lst:b2-float}]
@@ -201,7 +216,7 @@ Nilai \texttt{float} disimpan dalam bentuk biner, sehingga sebagian pecahan desi
 
 \item \textbf{Teks} (Kata / Kalimat)
 \begin{enumerate}
-\item \textbf{String} (kumpulan karakter)
+\item \textbf{String\index{string}} (kumpulan karakter)
 \begin{lstlisting}[style=PythonStyle, caption={Contoh nilai string}, label={lst:b2-string}]
 nama = "John"
 quote = 'Programmer: A machine that turns coffee into code'
@@ -229,7 +244,7 @@ TypeError: can only concatenate str (not "int") to str
 Tanda \texttt{+} pada dua teks berarti menyambung, dan pada dua angka berarti menjumlahkan. Python tidak mau menebak maksud pencampuran keduanya, sehingga baris terakhir menghasilkan \texttt{TypeError}.
 \end{enumerate}
 
-\item \textbf{Boolean} (Benar atau Salah)
+\item \textbf{Boolean\index{boolean}} (Benar atau Salah)
 \begin{lstlisting}[style=PythonStyle, caption={Contoh nilai boolean}, label={lst:b2-boolean}]
 is_married = False
 is_single = True
@@ -241,7 +256,7 @@ Nilai pada Listing~\ref{lst:b2-boolean} ditulis dengan huruf besar di awal, kare
 \section{Konversi Tipe Data (\textit{Type Casting})}
 
 Kadang kita perlu mengubah tipe data dari satu jenis ke jenis lain agar Python bisa memprosesnya dengan benar.
-Misal, input dari pengguna melalui fungsi \texttt{input()} selalu mengembalikan tipe data string (str), tapi kita ingin melakukan perhitungan angka, maka kita harus mengubahnya menjadi int atau float.
+Misal, input dari pengguna melalui fungsi\index{fungsi} \texttt{input()} selalu mengembalikan tipe data string\index{string} (str), tapi kita ingin melakukan perhitungan angka, maka kita harus mengubahnya menjadi int atau float\index{float}.
 
 Tabel~\ref{tab:b2-konversi} merangkum fungsi yang tersedia.
 
@@ -360,7 +375,7 @@ print("Usia saya " + usia + " tahun")
 
 
 \subsection{Kesalahan dalam Konversi Tipe Data}
-Meskipun Python menyediakan fungsi bawaan untuk mengubah tipe data (\texttt{int()}, \texttt{float()}, \texttt{str()}, \texttt{bool()}), \textbf{tidak semua konversi bisa dilakukan dengan sukses}. Jika nilai yang dikonversi tidak sesuai dengan tipe data tujuan, maka program akan menghasilkan \textbf{error}. Berikut adalah contoh kesalahan dalam konversi tipe data:
+Meskipun Python menyediakan fungsi bawaan untuk mengubah tipe data (\texttt{int()}, \texttt{float()}, \texttt{str()}, \texttt{bool()}), \textbf{tidak semua konversi bisa dilakukan dengan sukses}. Jika nilai yang dikonversi tidak sesuai dengan tipe data tujuan, maka program akan menghasilkan \textbf{error}. Berikut adalah contoh kesalahan dalam konversi tipe data\index{konversi tipe data}:
 
 \begin{lstlisting}[style=PythonStyle, caption={Kesalahan saat konversi ke integer}, label={lst:b2-konversi-salah}]
 # String huruf → Integer
@@ -374,7 +389,7 @@ angka_int = int(angka_str)
 # Output: ValueError: invalid literal for int() with base 10: '12.34'
 \end{lstlisting}
 
-Perhatikan pada Listing~\ref{lst:b2-konversi-salah} bahwa program akan menghasilkan \textbf{error} ketika nilai yang dikonversi tidak sesuai dengan tipe data tujuan. Hal ini diakibatkan karena fungsi \texttt{int()} hanya dapat mengubah \textbf{string yang berisi bilangan bulat} menjadi tipe data \texttt{integer}.
+Perhatikan pada Listing~\ref{lst:b2-konversi-salah} bahwa program akan menghasilkan \textbf{error} ketika nilai yang dikonversi tidak sesuai dengan tipe data tujuan. Hal ini diakibatkan karena fungsi \texttt{int()} hanya dapat mengubah \textbf{string yang berisi bilangan bulat} menjadi tipe data \texttt{integer\index{integer}}.
 \par
 Apabila string berisi karakter non-angka (misalnya \texttt{"abc"}) atau bilangan desimal (misalnya \texttt{"12.34"}), maka Python tidak dapat memprosesnya langsung sebagai \texttt{integer} dan akan menampilkan pesan \texttt{ValueError}. Untuk kasus bilangan desimal dalam bentuk string, diperlukan dua tahap konversi, yaitu:
 \begin{enumerate}
@@ -394,30 +409,42 @@ print(angka_int)
 \end{lstlisting}
 
 \section{Ringkasan}
-Variabel menyimpan data dengan sebuah nama, dan tipenya mengikuti nilai yang disimpan. Konstanta adalah variabel yang disepakati tidak berubah, ditandai dengan huruf besar, walaupun Python tidak mencegah pengubahannya.
+Variabel\index{variabel} menyimpan data dengan sebuah nama, dan tipenya mengikuti nilai yang disimpan. Konstanta\index{konstanta} adalah variabel yang disepakati tidak berubah, ditandai dengan huruf besar, walaupun Python tidak mencegah pengubahannya.
 
-Empat tipe dasar yang dipakai pada bab-bab berikutnya adalah \texttt{int}, \texttt{float}, \texttt{str}, dan \texttt{bool}. Konversi dibutuhkan terutama karena \texttt{input()} selalu menghasilkan teks. Konversi gagal dengan \texttt{ValueError} bila isi teks tidak sesuai dengan tipe tujuan.
+Empat tipe dasar yang dipakai pada bab-bab berikutnya adalah \texttt{int}, \texttt{float\index{float}}, \texttt{str}, dan \texttt{bool}. Konversi dibutuhkan terutama karena \texttt{input()} selalu menghasilkan teks. Konversi gagal dengan \texttt{ValueError} bila isi teks tidak sesuai dengan tipe tujuan.
 
 \section{Soal Latihan}
 
-Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep variabel, konstanta tipe data, dan konversi tipe data yang telah dipelajari:
+Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep variabel\index{variabel}, konstanta\index{konstanta}, tipe data, dan konversi tipe data\index{konversi tipe data} yang telah dipelajari:
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
+
 \begin{enumerate}
-\item \textbf{Soal 1:} Buat program bernama \texttt{luas_persegi_panjang.py} yang meminta pengguna memasukan nilai panjang dan lebar persegi panjang, kemudian program harus bisa menghitung dan mencetak luas persegi panjang tersebut.
+\item \textbf{Soal 1:} Buat program bernama \texttt{luas_persegi_panjang.py} yang meminta pengguna memasukkan nilai panjang dan lebar persegi panjang, kemudian program harus bisa menghitung dan mencetak luas persegi panjang tersebut.
 \newline \newline
-\textbf{Hint:} Gunakan operator perkalian \texttt{*} untuk menghitung luas.
+\textbf{Hint:} Gunakan operator\index{operator} perkalian \texttt{*} untuk menghitung luas.
 
-\item \textbf{Soal 2:} Buat program bernama \texttt{luas_lingkaran.py} yang meminta pengguna memasukan nilai jari-jari lingkaran. Program harus menampung nilai konstanta \textbf{\textit{pi}} mengikuti standar \textit{best practice} dari Python dan bisa menghitung sekaligus mencetak luas lingkaran tersebut.
+  \begin{promptterarah}
+  Saya sedang membuat program luas persegi panjang yang membaca panjang dan lebar dari pengguna. Jangan tuliskan kodenya. Tanyakan mengapa hasil input() perlu diubah tipenya sebelum dikalikan, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
+\item \textbf{Soal 2:} Buat program bernama \texttt{luas_lingkaran.py} yang meminta pengguna memasukkan nilai jari-jari lingkaran. Program harus menampung nilai konstanta \textbf{\textit{pi}} mengikuti standar \textit{best practice} dari Python dan bisa menghitung sekaligus mencetak luas lingkaran tersebut.
 
+  \begin{promptterarah}
+  Saya sedang membuat program luas lingkaran dengan konstanta pi. Jangan tuliskan kodenya. Tanyakan cara saya menamai konstanta sesuai kebiasaan Python, lalu jelaskan bila penamaan saya kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \item \textbf{Soal 3:} Buat program bernama \texttt{tebak_usia.py} yang meminta pengguna memasukkan tahun lahirnya. Program harus:
 \begin{enumerate}
     \item Menyimpan tahun lahir di variabel.
-    \item Mengubah input dari string menjadi integer.
-    \item Menghitung umur dengan mengurangi tahun saat ini dengan tahun lahir yang dimasukan oleh pengguna.
+    \item Mengubah input dari string\index{string} menjadi integer\index{integer}.
+    \item Menghitung umur dengan mengurangi tahun saat ini dengan tahun lahir yang dimasukkan oleh pengguna.
     \item Menampilkan pesan seperti: "Kamu berusia [umur] tahun."
 \end{enumerate}
 
 \textbf{Hint:} Gunakan operator pengurangan \texttt{-} untuk menghitung usia saat ini.
 
+  \begin{promptterarah}
+  Saya sedang membuat program yang menghitung usia dari tahun lahir. Jangan tuliskan kodenya. Minta saya menjelaskan langkah dari membaca masukan sampai mencetak usia, lalu tunjukkan langkah yang terlewat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \section*{Referensi}

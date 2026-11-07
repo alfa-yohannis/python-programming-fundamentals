@@ -14,7 +14,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-06:\\\LARGE{Struktur Data\\}
 \vspace{10pt}}
@@ -59,6 +59,17 @@ morestring=[s]{"}{"},
 \end{columns}
 \end{frame}
 
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Ceritakan sebuah kebutuhan, misalnya menyimpan nilai mahasiswa yang dicari lewat NIM, lalu minta GenAI bertanya balik sampai Anda sendiri dapat memilih list, tuple, dictionary, atau set.
+  \item Minta GenAI menjelaskan langkah demi langkah cara \texttt{data["mahasiswa"][0]["nama"]} mengambil nilainya.
+  \item Jalankan ekspresi itu, lalu ubah kunci atau indeksnya untuk menguji pemahaman Anda.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Pendahuluan}
 
@@ -537,6 +548,187 @@ for m in mahasiswa:
   \end{column}
 \end{columns}
 
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Mencari Nilai Tertinggi, Terendah, dan Nilai Spesifik}\par\medskip
+Sebuah kelas memiliki daftar nilai ujian yang disimpan dalam bentuk \texttt{list}. 
+Mahasiswa diminta untuk menentukan nilai tertinggi, nilai terendah, 
+dan memeriksa apakah nilai tertentu ada di dalam daftar tersebut.  
+
+Gunakan struktur data berikut sebagai dasar:
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+nilai_ujian = [78, 85, 90, 67, 88, 92, 74, 90, 81]
+\end{lstlisting}
+
+Tentukan:
+\begin{itemize}
+  \item \textbf{Nilai tertinggi}: nilai maksimum dari daftar.
+  \item \textbf{Nilai terendah}: nilai minimum dari daftar.
+  \item \textbf{Nilai spesifik}: periksa apakah nilai tertentu (misalnya 90) ada di dalam daftar.
+\end{itemize}
+
+
+Latihan ini membantu memahami penggunaan fungsi bawaan seperti 
+\texttt{max()}, \texttt{min()}, dan operator \texttt{in} untuk pencarian elemen pada list.
+
+%%%%%%%%%%%%%%
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mencari nilai tertinggi, nilai terendah, dan nilai tertentu dalam list. Jangan tuliskan kodenya. Tanyakan fungsi bawaan atau operator yang akan saya pakai, lalu beri petunjuk bila pilihannya kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Mengurutkan Data Menggunakan List}\par\medskip
+Sebuah daftar nilai ujian siswa disimpan dalam bentuk \texttt{list}. 
+Mahasiswa diminta untuk menampilkan data yang telah diurutkan dalam dua cara:  
+(1) dari nilai tertinggi ke terendah, dan  
+(2) dari nilai terendah ke tertinggi.
+
+Gunakan struktur data berikut sebagai dasar:
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+nilai = [85, 90, 78, 92, 88, 75, 95]
+\end{lstlisting}
+
+Tentukan dua hasil pengurutan berikut:
+\begin{itemize}
+  \item \textbf{Ascending}: dari nilai terkecil ke terbesar.
+  \item \textbf{Descending}: dari nilai terbesar ke terkecil.
+\end{itemize}
+
+Hasil akhir yang diharapkan memiliki bentuk struktur data seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+urut_ascending = [75, 78, 85, 88, 90, 92, 95]
+urut_descending = [95, 92, 90, 88, 85, 78, 75]
+\end{lstlisting}
+
+Latihan ini membantu memahami penggunaan fungsi bawaan \texttt{sorted()} 
+dan metode \texttt{.sort()} untuk mengurutkan data numerik secara menaik dan menurun.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mengurutkan list nilai dari tertinggi ke terendah dan sebaliknya. Jangan tuliskan kodenya. Tanyakan perbedaan sort() dan sorted() menurut saya, lalu jelaskan bila pemahaman saya keliru. Setelah saya mengirim kode, periksa apakah list aslinya ikut berubah.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+\textbf{Koordinat Pusat Massa Kubus}\par\medskip
+Sebuah kubus memiliki delapan titik sudut dengan koordinat dalam ruang tiga dimensi. 
+  Setiap titik direpresentasikan sebagai tuple \texttt{(x, y, z)} dan seluruh titik disimpan dalam sebuah list.  
+  Buat program untuk menghitung koordinat pusat massa (titik rata-rata) dari kubus tersebut.  
+  Gunakan perulangan untuk menjumlahkan seluruh nilai koordinat dan tampilkan hasil akhirnya dalam bentuk tuple baru.
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menghitung pusat massa kubus dari delapan titik berupa tuple di dalam list. Jangan tuliskan kodenya. Tanyakan cara saya mengambil koordinat x, y, dan z dari setiap tuple, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+\textbf{Seleksi dan Gabung Data Berdasarkan Kriteria}\par\medskip
+Terdapat dua struktur data yang saling melengkapi. 
+Struktur pertama menyimpan daftar produk dan harganya, 
+sementara struktur kedua menyimpan daftar produk dan jumlah stok yang tersedia. 
+Kedua struktur disusun dalam bentuk list berisi dictionary seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+produk_harga = [
+    {"nama": "Laptop", "harga": 9500000},
+    {"nama": "Mouse", "harga": 150000},
+    {"nama": "Keyboard", "harga": 350000},
+    {"nama": "Monitor", "harga": 2200000}
+]
+
+produk_stok = [
+    {"nama": "Laptop", "stok": 3},
+    {"nama": "Mouse", "stok": 25},
+    {"nama": "Keyboard", "stok": 10},
+    {"nama": "Monitor", "stok": 4}
+]
+\end{lstlisting}
+
+Dari dua struktur tersebut, mahasiswa diminta menyeleksi produk 
+dengan harga di bawah batas tertentu dan stok di atas jumlah tertentu, 
+kemudian menggabungkannya ke dalam satu struktur data baru yang berisi 
+\texttt{nama}, \texttt{harga}, dan \texttt{stok}. 
+
+Hasil akhir yang diharapkan berbentuk seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+produk_terpilih = [
+    {"nama": "Mouse", "harga": 150000, "stok": 25},
+    {"nama": "Keyboard", "harga": 350000, "stok": 10}
+]
+\end{lstlisting}
+
+Struktur ini merepresentasikan data hasil seleksi yang memenuhi kriteria dan sudah digabungkan dari dua sumber data berbeda.
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menggabungkan dua dictionary berisi harga dan stok produk berdasarkan kriteria tertentu. Jangan tuliskan kodenya. Tanyakan cara saya mencocokkan kunci di kedua dictionary, lalu beri petunjuk bila rencananya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 5}
+\footnotesize
+\textbf{Operasi Himpunan Menggunakan Set}\par\medskip
+Dua kelompok data mewakili pelanggan dari dua cabang toko yang berbeda. 
+Setiap kelompok disimpan dalam bentuk \texttt{set} karena setiap nama pelanggan bersifat unik.  
+Mahasiswa diminta melakukan berbagai operasi himpunan untuk menganalisis kesamaan dan perbedaan antar cabang.
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+cabang_a = {"Andi", "Budi", "Citra", "Dewi", "Eka"}
+cabang_b = {"Budi", "Dewi", "Farah", "Gilang", "Hadi"}
+\end{lstlisting}
+
+Gunakan operasi berikut untuk menemukan hasilnya:
+\begin{itemize}
+  \item \textbf{Irisan (AND)}: pelanggan yang berbelanja di kedua cabang.
+  \item \textbf{Gabungan (OR)}: seluruh pelanggan dari kedua cabang tanpa duplikasi.
+  \item \textbf{Selisih (NOT IN)}: pelanggan yang hanya berbelanja di satu cabang tertentu.
+  \item \textbf{Selisih Simetris (XOR)}: pelanggan yang hanya berbelanja di salah satu cabang saja.
+\end{itemize}
+
+Hasil akhir diharapkan memiliki bentuk struktur data seperti berikut:
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+pelanggan_and = {"Budi", "Dewi"}
+pelanggan_or = {"Andi", "Budi", "Citra", "Dewi", "Eka", "Farah", "Gilang", "Hadi"}
+pelanggan_not_in_a = {"Farah", "Gilang", "Hadi"}
+pelanggan_xor = {"Andi", "Citra", "Eka", "Farah", "Gilang", "Hadi"}
+\end{lstlisting}
+
+Struktur ini membantu memahami hubungan antar himpunan data dan dapat digunakan untuk 
+analisis pelanggan, pencocokan data, maupun perbandingan hasil survei.
+\end{frame}
+
+\begin{frame}{Latihan 5: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang memakai set untuk membandingkan pelanggan dua cabang toko. Jangan tuliskan kodenya. Tanyakan operasi set yang menghasilkan pelanggan di kedua cabang, di salah satu cabang saja, dan di cabang pertama saja, lalu periksa jawaban saya. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Kesimpulan}

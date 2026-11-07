@@ -7,21 +7,25 @@
   \item Menerapkan polimorfisme agar objek yang berbeda dapat diperlakukan dengan cara yang sama.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Pada OOP, kesulitan pemula biasanya ada pada rancangan kelas. Ceritakan sebuah kasus kepada GenAI, misalnya peminjaman buku di perpustakaan kampus, lalu minta GenAI menanyakan kelas, atribut, dan metode yang Anda usulkan serta menanggapi rancangan itu tanpa menuliskan kodenya. Saat mempelajari pewarisan dan polimorfisme, minta GenAI menjelaskan metode milik kelas mana yang dijalankan untuk setiap objek pada sebuah listing. Jalankan listing itu untuk memeriksa penjelasannya.
+
 \section{Pengenalan OOP}
 
-Pemrograman Berorientasi Objek (Object-Oriented Programming, disingkat OOP) adalah paradigma pemrograman yang berfokus pada pembuatan \emph{objek} yang merepresentasikan entitas dunia nyata. Setiap objek memiliki \emph{atribut} (data) dan \emph{metode} (perilaku).
+Pemrograman Berorientasi Objek\index{objek} (Object-Oriented Programming, disingkat OOP) adalah paradigma pemrograman yang berfokus pada pembuatan \emph{objek} yang merepresentasikan entitas dunia nyata. Setiap objek memiliki \emph{atribut\index{atribut}} (data) dan \emph{metode\index{metode}} (perilaku).
 
-Berbeda dengan pendekatan prosedural yang menekankan urutan langkah-langkah (fungsi), OOP menekankan struktur dan hubungan antar objek. Tujuannya adalah agar program lebih mudah dipelihara, diperluas, dan digunakan kembali (reusable).
+Berbeda dengan pendekatan prosedural yang menekankan urutan langkah-langkah (fungsi\index{fungsi}), OOP menekankan struktur dan hubungan antar objek. Tujuannya adalah agar program lebih mudah dipelihara, diperluas, dan digunakan kembali (reusable).
 
 \subsection*{Konsep Utama OOP}
 Beberapa konsep utama dalam OOP adalah:
 \begin{enumerate}
-    \item \textbf{Kelas (Class)} — cetak biru atau template untuk membuat objek.
+    \item \textbf{Kelas\index{kelas} (Class)} — cetak biru atau template untuk membuat objek.
     \item \textbf{Objek (Object)} — instance nyata dari sebuah kelas.
     \item \textbf{Atribut (Attribute)} — data atau properti yang dimiliki objek.
     \item \textbf{Metode (Method)} — fungsi yang mendefinisikan perilaku objek.
-    \item \textbf{Pewarisan (Inheritance)} — kemampuan kelas untuk mewarisi sifat dari kelas lain.
-    \item \textbf{Polimorfisme (Polymorphism)} — kemampuan objek berbeda untuk merespons cara yang sama secara berbeda.
+    \item \textbf{Pewarisan\index{pewarisan} (Inheritance)} — kemampuan kelas untuk mewarisi sifat dari kelas lain.
+    \item \textbf{Polimorfisme\index{polimorfisme} (Polymorphism)} — kemampuan objek berbeda untuk merespons cara yang sama secara berbeda.
 \end{enumerate}
 
 \subsection*{Contoh Perbandingan Pendekatan}
@@ -73,10 +77,10 @@ Pendekatan OOP membantu programmer membangun sistem yang lebih terstruktur denga
 \section{Kelas dan Objek}
 
 \subsection{Konsep Kelas dan Objek}
-Dalam pemrograman berorientasi objek, \textbf{kelas (class)} merupakan \emph{cetak biru} atau \emph{definisi} dari suatu objek.  
+Dalam pemrograman berorientasi objek\index{objek}, \textbf{kelas\index{kelas} (class)} merupakan \emph{cetak biru} atau \emph{definisi} dari suatu objek.  
 Artinya, kelas tidak hanya menjadi rancangan teknis, tetapi juga \textbf{pengertian atau konsep dari objek itu sendiri}.  
 
-Sebagai contoh, jika kita memiliki kelas \texttt{Mahasiswa}, maka kelas tersebut mendefinisikan \emph{apa yang dimaksud dengan seorang mahasiswa} dalam konteks program: atribut apa yang dimiliki, dan perilaku apa yang dapat dilakukan.  
+Sebagai contoh, jika kita memiliki kelas \texttt{Mahasiswa}, maka kelas tersebut mendefinisikan \emph{apa yang dimaksud dengan seorang mahasiswa} dalam konteks program: atribut\index{atribut} apa yang dimiliki, dan perilaku apa yang dapat dilakukan.  
 Setiap objek yang dibuat dari kelas tersebut adalah \textbf{realisasi nyata} dari definisi itu.
 
 \begin{center}
@@ -106,7 +110,7 @@ Dengan demikian, kelas dapat dianggap sebagai \textbf{konsep}, sementara objek a
 
 \subsection{Membuat Kelas dan Objek}
 Untuk membuat kelas di Python, gunakan kata kunci \texttt{class}. Kelas didefinisikan satu kali, sedangkan objek dapat dibuat berkali-kali dari kelas tersebut.  
-Kita juga menggunakan metode khusus \texttt{__init__()} sebagai konstruktor untuk menetapkan nilai awal atribut (Listing~\ref{lst:b8-membuat-kelas-objek}).
+Kita juga menggunakan metode\index{metode} khusus \texttt{__init__()} sebagai konstruktor untuk menetapkan nilai awal atribut (Listing~\ref{lst:b8-membuat-kelas-objek}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Membuat Kelas dan Objek}, label={lst:b8-membuat-kelas-objek}]
 class Mobil:
@@ -157,8 +161,8 @@ Gambar~\ref{fig:b8-kelas-objek} memperlihatkan hubungan satu kelas dengan dua ob
 
 \section{Atribut dan Metode}
 
-\textbf{Atribut} dan \textbf{metode} merupakan dua komponen utama dalam kelas.  
-Atribut menyimpan \emph{data atau keadaan} dari objek, sedangkan metode mendefinisikan \emph{perilaku atau aksi} yang dapat dilakukan objek.
+\textbf{Atribut\index{atribut}} dan \textbf{metode\index{metode}} merupakan dua komponen utama dalam kelas\index{kelas}.  
+Atribut menyimpan \emph{data atau keadaan} dari objek\index{objek}, sedangkan metode mendefinisikan \emph{perilaku atau aksi} yang dapat dilakukan objek.
 
 Dengan kata lain, atribut menggambarkan \emph{apa yang dimiliki} oleh objek, dan metode menggambarkan \emph{apa yang dapat dilakukan} oleh objek tersebut.
 
@@ -223,8 +227,8 @@ print(m2.universitas)  # Universitas Python
 
 \subsection{Metode dan \texttt{self}}
 
-Metode adalah fungsi yang didefinisikan di dalam kelas. Metode digunakan untuk mendeskripsikan \textbf{perilaku} dari objek.  
-Setiap metode memiliki parameter pertama bernama \texttt{self}, yang mereferensikan objek yang memanggil metode tersebut (Listing~\ref{lst:b8-metode-dengan-self}).
+Metode adalah fungsi\index{fungsi} yang didefinisikan di dalam kelas. Metode digunakan untuk mendeskripsikan \textbf{perilaku} dari objek.  
+Setiap metode memiliki parameter\index{parameter} pertama bernama \texttt{self}, yang mereferensikan objek yang memanggil metode tersebut (Listing~\ref{lst:b8-metode-dengan-self}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Metode dengan self}, label={lst:b8-metode-dengan-self}]
 class Mahasiswa:
@@ -245,7 +249,7 @@ m2.sapa()
 \noindent\textbf{Penjelasan:}
 \begin{itemize}
     \item \texttt{self} selalu mengacu pada objek yang sedang aktif.
-    \item Ketika kita memanggil \texttt{m1.sapa()}, Python secara otomatis meneruskan objek \texttt{m1} sebagai argumen pertama \texttt{self}.
+    \item Ketika kita memanggil \texttt{m1.sapa()}, Python secara otomatis meneruskan objek \texttt{m1} sebagai argumen\index{argumen} pertama \texttt{self}.
     \item Dengan demikian, setiap metode dapat mengakses atribut milik objek yang memanggilnya.
 \end{itemize}
 
@@ -304,8 +308,8 @@ Keduanya tidak terpisahkan karena definisi objek selalu mencakup keduanya:
 
 \section{Pewarisan (Inheritance)}
 
-\textbf{Pewarisan (Inheritance)} adalah salah satu konsep inti dalam pemrograman berorientasi objek (OOP).  
-Konsep ini memungkinkan sebuah kelas untuk \textbf{mewarisi atribut dan metode dari kelas lain}.  
+\textbf{Pewarisan\index{pewarisan} (Inheritance)} adalah salah satu konsep inti dalam pemrograman berorientasi objek\index{objek} (OOP).  
+Konsep ini memungkinkan sebuah kelas\index{kelas} untuk \textbf{mewarisi atribut\index{atribut} dan metode\index{metode} dari kelas lain}.  
 Dengan pewarisan, kita dapat membuat kelas baru yang mewarisi perilaku dari kelas yang sudah ada tanpa menulis ulang semua kodenya.
 
 \begin{center}
@@ -369,7 +373,7 @@ Kelas \texttt{Mobil} di atas mewarisi struktur dari \texttt{Kendaraan}, tetapi m
 \noindent\textbf{Manfaat Pewarisan:}
 \begin{itemize}
     \item Menghindari duplikasi kode.
-    \item Memudahkan perluasan (ekstensi) fungsi program.
+    \item Memudahkan perluasan (ekstensi) fungsi\index{fungsi} program.
     \item Menyusun hubungan hierarkis yang alami antar kelas.
 \end{itemize}
 
@@ -469,26 +473,26 @@ Mobil balap dibuat
     \item Pewarisan memungkinkan kelas baru menggunakan ulang kode dari kelas lain.
     \item Kelas induk = sumber definisi, kelas turunan = perluasan atau penyesuaian.
     \item \texttt{super()} digunakan untuk memanggil metode dari kelas induk, biasanya dalam konstruktor.
-    \item Pewarisan mendukung hierarki bertingkat dan konsep polimorfisme.
+    \item Pewarisan mendukung hierarki bertingkat dan konsep polimorfisme\index{polimorfisme}.
 \end{itemize}
 
 
 \section{Polimorfisme}
 
-\textbf{Polimorfisme (Polymorphism)} berasal dari bahasa Yunani: \emph{poly} berarti banyak, dan \emph{morph} berarti bentuk.  
-Dalam konteks OOP, polimorfisme berarti bahwa \textbf{satu antarmuka dapat digunakan untuk berbagai bentuk objek yang berbeda}.  
+\textbf{Polimorfisme\index{polimorfisme} (Polymorphism)} berasal dari bahasa Yunani: \emph{poly} berarti banyak, dan \emph{morph} berarti bentuk.  
+Dalam konteks OOP, polimorfisme berarti bahwa \textbf{satu antarmuka dapat digunakan untuk berbagai bentuk objek\index{objek} yang berbeda}.  
 Setiap objek dapat merespons cara yang sama (\emph{method call}) dengan perilaku yang berbeda-beda.
 
 \begin{center}
-\textit{Dengan polimorfisme, objek-objek dari kelas turunan dapat digunakan seolah-olah mereka adalah objek dari kelas induk.}
+\textit{Dengan polimorfisme, objek-objek dari kelas\index{kelas} turunan dapat digunakan seolah-olah mereka adalah objek dari kelas induk.}
 \end{center}
 
 Polimorfisme membuat kode lebih fleksibel, mudah diperluas, dan tidak perlu diubah setiap kali jenis objek baru ditambahkan.
 
 \subsection{Konsep Polimorfisme dan Overriding}
 
-Polimorfisme biasanya muncul bersama dengan \textbf{pewarisan} dan \textbf{overriding}.  
-Overriding berarti kelas turunan menulis ulang (menimpa) metode dari kelas induk untuk memberikan perilaku yang berbeda sesuai konteksnya sendiri.
+Polimorfisme biasanya muncul bersama dengan \textbf{pewarisan\index{pewarisan}} dan \textbf{overriding}.  
+Overriding berarti kelas turunan menulis ulang (menimpa) metode\index{metode} dari kelas induk untuk memberikan perilaku yang berbeda sesuai konteksnya sendiri.
 
 \textbf{Contoh Sederhana Polimorfisme:} (Listing~\ref{lst:b8-polimorfisme-dengan-overriding})
 
@@ -625,8 +629,10 @@ namun hasil yang ditampilkan berbeda tergantung jenis objeknya — inilah hakika
 
 \section{Latihan}
 
-Bagian ini berisi latihan praktis untuk memperdalam pemahaman konsep OOP di Python — mencakup kelas, objek, atribut, metode, pewarisan, dan polimorfisme.  
+Bagian ini berisi latihan praktis untuk memperdalam pemahaman konsep OOP di Python — mencakup kelas\index{kelas}, objek\index{objek}, atribut\index{atribut}, metode\index{metode}, pewarisan\index{pewarisan}, dan polimorfisme\index{polimorfisme}.  
 Setiap latihan dirancang agar mahasiswa dapat mempraktikkan konsep secara bertahap, mulai dari dasar hingga penerapan dalam konteks nyata.
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
 
 \subsection*{Latihan 1: Membuat Kelas dan Objek}
 Buat sebuah kelas bernama \texttt{Mahasiswa} dengan ketentuan berikut:
@@ -636,9 +642,9 @@ Buat sebuah kelas bernama \texttt{Mahasiswa} dengan ketentuan berikut:
     \item Buat minimal dua objek dari kelas tersebut dan panggil metode \texttt{tampilkan\_info()} untuk masing-masing.
 \end{enumerate}
 
-Listing~\ref{lst:b8-keluaran-diharapkan-tidak-harus-identik} menunjukkan contoh kodenya.
+Listing~\ref{lst:b8-keluaran-diharapkan-tidak-harus-identik} menampilkan contoh keluarannya.
 
-\begin{lstlisting}[style=PythonStyle, caption={Contoh keluaran yang diharapkan (tidak harus identik)}, label={lst:b8-keluaran-diharapkan-tidak-harus-identik}]
+\begin{lstlisting}[language=bash, caption={Contoh keluaran yang diharapkan (tidak harus identik)}, label={lst:b8-keluaran-diharapkan-tidak-harus-identik}]
 Nama: Rani
 NIM: A11.2024.0001
 Jurusan: Informatika
@@ -648,6 +654,10 @@ NIM: A11.2024.0002
 Jurusan: Sistem Informasi
 \end{lstlisting}
 
+\begin{promptterarah}
+Saya sedang membuat kelas Mahasiswa dengan atribut nama, nim, dan jurusan serta metode tampilkan\_info(). Jangan tuliskan kodenya. Tanyakan peran \_\_init\_\_ dan self menurut saya, lalu jelaskan bila pemahaman saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
+
 \subsection*{Latihan 2: Atribut dan Metode}
 Kembangkan kelas \texttt{Mahasiswa} sebelumnya dengan:
 \begin{enumerate}
@@ -655,6 +665,10 @@ Kembangkan kelas \texttt{Mahasiswa} sebelumnya dengan:
     \item Membuat metode baru \texttt{ubah\_jurusan(jurusan\_baru)} yang mengubah nilai atribut \texttt{jurusan}.
     \item Panggil metode tersebut dan tampilkan hasil perubahan.
 \end{enumerate}
+
+\begin{promptterarah}
+Saya sedang menambahkan atribut kelas universitas dan metode ubah\_jurusan() ke kelas Mahasiswa. Jangan tuliskan kodenya. Tanyakan perbedaan atribut kelas dan atribut objek menurut saya, lalu jelaskan bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
 
 \subsection*{Latihan 3: Pewarisan}
 Buat hierarki kelas berikut:
@@ -681,8 +695,12 @@ Mobil Toyota melaju di jalan raya.
 Sepeda motor Honda berjalan di aspal.
 \end{lstlisting}
 
+\begin{promptterarah}
+Saya sedang membuat kelas Mobil dan SepedaMotor yang mewarisi Kendaraan. Jangan tuliskan kodenya. Tanyakan kapan super().\_\_init\_\_() perlu dipanggil, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
+
 \subsection*{Latihan 4: Polimorfisme}
-Buat fungsi \texttt{uji\_bergerak(kendaraan)} yang menerima objek apa pun yang memiliki metode \texttt{bergerak()}.  
+Buat fungsi\index{fungsi} \texttt{uji\_bergerak(kendaraan)} yang menerima objek apa pun yang memiliki metode \texttt{bergerak()}.  
 Gunakan kelas-kelas dari latihan sebelumnya (\texttt{Kendaraan}, \texttt{Mobil}, \texttt{SepedaMotor}), dan tambahkan satu kelas baru \texttt{Pesawat} yang juga memiliki metode \texttt{bergerak()}.
 
 \begin{enumerate}
@@ -697,6 +715,10 @@ Mobil Toyota melaju di jalan raya.
 Sepeda motor Honda berjalan di aspal.
 Pesawat Garuda terbang di udara.
 \end{lstlisting}
+
+\begin{promptterarah}
+Saya sedang membuat fungsi uji\_bergerak() yang menerima objek dari kelas berbeda. Jangan tuliskan kodenya. Tanyakan mengapa fungsi itu bisa memanggil bergerak() tanpa memeriksa jenis objeknya, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
 
 \subsection*{Latihan 5: Studi Kasus Mini — Sistem Geometri Bangun Datar}
 
@@ -765,6 +787,10 @@ Luas Lingkaran: 153.94
     \item Memahami bagaimana polimorfisme memudahkan pemrosesan banyak objek dalam satu struktur kode yang seragam.
 \end{itemize}
 
+\begin{promptterarah}
+Saya sedang merancang program bangun datar yang memakai kelas induk, pewarisan, dan polimorfisme. Jangan tuliskan kodenya. Minta saya menggambarkan hubungan antarkelas lebih dulu, lalu beri masukan atas rancangan itu. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
+
 
 \subsection*{Refleksi dan Diskusi}
 Setelah menyelesaikan seluruh latihan, jawab pertanyaan berikut:
@@ -777,7 +803,7 @@ Setelah menyelesaikan seluruh latihan, jawab pertanyaan berikut:
 
 \section{Ringkasan}
 	
-Bab ini membahas konsep dasar pemrograman berorientasi objek (OOP) di Python, meliputi kelas, objek, atribut, metode, pewarisan, dan polimorfisme. Setiap bagian menekankan bagaimana kelas berfungsi sebagai cetak biru sekaligus definisi dari objek, bagaimana atribut menyimpan keadaan, serta bagaimana metode mendefinisikan perilaku. Melalui konsep pewarisan dan penggunaan \texttt{super()}, mahasiswa dapat membuat hierarki kelas yang efisien dan menghindari duplikasi kode.
+Bab ini membahas konsep dasar pemrograman berorientasi objek\index{objek} (OOP) di Python, meliputi kelas\index{kelas}, objek, atribut\index{atribut}, metode\index{metode}, pewarisan\index{pewarisan}, dan polimorfisme\index{polimorfisme}. Setiap bagian menekankan bagaimana kelas berfungsi sebagai cetak biru sekaligus definisi dari objek, bagaimana atribut menyimpan keadaan, serta bagaimana metode mendefinisikan perilaku. Melalui konsep pewarisan dan penggunaan \texttt{super()}, mahasiswa dapat membuat hierarki kelas yang efisien dan menghindari duplikasi kode.
 
 Selain itu, bab ini memperkenalkan polimorfisme sebagai kemampuan berbagai objek untuk merespons perintah yang sama dengan cara yang berbeda. Polimorfisme dan duck typing memberikan fleksibilitas tinggi dalam desain program, memungkinkan pengembang membuat sistem yang mudah diperluas, alami, dan sesuai dengan model dunia nyata. Pemahaman konsep-konsep ini menjadi fondasi penting untuk membangun program Python yang modular, dapat digunakan kembali, dan mudah dirawat.
 

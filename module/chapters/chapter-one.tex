@@ -7,20 +7,26 @@
   \item Menyiapkan lingkungan pemrograman di komputer sendiri, lalu menulis dan menjalankan program pertama.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+AI generatif\index{AI generatif} atau GenAI adalah layanan seperti ChatGPT, Gemini, dan Claude yang dapat menjelaskan kode, menebak keluaran program, dan menuliskan program dari perintah dalam bahasa sehari-hari. Perintah itu disebut \textit{prompt}\index{prompt}. Buku ini memakai GenAI secara terarah. \textit{Prompt} memberi GenAI peran sebagai pendamping belajar dan membatasinya agar menjelaskan, bertanya balik, dan memeriksa jawaban tanpa menuliskan penyelesaian. Program tetap diketik dan dijalankan sendiri, dan setiap penjelasan GenAI dicocokkan dengan hasil menjalankan kode karena GenAI bisa keliru.
+
+Di bab ini, GenAI dapat membantu ketika pemasangan Python atau program pertama gagal, misalnya saat Command Prompt tidak mengenali perintah \texttt{python}. Tempelkan pesan kesalahannya, sebutkan sistem operasi yang dipakai, lalu minta GenAI menjelaskan penyebabnya dan langkah pemeriksaannya satu per satu. Listing yang belum dipahami dapat dijelaskan dengan \textit{prompt} pada Listing~\ref{lst:b16-prompt-penjelasan}, dan soal latihan baru dapat diminta dengan \textit{prompt} pada Listing~\ref{lst:b16-prompt-latihan}. Setiap soal latihan di akhir bab juga disertai \textit{prompt} terarah untuk dipakai bila Anda buntu.
+
 \section{Sejarah Pemrograman dan Python}
 
 Pemrograman komputer dimulai pada abad ke-19 dengan penemuan mesin analitik oleh Charles Babbage dan program pertama yang ditulis oleh Ada Lovelace. Sejak itu, pemrograman telah berkembang pesat dengan munculnya bahasa-bahasa pemrograman awal seperti Fortran, COBOL, dan Lisp pada tahun 1950-an. Pada tahun 1970-an dan 1980-an, bahasa pemrograman seperti C, Pascal, dan Basic memperkenalkan konsep-konsep baru dalam pemrograman. Kini, berbagai bahasa pemrograman modern seperti Python, JavaScript, dan Rust digunakan dalam berbagai aplikasi.
 
-Python merupakan bahasa pemrograman \textit{high-level} serbaguna yang pertama kali diperkenalkan pada tahun 1991 oleh Guido van Rossum (GvR). Bahasa ini dirancang agar mudah dipahami dan memiliki struktur kode yang jelas (\textit{readable}), serta mendukung fitur penanganan kesalahan (\textit{exception handling}). Dengan tujuan tersebut, Python berhasil berkembang menjadi bahasa pemrograman yang dapat dimanfaatkan di berbagai bidang. Python merupakan bahasa pemrograman multi-paradigma, yang artinya dapat menggunakan gaya/metode beragam dalam penulisan kode. Saat ini, Python banyak digunakan untuk pengembangan aplikasi web (\textit{server-side}), analisis data, hingga penerapan kecerdasan buatan dan pembelajaran mesin (\textit{machine learning}).
+Python merupakan bahasa pemrograman \textit{high-level} serbaguna yang pertama kali diperkenalkan pada tahun 1991 oleh Guido van Rossum (GvR). Bahasa ini dirancang agar mudah dipahami dan memiliki struktur kode yang jelas (\textit{readable}), serta mendukung fitur penanganan kesalahan (\textit{exception\index{exception} handling}). Dengan tujuan tersebut, Python berhasil berkembang menjadi bahasa pemrograman yang dapat dimanfaatkan di berbagai bidang. Python merupakan bahasa pemrograman multi-paradigma, yang artinya dapat menggunakan gaya/metode\index{metode} beragam dalam penulisan kode. Saat ini, Python banyak digunakan untuk pengembangan aplikasi web (\textit{server-side}), analisis data, hingga penerapan kecerdasan buatan dan pembelajaran mesin (\textit{machine learning}).
 
-Python dibuat di CWI, Belanda, sebagai penerus bahasa bernama ABC \cite{py-history}. Guido van Rossum mulai mengerjakannya pada liburan Natal 1989, berbekal pengalaman membuat bahasa ABC. Dari bahasa itu Python mewarisi antara lain pemakaian indentasi untuk mengelompokkan perintah \cite{py-faq-general}. Namanya tidak berasal dari ular, melainkan dari acara komedi BBC \textit{Monty Python's Flying Circus} \cite{py-faq-general}.
+Python dibuat di CWI, Belanda, sebagai penerus bahasa bernama ABC \cite{py-history}. Guido van Rossum mulai mengerjakannya pada liburan Natal 1989, berbekal pengalaman membuat bahasa ABC. Dari bahasa itu Python mewarisi antara lain pemakaian indentasi\index{indentasi} untuk mengelompokkan perintah \cite{py-faq-general}. Namanya tidak berasal dari ular, melainkan dari acara komedi BBC \textit{Monty Python's Flying Circus} \cite{py-faq-general}.
 
 \section{Python Sebagai Bahasa Interpreter}
 Python merupakan bahasa pemrograman yang termasuk ke dalam kategori
 \textit{interpreted language}. Artinya, kode program Python tidak
 dikompilasi terlebih dahulu menjadi file biner yang dapat dieksekusi,
 melainkan dijalankan baris demi baris oleh sebuah program bernama
-\textbf{interpreter}.
+\textbf{interpreter\index{interpreter}}.
 
 Interpreter bertugas membaca kode Python, menerjemahkannya, lalu
 menjalankannya secara langsung. Hal ini membuat proses pengembangan
@@ -28,13 +34,32 @@ program menggunakan Python menjadi lebih fleksibel, karena kita bisa
 langsung menuliskan kode dan melihat hasil eksekusinya tanpa melalui
 tahap kompilasi.
 
-Perbedaan keduanya mirip dua cara menerjemahkan. \textit{Compiler} seperti penerjemah buku: seluruh naskah diterjemahkan dulu, lalu hasilnya dapat dibaca kapan saja tanpa penerjemah. \textit{Interpreter} seperti juru bahasa di seminar: kalimat diterjemahkan saat itu juga, dan juru bahasa harus hadir setiap kali acara berlangsung.
+Perbedaan keduanya mirip dua cara menerjemahkan. \textit{Compiler\index{compiler}} seperti penerjemah buku: seluruh naskah diterjemahkan dulu, lalu hasilnya dapat dibaca kapan saja tanpa penerjemah. \textit{Interpreter} seperti juru bahasa di seminar: kalimat diterjemahkan saat itu juga, dan juru bahasa harus hadir setiap kali acara berlangsung.
 
-Pembagian ini tidak sepenuhnya tegas pada Python, karena Python menerjemahkan kode lebih dahulu menjadi \textit{bytecode} sebelum menjalankannya \cite{py-glossary-interpreted}. Langkah itu terjadi otomatis, sehingga berkas sumber tetap dapat dijalankan langsung tanpa membuat berkas program terlebih dahulu.
+Pembagian ini tidak sepenuhnya tegas pada Python, karena Python menerjemahkan kode lebih dahulu menjadi \textit{bytecode\index{bytecode}} sebelum menjalankannya \cite{py-glossary-interpreted}. Langkah itu terjadi otomatis, sehingga berkas sumber tetap dapat dijalankan langsung tanpa membuat berkas program terlebih dahulu.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{../shared_assets/images/compiler_vs_interpreter.png}
+	\begin{tikzpicture}[
+    font=\footnotesize,
+    kotak/.style={draw, rounded corners, minimum height=1cm, minimum width=2cm, align=center},
+    panah/.style={-{Stealth[length=2mm]}, thick}
+  ]
+    \node[anchor=west, font=\footnotesize\bfseries] at (-1,1.0) {Dengan \textit{compiler}};
+    \node[kotak, fill=blue!8] (k1) at (0,0) {Kode\\sumber};
+    \node[kotak, fill=orange!12] (k2) at (3.4,0) {\textit{Compiler}};
+    \node[kotak, fill=blue!8] (k3) at (6.8,0) {Berkas\\biner};
+    \node[kotak, fill=green!10] (k4) at (10.2,0) {Hasil\\program};
+    \draw[panah] (k1) -- (k2);
+    \draw[panah] (k2) -- node[above, font=\scriptsize] {sekali} (k3);
+    \draw[panah] (k3) -- node[above, font=\scriptsize] {berulang} (k4);
+    \node[anchor=west, font=\footnotesize\bfseries] at (-1,-1.3) {Dengan \textit{interpreter}};
+    \node[kotak, fill=blue!8] (i1) at (0,-2.3) {Kode\\sumber};
+    \node[kotak, fill=orange!12, minimum width=5.6cm] (i2) at (5.1,-2.3) {\textit{Interpreter}\\{\scriptsize menjalankan baris demi baris}};
+    \node[kotak, fill=green!10] (i3) at (10.2,-2.3) {Hasil\\program};
+    \draw[panah] (i1) -- (i2);
+    \draw[panah] (i2) -- (i3);
+  \end{tikzpicture}
 	\caption{Perbedaan antara Compiler dan Interpreter}
 	\label{fig:compiler-vs-interpreter}
 \end{figure}
@@ -44,7 +69,7 @@ Pada Gambar \ref{fig:compiler-vs-interpreter} dapat dilihat perbedaan
 utama antara \textit{compiler} dan \textit{interpreter}.  
 \begin{itemize}
 	\item \textbf{Compiler}: Menerjemahkan seluruh kode sumber menjadi file biner terlebih dahulu, kemudian hasilnya dapat dijalankan berulang kali tanpa perlu proses kompilasi ulang.
-	\item \textbf{Interpreter}: Menjalankan kode baris demi baris secara langsung, sehingga lebih mudah untuk debugging dan eksplorasi.
+	\item \textbf{Interpreter}: Menjalankan kode baris demi baris secara langsung, sehingga lebih mudah untuk debugging\index{debugging} dan eksplorasi.
 \end{itemize}
 
 \noindent
@@ -61,9 +86,6 @@ utama antara \textit{compiler} dan \textit{interpreter}.
 	\item Lebih lambat dibandingkan bahasa yang dikompilasi murni (seperti C, C++, atau Java).
 	\item Program Python membutuhkan interpreter terpasang di sistem agar bisa dijalankan.
 \end{enumerate}
-
-\noindent
-Sumber gambar: \url{https://www.ankitweblogic.com/c/compiler-and-interpreter.php}
 
 \section{Instalasi di Windows}
 Untuk menginstal Python di Windows, ikuti langkah-langkah berikut:
@@ -82,7 +104,7 @@ pip --version
 
 PATH adalah daftar folder yang diperiksa sistem operasi saat sebuah perintah diketik. Bila folder Python tidak ada dalam daftar itu, Command Prompt menjawab bahwa perintah \texttt{python} tidak dikenali, walaupun Python sudah terpasang. Bila hal ini terjadi, jalankan ulang installer dan centang opsi tersebut.
 
-Perintah verifikasi menampilkan nomor versi, misalnya \texttt{Python 3.12.3}. Program \texttt{pip} adalah pengelola paket, yaitu alat untuk memasang pustaka tambahan yang dibuat orang lain.
+Perintah verifikasi menampilkan nomor versi, misalnya \texttt{Python 3.12.3}. Program \texttt{pip} adalah pengelola paket\index{paket}, yaitu alat untuk memasang pustaka tambahan yang dibuat orang lain.
 
 \section{Instalasi di macOS}
 
@@ -102,7 +124,7 @@ pip3 --version
 \end{lstlisting}
 \end{enumerate}
 
-Homebrew adalah pengelola paket untuk macOS, sehingga perintah \texttt{brew} hanya berjalan bila Homebrew sudah terpasang. Pada macOS dan Linux, perintahnya biasanya \texttt{python3} dan \texttt{pip3}, agar tidak tertukar dengan versi lama Python.
+Homebrew adalah pengelola paket\index{paket} untuk macOS, sehingga perintah \texttt{brew} hanya berjalan bila Homebrew sudah terpasang. Pada macOS dan Linux, perintahnya biasanya \texttt{python3} dan \texttt{pip3}, agar tidak tertukar dengan versi lama Python.
 
 \section{Instalasi di Linux}
 
@@ -121,15 +143,15 @@ pip3 --version
 \end{lstlisting}
 \end{enumerate}
 
-Perintah \texttt{sudo} menjalankan perintah sebagai administrator, sehingga sistem akan meminta kata sandi. Perintah \texttt{apt update} memperbarui daftar paket, dan \texttt{apt install} memasang paket yang disebutkan. Perintah \texttt{apt} berlaku untuk Debian, Ubuntu, dan turunannya, sedangkan distribusi lain memakai pengelola paket yang berbeda.
+Perintah \texttt{sudo} menjalankan perintah sebagai administrator, sehingga sistem akan meminta kata sandi. Perintah \texttt{apt update} memperbarui daftar paket\index{paket}, dan \texttt{apt install} memasang paket yang disebutkan. Perintah \texttt{apt} berlaku untuk Debian, Ubuntu, dan turunannya, sedangkan distribusi lain memakai pengelola paket yang berbeda.
 
 \section{IDE dan Editor untuk Python}
 
 \subsection{Apa Itu IDE?}
 
-Integrated Development Environment (IDE) adalah perangkat lunak yang menyediakan fasilitas lengkap untuk pengembangan perangkat lunak. IDE umumnya mencakup editor kode, kompiler atau interpreter, debugger, dan alat manajemen proyek. IDE dirancang untuk mempermudah proses pengembangan perangkat lunak dengan menyediakan antarmuka pengguna yang terintegrasi dan alat-alat yang mendukung pengkodean, pengujian, dan debugging.
+Integrated Development Environment (IDE\index{IDE}) adalah perangkat lunak yang menyediakan fasilitas lengkap untuk pengembangan perangkat lunak. IDE umumnya mencakup editor kode, kompiler atau interpreter\index{interpreter}, debugger, dan alat manajemen proyek. IDE dirancang untuk mempermudah proses pengembangan perangkat lunak dengan menyediakan antarmuka pengguna yang terintegrasi dan alat-alat yang mendukung pengkodean, pengujian, dan debugging\index{debugging}.
 
-Dalam praktikum Python, terdapat beberapa pilihan IDE atau editor yang bisa digunakan, antara lain Visual Studio Code, IDLE (editor bawaan Python), dan PyCharm. Namun, Anda dapat menggunakan IDE atau editor lain yang Anda sukai. Modul praktikum ini menggunakan Visual Studio Code sebagai contoh.
+Untuk menulis program Python, terdapat beberapa pilihan IDE atau editor yang bisa digunakan, antara lain Visual Studio Code, IDLE (editor bawaan Python), dan PyCharm. Namun, Anda dapat menggunakan IDE atau editor lain yang Anda sukai. Buku ini menggunakan Visual Studio Code sebagai contoh.
 
 \subsection{Cara Menginstal Visual Studio Code}
 
@@ -155,8 +177,8 @@ print("Hello World!")
 Kode pada Listing~\ref{lst:b1-hello-world} merupakan program Python sederhana yang mencetak "Hello World!" ke konsol. Berikut penjelasan dari setiap bagian kode tersebut:
 
 \begin{itemize}
-\item \texttt{print(...)} – \texttt{print} adalah fungsi bawaan (\textit{built-in function}) di Python yang digunakan untuk menampilkan output ke layar atau konsol.
-\item \texttt{"Hello World!"} – Merupakan sebuah string (teks) yang ditulis di dalam tanda kutip ganda. Nilai string ini akan menjadi argumen yang dikirim ke fungsi \texttt{print}.
+\item \texttt{print(...)} – \texttt{print} adalah fungsi\index{fungsi} bawaan (\textit{built-in function}) di Python yang digunakan untuk menampilkan output ke layar atau konsol.
+\item \texttt{"Hello World!"} – Merupakan sebuah string\index{string} (teks) yang ditulis di dalam tanda kutip ganda. Nilai string ini akan menjadi argumen\index{argumen} yang dikirim ke fungsi \texttt{print}.
 \end{itemize}
 
 
@@ -168,7 +190,7 @@ Untuk menjalankan program Python di atas, ikuti langkah-langkah berikut:
 
 \begin{enumerate}
 	\item Buka terminal atau command prompt.
-	\item Navigasikan ke direktori tempat file `hello_world.py` disimpan (Listing~\ref{lst:b1-pindah-ke-folder-program}).
+	\item Navigasikan ke direktori tempat file \texttt{hello\_world.py} disimpan (Listing~\ref{lst:b1-pindah-ke-folder-program}).
 \begin{lstlisting}[language=bash, caption={Pindah ke folder program}, label={lst:b1-pindah-ke-folder-program}]
 cd /path/ke/direktori
 \end{lstlisting}
@@ -195,8 +217,8 @@ print("Hello " + nama + "!") # Menampilkan output dengan input pengguna
 Berikut penjelasan dari setiap bagian kode tersebut:
 
 \begin{itemize}
-\item \texttt{nama = input("Masukkan nama Anda: ")} - Fungsi input merupakan \textit{built-in function} yang digunakan untuk menerima input pengguna dari konsol. Fungsi ini menunda eksekusi program sampai pengguna memasukkan input dan menampilkan opsional pesan untuk meminta input yang kemudian disimpan dalam variabel \texttt{nama}.
-\item \texttt{print("Hello " + nama + " !")} - Seperti yang dijelaskan pada Section~\ref{sec:hello-world-code}, fungsi print digunakan untuk mencetak output ke layar atau konsol. Di sini, pesan "Hello [Nama]!" diisi dengan input pengguna.
+\item \texttt{nama = input("Masukkan nama Anda: ")} - Fungsi\index{fungsi} input merupakan \textit{built-in function} yang digunakan untuk menerima input pengguna dari konsol. Fungsi ini menunda eksekusi program sampai pengguna memasukkan input dan menampilkan opsional pesan untuk meminta input yang kemudian disimpan dalam variabel\index{variabel} \texttt{nama}.
+\item \texttt{print("Hello " + nama + " !")} - Seperti yang dijelaskan pada Subbab~\ref{sec:hello-world-code}, fungsi print digunakan untuk mencetak output ke layar atau konsol. Di sini, pesan "Hello [Nama]!" diisi dengan input pengguna.
 \end{itemize}
 
 
@@ -208,13 +230,15 @@ Hello Rani!
 \end{lstlisting}
 
 \section{Ringkasan}
-Python adalah bahasa tingkat tinggi yang dijalankan oleh \textit{interpreter}, sehingga kode dapat langsung dicoba tanpa tahap kompilasi tersendiri. Menyiapkan lingkungan kerja berarti memasang Python, memastikan perintahnya dikenali terminal, dan memasang editor seperti Visual Studio Code.
+Python adalah bahasa tingkat tinggi yang dijalankan oleh \textit{interpreter\index{interpreter}}, sehingga kode dapat langsung dicoba tanpa tahap kompilasi tersendiri. Menyiapkan lingkungan kerja berarti memasang Python, memastikan perintahnya dikenali terminal, dan memasang editor seperti Visual Studio Code.
 
-Program pertama memakai dua fungsi bawaan: \texttt{print()} untuk menampilkan keluaran dan \texttt{input()} untuk menerima masukan. Dua cara menjalankannya adalah lewat terminal dan lewat tombol di editor.
+Program pertama memakai dua fungsi\index{fungsi} bawaan: \texttt{print()} untuk menampilkan keluaran dan \texttt{input()} untuk menerima masukan. Dua cara menjalankannya adalah lewat terminal dan lewat tombol di editor.
 
 \section{Latihan}
 
 Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman tentang program Python yang telah dibahas:
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
 
 \begin{enumerate}
 \item \label{sec:first-exercise} \textbf{Latihan 1:} Buat file baru dengan nama \textbf{introduction.py} yang dimana program harus menerima input nama, program studi, dan tahun angkatan dari pengguna kemudian mencetak pesan dengan format yang ditentukan (Listing~\ref{lst:b1-latihan-1})
@@ -238,7 +262,10 @@ Output:
 Halo! Nama saya Bob Smith. Saya mahasiswa program studi Informatika tahun angkatan 2025.
 \end{lstlisting}
 
-\item \textbf{Latihan 2:} Latihan ini bertujuan untuk belajar memformat teks (\textit{string}) menggunakan \textbf{f-string}, membuat output lebih rapi tanpa perlu menggunakan operator \texttt{+} sebagai penghubung antara teks. Buat file baru dengan nama \textbf{introduction_with_fstring.py} dan isinya mirip dengan \hyperref[sec:first-exercise]{Latihan 1}, namun format outputnya menggunakan \textbf{f-string} (Listing~\ref{lst:b1-latihan-2})
+  \begin{promptterarah}
+  Saya sedang membuat program introduction.py yang meminta nama, program studi, dan tahun angkatan, lalu mencetak pesan perkenalan. Jangan tuliskan kodenya. Tanyakan dulu fungsi apa yang akan saya pakai untuk meminta masukan, lalu beri satu petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
+\item \textbf{Latihan 2:} Latihan ini bertujuan untuk belajar memformat teks (\textit{string\index{string}}) menggunakan \textbf{f-string\index{f-string}}, membuat output lebih rapi tanpa perlu menggunakan operator\index{operator} \texttt{+} sebagai penghubung antara teks. Buat file baru dengan nama \textbf{introduction_with_fstring.py} dan isinya mirip dengan \hyperref[sec:first-exercise]{Latihan 1}, namun format outputnya menggunakan \textbf{f-string} (Listing~\ref{lst:b1-latihan-2})
 
 \begin{lstlisting}[style=PythonStyle, caption={Latihan 2}, label={lst:b1-latihan-2}]
 nama = input("Masukkan nama Anda: ")
@@ -261,6 +288,9 @@ Halo! Nama saya Bob Smith. Saya mahasiswa program studi Informatika tahun angkat
 Output dihasilkan menggunakan f-string
 \end{lstlisting}
 
+  \begin{promptterarah}
+  Saya sedang belajar memformat teks dengan f-string tanpa operator +. Jangan tuliskan kodenya. Minta saya menulis satu baris f-string untuk mencetak nama saya, lalu jelaskan kesalahannya bila ada. Setelah itu beri satu kalimat lain untuk saya format sendiri.
+  \end{promptterarah}
 \item \textbf{Latihan 3:} \textit{Escape Character} merupakan karakter khusus yang digunakan (biasanya diawali dengan \texttt{\textbackslash}) yang digunakan di dalam string untuk mengatur penataan teks atau menampilkan karakter spesial. Dengan escape character, kita bisa:
 
 \begin{itemize}
@@ -288,11 +318,14 @@ Hello   World
 Hello "World
 Hello \ World
 \end{lstlisting}
+  \begin{promptterarah}
+  Saya sedang belajar escape character seperti \textbackslash n dan \textbackslash t. Jangan tuliskan kode jawabannya. Beri saya tiga pertanyaan singkat tentang kapan setiap escape character dipakai, lalu periksa jawaban saya. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \section{Soal Latihan}
 
-Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep yang telah dipelajari:
+Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep yang telah dipelajari. Seperti pada bagian Latihan, setiap soal disertai \textit{prompt} terarah.
 
 \begin{enumerate}
 \item \textbf{Soal 1:} Buat program bernama \texttt{biodata.py} yang meminta input berupa:
@@ -301,7 +334,7 @@ Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda menge
 	\item Umur
 	\item Hobi
 \end{itemize}
-	Cetak output dengan format berikut menggunakan \textbf{f-string}. Berikut merupakan contoh input dan output yang diharapkan (Listing~\ref{lst:b1-masukan-keluaran-soal-1}):
+	Cetak output dengan format berikut menggunakan \textbf{f-string\index{f-string}\index{string}}. Berikut merupakan contoh input dan output yang diharapkan (Listing~\ref{lst:b1-masukan-keluaran-soal-1}):
 \begin{lstlisting}[language=bash, caption={Contoh masukan dan keluaran Soal 1}, label={lst:b1-masukan-keluaran-soal-1}]
 Input:
 Masukkan Nama Lengkap: Jane Hopkins
@@ -311,6 +344,9 @@ Masukkan Hobi Anda: Ngoding
 Output:
 Halo, nama saya Jane Hopkins. Saya berusia 20 tahun dan hobi saya adalah Ngoding.
 \end{lstlisting}
+  \begin{promptterarah}
+  Saya sedang membuat program biodata.py yang meminta nama lengkap, umur, dan hobi, lalu mencetaknya dalam satu kalimat dengan f-string. Jangan tuliskan kodenya. Tanyakan cara saya menyisipkan ketiga variabel itu ke dalam f-string, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 
 \item \textbf{Soal 2:}  
 Buat program bernama \texttt{quote.py} yang menampilkan kutipan favoritmu. Gunakan \textbf{escape character} untuk menampilkan tanda kutip di dalam string. Contoh output (Listing~\ref{lst:b1-masukan-keluaran-soal-2}):
@@ -323,6 +359,9 @@ than knowledge."
 Output:
 Kata Albert Einstein: "Imagination is more important than knowledge."
 \end{lstlisting}
+  \begin{promptterarah}
+  Saya sedang membuat program quote.py yang menampilkan kutipan bertanda kutip di dalam string. Jangan tuliskan kodenya. Tanyakan dua cara menampilkan tanda kutip di dalam string, termasuk dengan escape character, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 
 \item \textbf{Soal 3:} Buat program bernama \texttt{schedule.py} yang menampilkan jadwal kuliah. Gunakan \textbf{tabulasi} (\texttt{\textbackslash t}) untuk merapikan kolom. Contoh output ada pada Tabel~\ref{tab:b1-jadwal}:
 
@@ -342,6 +381,9 @@ Kata Albert Einstein: "Imagination is more important than knowledge."
     \hline
   \end{tabularx}
 \end{table}
+  \begin{promptterarah}
+  Saya sedang membuat program schedule.py yang menampilkan jadwal kuliah dalam kolom yang rapi dengan tabulasi. Jangan tuliskan kodenya. Tanyakan di mana \textbackslash t perlu diletakkan agar kolom hari, waktu, dan mata kuliah sejajar, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \section*{Referensi}

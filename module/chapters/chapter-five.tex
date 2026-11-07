@@ -7,16 +7,20 @@
   \item Mengendalikan alur perulangan dan menyusun perulangan bertingkat untuk mengolah data berbentuk tabel.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Perulangan lebih mudah dipahami dengan menelusuri nilai variabel pada setiap putaran. Mintalah GenAI memberi sebuah perulangan pendek beserta tabel kosong untuk nilai variabel di tiap putaran. Isi tabel itu sendiri, lalu minta GenAI memeriksanya. Bila sebuah \texttt{while} tidak pernah berhenti, tempelkan kodenya dan minta GenAI menunjukkan kondisi yang tidak pernah bernilai \texttt{False} tanpa memberikan kode perbaikannya. Setelah itu, jalankan perulangan tersebut untuk memastikan penjelasan GenAI benar.
+
 \section{Perulangan di Python}
 Dalam pemrograman, seringkali kita perlu menjalankan blok kode yang sama berulang kali. 
 Misalnya, mencetak angka dari 1 sampai 100, membaca setiap baris dari sebuah file, atau 
 memproses setiap elemen dalam sebuah daftar data. 
-Proses pengulangan eksekusi blok kode ini dikenal sebagai \textbf{perulangan} atau \textit{looping} (iterasi).
+Proses pengulangan eksekusi blok kode ini dikenal sebagai \textbf{perulangan\index{perulangan}} atau \textit{looping} (iterasi\index{iterasi}).
 
 Python menyediakan dua mekanisme utama untuk melakukan perulangan:
 \begin{enumerate}
-    \item \textbf{Perulangan \texttt{for}}: Digunakan untuk melakukan iterasi pada sebuah urutan (seperti \texttt{list}, \texttt{tuple}, \texttt{string}) atau objek \textit{iterable} lainnya. Perulangan ini sering disebut sebagai \textit{definite iteration} karena jumlah pengulangannya sudah ditentukan oleh panjang urutan.
-    \item \textbf{Perulangan \texttt{while}}: Digunakan untuk mengulang blok kode selama sebuah kondisi bernilai \texttt{True}. Perulangan ini disebut \textit{indefinite iteration} karena jumlah pengulangannya tidak pasti dan bergantung pada kapan kondisi menjadi \texttt{False}.
+    \item \textbf{Perulangan \texttt{for}\index{for}}: Digunakan untuk melakukan iterasi pada sebuah urutan (seperti \texttt{list\index{list}}, \texttt{tuple\index{tuple}}, \texttt{string\index{string}}) atau objek\index{objek} \textit{iterable} lainnya. Perulangan ini sering disebut sebagai \textit{definite iteration} karena jumlah pengulangannya sudah ditentukan oleh panjang urutan.
+    \item \textbf{Perulangan \texttt{while}\index{while}}: Digunakan untuk mengulang blok kode selama sebuah kondisi bernilai \texttt{True}. Perulangan ini disebut \textit{indefinite iteration} karena jumlah pengulangannya tidak pasti dan bergantung pada kapan kondisi menjadi \texttt{False}.
 \end{enumerate}
 
 Menguasai perulangan adalah langkah fundamental untuk menulis program yang efisien dan otomatis.
@@ -27,7 +31,7 @@ Tanpa perulangan, mencetak angka 1 sampai 100 membutuhkan 100 baris \texttt{prin
 
 Perulangan \texttt{for} di Python bekerja dengan cara mengambil setiap elemen dari sebuah urutan secara bergantian.
 
-Pada tiap putaran, satu elemen disimpan ke dalam variabel perulangan, lalu blok kode di bawahnya dijalankan sekali. Setelah elemen terakhir selesai diproses, program melanjutkan ke baris sesudah blok perulangan.
+Pada tiap putaran, satu elemen disimpan ke dalam variabel\index{variabel} perulangan, lalu blok kode di bawahnya dijalankan sekali. Setelah elemen terakhir selesai diproses, program melanjutkan ke baris sesudah blok perulangan.
 
 Cara kerjanya mirip dosen yang memanggil presensi dari daftar nama. Satu nama dipanggil dan dicatat, lalu dosen pindah ke nama berikutnya sampai daftar habis. Dosen tidak perlu menghitung jumlah mahasiswa lebih dahulu, karena panjang daftar itulah yang menentukan kapan presensi selesai.
 
@@ -43,14 +47,14 @@ Ada empat bagian yang perlu diperhatikan pada Listing~\ref{lst:b5-sintaks-for}:
 \begin{itemize}
     \item \texttt{for} dan \texttt{in} adalah kata kunci yang wajib ditulis.
     \item \texttt{nama_variabel} bebas dipilih. Isinya berganti pada setiap putaran, sehingga nama yang jelas seperti \texttt{buah} lebih mudah dibaca daripada \texttt{x}.
-    \item \texttt{urutan} adalah kumpulan data yang ditelusuri, misalnya \texttt{list}, \texttt{string}, atau hasil \texttt{range()}.
-    \item Tanda titik dua dan indentasi menandai blok yang diulang. Semua baris yang menjorok ikut diulang, sedangkan baris pertama yang tidak menjorok berada di luar perulangan dan hanya berjalan sekali setelah perulangan selesai.
+    \item \texttt{urutan} adalah kumpulan data yang ditelusuri, misalnya \texttt{list}, \texttt{string}, atau hasil \texttt{range()}\index{range}.
+    \item Tanda titik dua dan indentasi\index{indentasi} menandai blok yang diulang. Semua baris yang menjorok ikut diulang, sedangkan baris pertama yang tidak menjorok berada di luar perulangan dan hanya berjalan sekali setelah perulangan selesai.
 \end{itemize}
 
 Dua kesalahan paling sering muncul di sini. Lupa menulis titik dua menghasilkan \texttt{SyntaxError: expected ':'}. Lupa menjorokkan isi blok menghasilkan \texttt{IndentationError: expected an indented block after 'for' statement on line 1}.
 
 \subsection{Iterasi Menggunakan \texttt{range()}}
-Fungsi \texttt{range()} sangat umum digunakan bersama \texttt{for} untuk menghasilkan urutan angka.
+Fungsi\index{fungsi} \texttt{range()} sangat umum digunakan bersama \texttt{for} untuk menghasilkan urutan angka.
 \begin{itemize}
     \item \texttt{range(stop)}: Membuat urutan dari 0 hingga \texttt{stop-1}.
     \item \texttt{range(start, stop)}: Membuat urutan dari \texttt{start} hingga \texttt{stop-1}.
@@ -119,7 +123,7 @@ for huruf in nama:
     print(huruf, end=' ')
 \end{lstlisting}
 
-Keluaran Listing~\ref{lst:b5-list-string} terlihat pada Listing~\ref{lst:b5-list-string-out}. Pada perulangan pertama, variabel \texttt{buah} berisi satu nama buah pada tiap putaran. Pada perulangan kedua, sebuah \texttt{string} diperlakukan sebagai urutan karakter, sehingga \texttt{huruf} berisi satu karakter pada tiap putaran. Argumen \texttt{end=' '} mengganti pindah baris bawaan \texttt{print()} dengan satu spasi, sehingga semua huruf tercetak pada satu baris.
+Keluaran Listing~\ref{lst:b5-list-string} terlihat pada Listing~\ref{lst:b5-list-string-out}. Pada perulangan pertama, variabel \texttt{buah} berisi satu nama buah pada tiap putaran. Pada perulangan kedua, sebuah \texttt{string} diperlakukan sebagai urutan karakter, sehingga \texttt{huruf} berisi satu karakter pada tiap putaran. Argumen\index{argumen} \texttt{end=' '} mengganti pindah baris bawaan \texttt{print()} dengan satu spasi, sehingga semua huruf tercetak pada satu baris.
 
 \begin{lstlisting}[language=bash, caption={Keluaran list_and_string_iteration.py}, label={lst:b5-list-string-out}]
 Saya suka apel
@@ -159,7 +163,7 @@ Rata-rata: 77.5
 Keluaran pada Listing~\ref{lst:b5-rata-rata-out} sesuai dengan hitungan manual: $80 + 65 + 90 + 75 = 310$, lalu $310 / 4 = 77.5$. Nilai awal \texttt{total = 0} harus ditulis di luar perulangan. Bila ditulis di dalam blok, \texttt{total} kembali ke nol pada setiap putaran dan hanya menyimpan nilai terakhir.
 
 \section{While Loop}
-Perulangan \texttt{while} akan terus mengeksekusi blok kode di dalamnya selama kondisi yang diberikan bernilai \texttt{True}.
+Perulangan\index{perulangan} \texttt{while}\index{while} akan terus mengeksekusi blok kode di dalamnya selama kondisi yang diberikan bernilai \texttt{True}.
 
 Kondisi diperiksa sebelum setiap putaran. Bila bernilai \texttt{True}, blok dijalankan, lalu program kembali ke baris \texttt{while} untuk memeriksa kondisi lagi. Bila bernilai \texttt{False}, program melompat ke baris sesudah blok. Gambar~\ref{fig:b5-alur-while} menggambarkan alur ini.
 
@@ -194,7 +198,7 @@ while kondisi:
     # Penting: Harus ada perubahan yang membuat kondisi akhirnya False
 \end{lstlisting}
 
-\textbf{Perhatian:} Pastikan di dalam blok \texttt{while} ada sebuah mekanisme (misalnya, inkrementasi variabel) yang pada akhirnya akan mengubah nilai kondisi menjadi \texttt{False}. Jika tidak, program akan masuk ke dalam \textit{infinite loop} atau perulangan tak terbatas.
+\textbf{Perhatian:} Pastikan di dalam blok \texttt{while} ada sebuah mekanisme (misalnya, inkrementasi variabel\index{variabel}) yang pada akhirnya akan mengubah nilai kondisi menjadi \texttt{False}. Jika tidak, program akan masuk ke dalam \textit{infinite loop} atau perulangan tak terbatas.
 
 Program yang terjebak dalam perulangan tak terbatas dapat dihentikan dengan menekan Ctrl+C di terminal.
 
@@ -282,7 +286,7 @@ def main():
 main()
 \end{lstlisting}
 
-Kondisi \texttt{while True} tidak pernah bernilai \texttt{False} dengan sendirinya, sehingga perulangan hanya berakhir lewat \texttt{break} di dalam blok. Bentuk ini cocok ketika keputusan untuk berhenti baru bisa diambil setelah ada masukan, seperti pada contoh ini. Metode \texttt{startswith('iy')} bernilai \texttt{True} untuk jawaban yang diawali \texttt{iy}, misalnya \texttt{iya} atau \texttt{iyaa}. Listing~\ref{lst:b5-cowok-out} memperlihatkan satu contoh sesi, ketika pertanyaan terus diulang sampai jawabannya cocok.
+Kondisi \texttt{while True} tidak pernah bernilai \texttt{False} dengan sendirinya, sehingga perulangan hanya berakhir lewat \texttt{break}\index{break} di dalam blok. Bentuk ini cocok ketika keputusan untuk berhenti baru bisa diambil setelah ada masukan, seperti pada contoh ini. Metode\index{metode} \texttt{startswith('iy')} bernilai \texttt{True} untuk jawaban yang diawali \texttt{iy}, misalnya \texttt{iya} atau \texttt{iyaa}. Listing~\ref{lst:b5-cowok-out} memperlihatkan satu contoh sesi, ketika pertanyaan terus diulang sampai jawabannya cocok.
 
 \begin{lstlisting}[language=bash, caption={Contoh sesi cowok_selalu_salah.py}, label={lst:b5-cowok-out}]
 Cewek: Kamu salah ga?
@@ -312,7 +316,7 @@ Keduanya dapat mengerjakan banyak tugas yang sama, tetapi masing-masing lebih mu
 \end{table}
 
 \section{Kontrol Alur Perulangan}
-Python menyediakan dua statement untuk mengontrol alur eksekusi di dalam perulangan: \texttt{break} dan \texttt{continue}.
+Python menyediakan dua statement untuk mengontrol alur eksekusi di dalam perulangan\index{perulangan}: \texttt{break}\index{break} dan \texttt{continue}\index{continue}.
 
 \subsection{\texttt{break} Statement}
 Statement \texttt{break} digunakan untuk menghentikan paksa (keluar dari) perulangan saat itu juga, bahkan jika kondisi perulangan masih terpenuhi.
@@ -334,7 +338,7 @@ Angka 5 ditemukan, perulangan dihentikan!
 Perulangan pada Listing~\ref{lst:b5-break} seharusnya berjalan sampai angka 10, tetapi Listing~\ref{lst:b5-break-out} menunjukkan bahwa perulangan berhenti di angka 5. Angka 6 sampai 10 tidak pernah diproses. Kegunaannya mirip mencari buku di rak: pencarian berhenti begitu buku ditemukan, tanpa memeriksa sisa rak.
 
 \subsection{\texttt{continue} Statement}
-Statement \texttt{continue} digunakan untuk melewati sisa blok kode pada iterasi saat ini dan langsung melanjutkan ke iterasi berikutnya.
+Statement \texttt{continue} digunakan untuk melewati sisa blok kode pada iterasi\index{iterasi} saat ini dan langsung melanjutkan ke iterasi berikutnya.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: continue_keyword.py}, label={lst:b5-continue}]
 # Mencetak angka ganjil dari 1 sampai 10
@@ -354,10 +358,10 @@ Angka ganjil: 9
 
 Pada Listing~\ref{lst:b5-continue}, \texttt{continue} melompat kembali ke awal perulangan, sehingga \texttt{print} di bawahnya tidak dijalankan untuk angka genap. Hasilnya terlihat pada Listing~\ref{lst:b5-continue-out}. Perbedaan keduanya begini: \texttt{break} mengakhiri seluruh perulangan, sedangkan \texttt{continue} hanya mengakhiri putaran yang sedang berjalan.
 
-Pada \texttt{while}, perubahan nilai harus terjadi sebelum \texttt{continue}. Bila tidak, nilai yang sama diperiksa terus dan program terjebak dalam perulangan tak terbatas.
+Pada \texttt{while}\index{while}, perubahan nilai harus terjadi sebelum \texttt{continue}. Bila tidak, nilai yang sama diperiksa terus dan program terjebak dalam perulangan tak terbatas.
 
 \section{Perulangan Bersarang (\textit{Nested Loops})}
-\textit{Nested loop} adalah sebuah perulangan yang berada di dalam perulangan lainnya. Perulangan di dalam (\textit{inner loop}) akan menyelesaikan seluruh iterasinya untuk setiap satu iterasi dari perulangan di luar (\textit{outer loop}).
+\textit{Nested loop} adalah sebuah perulangan\index{perulangan} yang berada di dalam perulangan lainnya. Perulangan di dalam (\textit{inner loop}) akan menyelesaikan seluruh iterasinya untuk setiap satu iterasi\index{iterasi} dari perulangan di luar (\textit{outer loop}).
 
 Konsep ini sering digunakan untuk memproses data dalam format dua dimensi, seperti matriks atau tabel.
 
@@ -378,7 +382,7 @@ for i in range(1, 4):  # Baris 1 sampai 3
 3x1 = 3 3x2 = 6 3x3 = 9
 \end{lstlisting}
 
-Listing~\ref{lst:b5-nested-loop-out} menunjukkan bahwa nilai \texttt{i} baru berubah setelah \texttt{j} menyelesaikan seluruh nilainya. Argumen \texttt{end='\textbackslash t'} memisahkan kolom dengan tab, dan \texttt{print()} tanpa argumen memindahkan keluaran ke baris baru setelah perulangan dalam selesai. Jumlah putaran isi blok terdalam dihitung dengan Persamaan~\eqref{eq:b5-putaran}, sehingga contoh ini berjalan $3 \times 3 = 9$ kali.
+Listing~\ref{lst:b5-nested-loop-out} menunjukkan bahwa nilai \texttt{i} baru berubah setelah \texttt{j} menyelesaikan seluruh nilainya. Argumen\index{argumen} \texttt{end='\textbackslash t'} memisahkan kolom dengan tab, dan \texttt{print()} tanpa argumen memindahkan keluaran ke baris baru setelah perulangan dalam selesai. Jumlah putaran isi blok terdalam dihitung dengan Persamaan~\eqref{eq:b5-putaran}, sehingga contoh ini berjalan $3 \times 3 = 9$ kali.
 
 \begin{equation}
   \text{jumlah putaran} = \text{putaran luar} \times \text{putaran dalam}
@@ -387,7 +391,7 @@ Listing~\ref{lst:b5-nested-loop-out} menunjukkan bahwa nilai \texttt{i} baru ber
 
 Perkalian ini berarti waktu jalan program bertambah cepat ketika datanya membesar, dan hal itu dibahas lagi pada bab tentang pengukuran performa.
 
-Pernyataan \texttt{break} hanya menghentikan perulangan tempat ia ditulis. Pada Listing~\ref{lst:b5-nested-break}, \texttt{break} menghentikan perulangan kolom, tetapi perulangan baris tetap berlanjut, seperti terlihat pada Listing~\ref{lst:b5-nested-break-out}.
+Pernyataan \texttt{break}\index{break} hanya menghentikan perulangan tempat ia ditulis. Pada Listing~\ref{lst:b5-nested-break}, \texttt{break} menghentikan perulangan kolom, tetapi perulangan baris tetap berlanjut, seperti terlihat pada Listing~\ref{lst:b5-nested-break-out}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: nested_break.py}, label={lst:b5-nested-break}]
 for baris in range(1, 3):
@@ -403,23 +407,31 @@ baris 2, kolom 1
 \end{lstlisting}
 
 \section{Ringkasan}
-Perulangan menjalankan blok kode yang sama berkali-kali tanpa menulis ulang kodenya. Perulangan \texttt{for} menelusuri urutan yang panjangnya sudah diketahui, sedangkan \texttt{while} berjalan selama kondisinya benar, sehingga butuh perubahan nilai di dalam blok agar dapat berhenti.
+Perulangan\index{perulangan} menjalankan blok kode yang sama berkali-kali tanpa menulis ulang kodenya. Perulangan \texttt{for}\index{for} menelusuri urutan yang panjangnya sudah diketahui, sedangkan \texttt{while}\index{while} berjalan selama kondisinya benar, sehingga butuh perubahan nilai di dalam blok agar dapat berhenti.
 
-Pernyataan \texttt{break} mengakhiri seluruh perulangan, dan \texttt{continue} hanya melewati putaran yang sedang berjalan. Perulangan bersarang menjalankan perulangan dalam sampai selesai untuk setiap putaran perulangan luar, sehingga cocok untuk data berbentuk baris dan kolom.
+Pernyataan \texttt{break}\index{break} mengakhiri seluruh perulangan, dan \texttt{continue}\index{continue} hanya melewati putaran yang sedang berjalan. Perulangan bersarang menjalankan perulangan dalam sampai selesai untuk setiap putaran perulangan luar, sehingga cocok untuk data berbentuk baris dan kolom.
 
 
 \section{Latihan Soal}
 Kerjakan soal-soal di bawah ini untuk menguji pemahaman Anda.
 
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
+
 \begin{enumerate}
-    \item \textbf{Faktorial}: Buatlah sebuah program yang meminta pengguna memasukkan sebuah bilangan bulat positif, lalu hitung dan tampilkan nilai faktorial dari bilangan tersebut menggunakan perulangan \texttt{for}. Nilai faktorial mengikuti Persamaan~\eqref{eq:b5-faktorial}.
+    \item \textbf{Faktorial}: Buatlah sebuah program yang meminta pengguna memasukkan sebuah bilangan bulat positif, lalu hitung dan tampilkan nilai faktorial dari bilangan tersebut menggunakan perulangan\index{perulangan} \texttt{for}\index{for}. Nilai faktorial mengikuti Persamaan~\eqref{eq:b5-faktorial}.
     \begin{equation}
       n! = n \times (n-1) \times \dots \times 1
       \label{eq:b5-faktorial}
     \end{equation}
     
-    \item \textbf{Tebak Angka}: Buatlah sebuah permainan tebak angka sederhana. Program akan memilih sebuah angka acak antara 1 dan 50. Pengguna diminta menebak angka tersebut. Gunakan perulangan \texttt{while} untuk terus meminta input dari pengguna hingga tebakannya benar. Berikan petunjuk "Terlalu besar" atau "Terlalu kecil" di setiap tebakan yang salah.
+      \begin{promptterarah}
+      Saya sedang membuat program faktorial dengan perulangan for. Jangan tuliskan kodenya. Tanyakan nilai awal variabel hasil dan rentang perulangan yang akan saya pakai, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, minta saya menelusuri perulangan untuk n = 4 dan periksa penelusuran saya.
+      \end{promptterarah}
+    \item \textbf{Tebak Angka}: Buatlah sebuah permainan tebak angka sederhana. Program akan memilih sebuah angka acak antara 1 dan 50. Pengguna diminta menebak angka tersebut. Gunakan perulangan \texttt{while}\index{while} untuk terus meminta input dari pengguna hingga tebakannya benar. Berikan petunjuk "Terlalu besar" atau "Terlalu kecil" di setiap tebakan yang salah.
     
+      \begin{promptterarah}
+      Saya sedang membuat permainan tebak angka dengan perulangan while. Jangan tuliskan kodenya. Tanyakan kondisi yang membuat perulangan berhenti, lalu jelaskan bila kondisi saya bisa membuat perulangan tidak pernah berhenti. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
     \item \textbf{Pola Bintang - Segitiga Siku-siku}: Gunakan \textit{nested loop} untuk menampilkan pola segitiga siku-siku seperti di bawah ini (untuk tinggi 5 baris) (Listing~\ref{lst:b5-pola-segitiga-siku-siku-setinggi-5}):
 \begin{lstlisting}[language=bash, caption={Pola segitiga siku-siku setinggi 5 baris}, label={lst:b5-pola-segitiga-siku-siku-setinggi-5}]
 *
@@ -429,6 +441,9 @@ Kerjakan soal-soal di bawah ini untuk menguji pemahaman Anda.
 *****
 \end{lstlisting}
 
+      \begin{promptterarah}
+      Saya sedang membuat pola segitiga siku-siku dengan nested loop. Jangan tuliskan kodenya. Tanyakan berapa bintang yang dicetak pada baris ke-i, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, minta saya menjelaskan peran perulangan luar dan perulangan dalam.
+      \end{promptterarah}
     \item \textbf{Pola Bintang - Segitiga Siku-siku Terbalik}: Gunakan \textit{nested loop} untuk menampilkan pola segitiga siku-siku terbalik (dengan puncak di bawah) seperti di bawah ini (untuk tinggi 5 baris) (Listing~\ref{lst:b5-pola-segitiga-siku-siku-terbalik-setinggi}):
 \begin{lstlisting}[language=bash, caption={Pola segitiga siku-siku terbalik setinggi 5 baris}, label={lst:b5-pola-segitiga-siku-siku-terbalik-setinggi}]
 *****
@@ -438,6 +453,9 @@ Kerjakan soal-soal di bawah ini untuk menguji pemahaman Anda.
 *
 \end{lstlisting}
 
+      \begin{promptterarah}
+      Saya sedang membuat pola segitiga siku-siku terbalik dengan nested loop. Jangan tuliskan kodenya. Tanyakan bagaimana jumlah bintang berubah dari baris ke baris, lalu beri petunjuk tentang rentang perulangan bila saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
     \item \textbf{Pola Bintang - Piramida}: Gunakan \textit{nested loop} untuk menampilkan pola piramida seperti di bawah ini (untuk tinggi 5 baris) (Listing~\ref{lst:b5-pola-piramida-setinggi-5-baris}):
 \begin{lstlisting}[language=bash, caption={Pola piramida setinggi 5 baris}, label={lst:b5-pola-piramida-setinggi-5-baris}]
     *
@@ -447,8 +465,14 @@ Kerjakan soal-soal di bawah ini untuk menguji pemahaman Anda.
 *********
 \end{lstlisting}
     
-    \item \textbf{Bilangan Prima}: Buatlah program untuk memeriksa apakah sebuah bilangan yang diinput oleh pengguna adalah bilangan prima atau bukan. Gunakan perulangan dan pernyataan \texttt{break} untuk efisiensi. (Bilangan prima adalah bilangan yang hanya habis dibagi 1 dan dirinya sendiri).
+      \begin{promptterarah}
+      Saya sedang membuat pola piramida dengan nested loop. Jangan tuliskan kodenya. Tanyakan berapa spasi dan berapa bintang pada baris ke-i, lalu beri petunjuk bila hitungan saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
+    \item \textbf{Bilangan Prima}: Buatlah program untuk memeriksa apakah sebuah bilangan yang diinput oleh pengguna adalah bilangan prima atau bukan. Gunakan perulangan dan pernyataan \texttt{break}\index{break} untuk efisiensi. (Bilangan prima adalah bilangan yang hanya habis dibagi 1 dan dirinya sendiri).
 
+  \begin{promptterarah}
+  Saya sedang membuat program pemeriksa bilangan prima dengan perulangan dan break. Jangan tuliskan kodenya. Tanyakan sampai angka berapa pembagi perlu diperiksa dan kapan break dipakai, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, beri beberapa angka untuk saya uji sendiri.
+  \end{promptterarah}
 \end{enumerate}
 
 \section*{Referensi}

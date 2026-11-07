@@ -11,10 +11,14 @@
   \item Memanfaatkan pengujian untuk memastikan perubahan kode tidak merusak fitur yang sudah berjalan.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+GenAI dapat membantu menemukan kasus uji yang terlewat. Tulis dulu \textit{test} Anda sendiri, lalu tempelkan fungsi dan \textit{test}-nya ke GenAI dan minta daftar kondisi yang belum diuji, misalnya nol, bilangan negatif, atau list kosong, tanpa meminta kode \textit{test}-nya. Bila memakai \textit{test} buatan GenAI, periksa nilai harapan pada setiap \textit{assertion}. Nilai harapan yang ditebak GenAI dari kode yang keliru ikut keliru, sehingga \textit{test} itu lulus dan kesalahannya tidak terdeteksi.
+
 %----------------------------------------
 \section{Pendahuluan}
 
-Unit testing atau pengujian unit merupakan salah satu tahap penting dalam proses pengembangan perangkat lunak. Pada dasarnya, unit test bertujuan untuk memastikan bahwa setiap bagian kecil dari program — biasanya berupa fungsi atau method — bekerja sesuai dengan yang diharapkan. Dengan melakukan pengujian sejak tahap paling awal, kesalahan logika dapat ditemukan lebih cepat sebelum kode bergabung dengan komponen lain yang lebih kompleks.
+Unit testing atau pengujian unit merupakan salah satu tahap penting dalam proses pengembangan perangkat lunak. Pada dasarnya, unit test\index{unit test} bertujuan untuk memastikan bahwa setiap bagian kecil dari program — biasanya berupa fungsi\index{fungsi} atau method — bekerja sesuai dengan yang diharapkan. Dengan melakukan pengujian sejak tahap paling awal, kesalahan logika dapat ditemukan lebih cepat sebelum kode bergabung dengan komponen lain yang lebih kompleks.
 
 \subsection{Mengapa Unit Test Penting}
 
@@ -22,16 +26,16 @@ Unit test penting karena beberapa alasan utama berikut:
 
 \begin{enumerate}
     \item \textbf{Deteksi dini kesalahan.}  
-    Kesalahan logika atau bug dapat ditemukan lebih awal, bahkan sebelum kode diintegrasikan dengan modul lain.
+    Kesalahan logika atau bug dapat ditemukan lebih awal, bahkan sebelum kode diintegrasikan dengan modul\index{modul} lain.
     
-    \item \textbf{Meningkatkan kepercayaan diri saat refactoring.}  
+    \item \textbf{Meningkatkan kepercayaan diri saat refactoring\index{refactoring}.}  
     Ketika kode diubah atau disempurnakan, unit test yang telah ada akan memastikan bahwa perilaku lama tetap konsisten dan tidak terjadi regresi.
     
     \item \textbf{Mendukung dokumentasi fungsional.}  
     Unit test berfungsi sebagai contoh nyata bagaimana fungsi atau method seharusnya digunakan dan apa hasil yang diharapkan.
     
     \item \textbf{Mempercepat proses pengembangan jangka panjang.}  
-    Walaupun menulis test membutuhkan waktu di awal, pengujian otomatis akan menghemat waktu debugging di masa depan.
+    Walaupun menulis test membutuhkan waktu di awal, pengujian otomatis akan menghemat waktu debugging\index{debugging} di masa depan.
     
     \item \textbf{Menjadi dasar untuk integrasi dan pengujian lanjutan.}  
     Unit test adalah pondasi untuk pengujian tingkat lebih tinggi seperti integration test dan end-to-end test.
@@ -61,26 +65,26 @@ Dalam praktiknya, pengujian unit mengikuti beberapa prinsip dasar yang membuat t
 \end{itemize}
 
 Dengan memahami prinsip-prinsip ini, pengembang dapat menulis unit test yang sederhana, efektif, dan mudah dirawat.  
-Pada bab ini, kita akan fokus pada pengujian fungsi dan method menggunakan modul bawaan Python, yaitu \texttt{unittest}.
+Pada bab ini, kita akan fokus pada pengujian fungsi dan method menggunakan modul bawaan Python, yaitu \texttt{unittest}\index{unittest}.
 
 
 %----------------------------------------
 \section{Pengenalan Modul \texttt{unittest}}
 
-Python menyediakan modul bawaan bernama \texttt{unittest} yang digunakan untuk menulis dan menjalankan pengujian unit. Modul ini sudah termasuk dalam instalasi standar Python, sehingga tidak memerlukan instalasi tambahan seperti pustaka pihak ketiga (\textit{third-party library}).  
-\texttt{unittest} terinspirasi dari kerangka kerja \textit{xUnit}, yaitu gaya pengujian berorientasi objek yang juga digunakan dalam bahasa lain seperti Java (\texttt{JUnit}) dan C\# (\texttt{NUnit}).
+Python menyediakan modul\index{modul} bawaan bernama \texttt{unittest}\index{unittest} yang digunakan untuk menulis dan menjalankan pengujian unit. Modul ini sudah termasuk dalam instalasi standar Python, sehingga tidak memerlukan instalasi tambahan seperti pustaka pihak ketiga (\textit{third-party library}).  
+\texttt{unittest} terinspirasi dari kerangka kerja \textit{xUnit}, yaitu gaya pengujian berorientasi objek\index{objek} yang juga digunakan dalam bahasa lain seperti Java (\texttt{JUnit}) dan C\# (\texttt{NUnit}).
 
-Modul ini menyediakan serangkaian kelas dan metode yang membantu pengembang:
+Modul ini menyediakan serangkaian kelas\index{kelas} dan metode\index{metode} yang membantu pengembang:
 \begin{itemize}
     \item mendefinisikan \textit{test case} (kasus uji) dalam bentuk kelas,
-    \item melakukan pengecekan hasil dengan berbagai \textit{assertion},
+    \item melakukan pengecekan hasil dengan berbagai \textit{assertion\index{assertion}},
     \item mengelompokkan beberapa test menjadi satu \textit{test suite},
     \item serta menjalankan semua test secara otomatis.
 \end{itemize}
 
 \subsection{Struktur Dasar \texttt{TestCase}}
 
-Setiap unit test pada Python biasanya ditulis sebagai sebuah kelas yang menurunkan (\texttt{inherit}) dari kelas \texttt{unittest.TestCase}.  
+Setiap unit test\index{unit test} pada Python biasanya ditulis sebagai sebuah kelas yang menurunkan (\texttt{inherit}) dari kelas \texttt{unittest.TestCase}.  
 Di dalam kelas tersebut, setiap metode yang namanya diawali dengan \texttt{test\_} akan dianggap sebagai sebuah test case oleh kerangka kerja \texttt{unittest}.
 
 Secara umum, struktur dasar test dalam \texttt{unittest} terdiri dari:
@@ -107,7 +111,7 @@ if __name__ == "__main__":
     unittest.main()
 \end{lstlisting}
 
-Contoh sederhana strukturnya dapat dijelaskan sebagai berikut (placeholder tanpa isi fungsi) (Listing~\ref{lst:unittest-structure}):
+Contoh sederhana strukturnya dapat dijelaskan sebagai berikut (kerangka tanpa isi fungsi\index{fungsi}) (Listing~\ref{lst:unittest-structure}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Struktur dasar kelas unit test di Python}, label={lst:unittest-structure}]
 import unittest
@@ -172,14 +176,16 @@ Ran 1 test in 0.001s
 OK
 \end{lstlisting}
 
+Mulai Python 3.11, nama test pada laporan ditulis lengkap dengan nama metodenya, misalnya \texttt{test\_kasus\_1 (test\_fungsi.TestNamaFungsi.test\_kasus\_1)}. Keluaran pada bab ini memakai bentuk yang lebih pendek dari Python 3.10.
+
 Dengan memahami struktur dasar dan cara menjalankan test ini, pengembang sudah dapat mulai menulis dan mengeksekusi unit test untuk fungsi dan method di proyek Python apa pun tanpa memerlukan pustaka tambahan.
 
 
 %----------------------------------------
 \section{Menulis Unit Test untuk Fungsi}
 
-Pada tahap ini, kita akan mempelajari cara menulis pengujian unit untuk sebuah fungsi Python menggunakan modul bawaan \texttt{unittest}.  
-Pengujian terhadap fungsi merupakan bentuk paling sederhana dari unit test karena fungsi biasanya menerima sejumlah argumen, melakukan perhitungan atau logika tertentu, dan mengembalikan hasil yang dapat diuji secara deterministik.
+Pada tahap ini, kita akan mempelajari cara menulis pengujian unit untuk sebuah fungsi\index{fungsi} Python menggunakan modul\index{modul} bawaan \texttt{unittest}\index{unittest}.  
+Pengujian terhadap fungsi merupakan bentuk paling sederhana dari unit test\index{unit test} karena fungsi biasanya menerima sejumlah argumen\index{argumen}, melakukan perhitungan atau logika tertentu, dan mengembalikan hasil yang dapat diuji secara deterministik.
 
 \subsection{Langkah-langkah Dasar}
 
@@ -197,8 +203,8 @@ Langkah-langkah umum untuk menulis unit test pada fungsi adalah sebagai berikut:
     \item \textbf{Import fungsi yang akan diuji.}  
     Di dalam file test, impor fungsi dari modul utama agar dapat diuji.
 
-    \item \textbf{Buat kelas turunan dari \texttt{unittest.TestCase}.}  
-    Kelas ini berisi metode yang masing-masing mewakili satu kasus uji.
+    \item \textbf{Buat kelas\index{kelas} turunan dari \texttt{unittest.TestCase}.}  
+    Kelas ini berisi metode\index{metode} yang masing-masing mewakili satu kasus uji.
 
     \item \textbf{Gunakan metode \texttt{assert*} untuk membandingkan hasil aktual dan ekspektasi.}  
     Contoh metode \texttt{assert*} yang sering digunakan:  
@@ -213,7 +219,7 @@ python -m unittest test_fungsi.py
 
 Dengan mengikuti enam langkah tersebut, Anda dapat menguji fungsi apa pun yang memiliki input dan output yang terdefinisi dengan baik.
 
-\subsection{Contoh Placeholder}
+\subsection{Contoh Sederhana}
 
 Berikut contoh sederhana fungsi dan pengujiannya.  
 Misalkan kita memiliki fungsi \texttt{add(a, b)} yang bertugas menjumlahkan dua bilangan (Listing~\ref{lst:fungsi-add}).
@@ -275,7 +281,7 @@ Intinya, setiap fungsi yang memiliki hasil pasti untuk input tertentu dapat dan 
 %----------------------------------------
 \section{Menulis Unit Test untuk Method di Kelas}
 
-Pengujian method pada kelas serupa dengan pengujian fungsi, namun sering kali melibatkan \emph{state} objek (atribut instance) dan berbagai jenis method (instance, \texttt{@staticmethod}, \texttt{@classmethod}).  
+Pengujian method pada kelas\index{kelas} serupa dengan pengujian fungsi\index{fungsi}, namun sering kali melibatkan \emph{state} objek\index{objek} (atribut\index{atribut} instance) dan berbagai jenis method (instance, \texttt{@staticmethod}, \texttt{@classmethod}).  
 Bagian ini menunjukkan pola umum untuk masing-masing jenis method serta cara menggunakan \texttt{setUp}/\texttt{tearDown} untuk menyiapkan dan membersihkan objek uji.
 
 \subsection{Menguji Method Biasa (Instance Method)}
@@ -283,8 +289,8 @@ Bagian ini menunjukkan pola umum untuk masing-masing jenis method serta cara men
 \textbf{Instance method} bergantung pada state objek (\texttt{self}).  
 Pola umum pengujiannya:
 \begin{enumerate}
-    \item Buat instance objek pada awal test (dengan \texttt{setUp} atau langsung di metode test).
-    \item Panggil method yang diuji dengan argumen yang relevan.
+    \item Buat instance objek pada awal test (dengan \texttt{setUp} atau langsung di metode\index{metode} test).
+    \item Panggil method yang diuji dengan argumen\index{argumen} yang relevan.
     \item Gunakan \texttt{assert*} untuk memeriksa hasil.
     \item Jika method dapat memunculkan error pada kondisi tertentu, gunakan \texttt{assertRaises}.
 \end{enumerate}
@@ -444,15 +450,15 @@ Penekanan utama dari contoh di atas:
 %----------------------------------------
 \section{Assertion Dasar dalam \texttt{unittest}}
 
-Dalam modul \texttt{unittest}, pengujian dilakukan dengan memeriksa apakah hasil aktual dari suatu fungsi atau method sesuai dengan nilai yang diharapkan.  
-Pemeriksaan ini dilakukan menggunakan berbagai metode \textit{assertion} yang disediakan oleh kelas \texttt{unittest.TestCase}.  
+Dalam modul\index{modul} \texttt{unittest}\index{unittest}, pengujian dilakukan dengan memeriksa apakah hasil aktual dari suatu fungsi\index{fungsi} atau method sesuai dengan nilai yang diharapkan.  
+Pemeriksaan ini dilakukan menggunakan berbagai metode\index{metode} \textit{assertion\index{assertion}} yang disediakan oleh kelas\index{kelas} \texttt{unittest.TestCase}.  
 Setiap metode assertion akan menandai test sebagai \textit{failed} apabila kondisi yang diuji tidak terpenuhi, dan menampilkan pesan perbandingan antara hasil aktual dan ekspektasi.
 
 Secara umum, assertion berperan sebagai “kontrak” atau “pernyataan kebenaran” yang harus selalu valid bagi fungsi yang diuji.
 
 \subsection{\texttt{assertEqual}, \texttt{assertTrue}, \texttt{assertFalse}}
 
-Tiga metode ini adalah yang paling sering digunakan dalam unit test sederhana.
+Tiga metode ini adalah yang paling sering digunakan dalam unit test\index{unit test} sederhana.
 
 \begin{itemize}
     \item \texttt{assertEqual(a, b)} — memastikan bahwa dua nilai sama persis.
@@ -487,7 +493,7 @@ if __name__ == "__main__":
 Ketika test dijalankan, hasil yang diharapkan (Listing~\ref{lst:b10-keluaran-test-assertion-dasar}):
 
 \begin{lstlisting}[language=bash, caption={Keluaran test assertion dasar}, label={lst:b10-keluaran-test-assertion-dasar}]
-...
+..
 ----------------------------------------------------------------------
 Ran 2 tests in 0.000s
 
@@ -506,7 +512,7 @@ Beberapa metode assertion lain yang tersedia antara lain:
 
 Terkadang fungsi atau method diharapkan memunculkan error dalam kondisi tertentu.  
 Untuk menguji perilaku tersebut, kita dapat menggunakan \texttt{assertRaises}.  
-Assertion ini memastikan bahwa exception benar-benar dilempar (raised) saat kode dijalankan.
+Assertion ini memastikan bahwa exception\index{exception} benar-benar dilempar (raised) saat kode dijalankan.
 
 Ada dua bentuk umum penggunaan:
 \begin{enumerate}
@@ -584,23 +590,31 @@ if __name__ == "__main__":
 Hasil eksekusi (Listing~\ref{lst:b10-keluaran-test-subtest-lolos}):
 
 \begin{lstlisting}[language=bash, caption={Keluaran test subTest yang lolos}, label={lst:b10-keluaran-test-subtest-lolos}]
-...
+.
 ----------------------------------------------------------------------
 Ran 1 test in 0.000s
 
 OK
 \end{lstlisting}
 
-Jika salah satu subTest gagal, laporan akan tetap menampilkan semua kasus dan menunjukkan kombinasi input mana yang menyebabkan kegagalan, contohnya (Listing~\ref{lst:b10-keluaran-saat-salah-satu-subtest-gagal}):
+Jika salah satu subTest gagal, kasus lainnya tetap dijalankan dan laporan menunjukkan kombinasi input mana yang menyebabkan kegagalan. Contohnya, jika kasus pertama salah ditulis menjadi \texttt{(2, 3, 5)} (Listing~\ref{lst:b10-keluaran-saat-salah-satu-subtest-gagal}):
 
 \begin{lstlisting}[language=bash, caption={Keluaran saat salah satu subTest gagal}, label={lst:b10-keluaran-saat-salah-satu-subtest-gagal}]
+======================================================================
 FAIL: test_multiply_variatif (__main__.TestSubTest) (a=2, b=3)
-AssertionError: 5 != 6
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "contoh_subtest.py", line 17, in test_multiply_variatif
+    self.assertEqual(multiply(a, b), expected)
+AssertionError: 6 != 5
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
 \end{lstlisting}
 
 \texttt{subTest} sangat berguna untuk menghemat waktu, meningkatkan keterbacaan test, dan menghindari duplikasi kode pada kasus pengujian yang hanya berbeda data inputnya.
-
----
 
 Dengan memahami dan mempraktikkan tiga jenis assertion ini — \texttt{assertEqual}/\texttt{assertTrue}/\texttt{assertFalse}, \texttt{assertRaises}, dan \texttt{subTest} — pengembang dapat menulis pengujian yang komprehensif dan mudah dipelihara untuk hampir semua fungsi dan method dalam proyek Python.
 
@@ -608,19 +622,19 @@ Dengan memahami dan mempraktikkan tiga jenis assertion ini — \texttt{assertEqu
 %----------------------------------------
 \section{Menjalankan dan Membaca Hasil}
 
-Setelah kita menulis berbagai test menggunakan modul \texttt{unittest}, langkah berikutnya adalah menjalankannya dan membaca hasilnya.  
-Python menyediakan cara bawaan untuk mengeksekusi test baik secara individual maupun otomatis (melalui *test discovery*).  
+Setelah kita menulis berbagai test menggunakan modul\index{modul} \texttt{unittest}\index{unittest}, langkah berikutnya adalah menjalankannya dan membaca hasilnya.  
+Python menyediakan cara bawaan untuk mengeksekusi test baik secara individual maupun otomatis (melalui \textit{test discovery}).  
 Pemahaman terhadap format hasil dan pesan error akan membantu kita mendiagnosis sumber kesalahan dengan cepat.
 
 \subsection{Menjalankan via CLI: \texttt{python -m unittest}}
 
-Cara paling umum untuk menjalankan unit test adalah menggunakan modul \texttt{unittest} melalui perintah baris (Command Line Interface / CLI) (Listing~\ref{lst:b10-menjalankan-file-test-tertentu}).
+Cara paling umum untuk menjalankan unit test\index{unit test} adalah menggunakan modul \texttt{unittest} melalui perintah baris (Command Line Interface / CLI) (Listing~\ref{lst:b10-menjalankan-file-test-tertentu}).
 
 \begin{lstlisting}[language=bash, caption={Menjalankan file test tertentu}, label={lst:b10-menjalankan-file-test-tertentu}]
 python -m unittest test_fungsi.py
 \end{lstlisting}
 
-Perintah di atas akan menjalankan semua kelas dan metode test yang terdapat di dalam berkas \texttt{test\_fungsi.py}.  
+Perintah di atas akan menjalankan semua kelas\index{kelas} dan metode\index{metode} test yang terdapat di dalam berkas \texttt{test\_fungsi.py}.  
 Secara default, hanya test yang namanya diawali dengan \texttt{test\_} yang akan dijalankan.
 
 Selain menjalankan satu file, kita juga dapat:
@@ -654,9 +668,9 @@ python -m unittest test_fungsi test_calculator
 Contoh hasil eksekusi dengan opsi verbose (Listing~\ref{lst:b10-keluaran-dengan-opsi-verbose}):
 
 \begin{lstlisting}[language=bash, caption={Keluaran dengan opsi verbose}, label={lst:b10-keluaran-dengan-opsi-verbose}]
-test_penjumlahan_positif (test_fungsi.TestAddFunction) ... ok
 test_penjumlahan_negatif (test_fungsi.TestAddFunction) ... ok
 test_penjumlahan_nol (test_fungsi.TestAddFunction) ... ok
+test_penjumlahan_positif (test_fungsi.TestAddFunction) ... ok
 
 ----------------------------------------------------------------------
 Ran 3 tests in 0.001s
@@ -668,7 +682,7 @@ Penjelasan hasil:
 \begin{itemize}
     \item \texttt{ok} $\rightarrow$ Test berhasil.
     \item \texttt{FAIL} $\rightarrow$ Hasil tidak sesuai ekspektasi.
-    \item \texttt{ERROR} $\rightarrow$ Terjadi error yang tidak ditangani (exception) di luar mekanisme assertion.
+    \item \texttt{ERROR} $\rightarrow$ Terjadi error yang tidak ditangani (exception\index{exception}) di luar mekanisme assertion\index{assertion}.
 \end{itemize}
 
 Dalam mode non-verbose (tanpa \texttt{-v}), simbol yang digunakan lebih ringkas, seperti pada Tabel~\ref{tab:b10-simbol}.
@@ -691,14 +705,14 @@ Dalam mode non-verbose (tanpa \texttt{-v}), simbol yang digunakan lebih ringkas,
 \end{table}
 
 \noindent
-Contoh output minimal (Listing~\ref{lst:b10-keluaran-ringkas-saat-satu-test-gagal}):
+Contoh output minimal, jika harapan pada \texttt{test\_penjumlahan\_nol} salah ditulis menjadi \texttt{1} (Listing~\ref{lst:b10-keluaran-ringkas-saat-satu-test-gagal}):
 \begin{lstlisting}[language=bash, caption={Keluaran ringkas saat satu test gagal}, label={lst:b10-keluaran-ringkas-saat-satu-test-gagal}]
-..F
+.F.
 ======================================================================
 FAIL: test_penjumlahan_nol (test_fungsi.TestAddFunction)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "test_fungsi.py", line 9, in test_penjumlahan_nol
+  File "test_fungsi.py", line 13, in test_penjumlahan_nol
     self.assertEqual(add(0, 0), 1)
 AssertionError: 0 != 1
 
@@ -710,7 +724,7 @@ FAILED (failures=1)
 
 \subsection{Menafsirkan Output dan Traceback}
 
-Jika terdapat test yang gagal, \texttt{unittest} akan menampilkan laporan detail berupa *traceback* untuk membantu menemukan penyebab kesalahan.  
+Jika terdapat test yang gagal, \texttt{unittest} akan menampilkan laporan detail berupa \textit{traceback\index{traceback}} untuk membantu menemukan penyebab kesalahan.  
 Berikut penjelasan struktur laporan tersebut:
 
 \begin{itemize}
@@ -721,7 +735,7 @@ Berikut penjelasan struktur laporan tersebut:
 
     \item \textbf{Lokasi kesalahan:}  
     Baris berikutnya menunjukkan nama file dan nomor baris, misalnya:  
-    \texttt{File "test\_fungsi.py", line 9, in test\_penjumlahan\_nol}
+    \texttt{File "test\_fungsi.py", line 13, in test\_penjumlahan\_nol}
 
     \item \textbf{Pernyataan assertion yang gagal:}  
     Baris seperti  
@@ -738,7 +752,7 @@ Listing~\ref{lst:b10-baris-ringkasan-saat-ada-test-gagal} menampilkan contoh kel
 FAILED (failures=1)
 \end{lstlisting}
 
-Selain \texttt{FAIL}, mungkin juga muncul status \texttt{ERROR} jika test menghasilkan exception yang tidak ditangani, misalnya (Listing~\ref{lst:b10-keluaran-saat-test-berstatus-error}):
+Selain \texttt{FAIL}, mungkin juga muncul status \texttt{ERROR} jika test menghasilkan exception yang tidak ditangani, misalnya jika \texttt{test\_divide\_zero\_raises} ditulis ulang menjadi \texttt{test\_divide\_zero} tanpa \texttt{assertRaises} (Listing~\ref{lst:b10-keluaran-saat-test-berstatus-error}):
 
 \begin{lstlisting}[language=bash, caption={Keluaran saat test berstatus ERROR}, label={lst:b10-keluaran-saat-test-berstatus-error}]
 E
@@ -746,9 +760,9 @@ E
 ERROR: test_divide_zero (test_calculator.TestCalculatorMethods)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "test_calculator.py", line 17, in test_divide_zero
+  File "test_calculator.py", line 28, in test_divide_zero
     self.calc.divide(1, 0)
-  File "calculator.py", line 12, in divide
+  File "calculator.py", line 18, in divide
     raise ZeroDivisionError("pembagian dengan nol")
 ZeroDivisionError: pembagian dengan nol
 
@@ -775,14 +789,14 @@ self.assertEqual(add(2, 3), 5, "Fungsi add tidak menjumlahkan dengan benar")
 \end{enumerate}
 
 Dengan memahami format laporan ini, Anda akan lebih cepat menelusuri bug dan memperbaiki kode yang diuji.  
-Tahap berikutnya biasanya adalah melakukan \textbf{refactoring} kode sambil memastikan semua unit test tetap lulus (semua berstatus “OK”).
+Tahap berikutnya biasanya adalah melakukan \textbf{refactoring\index{refactoring}} kode sambil memastikan semua unit test tetap lulus (semua berstatus “OK”).
 
 
 %----------------------------------------
 \section{Refactoring dan Pemeliharaan Test}
 
-Setelah berbagai unit test dibuat dan berjalan dengan baik, tahap berikutnya adalah menjaga agar kode dan test tetap mudah dibaca, diperluas, dan dipelihara.  
-Unit test bukan hanya alat untuk mendeteksi bug, tetapi juga “jaring pengaman” yang memastikan perubahan pada kode (refactoring) tidak merusak perilaku yang sudah benar.
+Setelah berbagai unit test\index{unit test} dibuat dan berjalan dengan baik, tahap berikutnya adalah menjaga agar kode dan test tetap mudah dibaca, diperluas, dan dipelihara.  
+Unit test bukan hanya alat untuk mendeteksi bug, tetapi juga “jaring pengaman” yang memastikan perubahan pada kode (refactoring\index{refactoring}) tidak merusak perilaku yang sudah benar.
 
 Refactoring adalah proses memperbaiki struktur internal kode tanpa mengubah perilaku eksternalnya.  
 Karena unit test mendokumentasikan perilaku yang diharapkan, setiap kali developer melakukan refactoring, semua test dapat dijalankan kembali untuk memastikan hasil tetap konsisten.  
@@ -791,9 +805,9 @@ Jika seluruh test berstatus \texttt{OK}, maka dapat dipastikan refactoring tidak
 \subsection{Menambah Fungsi Baru dan Test-nya}
 
 Ketika fitur baru ditambahkan ke dalam proyek, test baru juga harus dibuat agar cakupan pengujian meningkat.  
-Prinsip utamanya adalah: setiap fungsi baru sebaiknya memiliki setidaknya satu test yang menguji perilaku utamanya.
+Prinsip utamanya adalah: setiap fungsi\index{fungsi} baru sebaiknya memiliki setidaknya satu test yang menguji perilaku utamanya.
 
-Sebagai contoh, misalkan kita menambahkan fungsi baru \texttt{subtract(a, b)} ke modul \texttt{fungsi.py} (Listing~\ref{lst:fungsi-subtract}):
+Sebagai contoh, misalkan kita menambahkan fungsi baru \texttt{subtract(a, b)} ke modul\index{modul} \texttt{fungsi.py} (Listing~\ref{lst:fungsi-subtract}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Menambahkan fungsi baru}, label={lst:fungsi-subtract}]
 # file: fungsi.py
@@ -805,7 +819,7 @@ def subtract(a, b):
     return a - b
 \end{lstlisting}
 
-Untuk menguji fungsi baru tersebut, kita dapat menambah satu kelas test baru atau cukup memperluas kelas test yang sudah ada (Listing~\ref{lst:test-subtract}):
+Untuk menguji fungsi baru tersebut, kita dapat menambah satu kelas\index{kelas} test baru atau cukup memperluas kelas test yang sudah ada (Listing~\ref{lst:test-subtract}):
 
 \begin{lstlisting}[style=PythonStyle, caption={Menambahkan test untuk fungsi baru}, label={lst:test-subtract}]
 # file: test_fungsi.py
@@ -853,7 +867,7 @@ Agar test tetap mudah dipahami dan dikelola oleh banyak pengembang, diperlukan p
 
 \begin{enumerate}
     \item \textbf{Gunakan nama test yang deskriptif.}  
-    Nama metode test harus menjelaskan apa yang diuji dan kondisi yang diharapkan.  
+    Nama metode\index{metode} test harus menjelaskan apa yang diuji dan kondisi yang diharapkan.  
     Misalnya (Listing~\ref{lst:b10-nama-test-deskriptif}):
 \begin{lstlisting}[style=PythonStyle, caption={Contoh nama test yang deskriptif}, label={lst:b10-nama-test-deskriptif}]
 def test_divide_munculkan_error_jika_bagi_nol(self):
@@ -875,7 +889,7 @@ project/
     Hal ini memudahkan penemuan dan pemeliharaan test.
 
     \item \textbf{Hindari duplikasi kode test.}  
-    Jika ada setup data atau objek yang sama digunakan di banyak test, gunakan \texttt{setUp()} atau \texttt{helper function}.
+    Jika ada setup data atau objek\index{objek} yang sama digunakan di banyak test, gunakan \texttt{setUp()} atau \texttt{helper function}.
 
     \item \textbf{Gunakan data yang jelas dan deterministik.}  
     Hindari penggunaan nilai acak (random) tanpa seed, karena dapat membuat hasil test tidak konsisten.
@@ -927,10 +941,18 @@ Dengan menerapkan prinsip di atas, proyek Python akan tetap stabil, mudah dipeli
 
 
 %----------------------------------------
+\section{Ringkasan}
+\textit{Unit test\index{unit test}} memeriksa bagian kecil program secara terpisah, sehingga kesalahan ditemukan sebelum menyebar ke bagian lain. Modul\index{modul} \texttt{unittest}\index{unittest} menyediakan \texttt{TestCase} sebagai wadah pengujian dan \textit{assertion\index{assertion}} untuk membandingkan hasil dengan harapan. Metode\index{metode} \texttt{setUp} dan \texttt{tearDown} menyiapkan dan membersihkan keadaan untuk tiap pengujian. Metode \texttt{assertRaises} memeriksa kesalahan yang memang diharapkan, dan \texttt{subTest} menguji banyak kasus dalam satu metode.
+
+Hasil pengujian dibaca dari statusnya: \texttt{ok} berarti lolos, \texttt{FAIL} berarti hasil tidak sesuai harapan, dan \texttt{ERROR} berarti terjadi kesalahan yang tidak ditangani. Pengujian yang dijalankan ulang setiap kali kode berubah membuat \textit{refactoring\index{refactoring}} lebih aman, karena regresi langsung terlihat.
+
 \section*{Latihan}
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
+
 \subsection*{Latihan 1: Menguji Fungsi Matematika Sederhana}
 
-Tujuan latihan ini adalah untuk membiasakan Anda menulis dan menjalankan unit test menggunakan modul bawaan \texttt{unittest} pada fungsi-fungsi sederhana.  
+Tujuan latihan ini adalah untuk membiasakan Anda menulis dan menjalankan unit test\index{unit test} menggunakan modul\index{modul} bawaan \texttt{unittest}\index{unittest} pada fungsi\index{fungsi}-fungsi sederhana.  
 Anda akan menulis fungsi matematika dasar (penjumlahan, pengurangan, perkalian, dan pembagian), kemudian menguji setiap fungsi menggunakan beberapa skenario input.
 
 \paragraph{Tujuan Latihan:}
@@ -1019,10 +1041,10 @@ Output yang diharapkan (Listing~\ref{lst:b10-keluaran-diharapkan-latihan-1}):
 
 \begin{lstlisting}[language=bash, caption={Keluaran yang diharapkan pada Latihan 1}, label={lst:b10-keluaran-diharapkan-latihan-1}]
 test_add (test_mathutils.TestMathUtils) ... ok
-test_subtract (test_mathutils.TestMathUtils) ... ok
-test_multiply (test_mathutils.TestMathUtils) ... ok
 test_divide_normal (test_mathutils.TestMathUtils) ... ok
 test_divide_zero (test_mathutils.TestMathUtils) ... ok
+test_multiply (test_mathutils.TestMathUtils) ... ok
+test_subtract (test_mathutils.TestMathUtils) ... ok
 
 ----------------------------------------------------------------------
 Ran 5 tests in 0.001s
@@ -1045,19 +1067,23 @@ Setelah menyelesaikan latihan ini, pastikan Anda memahami:
     \item serta bagaimana Anda dapat memperluas cakupan test saat kode bertambah kompleks.
 \end{itemize}
 
-Latihan ini menjadi fondasi untuk latihan berikutnya, yaitu pengujian method dalam kelas dan penerapan prinsip \textit{Test-Driven Development (TDD)} sederhana.
+Latihan ini menjadi fondasi untuk latihan berikutnya, yaitu pengujian method dalam kelas\index{kelas} dan penerapan prinsip \textit{Test-Driven Development (TDD)} sederhana.
+
+\begin{promptterarah}
+Saya sedang menulis unit test untuk fungsi matematika sederhana di mathutils.py. Jangan tuliskan kode test-nya. Tanyakan kasus apa saja yang perlu diuji untuk setiap fungsi, termasuk pembagian dengan nol, lalu beri masukan atas daftar saya. Setelah saya mengirim kode, periksa assertion-nya tanpa memberi kode yang benar.
+\end{promptterarah}
 
 
 
 \subsection*{Latihan 2: Menguji Method Kelas dengan State}
 
 Latihan ini bertujuan untuk melatih pemahaman Anda dalam menulis pengujian unit untuk \textbf{method yang memiliki state internal}.  
-Berbeda dengan fungsi biasa, method dalam kelas sering kali bergantung pada atribut instance (misalnya saldo akun, skor permainan, atau status login).  
+Berbeda dengan fungsi biasa, method dalam kelas sering kali bergantung pada atribut\index{atribut} instance (misalnya saldo akun, skor permainan, atau status login).  
 Oleh karena itu, pengujian harus memastikan bahwa perubahan state terjadi sesuai yang diharapkan setelah method dijalankan.
 
 \paragraph{Tujuan Latihan:}
 \begin{itemize}
-    \item Mampu menguji method yang mengubah nilai atribut internal objek.
+    \item Mampu menguji method yang mengubah nilai atribut internal objek\index{objek}.
     \item Menggunakan \texttt{setUp()} dan \texttt{tearDown()} untuk menyiapkan lingkungan uji.
     \item Memastikan setiap test berjalan secara terisolasi dan tidak saling memengaruhi.
 \end{itemize}
@@ -1189,6 +1215,10 @@ OK
 Latihan ini menunjukkan pentingnya isolasi state antar test.  
 Setiap pengujian harus dapat berjalan sendiri-sendiri tanpa dipengaruhi hasil test lain.  
 Prinsip ini menjamin bahwa unit test tetap stabil, mudah dirawat, dan akurat menggambarkan perilaku sesungguhnya dari kelas yang diuji.
+
+\begin{promptterarah}
+Saya sedang menulis unit test untuk kelas rekening bank yang menyimpan saldo. Jangan tuliskan kode test-nya. Tanyakan mengapa setUp() diperlukan dan skenario apa saja yang perlu diuji, lalu beri masukan atas jawaban saya. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
 
 \section*{Referensi}
 \begin{daftarrapat}

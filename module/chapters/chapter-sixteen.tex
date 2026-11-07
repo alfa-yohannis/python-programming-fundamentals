@@ -1,0 +1,313 @@
+% Laporan penelitian berformat makalah untuk syarat buku referensi. Bagian yang
+% menunggu data penelitian ditulis dengan \isian{...} dan tampil merah sampai diisi.
+% Lembar kuesioner RQ1 sampai RQ3 ada di folder kuesioner/.
+\chapter{Laporan Hasil Penelitian: Belajar Pemrograman dengan Bantuan AI}
+\chaptermark{Laporan Hasil Penelitian}
+\label{chap:penelitian}
+
+\section{Pendahuluan}
+\label{sec:b16-pendahuluan}
+
+Model bahasa besar atau \textit{large language model} (LLM)\index{LLM} kini mampu membuat dan menafsirkan kode sumber serta instruksi dalam bahasa alami \cite{prather2023}. Melalui layanan AI generatif\index{AI generatif}, mahasiswa dapat meminta penjelasan kode, tebakan keluaran program, atau soal latihan baru kapan saja. Sebagian besar mahasiswa menilai penjelasan kode buatan LLM membantu \cite{macneil2023}, tetapi AI yang dipakai tanpa pengaman dapat menurunkan hasil belajar setelah aksesnya dicabut \cite{bastani2025}.
+
+AI bisa membantu mahasiswa belajar memprogram, tetapi juga bisa membuat mereka jarang berlatih memprogram sendiri. Hasilnya bergantung pada cara AI dipakai. Mahasiswa yang meminta AI menjelaskan lalu mencoba sendiri memakai AI secara terarah, sedangkan mahasiswa yang meminta AI menuliskan seluruh kode bergantung pada AI. Dosen perlu tahu cara mana yang berkaitan dengan keyakinan mahasiswa bahwa mereka bisa memprogram tanpa AI.
+
+Buku ini memungkinkan hal itu diteliti. Buku ini dipakai pada mata kuliah Pemrograman Dasar dan Praktikum Pemrograman Dasar di Universitas Pradita, sehingga cara mahasiswa memakai AI dapat diamati langsung.
+
+Tujuan penelitian ini adalah mengetahui hubungan antara cara mahasiswa memakai AI dan keyakinan mereka bahwa mereka bisa memprogram tanpa AI. Tujuan itu dijabarkan menjadi tiga pertanyaan penelitian (\textit{research question}, RQ):
+
+\begin{enumerate}
+  \item[RQ1.] Apakah mahasiswa yang memakai AI secara terarah lebih yakin bahwa mereka bisa memprogram tanpa AI?
+  \item[RQ2.] Apakah mahasiswa yang bergantung pada AI kurang yakin bahwa mereka bisa memprogram tanpa AI?
+  \item[RQ3.] Bila pemakaian AI terarah dan ketergantungan pada AI dipertimbangkan bersama, seberapa besar keduanya menjelaskan keyakinan mahasiswa bahwa mereka bisa memprogram tanpa AI, dan mana yang hubungannya lebih kuat?
+\end{enumerate}
+
+Secara teoretis, penelitian ini menguji apakah teori efikasi diri tetap berlaku ketika mahasiswa belajar dengan bantuan AI, dan menghasilkan kuesioner yang dapat dipakai ulang. Secara praktis, hasilnya dapat menjadi dasar aturan pemakaian AI di kelas pemrograman dasar. Pembaca juga mendapat dua \textit{prompt} siap pakai beserta temuan tentang hubungannya dengan keyakinan memprogram.
+
+Subbab~\ref{sec:b16-terkait} membahas penelitian terkait, landasan teori, dan kontribusi penelitian ini, dan Subbab~\ref{sec:b16-metode} menjelaskan metode keseluruhan serta metode untuk tiap RQ.
+
+\section{Kajian Terkait}
+\label{sec:b16-terkait}
+
+Prather dkk.~\cite{prather2023} menyusun laporan kelompok kerja ITiCSE tentang LLM dalam pendidikan komputasi. Laporan itu merangkum 71 artikel, survei mahasiswa dan dosen dari 20 negara, serta wawancara dengan 22 pendidik untuk menjawab cara pendidik menyesuaikan pengajaran dengan kemampuan LLM membuat dan menafsirkan kode.
+
+\subsection{Penjelasan Kode dan Soal Latihan Buatan LLM}
+
+MacNeil dkk.~\cite{macneil2023} menambahkan tombol di samping cuplikan kode dalam sebuah e-book pengembangan perangkat lunak web. Tombol itu menampilkan tiga jenis penjelasan buatan LLM: penjelasan baris demi baris, daftar konsep penting, dan ringkasan tingkat tinggi. Semua jenis penjelasan dibuka mahasiswa, dan sebagian besar mahasiswa menilai penjelasan itu membantu. Leinonen dkk.~\cite{leinonen2023} memakai LLM untuk menambahkan penjelasan dan saran perbaikan pada pesan kesalahan pemrograman. Hasilnya ramah pemula dan kadang lebih mudah dipahami serta ditindaklanjuti daripada pesan kesalahan aslinya.
+
+Sarsa dkk.~\cite{sarsa2022} memakai OpenAI Codex untuk membuat soal latihan pemrograman lengkap dengan contoh solusi dan kasus uji. Sebagian besar soal yang dihasilkan baru dan masuk akal, dan sebagian bisa langsung dipakai. Konsep dan tema soal mudah diarahkan cukup dengan memberi kata kunci, tetapi mutunya tetap perlu diperiksa sebelum soal sampai ke mahasiswa.
+
+\subsection{Pengaruh AI terhadap Hasil Belajar}
+
+Kazemitabaar dkk.~\cite{kazemitabaar2023} meneliti 69 pemula berusia 10 sampai 17 tahun yang mengerjakan 45 tugas menulis kode Python, dan separuh dari mereka boleh memakai Codex. Akses itu menaikkan kinerja menulis kode tanpa menurunkan kinerja saat memodifikasi kode secara manual. Pada tes seminggu kemudian, kelompok yang memakai Codex sedikit lebih baik, tetapi selisihnya tidak signifikan. Bastani dkk.~\cite{bastani2025} memberi tutor berbasis GPT-4 kepada hampir seribu siswa SMA dalam pelajaran matematika. Nilai naik selama AI boleh dipakai. Setelah aksesnya dicabut, siswa yang memakai antarmuka mirip ChatGPT mendapat nilai 17\% lebih rendah daripada siswa yang tidak pernah memakai AI, sedangkan tutor yang diberi pengaman berdasarkan masukan guru menghilangkan sebagian besar penurunan itu.
+
+\subsection{Landasan Teori dan Pengembangan Hipotesis}
+\label{sec:b16-teori}
+
+Penelitian ini memakai teori efikasi diri dari Bandura~\cite{bandura1977}. Efikasi diri\index{efikasi diri} adalah keyakinan seseorang atas kemampuannya menyelesaikan suatu tugas. Menurut teori ini, keyakinan itu dibentuk oleh empat sumber, yaitu pengalaman berhasil melakukan sendiri, pengalaman melihat orang lain berhasil, persuasi verbal, dan kondisi fisiologis. Pengalaman berhasil melakukan sendiri adalah sumber yang paling berpengaruh, karena didasarkan pada penguasaan yang dialami langsung. Efikasi diri pemrogram pemula sudah lama diukur, antara lain oleh Ramalingam dan Wiedenbeck~\cite{ramalingam1998}.
+
+Pemakaian AI terarah tetap memberi mahasiswa pengalaman berhasil melakukan sendiri. Mahasiswa mencoba menjawab pertanyaan AI, mengerjakan soal latihan, dan menjalankan kodenya sendiri, sehingga keberhasilannya adalah hasil usahanya. Umpan balik AI atas jawaban mahasiswa juga berperan sebagai persuasi verbal. Karena itu, pemakaian AI terarah diduga berhubungan positif dengan efikasi diri pemrograman.
+
+Ketergantungan pada AI bekerja ke arah sebaliknya. Risko dan Gilbert~\cite{risko2016} menyebut pengalihan sebagian kerja berpikir ke alat luar untuk mengurangi beban kognitif sebagai \textit{cognitive offloading}. Ketika kode ditulis AI, mahasiswa memperoleh program yang berjalan tanpa melewati usaha yang menjadi sumber pengalaman berhasil melakukan sendiri. Karena itu, ketergantungan pada AI diduga berhubungan negatif dengan efikasi diri pemrograman. Kedua cara memakai AI itu juga diduga bersama-sama menjelaskan variasi efikasi diri pemrograman. Ketiga dugaan ini dirumuskan sebagai hipotesis pada Subbab~\ref{sec:b16-metode-survei}.
+
+\subsection{Kontribusi}
+
+Di antara studi di atas, tidak ada yang meneliti mahasiswa yang belajar Python dari materi berbahasa Indonesia. \isian{Hasil penelusuran penelitian serupa di Indonesia, misalnya melalui Garuda dan SINTA.} Penelitian ini memberi tiga kontribusi:
+
+\begin{enumerate}
+  \item Bukti tentang hubungan pemakaian AI terarah dan ketergantungan pada AI dengan efikasi diri pemrograman mahasiswa tahun pertama, dengan landasan teori efikasi diri (RQ1 sampai RQ3).
+  \item Kuesioner dua lembar untuk mengukur ketiga konstruk itu.
+  \item Dua \textit{prompt} siap pakai bagi pembaca, yaitu Listing~\ref{lst:b16-prompt-penjelasan} dan Listing~\ref{lst:b16-prompt-latihan}, serta \textit{prompt} terarah untuk setiap soal latihan di Bab 1 sampai Bab 14.
+\end{enumerate}
+
+\section{Metode Penelitian}
+\label{sec:b16-metode}
+
+\subsection{Metode Keseluruhan}
+\label{sec:b16-metode-umum}
+
+Penelitian ini adalah studi survei dengan desain korelasional (Tabel~\ref{tab:b16-rancangan} dan Gambar~\ref{fig:b16-alur}). Ketiga RQ dijawab dari kuesioner dua lembar yang diisi pada hari berbeda, dengan semua mahasiswa sebagai responden tanpa pembagian kelompok.
+
+\begin{table}[H]
+  \centering
+  \caption{Data dan analisis untuk tiap pertanyaan penelitian}
+  \label{tab:b16-rancangan}
+  \begin{tabularx}{\textwidth}{lXX}
+    \hline
+    \textbf{RQ} & \textbf{Data} & \textbf{Analisis} \\
+    \hline
+    RQ1 & Konstruk X dari Lembar 1 dan Z dari Lembar 2 & Model PLS-SEM X $\rightarrow$ Z: koefisien jalur, nilai p, dan $R^2$ \\
+    \hline
+    RQ2 & Konstruk Y dari Lembar 1 dan Z dari Lembar 2 & Model PLS-SEM Y $\rightarrow$ Z: koefisien jalur, nilai p, dan $R^2$ \\
+    \hline
+    RQ3 & Konstruk X, Y, dan Z & Model PLS-SEM X + Y $\rightarrow$ Z: $R^2$, $f^2$, perbandingan koefisien jalur, dan analisis tambahan dengan kemampuan awal \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      kotak/.style={draw, rounded corners, align=center, minimum height=1.5cm, text width=2.5cm},
+      tanda/.style={draw, rounded corners, align=center, minimum height=1.5cm, text width=0.9cm, fill=praditagreen!15, font=\footnotesize\bfseries},
+      panah/.style={-{Stealth[length=2mm]}, thick}
+    ]
+    \node[tanda] (s) at (0,0) {RQ1\\RQ2\\RQ3};
+    \node[kotak, fill=blue!8] (a1) at (2.5,0) {Pengenalan \textit{prompt} kepada semua mahasiswa};
+    \node[kotak, fill=orange!12] (a2) at (5.9,0) {Lembar 1: kuesioner X dan Y};
+    \node[kotak, fill=green!10] (a3) at (9.3,0) {Lembar 2: kuesioner Z satu sampai dua minggu kemudian};
+    \foreach \dari/\ke in {s/a1, a1/a2, a2/a3}
+      \draw[panah] (\dari) -- (\ke);
+  \end{tikzpicture}
+  \caption{Alur penelitian}
+  \label{fig:b16-alur}
+\end{figure}
+
+Penelitian dilakukan pada mata kuliah Pemrograman Dasar di Program Studi Informatika Universitas Pradita, semester \isian{semester dan tahun akademik}. Mahasiswa memakai layanan AI pilihan sendiri, dan layanan yang paling sering dipakai ditanyakan di kuesioner.
+
+Kuesioner memakai NIM agar kedua lembar dapat dipasangkan dan ditelusuri. Lembar dikumpulkan oleh \isian{pengumpul data, misalnya asisten}, lalu NIM diganti kode acak sebelum data dianalisis, sehingga dosen hanya melihat data berkode. Data dan hasil yang dipublikasikan tidak memuat NIM. Lembar 1 dibuka dengan penjelasan tentang penelitian. Keikutsertaan bersifat sukarela dan tidak memengaruhi nilai mata kuliah, dan mengisi serta menyerahkan lembar kuesioner dianggap sebagai persetujuan ikut serta. Data disimpan di \isian{tempat penyimpanan data} yang hanya dapat diakses peneliti. Persetujuan etik diperoleh dari \isian{lembaga dan nomor persetujuan etik}. Semua uji statistik memakai batas signifikansi 0,05.
+
+\subsection{Metode untuk RQ1, RQ2, dan RQ3}
+\label{sec:b16-metode-survei}
+
+RQ1 sampai RQ3 dijawab dengan desain korelasional. Respondennya adalah semua mahasiswa yang mengambil mata kuliah Pemrograman Dasar pada semester penelitian, yaitu \isian{jumlah} mahasiswa, tanpa pembagian kelompok. Semua responden memakai buku lengkap dengan bab ini.
+
+Hubungan yang diteliti melibatkan tiga konstruk\index{konstruk} pada Tabel~\ref{tab:b16-konstruk}. Pemakaian AI terarah (X) adalah sejauh mana mahasiswa memakai AI dengan cara yang tetap menuntut mereka berpikir, misalnya memakai \textit{prompt} dari bab ini. Ketergantungan pada AI (Y) adalah sejauh mana mahasiswa menyerahkan pekerjaan pemrograman kepada AI. Efikasi diri pemrograman (Z) adalah keyakinan mahasiswa bahwa mereka bisa menyelesaikan tugas pemrograman tanpa bantuan AI, sesuai teori pada Subbab~\ref{sec:b16-teori}. Butir Z disusun ulang untuk materi buku ini.
+
+\begin{table}[H]
+  \centering
+  \caption{Konstruk RQ1 sampai RQ3, indikatornya, dan nomor butirnya di kuesioner}
+  \label{tab:b16-konstruk}
+  \begin{tabularx}{\textwidth}{llX}
+    \hline
+    \textbf{Kode} & \textbf{Butir} & \textbf{Konstruk dan indikator} \\
+    \hline
+    \textbf{X} & & \textbf{Pemakaian AI terarah}, Lembar 1, skala 1 (tidak pernah) sampai 5 (selalu) \\
+    \hline
+    X1 & B1 & Saya memakai \textit{prompt} terarah dari buku pegangan kuliah saat mempelajari listing atau mengerjakan latihan. \\
+    \hline
+    X2 & B3 & Saya meminta AI memberi pertanyaan untuk menguji pemahaman saya. \\
+    \hline
+    X3 & B5 & Saya mencoba menjawab pertanyaan dari AI sebelum melihat penjelasannya. \\
+    \hline
+    X4 & B7 & Saya meminta AI membuat soal latihan baru, lalu mengerjakannya sendiri. \\
+    \hline
+    X5 & B9 & Saya menjalankan sendiri kode dari penjelasan AI untuk memeriksa kebenarannya. \\
+    \hline
+    \textbf{Y} & & \textbf{Ketergantungan pada AI}, Lembar 1, skala 1 (tidak pernah) sampai 5 (selalu) \\
+    \hline
+    Y1 & B2 & Saya meminta AI menuliskan kode lengkap untuk tugas atau latihan. \\
+    \hline
+    Y2 & B4 & Saya menyalin kode dari AI tanpa memahami cara kerjanya. \\
+    \hline
+    Y3 & B6 & Saat muncul pesan kesalahan, saya langsung bertanya ke AI tanpa mencoba memperbaikinya sendiri. \\
+    \hline
+    Y4 & B8 & Saya merasa kesulitan ketika harus menulis program tanpa bantuan AI. \\
+    \hline
+    Y5 & B10 & Tugas yang saya kumpulkan sebagian besar kodenya berasal dari AI. \\
+    \hline
+    \textbf{Z} & & \textbf{Efikasi diri pemrograman}, Lembar 2, skala 1 (sangat tidak yakin) sampai 5 (sangat yakin) \\
+    \hline
+    Z1 & D1 & Menulis program Python sederhana tanpa bantuan AI. \\
+    \hline
+    Z2 & D2 & Menemukan sendiri penyebab pesan kesalahan dalam program saya. \\
+    \hline
+    Z3 & D3 & Menjelaskan cara kerja perulangan dan fungsi dalam program yang saya tulis. \\
+    \hline
+    Z4 & D4 & Mengerjakan soal latihan baru dari bab yang sudah dipelajari tanpa melihat contoh. \\
+    \hline
+    Z5 & D5 & Memperbaiki program yang hasilnya salah walaupun tidak muncul pesan kesalahan. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+Gambar~\ref{fig:b16-model} memperlihatkan model hubungan antarkonstruk. Hipotesis H1 menjawab RQ1, H2 menjawab RQ2, dan H3 menjawab RQ3.
+
+\begin{enumerate}
+  \item[H1.] Pemakaian AI terarah berhubungan positif dengan efikasi diri pemrograman (X $\rightarrow$ Z).
+  \item[H2.] Ketergantungan pada AI berhubungan negatif dengan efikasi diri pemrograman (Y $\rightarrow$ Z).
+  \item[H3.] Pemakaian AI terarah dan ketergantungan pada AI bersama-sama menjelaskan variasi efikasi diri pemrograman (X + Y $\rightarrow$ Z).
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      konstruk/.style={draw, ellipse, align=center, minimum width=3.2cm, minimum height=1.2cm},
+      panah/.style={-{Stealth[length=2mm]}, thick}
+    ]
+    \node[konstruk, fill=blue!8] (x) at (0,1.3) {X: Pemakaian AI\\terarah};
+    \node[konstruk, fill=orange!12] (y) at (0,-1.3) {Y: Ketergantungan\\pada AI};
+    \node[konstruk, fill=green!10] (z) at (7,0) {Z: Efikasi diri\\pemrograman};
+    \node[draw, dashed, rounded corners, inner sep=6pt, fit=(x) (y)] (xy) {};
+    \draw[panah] (x.east) -- node[above, sloped] {H1 (+)} (z.north west);
+    \draw[panah] (y.east) -- node[below, sloped] {H2 ($-$)} (z.south west);
+    \draw[panah, dashed] (xy.east) -- node[above] {H3} (z.west);
+  \end{tikzpicture}
+  \caption{Model hubungan antarkonstruk pada RQ1 sampai RQ3}
+  \label{fig:b16-model}
+\end{figure}
+
+Pada minggu pertama, semua mahasiswa diperkenalkan dengan Listing~\ref{lst:b16-prompt-penjelasan} untuk mempelajari listing dan Listing~\ref{lst:b16-prompt-latihan} untuk berlatih. Keduanya meminta AI bertanya balik dan menahan jawaban sampai mahasiswa mencoba sendiri. Setiap soal latihan di Bab 1 sampai Bab 14 juga disertai \textit{prompt} terarah yang disesuaikan dengan soal itu. Selama semester, mahasiswa bebas memakai AI dengan cara apa pun, sehingga tingkat pemakaian AI terarah dan ketergantungan pada AI berbeda antarmahasiswa. Perbedaan inilah yang dianalisis.
+
+\begin{lstlisting}[language=bash, caption={\textit{Prompt} untuk meminta penjelasan kode}, label={lst:b16-prompt-penjelasan}]
+Saya mahasiswa yang baru belajar Python. Jelaskan kode berikut baris demi
+baris dengan bahasa sederhana. Jangan memperbaiki atau menulis ulang
+kodenya. Setelah itu, beri saya 3 pertanyaan untuk menguji pemahaman saya,
+tanpa jawabannya. Tunggu jawaban saya, lalu periksa dan jelaskan bagian
+yang masih keliru.
+
+[tempel kode di sini]
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={\textit{Prompt} untuk meminta soal latihan baru}, label={lst:b16-prompt-latihan}]
+Saya sedang belajar [topik, misalnya perulangan for] dengan Python.
+Buatkan 3 soal latihan baru yang setingkat dengan kode berikut. Jangan
+sertakan jawaban atau potongan kode penyelesaiannya. Setelah saya mengirim
+jawaban, periksa jawaban saya dan jelaskan kesalahannya tanpa langsung
+memberikan kode yang benar.
+
+[tempel kode di sini]
+\end{lstlisting}
+
+Butir kuesioner disusun dari kajian pustaka pada Subbab~\ref{sec:b16-terkait}, ditelaah oleh \isian{nama atau peran ahli}, lalu diuji coba pada \isian{jumlah} mahasiswa di luar responden. Kuesioner dibagi menjadi dua lembar yang diisi di kelas pada hari berbeda, karena pemisahan waktu pengukuran prediktor dan variabel hasil mengurangi bias metode umum \cite{podsakoff2003}. Lembar 1 diisi pada minggu ke-\isian{13 atau 14}. Lembar ini berisi pertanyaan tentang layanan AI yang dipakai, butir X dan Y yang diselang-seling dengan skala frekuensi, dan satu pertanyaan terbuka. Lembar 2 diisi satu sampai dua minggu kemudian, sebelum UAS, dan berisi butir Z dengan skala keyakinan. Judul bagian di kuesioner tidak menyebut nama konstruk. Responden menuliskan NIM di kedua lembar. NIM dipakai untuk memasangkan kedua lembar dan menghubungkan jawaban dengan nilai kuis diagnostik minggu pertama, lalu diganti kode acak sebelum analisis. Responden yang hanya mengisi satu lembar dikeluarkan dari analisis.
+
+Data dianalisis dengan PLS-SEM\index{PLS-SEM} memakai \isian{perangkat lunak, misalnya SmartPLS}, mengikuti pedoman Hair dkk.~\cite{hair2019}. Model pengukuran untuk ketiga konstruk dinilai sekali dari loading indikator (di atas 0,708), alfa Cronbach \cite{cronbach1951} dan reliabilitas komposit (antara 0,70 dan 0,95), \textit{average variance extracted} (AVE, minimal 0,50), serta validitas diskriminan dengan HTMT di bawah 0,85 \cite{henseler2015}. Bias metode umum diperiksa dengan VIF kolinearitas penuh, dengan batas 3,3 \cite{kock2015}.
+
+Setelah itu, tiga model struktural diestimasi dengan \textit{bootstrapping} sebanyak \isian{jumlah subsampel} subsampel. Model 1 (X $\rightarrow$ Z) menjawab RQ1 dan Model 2 (Y $\rightarrow$ Z) menjawab RQ2, masing-masing dari koefisien jalur, nilai p, dan $R^2$. Model 3 (X + Y $\rightarrow$ Z) menjawab RQ3 dari $R^2$, $f^2$ tiap jalur, serta perbandingan koefisien jalur terstandar beserta interval kepercayaannya. Selisih koefisien X atau Y antara model tunggal dan Model 3 menunjukkan seberapa besar hubungan keduanya dengan Z saling tumpang tindih. Sebagai analisis tambahan, Model 3 diulang dengan kemampuan awal, yaitu nilai kuis diagnostik minggu pertama, sebagai variabel kontrol. Jawaban pertanyaan terbuka dikelompokkan menjadi tema untuk membantu menafsirkan hasil.
+
+Untuk Model 1 dan Model 2 yang masing-masing memiliki satu jalur, ukuran sampel minimal untuk mendeteksi efek sedang ($f^2 = 0{,}15$) pada $\alpha = 0{,}05$ dengan daya uji 0,80 adalah 55 responden. Untuk Model 3 dengan dua jalur, angkanya 68 responden \cite{cohen2013}. Bila pasangan lembar yang lengkap sekitar 50, daya uji Model 1 dan Model 2 sekitar 0,77, sedangkan daya uji Model 3 sekitar 0,66.
+
+\section{Hasil}
+\label{sec:b16-hasil}
+
+\subsection{Model Pengukuran}
+
+Tabel~\ref{tab:b16-ukur} menunjukkan hasil evaluasi model pengukuran. \isian{Jumlah pasangan lembar yang lengkap, statistik deskriptif X, Y, dan Z, layanan AI yang paling sering dipakai, indikator yang dikeluarkan karena loading-nya rendah, nilai HTMT, dan nilai VIF kolinearitas penuh.}
+
+\begin{table}[H]
+  \centering
+  \caption{Hasil evaluasi model pengukuran}
+  \label{tab:b16-ukur}
+  \begin{tabularx}{\textwidth}{Xcccc}
+    \hline
+    \textbf{Konstruk} & \textbf{Loading terendah} & \textbf{Alfa Cronbach} & \textbf{Reliabilitas komposit} & \textbf{AVE} \\
+    \hline
+    X: Pemakaian AI terarah & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} \\
+    \hline
+    Y: Ketergantungan pada AI & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} \\
+    \hline
+    Z: Efikasi diri pemrograman & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\subsection{RQ1 sampai RQ3: Cara Memakai AI dan Efikasi Diri Pemrograman}
+
+Tabel~\ref{tab:b16-struktural} merangkum ketiga model struktural. \isian{Hasil RQ1 dari Model 1, hasil RQ2 dari Model 2, hasil RQ3 dari Model 3 termasuk jalur yang lebih kuat, hasil analisis tambahan dengan kemampuan awal sebagai variabel kontrol, dan tema dari pertanyaan terbuka.}
+
+\begin{table}[H]
+  \centering
+  \caption{Hasil ketiga model struktural}
+  \label{tab:b16-struktural}
+  \begin{tabularx}{\textwidth}{llXcccc}
+    \hline
+    \textbf{RQ} & \textbf{Model} & \textbf{Jalur} & \textbf{Koefisien} & \textbf{Nilai p} & $\boldsymbol{f^2}$ & $\boldsymbol{R^2}$ \\
+    \hline
+    RQ1 & Model 1 & X $\rightarrow$ Z & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} \\
+    \hline
+    RQ2 & Model 2 & Y $\rightarrow$ Z & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} \\
+    \hline
+    RQ3 & Model 3 & X $\rightarrow$ Z & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} \\
+    \hline
+    & & Y $\rightarrow$ Z & \isian{\ldots} & \isian{\ldots} & \isian{\ldots} & \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\section{Pembahasan}
+\label{sec:b16-pembahasan}
+
+\isian{RQ1 dan RQ2: hubungkan hasil dengan teori efikasi diri pada Subbab~\ref{sec:b16-teori}, yaitu apakah pemakaian AI terarah memberi pengalaman berhasil sendiri dan ketergantungan pada AI menghilangkannya, lalu bandingkan dengan Kazemitabaar dkk.~\cite{kazemitabaar2023} dan Bastani dkk.~\cite{bastani2025}.}
+
+\isian{RQ3: jelaskan jalur mana yang lebih kuat, perubahan koefisien dari model tunggal ke Model 3, dan artinya bagi aturan pemakaian AI di kelas.}
+
+\isian{Implikasi untuk pengajaran: kapan dosen dan pembaca sebaiknya memakai Listing~\ref{lst:b16-prompt-penjelasan} dan Listing~\ref{lst:b16-prompt-latihan}, dan kapan sebaiknya tidak.}
+
+\section{Ancaman terhadap Validitas}
+\label{sec:b16-validitas}
+
+Ancaman terhadap validitas (\textit{threats to validity}) dibahas menurut empat jenis yang dipakai Wohlin dkk.~\cite{wohlin2012}.
+
+\subsection{Validitas Internal}
+
+Desain korelasional pada RQ1 sampai RQ3 tidak dapat membuktikan hubungan sebab-akibat. Hubungan Y dengan Z juga bisa berarah sebaliknya, karena mahasiswa yang merasa kurang mampu cenderung lebih bergantung pada AI. Kemampuan awal dapat memengaruhi X, Y, dan Z sekaligus, sehingga analisis tambahan dengan nilai kuis awal sebagai variabel kontrol ikut dilaporkan. Peneliti juga mengajar para responden, dan responden menulis NIM, sehingga butir ketergantungan bisa dijawab kurang jujur. Untuk mengurangi bias ini, lembar dikumpulkan dan NIM diganti kode acak oleh pihak lain sebelum dosen melihat data.
+
+\subsection{Validitas Konstruk}
+
+Semua konstruk diukur dengan laporan diri. Z mengukur keyakinan mahasiswa atas kemampuannya, dan keyakinan itu belum tentu sama dengan kemampuan yang sebenarnya. Butir X, Y, dan Z disusun khusus untuk penelitian ini, sehingga validitasnya bergantung pada telaah ahli, uji coba, dan evaluasi model pengukuran. Karena ketiga konstruk berasal dari kuesioner, ada risiko bias metode umum. Risiko ini dikurangi dengan pengisian dua lembar pada hari berbeda, skala Z yang berbeda dari skala X dan Y, butir X dan Y yang diselang-seling, judul bagian yang netral, dan pemeriksaan VIF kolinearitas penuh.
+
+\subsection{Validitas Eksternal}
+
+Data berasal dari satu perguruan tinggi, satu mata kuliah, dan materi berbahasa Indonesia, sehingga hasilnya belum tentu berlaku di konteks lain. Layanan AI juga cepat berubah, sehingga cara mahasiswa memakainya pada semester lain dapat berbeda.
+
+\subsection{Validitas Kesimpulan}
+
+Bila pasangan lembar yang lengkap sekitar 50, daya uji Model 1 dan Model 2 sekitar 0,77, dan daya uji Model 3 sekitar 0,66. Keduanya di bawah 0,80 yang lazim dipakai, sehingga hasil yang tidak signifikan belum tentu berarti tidak ada hubungan. Setiap responden yang hanya mengisi satu lembar menurunkan daya uji lebih jauh.
+
+\section{Kesimpulan dan Penelitian Lanjutan}
+\label{sec:b16-kesimpulan}
+
+\isian{Jawaban singkat untuk RQ1 sampai RQ3, lalu saran pemakaian AI bagi pembaca buku ini berdasarkan temuan tersebut.}
+
+Beberapa arah penelitian lanjutan sudah terlihat dari rancangan ini:
+
+\begin{itemize}
+  \item membandingkan efikasi diri pemrograman dengan nilai UAS responden yang sama untuk melihat apakah keyakinan mahasiswa sejalan dengan kemampuannya;
+  \item menggabungkan beberapa angkatan agar daya uji Model 3 mencapai 0,80;
+  \item menguji hubungan sebab-akibat lewat kuasi-eksperimen\index{kuasi-eksperimen} dengan kelompok pembanding;
+  \item membandingkan mutu soal latihan buatan AI dengan soal buatan dosen, melanjutkan penilaian soal buatan LLM oleh Sarsa dkk.~\cite{sarsa2022};
+  \item memakai LLM untuk menjelaskan pesan kesalahan pada Bab 9 dan Bab 13, mengikuti Leinonen dkk.~\cite{leinonen2023};
+  \item \isian{arah lanjutan yang muncul dari hasil penelitian ini}.
+\end{itemize}

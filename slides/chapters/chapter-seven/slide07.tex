@@ -14,7 +14,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-07:\\\LARGE{File I/O pada Python\\}
 \vspace{10pt}}
@@ -74,11 +74,22 @@
 \tableofcontents[sections={1-4}]
 \end{column}
 \begin{column}{.6\textwidth}
-\tableofcontents[sections={5-7}]
+\tableofcontents[sections={5-8}]
 \end{column}
 \end{columns}
 \end{frame}
 
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Mode yang salah dapat merusak data, misalnya mode \texttt{"w"} langsung mengosongkan isi berkas. Coba setiap contoh kode, termasuk dari penjelasan GenAI, pada salinan berkas lebih dulu.
+  \item Minta GenAI menjelaskan akibat mode \texttt{"r"}, \texttt{"w"}, dan \texttt{"a"} pada isi berkas, lalu buktikan sendiri dengan berkas percobaan.
+  \item Minta GenAI menjelaskan bentuk data dari \texttt{csv.DictReader} untuk satu baris, lalu cetak baris itu untuk mencocokkannya.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Pendahuluan}
 \begin{frame}{Pendahuluan}
@@ -430,6 +441,197 @@ Penggunaan \texttt{with} menjamin file selalu ditutup otomatis bahkan saat error
 sehingga kode lebih aman, ringkas, dan bebas kebocoran resource.
 \end{frame}
 
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Latihan 1 – File Teks (Membaca dan Menulis).}\par\medskip
+Buatlah sebuah program Python yang:
+\begin{enumerate}
+    \item Meminta pengguna untuk memasukkan beberapa kalimat, kemudian menyimpannya ke dalam file bernama \texttt{catatan.txt}.  
+    \item Setelah file berhasil dibuat, program membuka kembali file tersebut dan menampilkan seluruh isinya ke layar.  
+    \item Tambahkan satu baris baru ke file tersebut tanpa menghapus isi yang lama (gunakan mode \texttt{'a'}).  
+\end{enumerate}
+
+Tujuan latihan ini adalah untuk membiasakan mahasiswa dengan proses membaca dan menulis file teks menggunakan fungsi \texttt{open()} dan context manager \texttt{with}.
+
+\noindent\textbf{Contoh isi file \texttt{catatan.txt}:}
+
+listing \textit{Isi file catatan.txt yang dihasilkan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Hari ini belajar Python dasar.
+Mempelajari cara membaca dan menulis file teks.
+File I/O sangat penting untuk menyimpan data program.
+Menambahkan satu baris baru ke dalam file.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program yang menyimpan beberapa kalimat ke catatan.txt lalu membacanya kembali. Jangan tuliskan kodenya. Tanyakan mode open() yang akan saya pakai untuk menulis, menambah, dan membaca, lalu jelaskan bila pilihannya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Latihan 2 – Penyaringan dan Penghitungan Data.}\par\medskip
+Diberikan file teks bernama \texttt{log\_aktivitas.txt} yang berisi daftar aktivitas pengguna komputer setiap jam.  
+Buatlah program yang:
+\begin{enumerate}
+    \item Menampilkan semua baris yang mengandung kata kunci \texttt{"error"} atau \texttt{"failed"}.  
+    \item Menghitung berapa kali kata tersebut muncul di seluruh file (tidak peka huruf besar/kecil).  
+    \item Menyimpan hasil pencarian dan total kemunculan ke dalam file baru bernama \texttt{ringkasan\_error.txt}.  
+\end{enumerate}
+
+Latihan ini melatih kemampuan mahasiswa dalam menggunakan kondisi, pencarian kata kunci, dan manipulasi string saat memproses file teks.
+
+\noindent\textbf{Contoh isi file input \texttt{log\_aktivitas.txt}:}
+
+listing \textit{Cuplikan isi file log_aktivitas.txt} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+[08:45] Starting system check...
+[09:00] User login successful
+[09:15] Loading configuration file
+[09:30] ERROR: Missing configuration file
+[10:00] Backup completed
+[10:30] Process failed to execute script
+[11:00] ERROR: Disk read failure
+[11:15] Update finished successfully
+[11:45] ERROR: Connection timeout
+\end{lstlisting}
+
+\noindent\textbf{Contoh hasil file output \texttt{ringkasan\_error.txt}:}
+
+listing \textit{Isi file ringkasan_error.txt yang dihasilkan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Baris yang mengandung kata "error" atau "failed":
+
+[09:30] ERROR: Missing configuration file
+[10:30] Process failed to execute script
+[11:00] ERROR: Disk read failure
+[11:45] ERROR: Connection timeout
+
+Total kemunculan kata kunci: 4
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menyaring baris di log\_aktivitas.txt dan menghitung kemunculan kata tertentu. Jangan tuliskan kodenya. Tanyakan cara saya membaca berkas baris demi baris dan memeriksa kata kunci, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+\textbf{Latihan 3 – File CSV (Membaca dan Menulis dengan \texttt{DictReader/DictWriter.})}\par\medskip
+Diberikan file CSV bernama \texttt{nilai\_mahasiswa.csv} yang memiliki kolom \texttt{Nama}, \texttt{Mata Kuliah}, dan \texttt{Nilai}.  
+Buatlah program yang:
+\begin{enumerate}
+    \item Membaca file tersebut menggunakan \texttt{csv.DictReader()}.  
+    \item Menampilkan daftar mahasiswa yang memiliki nilai di atas 80.  
+    \item Menulis data mahasiswa tersebut ke file baru bernama \texttt{mahasiswa\_unggul.csv} menggunakan \texttt{csv.DictWriter()}.  
+\end{enumerate}
+
+Tujuan latihan ini adalah agar mahasiswa terbiasa bekerja dengan format CSV dan memahami perbedaan antara pembacaan berbasis daftar dan berbasis kamus.
+
+\noindent\textbf{Contoh isi file input \texttt{nilai\_mahasiswa.csv}:}
+
+listing \textit{Cuplikan isi file nilai_mahasiswa.csv} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Nama,Mata Kuliah,Nilai
+Andi,Algoritma,85
+Budi,Algoritma,90
+Citra,Struktur Data,78
+Dewi,Algoritma,88
+Eko,Struktur Data,92
+Fani,Basis Data,75
+Gilang,Basis Data,81
+\end{lstlisting}
+
+\noindent\textbf{Contoh hasil file output \texttt{mahasiswa\_unggul.csv}:}
+
+listing \textit{Isi file mahasiswa_unggul.csv yang dihasilkan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Nama,Mata Kuliah,Nilai
+Andi,Algoritma,85
+Budi,Algoritma,90
+Dewi,Algoritma,88
+Eko,Struktur Data,92
+Gilang,Basis Data,81
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membaca dan menulis nilai\_mahasiswa.csv dengan DictReader dan DictWriter. Jangan tuliskan kodenya. Tanyakan bentuk data setiap baris yang dihasilkan DictReader, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+\textbf{Latihan 4 – Agregasi dan Ringkasan Data.}\par\medskip
+Gunakan file \texttt{nilai\_mahasiswa.csv} dari latihan sebelumnya.  
+Buatlah program yang:
+\begin{enumerate}
+    \item Menghitung total dan rata-rata nilai seluruh mahasiswa.  
+    \item Mengelompokkan mahasiswa berdasarkan \texttt{Mata Kuliah} dan menghitung rata-rata nilai untuk setiap kelompok.  
+    \item Menyimpan hasil ringkasan ke file teks bernama \texttt{laporan\_rata\_nilai.txt} dalam format tabel yang rapi.  
+\end{enumerate}
+Latihan ini melatih mahasiswa untuk menggabungkan berbagai konsep sebelumnya — membaca file CSV, melakukan agregasi sederhana, dan menghasilkan laporan terformat.
+
+\noindent\textbf{Contoh isi file input \texttt{nilai\_mahasiswa.csv}:}
+
+listing \textit{Cuplikan isi file nilai_mahasiswa.csv} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Nama,Mata Kuliah,Nilai
+Andi,Algoritma,85
+Budi,Algoritma,90
+Citra,Struktur Data,78
+Dewi,Algoritma,88
+Eko,Struktur Data,92
+Fani,Basis Data,75
+Gilang,Basis Data,81
+\end{lstlisting}
+
+\noindent\textbf{Contoh hasil file output \texttt{laporan\_rata\_nilai.txt}:}
+
+listing \textit{Isi file laporan_rata_nilai.txt yang dihasilkan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Laporan Ringkasan Nilai Mahasiswa
+=================================
+Jumlah data   : 7
+Total nilai   : 589.00
+Rata-rata     : 84.14
+
+Rata-rata per Mata Kuliah
+-------------------------
+- Algoritma      : 87.67  (3 mahasiswa)
+- Struktur Data  : 85.00  (2 mahasiswa)
+- Basis Data     : 78.00  (2 mahasiswa)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menghitung rata-rata nilai per mata kuliah dari nilai\_mahasiswa.csv, lalu menulis ringkasannya ke berkas. Jangan tuliskan kodenya. Tanyakan struktur data yang akan saya pakai untuk mengelompokkan nilai, lalu beri petunjuk bila kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
 
 \section{Rangkuman}
 

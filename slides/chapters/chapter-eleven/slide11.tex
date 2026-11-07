@@ -17,7 +17,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-11:\\\LARGE{GUI Programming 1\\}
 \vspace{10pt}}
@@ -77,10 +77,21 @@
 \tableofcontents[sections={1-4}]
 \end{column}
 \begin{column}{.6\textwidth}
-\tableofcontents[sections={5-7}]
+\tableofcontents[sections={5-8}]
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Minta GenAI menjelaskan kapan fungsi pada opsi \texttt{command} sebuah tombol dijalankan dan apa yang dikerjakan \texttt{mainloop()}, lalu buktikan dengan menambahkan \texttt{print} pada fungsi itu.
+  \item Gambar dulu rancangan jendela di kertas, lalu minta GenAI menanyakan alasan Anda memilih \texttt{pack()}, \texttt{grid()}, atau \texttt{place()}.
+  \item Ubah sendiri nilai opsi seperti \texttt{padx} dan \texttt{row} untuk melihat pengaruhnya pada jendela.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Pengenalan Tkinter}
 \begin{frame}[fragile]{Pengenalan Tkinter}
@@ -440,6 +451,82 @@ if __name__ == "__main__":
 	app = KombinasiLayoutDemo()
 	app.mainloop()
 \end{lstlisting}
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Latihan 1: Game Tebak Angka Sederhana}\par\medskip
+Buatlah sebuah game GUI sederhana \textbf{Tebak Angka} dengan Tkinter dan pendekatan class:
+  \begin{enumerate}
+    \item Window utama berjudul \texttt{"Game Tebak Angka"} dengan ukuran sekitar \texttt{350x220}.
+    \item Program memilih sebuah angka rahasia antara 1 sampai 10 (boleh menggunakan modul \texttt{random} dari Python, tetapi fokus utama latihan adalah pada GUI Tkinter).
+    \item Di jendela utama, tampilkan:
+          \begin{itemize}
+            \item Sebuah \texttt{Label} instruksi, misalnya: \texttt{"Saya punya angka 1-10, coba tebak!"}.
+            \item Sebuah \texttt{Entry} untuk memasukkan tebakan pengguna.
+            \item Sebuah \texttt{Button} dengan teks \texttt{"Tebak"}.
+            \item Sebuah \texttt{Label} untuk menampilkan hasil, misalnya:
+                  \begin{itemize}
+                    \item \texttt{"Terlalu kecil"}, jika tebakan lebih kecil dari angka rahasia.
+                    \item \texttt{"Terlalu besar"}, jika tebakan lebih besar.
+                    \item \texttt{"Tebakan benar!"}, jika sama.
+                  \end{itemize}
+          \end{itemize}
+    \item Gunakan \texttt{pack()} atau kombinasi \texttt{Frame} + \texttt{pack()} untuk mengatur layout agar rapi (misalnya instruksi di atas, input + tombol di tengah, dan label hasil di bawah).
+    \item Event handler tombol \texttt{"Tebak"}:
+          \begin{itemize}
+            \item Mengambil nilai dari \texttt{Entry} dengan \texttt{get()}.
+            \item Mengubah teks \texttt{Label} hasil sesuai dengan perbandingan antara tebakan dan angka rahasia.
+          \end{itemize}
+    \item Semua logika game (penyimpanan angka rahasia, pengecekan tebakan, dan update label) ditulis di dalam sebuah kelas, misalnya \texttt{class TebakAngkaApp(tk.Tk)}.
+  \end{enumerate}
+  Tuliskan kode program Python lengkap yang memenuhi spesifikasi game sederhana di atas.
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat game tebak angka dengan Tkinter memakai pendekatan kelas. Jangan tuliskan kodenya. Tanyakan widget apa saja yang saya butuhkan dan metode mana yang dijalankan saat tombol ditekan, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Latihan 2: Form Login Sederhana}\par\medskip
+Buatlah sebuah aplikasi Tkinter menggunakan \textbf{pendekatan class} (kelas mewarisi \texttt{tk.Tk}) dengan spesifikasi berikut:
+  \begin{enumerate}
+    \item Window utama berjudul \texttt{"Form Login"} dengan ukuran sekitar \texttt{300x200}.
+    \item Gunakan sebuah \texttt{Frame} untuk menampung komponen login, dan atur layout di dalam frame menggunakan \texttt{grid()}:
+          \begin{itemize}
+            \item Baris 0: \texttt{Label} \texttt{"Username:"} dan \texttt{Entry} untuk input username.
+            \item Baris 1: \texttt{Label} \texttt{"Password:"} dan \texttt{Entry} untuk input password.
+          \end{itemize}
+    \item Di bawah form, buat sebuah \texttt{Button} dengan teks \texttt{"Login"} dan sebuah \texttt{Label} status yang awalnya berisi \texttt{"Silakan login"}.
+    \item Ketika tombol \texttt{"Login"} ditekan:
+          \begin{itemize}
+            \item Program mengambil teks dari kedua \texttt{Entry} dengan \texttt{get()}.
+            \item Jika \texttt{username == "admin"} dan \texttt{password == "1234"}, \texttt{Label} status diubah menjadi \texttt{"Login berhasil!"}.
+            \item Jika tidak, \texttt{Label} status diubah menjadi \texttt{"Username atau password salah"}.
+          \end{itemize}
+    \item Gunakan kombinasi \texttt{pack()} (untuk meletakkan frame dan label status di window utama) dan \texttt{grid()} (untuk form di dalam frame).
+    \item Semua widget dan event handler didefinisikan di dalam satu kelas, misalnya \texttt{class LoginApp(tk.Tk)}.
+  \end{enumerate}
+  Tuliskan kode program Python lengkap yang memenuhi spesifikasi di atas.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat form login dengan Tkinter dalam kelas yang mewarisi tk.Tk. Jangan tuliskan kodenya. Tanyakan cara saya mengambil isi Entry saat tombol login ditekan, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Rangkuman}

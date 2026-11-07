@@ -1,0 +1,70 @@
+% Lembar 1 kuesioner penelitian Bab 16: butir X dan Y dengan skala frekuensi.
+% Urutan butir di lembar: B1 = X1, B2 = Y1, B3 = X2, B4 = Y2, B5 = X3,
+% B6 = Y3, B7 = X4, B8 = Y4, B9 = X5, B10 = Y5 (lihat Tabel 16.2 di buku).
+\documentclass[11pt]{article}
+\input{gaya-kuesioner}
+
+\begin{document}
+
+\kepala{Lembar 1 dari 2}
+
+Kuesioner ini bagian dari penelitian tentang cara mahasiswa memakai AI saat belajar pemrograman dasar. Penelitian dilakukan oleh Alfa Yohannis dari Program Studi Informatika, Universitas Pradita.
+
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item Kuesioner terdiri atas dua lembar yang diisi pada hari berbeda. Lembar ini adalah Lembar 1.
+  \item Tuliskan NIM Anda di kedua lembar. NIM dipakai untuk memasangkan kedua lembar dan menghubungkan jawaban Anda dengan nilai kuis minggu pertama.
+  \item Lembar dikumpulkan oleh \isian{pengumpul data}, lalu NIM diganti kode acak sebelum data dianalisis. Hasil penelitian yang dipublikasikan tidak memuat NIM.
+  \item Tidak ada jawaban benar atau salah. Jawablah sesuai dengan yang benar-benar Anda lakukan.
+  \item Keikutsertaan bersifat sukarela dan tidak memengaruhi nilai mata kuliah. Anda boleh tidak mengisi atau berhenti kapan saja.
+  \item Dengan mengisi dan menyerahkan lembar ini, Anda menyatakan bersedia ikut serta.
+\end{itemize}
+
+Pengisian membutuhkan sekitar 10 menit. Pertanyaan tentang penelitian ini dapat disampaikan kepada \isian{kontak peneliti}.
+
+\bagian{NIM}
+\kotaknim
+
+\bagian{Bagian A. Pemakaian AI secara umum}
+
+A1. Layanan AI apa yang paling sering Anda pakai untuk mata kuliah ini? Pilih satu.
+
+\begin{barispilihan}
+\opsi{ChatGPT}\opsi{Gemini}\opsi{Claude}\opsi{Microsoft Copilot}\opsi{DeepSeek}\opsi{Lainnya: \rule{2.5cm}{0.4pt}}\opsi{Tidak pernah memakai AI}
+\end{barispilihan}
+
+A2. Seberapa sering Anda memakai AI untuk mata kuliah ini selama semester ini? Pilih satu.
+
+\begin{barispilihan}
+\opsi{Tidak pernah}\opsi{Kurang dari sekali seminggu}\opsi{1 sampai 2 kali seminggu}\opsi{3 sampai 5 kali seminggu}\opsi{Hampir setiap hari}
+\end{barispilihan}
+
+\newpage
+\bagian{Bagian B. Kebiasaan belajar dengan AI}
+
+Seberapa sering Anda melakukan hal berikut saat belajar mata kuliah Pemrograman Dasar selama semester ini? Beri tanda silang pada satu lingkaran untuk setiap pernyataan.
+
+Skala: 1 = Tidak pernah, 2 = Jarang, 3 = Kadang-kadang, 4 = Sering, 5 = Selalu.
+
+\begin{tabelskala}
+  B1 & Saya memakai \textit{prompt} terarah dari buku pegangan kuliah saat mempelajari listing atau mengerjakan latihan. \pilihan
+  B2 & Saya meminta AI menuliskan kode lengkap untuk tugas atau latihan. \pilihan
+  B3 & Saya meminta AI memberi pertanyaan untuk menguji pemahaman saya. \pilihan
+  B4 & Saya menyalin kode dari AI tanpa memahami cara kerjanya. \pilihan
+  B5 & Saya mencoba menjawab pertanyaan dari AI sebelum melihat penjelasannya. \pilihan
+  B6 & Saat muncul pesan kesalahan, saya langsung bertanya ke AI tanpa mencoba memperbaikinya sendiri. \pilihan
+  B7 & Saya meminta AI membuat soal latihan baru, lalu mengerjakannya sendiri. \pilihan
+  B8 & Saya merasa kesulitan ketika harus menulis program tanpa bantuan AI. \pilihan
+  B9 & Saya menjalankan sendiri kode dari penjelasan AI untuk memeriksa kebenarannya. \pilihan
+  B10 & Tugas yang saya kumpulkan sebagian besar kodenya berasal dari AI. \pilihan
+\end{tabelskala}
+
+\bagian{Bagian C. Pertanyaan terbuka}
+
+Ceritakan secara singkat cara Anda biasanya memakai AI saat belajar mata kuliah ini. Bagian ini boleh dikosongkan.
+\garis\garis\garis
+
+\medskip
+Terima kasih. Lembar 2 akan dibagikan pada \isian{tanggal pengisian Lembar 2}.
+
+\end{document}

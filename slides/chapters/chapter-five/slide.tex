@@ -14,9 +14,9 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
-\title{Chatper-05:\\\LARGE{Perulangan (Looping)\\}
+\title{Chapter-05:\\\LARGE{Perulangan (Looping)\\}
 \vspace{10pt}}
 \date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
 \author[Pradita]{\small{\textbf{Alfa Yohannis}}}
@@ -51,13 +51,24 @@ morestring=[s]{"}{"},
 \vspace{15pt}
 \begin{columns}[t]
 \begin{column}{.5\textwidth}
-\tableofcontents[sections={1-3}]
+\tableofcontents[sections={1-2}]
 \end{column}
 \begin{column}{.5\textwidth}
-\tableofcontents[sections={4-5}]
+\tableofcontents[sections={3-6}]
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Minta GenAI memberi perulangan pendek beserta tabel kosong untuk nilai variabel di tiap putaran. Isi tabel itu sendiri, lalu minta GenAI memeriksanya.
+  \item Bila \texttt{while} tidak pernah berhenti, minta GenAI menunjukkan kondisi yang tidak pernah bernilai \texttt{False}, tanpa memberikan kode perbaikannya.
+  \item Jalankan perulangan itu untuk memastikan penjelasan GenAI benar.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Definisi Perulangan}
 \begin{frame}{Definisi Perulangan}
@@ -229,6 +240,112 @@ for i in range(1, 4):  # Baris 1 sampai 3
         print(f"{i}x{j} = {i*j}", end='\t')
     print() # Pindah ke baris baru setelah inner loop selesai
 \end{lstlisting}
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Faktorial}\par\medskip
+Buatlah sebuah program yang meminta pengguna memasukkan sebuah bilangan bulat positif, lalu hitung dan tampilkan nilai faktorial dari bilangan tersebut menggunakan perulangan \texttt{for}. Nilai faktorial mengikuti persamaan berikut.
+    \begin{equation}
+      n! = n \times (n-1) \times \dots \times 1
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program faktorial dengan perulangan for. Jangan tuliskan kodenya. Tanyakan nilai awal variabel hasil dan rentang perulangan yang akan saya pakai, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, minta saya menelusuri perulangan untuk n = 4 dan periksa penelusuran saya.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Tebak Angka}\par\medskip
+Buatlah sebuah permainan tebak angka sederhana. Program akan memilih sebuah angka acak antara 1 dan 50. Pengguna diminta menebak angka tersebut. Gunakan perulangan \texttt{while} untuk terus meminta input dari pengguna hingga tebakannya benar. Berikan petunjuk "Terlalu besar" atau "Terlalu kecil" di setiap tebakan yang salah.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat permainan tebak angka dengan perulangan while. Jangan tuliskan kodenya. Tanyakan kondisi yang membuat perulangan berhenti, lalu jelaskan bila kondisi saya bisa membuat perulangan tidak pernah berhenti. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+\textbf{Pola Bintang - Segitiga Siku-siku}\par\medskip
+Gunakan \textit{nested loop} untuk menampilkan pola segitiga siku-siku seperti di bawah ini (untuk tinggi 5 baris):
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+*
+**
+***
+****
+*****
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat pola segitiga siku-siku dengan nested loop. Jangan tuliskan kodenya. Tanyakan berapa bintang yang dicetak pada baris ke-i, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, minta saya menjelaskan peran perulangan luar dan perulangan dalam.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+\textbf{Pola Bintang - Segitiga Siku-siku Terbalik}\par\medskip
+Gunakan \textit{nested loop} untuk menampilkan pola segitiga siku-siku terbalik (dengan puncak di bawah) seperti di bawah ini (untuk tinggi 5 baris):
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+*****
+****
+***
+**
+*
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat pola segitiga siku-siku terbalik dengan nested loop. Jangan tuliskan kodenya. Tanyakan bagaimana jumlah bintang berubah dari baris ke baris, lalu beri petunjuk tentang rentang perulangan bila saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 5}
+\footnotesize
+\textbf{Pola Bintang - Piramida}\par\medskip
+Gunakan \textit{nested loop} untuk menampilkan pola piramida seperti di bawah ini (untuk tinggi 5 baris):
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+    *
+   ***
+  *****
+ *******
+*********
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 5: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat pola piramida dengan nested loop. Jangan tuliskan kodenya. Tanyakan berapa spasi dan berapa bintang pada baris ke-i, lalu beri petunjuk bila hitungan saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 6}
+\footnotesize
+\textbf{Bilangan Prima}\par\medskip
+Buatlah program untuk memeriksa apakah sebuah bilangan yang diinput oleh pengguna adalah bilangan prima atau bukan. Gunakan perulangan dan pernyataan \texttt{break} untuk efisiensi. (Bilangan prima adalah bilangan yang hanya habis dibagi 1 dan dirinya sendiri).
+\end{frame}
+
+\begin{frame}{Latihan 6: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program pemeriksa bilangan prima dengan perulangan dan break. Jangan tuliskan kodenya. Tanyakan sampai angka berapa pembagi perlu diperiksa dan kapan break dipakai, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, beri beberapa angka untuk saya uji sendiri.
+\end{block}
 \end{frame}
 
 \section{Penutup}

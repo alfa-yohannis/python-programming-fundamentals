@@ -1,0 +1,72 @@
+% Gaya bersama untuk kedua lembar kuesioner penelitian Bab 16.
+\usepackage[a4paper, top=1.6cm, bottom=1.6cm, left=2cm, right=2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont[
+  Path = ../fonts/,
+  UprightFont = TitilliumWeb-Regular.ttf,
+  BoldFont = TitilliumWeb-Bold.ttf,
+  ItalicFont = TitilliumWeb-Italic.ttf,
+  BoldItalicFont = TitilliumWeb-BoldItalic.ttf
+]{TitilliumWeb}
+\usepackage[bahasai]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+
+\definecolor{praditagreen}{RGB}{37, 113, 71}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\pagestyle{empty}
+
+% Bagian yang harus diisi peneliti sebelum lembar dicetak.
+\newcommand{\isian}[1]{\textcolor{red}{[#1]}}
+
+% Kepala lembar: logo, judul penelitian, dan nomor lembar.
+\newcommand{\kepala}[1]{%
+  \begin{minipage}[c]{0.22\textwidth}
+    \includegraphics[width=\linewidth]{../../figures/images/logo_universitas.png}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.74\textwidth}
+    \raggedleft
+    {\Large\bfseries\color{praditagreen} Kuesioner Penelitian}\\[2pt]
+    {\large Belajar Pemrograman dengan Bantuan AI}\\[2pt]
+    {\bfseries #1}
+  \end{minipage}
+  \par\vspace{2pt}{\color{praditagreen}\rule{\textwidth}{1pt}}\par
+}
+
+\newcommand{\bagian}[1]{\par\medskip{\large\bfseries\color{praditagreen}#1}\par}
+
+% Kotak dan lingkaran digambar dengan TikZ agar tidak bergantung pada font simbol.
+\newcommand{\kotakpilih}{\tikz[baseline=-0.15em]\draw (0,0) rectangle (0.3,0.3);}
+\newcommand{\lingkaran}{\tikz[baseline=-0.6ex]\draw (0,0) circle (0.17);}
+
+% Pilihan jawaban: kotak tidak terpisah dari labelnya saat baris dipatah.
+\newcommand{\opsi}[1]{\mbox{\kotakpilih~#1}\hspace{1em plus 0.5em}}
+\newenvironment{barispilihan}{\par\raggedright}{\par}
+
+% NIM ditulis di kedua lembar untuk memasangkannya. NIM diganti kode acak
+% sebelum analisis dan tidak dimuat dalam publikasi.
+\newcommand{\kotaknim}{%
+  Tuliskan NIM Anda, satu angka di setiap kotak.
+
+  \begin{tabular}{|*{10}{p{0.45cm}|}}
+    \hline
+    \rule{0pt}{0.8cm} & & & & & & & & & \\
+    \hline
+  \end{tabular}
+}
+
+% Tabel butir dengan lima pilihan lingkaran. Setiap baris diakhiri \pilihan.
+\newenvironment{tabelskala}{%
+  \renewcommand{\arraystretch}{1.45}%
+  \tabularx{\textwidth}{>{\raggedright\arraybackslash}p{0.8cm}X*{5}{>{\centering\arraybackslash}p{0.65cm}}}
+  \hline
+  \textbf{No} & \textbf{Pernyataan} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+  \hline
+}{\endtabularx}
+\newcommand{\pilihan}{& \lingkaran & \lingkaran & \lingkaran & \lingkaran & \lingkaran \\ \hline}
+
+\newcommand{\garis}{\par\vspace{0.55cm}\noindent\rule{\textwidth}{0.4pt}}

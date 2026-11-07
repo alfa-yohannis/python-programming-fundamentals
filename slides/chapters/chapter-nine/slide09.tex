@@ -17,7 +17,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-09:\\\LARGE{Exception\\}
 \vspace{10pt}}
@@ -82,6 +82,17 @@
 \end{columns}
 \end{frame}
 
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Tempelkan \textit{traceback} dan minta penjelasan setiap barisnya beserta jenis \textit{exception} yang muncul, tanpa meminta perbaikan kode.
+  \item Minta GenAI mendaftar masukan yang mungkin membuat program Anda gagal, misalnya teks kosong atau huruf pada isian angka.
+  \item Tulis sendiri penanganan \texttt{try} dan \texttt{except} untuk setiap kemungkinan, lalu uji dengan masukan tersebut.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Pendahuluan}
 \begin{frame}[fragile]{Pendahuluan}
@@ -798,5 +809,147 @@ Menjaga validasi input tetap jelas, aman, dan mudah dipelihara.
 
 
 
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Menangani Pembagian Nol}\par\medskip
+Buatlah sebuah program yang meminta dua input angka dari pengguna dan menampilkan hasil pembagian dari keduanya.  
+    Gunakan blok \texttt{try-except} untuk menangani kesalahan \texttt{ZeroDivisionError}.  
+    Jika pengguna memasukkan nol sebagai penyebut, tampilkan pesan:  
+    \texttt{"Error: Pembagian dengan nol tidak diperbolehkan."}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menangani ZeroDivisionError dengan try-except. Jangan tuliskan kodenya. Tanyakan baris mana yang sebaiknya masuk blok try, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, beri beberapa masukan untuk saya uji sendiri.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Validasi Input Angka}\par\medskip
+Tulis program yang meminta pengguna memasukkan sebuah angka bulat.  
+    Jika input bukan angka, tangkap kesalahan \texttt{ValueError} dan tampilkan pesan kesalahan yang ramah.  
+    Gunakan \texttt{else} untuk mencetak nilai yang berhasil dimasukkan.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang memvalidasi masukan angka dengan menangkap ValueError dan memakai blok else. Jangan tuliskan kodenya. Tanyakan kapan blok else dijalankan, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+\textbf{Membaca File dengan Aman}\par\medskip
+Buat program yang mencoba membaca isi file berdasarkan nama yang dimasukkan pengguna.  
+    Tangani kemungkinan kesalahan \texttt{FileNotFoundError}, dan gunakan \texttt{finally} untuk menampilkan pesan:  
+    \texttt{"Operasi selesai, terima kasih."}
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membaca berkas dengan menangani FileNotFoundError dan memakai finally. Jangan tuliskan kodenya. Tanyakan kapan blok finally dijalankan, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+\textbf{Menangani Beberapa Jenis Exception}\par\medskip
+Buat program yang meminta pengguna memasukkan dua angka, lalu melakukan operasi pembagian.  
+    Tangani dua kemungkinan error:
+    \begin{itemize}
+        \item \texttt{ValueError} – jika pengguna tidak memasukkan angka.
+        \item \texttt{ZeroDivisionError} – jika penyebut bernilai nol.
+    \end{itemize}
+    Tambahkan blok \texttt{else} untuk mencetak hasil jika tidak ada kesalahan, dan blok \texttt{finally} untuk menampilkan pesan “Selesai memproses data.”
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menangani dua jenis kesalahan sekaligus pada program pembagian. Jangan tuliskan kodenya. Tanyakan exception apa saja yang mungkin muncul dan urutan except yang akan saya tulis, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 5}
+\footnotesize
+\textbf{Membuat Custom Exception}\par\medskip
+Buat kelas exception baru bernama \texttt{NilaiNegatifError} yang muncul jika input pengguna berupa angka negatif.  
+    Gunakan exception ini dalam fungsi \texttt{cek\_positif(n)} yang akan menolak angka negatif dengan pesan error:  
+    \texttt{"Nilai tidak boleh negatif!"}  
+    Tampilkan contoh penggunaan fungsi ini dalam blok \texttt{try-except}.
+\end{frame}
+
+\begin{frame}{Latihan 5: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat exception NilaiNegatifError untuk fungsi cek\_positif(). Jangan tuliskan kodenya. Tanyakan kelas apa yang perlu diwarisi dan di mana raise dipakai, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 6}
+\footnotesize
+\textbf{Validasi Formulir Sederhana}\par\medskip
+Buat program yang mensimulasikan pengisian formulir dengan tiga input:
+    \begin{itemize}
+        \item Nama (tidak boleh kosong),
+        \item Usia (harus antara 0–120),
+        \item Email (harus mengandung karakter '@').
+    \end{itemize}
+    Buat tiga \textit{custom exception}:
+    \begin{itemize}
+        \item \texttt{NamaKosongError},
+        \item \texttt{UsiaTidakValidError},
+        \item \texttt{EmailTidakValidError}.
+    \end{itemize}
+    Gunakan ketiga exception tersebut untuk memvalidasi data pengguna dan tampilkan pesan kesalahan yang sesuai jika ada input yang tidak valid.
+\end{frame}
+
+\begin{frame}{Latihan 6: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat validasi formulir dengan tiga masukan yang masing-masing punya aturan. Jangan tuliskan kodenya. Tanyakan exception yang akan saya pakai untuk setiap aturan, lalu beri petunjuk bila rancangannya keliru. Setelah saya mengirim kode, beri beberapa masukan yang salah untuk saya uji sendiri.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 7}
+\footnotesize
+\textbf{Simulasi ATM Sederhana}\par\medskip
+Buat program simulasi ATM dengan fitur:
+    \begin{itemize}
+        \item Pengguna dapat memasukkan saldo awal.
+        \item Pengguna dapat melakukan penarikan sejumlah uang.
+    \end{itemize}
+    Buat exception baru bernama \texttt{SaldoTidakCukupError} yang muncul jika pengguna mencoba menarik saldo lebih besar dari jumlah yang tersedia.  
+    Gunakan blok \texttt{try-except-finally} untuk menampilkan pesan saldo akhir meskipun terjadi kesalahan.
+\end{frame}
+
+\begin{frame}{Latihan 7: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat simulasi ATM yang menolak transaksi tidak valid dengan exception. Jangan tuliskan kodenya. Tanyakan kondisi apa saja yang membuat transaksi ditolak, lalu periksa daftar saya. Setelah saya mengirim kode, beri beberapa skenario transaksi untuk saya uji sendiri.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 8}
+\footnotesize
+\textbf{Menangkap dan Menulis Log Kesalahan}\par\medskip
+Buat program yang menjalankan beberapa operasi aritmetika dari daftar, seperti pembagian, akar kuadrat, dan konversi tipe data.  
+    Jika terjadi exception, tangkap semua jenis kesalahan (\texttt{Exception}) dan tulis pesan error ke file bernama \texttt{error.log}.  
+    Setiap baris log harus memuat waktu kejadian dan jenis error yang terjadi.
+\end{frame}
+
+\begin{frame}{Latihan 8: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menulis kesalahan ke berkas log saat menjalankan beberapa operasi aritmetika. Jangan tuliskan kodenya. Tanyakan informasi apa yang perlu dicatat di log dan cara mendapatkan pesan kesalahannya, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
 
 \end{document}

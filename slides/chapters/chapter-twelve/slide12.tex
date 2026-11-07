@@ -17,7 +17,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-12:\\\LARGE{GUI Programming 2\\}
 \vspace{10pt}}
@@ -77,11 +77,22 @@
 \tableofcontents[sections={1-4}]
 \end{column}
 \begin{column}{.6\textwidth}
-\tableofcontents[sections={5-7}]
+\tableofcontents[sections={5-8}]
 \end{column}
 \end{columns}
 \end{frame}
 
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Gambar hilang dari jendela bila referensi \texttt{PhotoImage} tidak disimpan. Minta GenAI menjelaskan penyebabnya, lalu jadikan baris penyimpan referensi sebagai komentar dan jalankan kembali programnya.
+  \item Minta GenAI menjelaskan urutan kejadian pada animasi dengan \texttt{after()} dan kendali papan ketik, dari tombol ditekan sampai objek bergerak.
+  \item Ubah nilai jeda dan besar langkah gerak untuk menguji penjelasan itu.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Menampilkan Gambar Menggunakan File Dialog}
 
@@ -523,5 +534,79 @@ if __name__=="__main__":
 
 \end{frame}
 
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Soal 1: Dua Pemain dengan Gambar Berjalan yang Dapat Dikendalikan Keyboard}\par\medskip
+Buatlah sebuah aplikasi Tkinter berbasis kelas yang menggabungkan konsep \texttt{Canvas}, kontrol keyboard, dan pemilihan gambar menggunakan \texttt{file dialog}. Aplikasi ini merupakan pengembangan dari contoh \emph{Kontrol Segitiga dengan Keyboard}, tetapi objek segitiga digantikan oleh dua gambar animasi (animated GIF) yang menggambarkan orang berjalan.
+
+Spesifikasi:
+\begin{itemize}
+    \item Jendela utama berisi sebuah \texttt{Canvas} yang menjadi arena gerak dua ``pemain''.
+    \item Aplikasi memiliki dua ``pemain'' (Player 1 dan Player 2), masing-masing direpresentasikan oleh gambar animated GIF orang berjalan.
+    \item Pengguna dapat memilih file gambar untuk masing-masing pemain menggunakan \texttt{filedialog.askopenfilename()}. Minimal, filter file harus mengizinkan file GIF (\texttt{*.gif}), dan dianjurkan menggunakan animated GIF.
+    \item Setiap gambar pemain ditampilkan pada posisi awal yang berbeda di \texttt{Canvas}.
+    \item Player 1 digerakkan dengan tombol keyboard \textbf{W, A, S, D} (misalnya: A = kiri, D = kanan, W/S = atas/bawah, atau atur sendiri skema yang konsisten).
+    \item Player 2 digerakkan dengan tombol panah (\textbf{Left, Right, Up, Down}) seperti pada contoh sebelumnya.
+    \item Gerakan dilakukan dengan memanggil \texttt{canvas.move()} terhadap objek gambar yang sesuai.
+    \item Pastikan referensi \texttt{PhotoImage} untuk kedua pemain disimpan (misalnya sebagai atribut objek) agar gambar tidak hilang dari tampilan.
+\end{itemize}
+
+Syarat:
+\begin{enumerate}
+    \item Gunakan \texttt{Canvas} sebagai area gerak dan \texttt{bind("<KeyPress>")} untuk menangkap event keyboard.
+    \item Logika pemetaan tombol ke gerakan harus dipisahkan dengan jelas antara Player 1 dan Player 2.
+    \item Susun program dengan pendekatan berbasis kelas (misalnya \texttt{GameWindow} sebagai turunan \texttt{tk.Tk}).
+    \item Opsional (tantangan tambahan): jika file GIF benar-benar animasi, usahakan animasi tetap berjalan ketika pemain digerakkan.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat aplikasi Tkinter dengan dua pemain bergambar di Canvas yang digerakkan dengan keyboard. Jangan tuliskan kodenya. Tanyakan cara saya memisahkan tombol kendali kedua pemain dan menyimpan referensi gambarnya, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Soal 2: Navigasi Antar Form ke Tabel Data Mahasiswa}\par\medskip
+Rancang sebuah aplikasi Tkinter yang terdiri atas \textbf{form utama} dan \textbf{form kedua} dengan konsep sebagai berikut:
+\begin{itemize}
+    \item Form utama (\texttt{Tk}) berisi:
+          \begin{itemize}
+              \item Sebuah \texttt{Label} sederhana berisi teks, misalnya ``Aplikasi Data Mahasiswa''.
+              \item Sebuah \texttt{menu bar} dengan menu ``Navigasi'' yang memiliki item ``Daftar Mahasiswa''.
+          \end{itemize}
+    \item Ketika pengguna memilih menu ``Daftar Mahasiswa'', aplikasi akan membuka form kedua (\texttt{Toplevel}) yang berisi:
+          \begin{itemize}
+              \item Sebuah \texttt{ttk.Treeview} dengan minimal dua kolom, misalnya ``NIM'' dan ``Nama''.
+              \item Beberapa baris data mahasiswa yang ditambahkan secara statis di dalam konstruktor.
+              \item Sebuah \texttt{Label} di bawah tabel yang menampilkan informasi mahasiswa yang dipilih (misalnya ``Terpilih: NIM = ..., Nama = ...'').
+              \item Sebuah \texttt{Button} untuk menampilkan data baris yang sedang dipilih pada \texttt{Treeview} ke dalam \texttt{Label} tersebut.
+          \end{itemize}
+\end{itemize}
+Syarat:
+\begin{enumerate}
+    \item Pisahkan definisi form utama dan form kedua ke dalam dua kelas berbeda, seperti contoh \texttt{MainWindow} dan \texttt{SecondForm}.
+    \item Gunakan pola \texttt{from second\_form import SecondForm} (atau nama file lain yang sesuai) untuk memanggil form kedua dari form utama.
+    \item Pastikan \texttt{Treeview} dikonfigurasi dengan \texttt{show="headings"} dan memiliki header kolom yang jelas, serta mekanisme pemilihan baris menggunakan \texttt{selection()}.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat aplikasi Tkinter dengan menu yang membuka form kedua berisi tabel Treeview. Jangan tuliskan kodenya. Tanyakan cara saya membuka Toplevel dari menu dan membaca baris yang dipilih di tabel, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
 
 \end{document}

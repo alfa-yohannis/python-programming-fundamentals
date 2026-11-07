@@ -14,9 +14,9 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
-\title{Chatper-04:\\\LARGE{Fungsi dan Modul\\}
+\title{Chapter-04:\\\LARGE{Fungsi dan Modul\\}
 \vspace{10pt}}
 \date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
 \author[Pradita]{\small{\textbf{Alfa Yohannis}}}
@@ -54,10 +54,21 @@ morestring=[s]{"}{"},
 \tableofcontents[sections={1}]
 \end{column}
 \begin{column}{.5\textwidth}
-\tableofcontents[sections={2-3}]
+\tableofcontents[sections={2-4}]
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Tempelkan sebuah listing dan minta GenAI menelusuri satu pemanggilan fungsi langkah demi langkah, dari nilai parameter sampai nilai yang dikembalikan.
+  \item Untuk fungsi rekursif, pakai masukan kecil, lalu cocokkan penelusuran GenAI dengan keluaran \texttt{print} yang Anda sisipkan sendiri.
+  \item Periksa setiap nama fungsi modul yang disebut GenAI di dokumentasi resmi Python, karena GenAI kadang menyebut fungsi yang sebenarnya tidak ada.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Fungsi}
 
@@ -372,6 +383,78 @@ from math import sqrt, pi
 print(sqrt(36)) # Output: 6.0
 print(pi) # Output: 3.141592653589793
 \end{lstlisting}
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+Buatlah program yang meminta pengguna memasukan nilai (minimal 5 input), kemudian klasifikasikan nilai tersebut sesuai dengan ketentuan berikut:
+    \begin{enumerate}
+        \item Jika nilai lebih besar atau sama dengan 80, maka klasifikasi \texttt{A}
+        \item Jika nilai lebih besar atau sama dengan 70, maka klasifikasi \texttt{B}
+        \item Jika nilai lebih besar atau sama dengan 60, maka klasifikasi \texttt{C}
+        \item Jika nilai lebih besar atau sama dengan 50, maka klasifikasi \texttt{D}
+        \item Jika nilai lebih kecil dari 50, maka klasifikasi \texttt{E}
+    \end{enumerate}
+    Buatkan program dalam dua versi, yaitu dengan membuat fungsi untuk klasifikasi dan tanpa membuat fungsi klasifikasi.
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program yang mengklasifikasikan beberapa nilai dengan fungsi. Jangan tuliskan kodenya. Tanyakan parameter dan nilai kembalian fungsi yang saya rencanakan, lalu beri petunjuk bila rancangannya kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+Buatlah program yang meminta pengguna memasukan nilai 3 mata pelajaran (Matematika, Fisika, dan Kimia), kemudian buatlah fungsi yang menerima dua parameter yakni nilai dan parameter kedua nilai minimal kelulusan dengan default nilai 60. Program akan menampilkan lulus atau tidak lulus sesuai dengan nilai minimal. Standar kelulusan untuk matematika adalah 80, untuk fisika adalah 70, dan untuk kimia adalah 60.
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat fungsi kelulusan yang parameter nilai minimalnya punya nilai bawaan. Jangan tuliskan kodenya. Tanyakan apa yang terjadi bila fungsi dipanggil tanpa argumen kedua, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+Buatlah program untuk menghitung deret Fibonacci dengan cara:
+    \begin{enumerate}
+        \item Meminta input jumlah angka n dari pengguna
+        \item Menggunakan fungsi rekursif untuk menghitung angka Fibonacci ke-n.
+        \item Menampilkan deret Fibonacci hingga n angka pertama
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat fungsi rekursif untuk deret Fibonacci. Jangan tuliskan kodenya. Tanyakan kasus dasar dan langkah rekursif yang saya rencanakan, lalu beri petunjuk bila salah satunya keliru. Setelah saya mengirim kode, minta saya menelusuri pemanggilan untuk n = 4 dan periksa penelusuran saya.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+Buat modul bernama \textbf{geometry.py} yang berisi fungsi:
+    \begin{enumerate}
+        \item \texttt{hitung_persegi_panjang(panjang, lebar)} $\rightarrow$ mengembalikan luas dan keliling persegi panjang (function with multiple returns)
+        \item \texttt{hitung_persegi(sisi)} $\rightarrow$ mengembalikan luas dan keliling persegi (function with multiple returns)
+    \end{enumerate}
+    Kemudian import modul tersebut di file program utama dan gunakan fungsi-fungsi tersebut.
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat modul geometry.py berisi fungsi luas dan keliling. Jangan tuliskan kodenya. Tanyakan cara saya mengimpor modul itu dari berkas lain dan cara fungsi mengembalikan dua nilai, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Penutup}

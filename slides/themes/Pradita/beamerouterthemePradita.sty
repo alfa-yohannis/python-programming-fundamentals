@@ -8,7 +8,7 @@
 			\useasboundingbox[fill=white](0,0) rectangle(\the\paperwidth,\the\paperheight);
 			\ifx
 				\insertframesubtitle\@empty%
-				\node at (13.5,0.3) {\includegraphics[width=75.9375pt, height=32.625pt]{../../../shared_assets/images/logo_universitas}};
+				\node at (13.5,0.3) {\includegraphics[width=75.9375pt, height=32.625pt]{../../../figures/images/logo_universitas}};
 				{\node[anchor=west, black, font=\huge, fill=white] at (1.2,0.25){\textbf{\insertframetitle}};}
 			\else%
 				{
@@ -26,7 +26,9 @@
 			
 		\end{tikzpicture}
 	\end{beamercolorbox}
-	\vskip-1cm
+	% A frame with allowframebreaks fills each slide from the top, so its text
+	% starts lower than usual to stay clear of the title.
+	\ifbeamer@autobreak\vskip-0.4cm\else\vskip-1cm\fi
 }
 
 

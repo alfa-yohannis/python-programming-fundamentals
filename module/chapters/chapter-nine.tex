@@ -7,22 +7,26 @@
   \item Merancang jenis kesalahan sendiri yang sesuai dengan aturan program, misalnya untuk memeriksa masukan pengguna.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Pesan kesalahan Python memuat \textit{traceback} yang menunjukkan urutan pemanggilan sampai baris yang gagal. Tempelkan \textit{traceback} ke GenAI dan minta penjelasan setiap barisnya beserta jenis \textit{exception} yang muncul, tanpa meminta perbaikan kode. GenAI juga dapat diminta mendaftar masukan yang mungkin membuat program Anda gagal, misalnya teks kosong atau huruf pada isian angka. Setelah itu, tulis sendiri penanganan \texttt{try} dan \texttt{except} untuk setiap kemungkinan, lalu uji dengan masukan tersebut.
+
 \section{Pendahuluan}
 
 Dalam proses pemrograman, kesalahan atau error merupakan hal yang tidak dapat dihindari. Seorang pemrogram pemula sering kali menemukan programnya berhenti tiba-tiba, menampilkan pesan kesalahan yang panjang dan membingungkan. Namun, seiring dengan meningkatnya pemahaman, kesalahan tersebut dapat dilihat bukan sebagai kegagalan, melainkan sebagai bagian penting dari proses belajar dan pengembangan perangkat lunak.
 
-Pada dasarnya, terdapat dua jenis kesalahan utama dalam Python: \textbf{kesalahan sintaks (syntax error)} dan \textbf{kesalahan saat berjalan (runtime error)}. Kesalahan sintaks terjadi ketika penulisan kode tidak sesuai dengan aturan bahasa Python, seperti tanda kurung yang tidak seimbang atau penggunaan kata kunci yang salah—jenis kesalahan ini terdeteksi sebelum program dijalankan. Sementara itu, kesalahan saat berjalan muncul ketika program telah dieksekusi dan terjadi kondisi yang tidak diharapkan, misalnya pembagian dengan nol atau akses indeks di luar jangkauan pada sebuah \textit{list}. Kesalahan saat berjalan inilah yang, di Python, dimodelkan sebagai \textbf{exception}.
+Pada dasarnya, terdapat dua jenis kesalahan utama dalam Python: \textbf{kesalahan sintaks (syntax error)} dan \textbf{kesalahan saat berjalan (runtime error)}. Kesalahan sintaks terjadi ketika penulisan kode tidak sesuai dengan aturan bahasa Python, seperti tanda kurung yang tidak seimbang atau penggunaan kata kunci yang salah—jenis kesalahan ini terdeteksi sebelum program dijalankan. Sementara itu, kesalahan saat berjalan muncul ketika program telah dieksekusi dan terjadi kondisi yang tidak diharapkan, misalnya pembagian dengan nol atau akses indeks di luar jangkauan pada sebuah \textit{list\index{list}}. Kesalahan saat berjalan inilah yang, di Python, dimodelkan sebagai \textbf{exception\index{exception}}.
 
 Untuk menghadapi kondisi tak terduga tersebut, Python menyediakan mekanisme \textbf{exception handling} yang memungkinkan program mengantisipasi dan menangani kesalahan tanpa harus berhenti secara mendadak. Alih-alih gagal total, program dapat menampilkan pesan yang lebih ramah, melakukan langkah pemulihan (\textit{recovery}), atau melakukan pembersihan sumber daya dengan rapi. Pada bab ini, Anda akan mempelajari cara kerja blok \texttt{try-except}, bagaimana menulis penanganan untuk \textit{banyak} jenis exception, penggunaan \texttt{else} (dijalankan ketika tidak ada error) dan \texttt{finally} (selalu dijalankan untuk \textit{cleanup}), serta cara membuat \textbf{custom exception} untuk mengekspresikan aturan domain secara lebih jelas. Tujuannya adalah agar Anda mampu menulis program Python yang \textit{robust}, informatif saat terjadi error, dan mudah dirawat.
 
 
 \section{Konsep Dasar Exception}
 
-Dalam pemrograman, kesalahan atau \textit{error} merupakan kondisi yang menyebabkan program tidak dapat berjalan sebagaimana mestinya. Python memiliki cara sistematis untuk menangani kesalahan ini agar program tetap dapat berfungsi dengan baik. Sebelum memahami bagaimana cara menanganinya, penting untuk mengetahui jenis-jenis kesalahan yang mungkin terjadi serta konsep dasar yang mendasari \textbf{exception}.
+Dalam pemrograman, kesalahan atau \textit{error} merupakan kondisi yang menyebabkan program tidak dapat berjalan sebagaimana mestinya. Python memiliki cara sistematis untuk menangani kesalahan ini agar program tetap dapat berfungsi dengan baik. Sebelum memahami bagaimana cara menanganinya, penting untuk mengetahui jenis-jenis kesalahan yang mungkin terjadi serta konsep dasar yang mendasari \textbf{exception\index{exception}}.
 
 \subsection*{Kesalahan Sintaks (Syntax Error)}
 
-Kesalahan sintaks terjadi ketika penulisan kode tidak sesuai dengan aturan bahasa Python. Interpreter Python akan mendeteksi kesalahan ini sebelum program dijalankan. Karena itu, kesalahan sintaks mencegah program untuk dieksekusi sama sekali (Listing~\ref{lst:b9-kesalahan-sintaks}).
+Kesalahan sintaks terjadi ketika penulisan kode tidak sesuai dengan aturan bahasa Python. Interpreter\index{interpreter} Python akan mendeteksi kesalahan ini sebelum program dijalankan. Karena itu, kesalahan sintaks mencegah program untuk dieksekusi sama sekali (Listing~\ref{lst:b9-kesalahan-sintaks}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh kesalahan sintaks}, label={lst:b9-kesalahan-sintaks}]
 # Contoh kesalahan sintaks: tanda kurung kurang
@@ -61,7 +65,7 @@ Berbeda dengan kesalahan sintaks, kesalahan runtime tidak menghentikan keseluruh
 
 \begin{itemize}
     \item \texttt{ZeroDivisionError} – pembagian dengan nol,
-    \item \texttt{IndexError} – akses indeks list di luar jangkauan,
+    \item \texttt{IndexError} – akses indeks list\index{list} di luar jangkauan,
     \item \texttt{ValueError} – kesalahan pada nilai atau tipe data,
     \item \texttt{FileNotFoundError} – file yang diminta tidak ditemukan,
     \item \texttt{TypeError} – operasi dilakukan pada tipe data yang tidak sesuai.
@@ -97,7 +101,7 @@ Penanganan exception membantu:
     \item Mencegah program berhenti secara tiba-tiba.
     \item Memberikan pesan kesalahan yang lebih informatif bagi pengguna.
     \item Menjaga keandalan (\textit{robustness}) dan kestabilan program.
-    \item Memudahkan proses debugging dan pengujian.
+    \item Memudahkan proses debugging\index{debugging} dan pengujian.
 \end{enumerate}
 
 Dengan kata lain, penanganan exception adalah langkah penting menuju program yang profesional dan tangguh. Pada bagian berikutnya, kita akan mempelajari bagaimana Python menyediakan struktur \texttt{try-except} untuk menangani exception secara sistematis.
@@ -105,7 +109,7 @@ Dengan kata lain, penanganan exception adalah langkah penting menuju program yan
 
 \section{Blok Try-Except}
 
-Setelah memahami konsep dasar exception, langkah selanjutnya adalah mempelajari bagaimana Python menangani kesalahan tersebut tanpa membuat program berhenti. Untuk itu, Python menyediakan mekanisme yang disebut dengan \textbf{blok \texttt{try-except}}.
+Setelah memahami konsep dasar exception\index{exception}, langkah selanjutnya adalah mempelajari bagaimana Python menangani kesalahan tersebut tanpa membuat program berhenti. Untuk itu, Python menyediakan mekanisme yang disebut dengan \textbf{blok \texttt{try-except}}.
 
 \subsection*{Struktur Dasar Try-Except}
 
@@ -124,7 +128,7 @@ except JenisException:
 
 Alur eksekusinya sederhana:
 \begin{enumerate}
-    \item Python akan mengeksekusi blok \texttt{try}.
+    \item Python akan mengeksekusi blok \texttt{try}\index{try}.
     \item Jika tidak ada kesalahan, blok \texttt{except} akan dilewati.
     \item Jika terjadi kesalahan, Python akan mencari blok \texttt{except} yang sesuai dan menjalankannya.
 \end{enumerate}
@@ -176,11 +180,11 @@ except:
     print("Terjadi kesalahan yang tidak diketahui.")
 \end{lstlisting}
 
-Namun, praktik ini \textbf{tidak disarankan} untuk program besar, karena menyulitkan proses debugging — kita tidak tahu jenis kesalahan apa yang sebenarnya terjadi. Sebaiknya selalu tangani exception yang spesifik bila memungkinkan.
+Namun, praktik ini \textbf{tidak disarankan} untuk program besar, karena menyulitkan proses debugging\index{debugging} — kita tidak tahu jenis kesalahan apa yang sebenarnya terjadi. Sebaiknya selalu tangani exception yang spesifik bila memungkinkan.
 
 \subsection*{Menggunakan Pesan Error Kustom}
 
-Selain menampilkan pesan umum, kita dapat menampilkan pesan yang lebih informatif dengan menangkap objek exception. Python memungkinkan kita mendapatkan detail error melalui kata kunci \texttt{as} (Listing~\ref{lst:b9-penggunaan-pesan-error-kustom}).
+Selain menampilkan pesan umum, kita dapat menampilkan pesan yang lebih informatif dengan menangkap objek\index{objek} exception. Python memungkinkan kita mendapatkan detail error melalui kata kunci \texttt{as} (Listing~\ref{lst:b9-penggunaan-pesan-error-kustom}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Penggunaan pesan error kustom}, label={lst:b9-penggunaan-pesan-error-kustom}]
 try:
@@ -217,7 +221,7 @@ Pada bagian selanjutnya, kita akan memperluas konsep ini dengan menangani \textb
 
 \section{Menangani Beberapa Jenis Exception}
 
-Dalam praktiknya, satu potongan kode bisa saja berpotensi menimbulkan berbagai jenis kesalahan. Misalnya, kesalahan input pengguna, pembagian dengan nol, atau file yang tidak ditemukan. Untuk menghadapi kondisi tersebut, Python memungkinkan kita menulis beberapa blok \texttt{except} agar setiap jenis exception dapat ditangani secara berbeda sesuai konteksnya.
+Dalam praktiknya, satu potongan kode bisa saja berpotensi menimbulkan berbagai jenis kesalahan. Misalnya, kesalahan input pengguna, pembagian dengan nol, atau file yang tidak ditemukan. Untuk menghadapi kondisi tersebut, Python memungkinkan kita menulis beberapa blok \texttt{except} agar setiap jenis exception\index{exception} dapat ditangani secara berbeda sesuai konteksnya.
 
 \subsection*{Menangani Beberapa Exception Secara Terpisah}
 
@@ -247,7 +251,6 @@ Keluarannya ada pada Listing~\ref{lst:b9-keluaran-except-terpisah-saat-masukan-b
 
 \begin{lstlisting}[language=bash, caption={Keluaran except terpisah saat masukan berupa teks}, label={lst:b9-keluaran-except-terpisah-saat-masukan-berupa}]
 Masukkan angka pertama: sepuluh
-Masukkan angka kedua: 2
 Error: Input harus berupa angka, bukan teks.
 \end{lstlisting}
 
@@ -284,7 +287,7 @@ Teknik ini berguna ketika penanganan kedua jenis kesalahan cukup serupa dan tida
 
 \subsection*{Hierarki Exception di Python}
 
-Python memiliki sistem hierarki exception di mana semua jenis kesalahan diturunkan dari kelas dasar \texttt{BaseException}. Sebagian besar exception yang sering kita tangani berasal dari turunan \texttt{Exception}.  
+Python memiliki sistem hierarki exception di mana semua jenis kesalahan diturunkan dari kelas\index{kelas} dasar \texttt{BaseException}. Sebagian besar exception yang sering kita tangani berasal dari turunan \texttt{Exception}.  
 Gambaran sederhananya ada pada Gambar~\ref{fig:b9-hierarki}:
 
 \begin{figure}[H]
@@ -310,7 +313,7 @@ Gambaran sederhananya ada pada Gambar~\ref{fig:b9-hierarki}:
   \label{fig:b9-hierarki}
 \end{figure}
 
-Artinya, jika kita menangkap \texttt{Exception} saja, maka semua jenis kesalahan yang merupakan turunannya juga akan tertangkap. Namun, untuk alasan kejelasan dan debugging yang efektif, sebaiknya kita menangkap jenis exception yang spesifik (Listing~\ref{lst:b9-menangkap-seluruh-exception-menggunakan-kelas-induk}).
+Artinya, jika kita menangkap \texttt{Exception} saja, maka semua jenis kesalahan yang merupakan turunannya juga akan tertangkap. Namun, untuk alasan kejelasan dan debugging\index{debugging} yang efektif, sebaiknya kita menangkap jenis exception yang spesifik (Listing~\ref{lst:b9-menangkap-seluruh-exception-menggunakan-kelas-induk}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Menangkap seluruh exception menggunakan kelas induk}, label={lst:b9-menangkap-seluruh-exception-menggunakan-kelas-induk}]
 try:
@@ -325,11 +328,11 @@ Keluaran program (Listing~\ref{lst:b9-keluaran-saat-kesalahan-ditangkap-oleh-kel
 Terjadi kesalahan: invalid literal for int() with base 10: 'abc'
 \end{lstlisting}
 
-Dengan menangkap kelas induk \texttt{Exception}, semua jenis kesalahan turunan akan tertangani, tetapi kita tetap dapat mengakses detail error melalui variabel \texttt{e}.
+Dengan menangkap kelas induk \texttt{Exception}, semua jenis kesalahan turunan akan tertangani, tetapi kita tetap dapat mengakses detail error melalui variabel\index{variabel} \texttt{e}.
 
 \subsection*{Menggunakan \texttt{as} untuk Mendapatkan Objek Exception}
 
-Dalam contoh sebelumnya, kita telah melihat bahwa kata kunci \texttt{as} digunakan untuk menangkap objek exception dan menyimpannya dalam variabel. Objek ini berisi informasi penting seperti pesan error, nama exception, dan atribut tambahan lainnya (Listing~\ref{lst:b9-menggunakan-as-menangkap-objek-exception}).
+Dalam contoh sebelumnya, kita telah melihat bahwa kata kunci \texttt{as} digunakan untuk menangkap objek\index{objek} exception dan menyimpannya dalam variabel. Objek ini berisi informasi penting seperti pesan error, nama exception, dan atribut\index{atribut} tambahan lainnya (Listing~\ref{lst:b9-menggunakan-as-menangkap-objek-exception}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Menggunakan 'as' untuk menangkap objek exception}, label={lst:b9-menggunakan-as-menangkap-objek-exception}]
 try:
@@ -369,11 +372,11 @@ Selanjutnya, kita akan membahas dua blok tambahan dalam penanganan exception, ya
 
 \section{Blok Else dan Finally}
 
-Selain blok \texttt{try} dan \texttt{except}, Python juga menyediakan dua blok tambahan yang dapat digunakan untuk mengontrol alur program secara lebih fleksibel, yaitu \texttt{else} dan \texttt{finally}. Kedua blok ini tidak wajib digunakan, tetapi sangat berguna untuk situasi tertentu, terutama ketika kita ingin memisahkan logika normal dari logika penanganan kesalahan, atau ketika kita perlu memastikan bahwa suatu tindakan pembersihan (\textit{cleanup}) tetap dilakukan meskipun terjadi error.
+Selain blok \texttt{try}\index{try} dan \texttt{except}, Python juga menyediakan dua blok tambahan yang dapat digunakan untuk mengontrol alur program secara lebih fleksibel, yaitu \texttt{else} dan \texttt{finally}. Kedua blok ini tidak wajib digunakan, tetapi sangat berguna untuk situasi tertentu, terutama ketika kita ingin memisahkan logika normal dari logika penanganan kesalahan, atau ketika kita perlu memastikan bahwa suatu tindakan pembersihan (\textit{cleanup}) tetap dilakukan meskipun terjadi error.
 
 \subsection*{Blok Else}
 
-Blok \texttt{else} digunakan setelah \texttt{except}, dan hanya akan dijalankan jika tidak terjadi exception dalam blok \texttt{try}. Dengan kata lain, kode di dalam \texttt{else} hanya berjalan ketika semua operasi di \texttt{try} berhasil.
+Blok \texttt{else} digunakan setelah \texttt{except}, dan hanya akan dijalankan jika tidak terjadi exception\index{exception} dalam blok \texttt{try}. Dengan kata lain, kode di dalam \texttt{else} hanya berjalan ketika semua operasi di \texttt{try} berhasil.
 
 Struktur lengkapnya sebagai berikut (Listing~\ref{lst:b9-struktur-lengkap-try-except-else}):
 
@@ -449,12 +452,12 @@ Jika file tidak ditemukan, maka hasilnya (Listing~\ref{lst:b9-keluaran-blok-fina
 Error: File tidak ditemukan.
 Menutup file...
 Traceback (most recent call last):
-  File "contoh.py", line 8, in <module>
+  File "contoh.py", line 9, in <module>
     f.close()
-UnboundLocalError: local variable 'f' referenced before assignment
+NameError: name 'f' is not defined
 \end{lstlisting}
 
-Terjadi error baru karena variabel \texttt{f} belum pernah dibuat. Untuk menghindarinya, sebaiknya kita melakukan pemeriksaan terlebih dahulu sebelum menutup file (Listing~\ref{lst:b9-menangani-variabel-dengan-aman-finally}).
+Terjadi error baru karena variabel\index{variabel} \texttt{f} belum pernah dibuat. Untuk menghindarinya, sebaiknya kita melakukan pemeriksaan terlebih dahulu sebelum menutup file (Listing~\ref{lst:b9-menangani-variabel-dengan-aman-finally}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Menangani variabel dengan aman di finally}, label={lst:b9-menangani-variabel-dengan-aman-finally}]
 f = None
@@ -527,7 +530,7 @@ Kombinasi empat blok ini — \texttt{try}, \texttt{except}, \texttt{else}, dan \
 
 \section{Membuat Exception Sendiri}
 
-Selain menggunakan berbagai jenis exception bawaan Python seperti \texttt{ValueError} atau \texttt{ZeroDivisionError}, kita juga dapat membuat jenis exception kita sendiri yang sesuai dengan kebutuhan program. Kemampuan ini berguna ketika kita ingin mendefinisikan kesalahan yang bersifat lebih spesifik dan bermakna sesuai konteks aplikasi yang kita kembangkan.
+Selain menggunakan berbagai jenis exception\index{exception} bawaan Python seperti \texttt{ValueError} atau \texttt{ZeroDivisionError}, kita juga dapat membuat jenis exception kita sendiri yang sesuai dengan kebutuhan program. Kemampuan ini berguna ketika kita ingin mendefinisikan kesalahan yang bersifat lebih spesifik dan bermakna sesuai konteks aplikasi yang kita kembangkan.
 
 \subsection*{Pengenalan Custom Exception}
 
@@ -537,7 +540,7 @@ Sebagai contoh, dalam sebuah aplikasi keuangan, kita mungkin ingin membuat kesal
 
 \subsection*{Cara Mendefinisikan Class Exception Sendiri}
 
-Untuk membuat exception baru, kita cukup mendefinisikan kelas Python yang diturunkan (\textit{inherit}) dari kelas dasar \texttt{Exception}. Kita juga dapat menambahkan konstruktor khusus atau atribut tambahan sesuai kebutuhan (Listing~\ref{lst:b9-mendefinisikan-custom-exception-sederhana}).
+Untuk membuat exception baru, kita cukup mendefinisikan kelas\index{kelas} Python yang diturunkan (\textit{inherit}) dari kelas dasar \texttt{Exception}. Kita juga dapat menambahkan konstruktor khusus atau atribut\index{atribut} tambahan sesuai kebutuhan (Listing~\ref{lst:b9-mendefinisikan-custom-exception-sederhana}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh mendefinisikan custom exception sederhana}, label={lst:b9-mendefinisikan-custom-exception-sederhana}]
 class InputNegatifError(Exception):
@@ -654,7 +657,7 @@ Dengan menggunakan custom exception, kita mendapatkan beberapa keuntungan pentin
 \begin{itemize}
     \item Kode lebih mudah dibaca karena jenis error menggambarkan konteks spesifik masalah.
     \item Memisahkan kesalahan logika bisnis dari error teknis bawaan Python.
-    \item Memudahkan proses debugging dan pelaporan error.
+    \item Memudahkan proses debugging\index{debugging} dan pelaporan error.
     \item Meningkatkan fleksibilitas dalam menangani kondisi yang tidak biasa.
 \end{itemize}
 
@@ -663,14 +666,16 @@ Dengan menggunakan custom exception, kita mendapatkan beberapa keuntungan pentin
 Custom exception memberi kemampuan bagi pengembang untuk mendefinisikan kesalahan sesuai kebutuhan domain aplikasinya.  
 Dengan mendefinisikan kelas exception sendiri, kita dapat membuat program yang lebih \textit{robust}, mudah dipelihara, dan kaya informasi saat terjadi kesalahan.
 
-Pada bagian berikutnya, kita akan memperluas topik ini dengan membahas konsep penting berikutnya dalam pengembangan perangkat lunak yang andal — yaitu \textbf{pengujian unit (unit testing)} menggunakan modul \texttt{unittest}.
+Pada bagian berikutnya, kita akan memperluas topik ini dengan membahas konsep penting berikutnya dalam pengembangan perangkat lunak yang andal — yaitu \textbf{pengujian unit (unit testing)} menggunakan modul\index{modul} \texttt{unittest}\index{unittest}.
 
 
 
 \section{Latihan}
 
-Bagian ini bertujuan untuk membantu Anda berlatih memahami dan menerapkan konsep \textbf{penanganan kesalahan (exception handling)} dalam Python.  
+Bagian ini bertujuan untuk membantu Anda berlatih memahami dan menerapkan konsep \textbf{penanganan kesalahan (exception\index{exception} handling)} dalam Python.  
 Setiap soal dirancang untuk memperkuat pemahaman Anda terhadap berbagai aspek seperti penggunaan \texttt{try-except}, \texttt{else}, \texttt{finally}, serta pembuatan \textit{custom exception}.
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
 
 \subsection*{Latihan Dasar}
 
@@ -681,15 +686,24 @@ Setiap soal dirancang untuk memperkuat pemahaman Anda terhadap berbagai aspek se
     Jika pengguna memasukkan nol sebagai penyebut, tampilkan pesan:  
     \texttt{"Error: Pembagian dengan nol tidak diperbolehkan."}
 
+      \begin{promptterarah}
+      Saya sedang menangani ZeroDivisionError dengan try-except. Jangan tuliskan kodenya. Tanyakan baris mana yang sebaiknya masuk blok try, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, beri beberapa masukan untuk saya uji sendiri.
+      \end{promptterarah}
     \item \textbf{Validasi Input Angka}  
     Tulis program yang meminta pengguna memasukkan sebuah angka bulat.  
     Jika input bukan angka, tangkap kesalahan \texttt{ValueError} dan tampilkan pesan kesalahan yang ramah.  
     Gunakan \texttt{else} untuk mencetak nilai yang berhasil dimasukkan.
 
+      \begin{promptterarah}
+      Saya sedang memvalidasi masukan angka dengan menangkap ValueError dan memakai blok else. Jangan tuliskan kodenya. Tanyakan kapan blok else dijalankan, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
     \item \textbf{Membaca File dengan Aman}  
     Buat program yang mencoba membaca isi file berdasarkan nama yang dimasukkan pengguna.  
     Tangani kemungkinan kesalahan \texttt{FileNotFoundError}, dan gunakan \texttt{finally} untuk menampilkan pesan:  
     \texttt{"Operasi selesai, terima kasih."}
+  \begin{promptterarah}
+  Saya sedang membaca berkas dengan menangani FileNotFoundError dan memakai finally. Jangan tuliskan kodenya. Tanyakan kapan blok finally dijalankan, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \subsection*{Latihan Menengah}
@@ -704,11 +718,17 @@ Setiap soal dirancang untuk memperkuat pemahaman Anda terhadap berbagai aspek se
     \end{itemize}
     Tambahkan blok \texttt{else} untuk mencetak hasil jika tidak ada kesalahan, dan blok \texttt{finally} untuk menampilkan pesan “Selesai memproses data.”
 
+      \begin{promptterarah}
+      Saya sedang menangani dua jenis kesalahan sekaligus pada program pembagian. Jangan tuliskan kodenya. Tanyakan exception apa saja yang mungkin muncul dan urutan except yang akan saya tulis, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
     \item \textbf{Membuat Custom Exception}  
-    Buat kelas exception baru bernama \texttt{NilaiNegatifError} yang muncul jika input pengguna berupa angka negatif.  
-    Gunakan exception ini dalam fungsi \texttt{cek\_positif(n)} yang akan menolak angka negatif dengan pesan error:  
+    Buat kelas\index{kelas} exception baru bernama \texttt{NilaiNegatifError} yang muncul jika input pengguna berupa angka negatif.  
+    Gunakan exception ini dalam fungsi\index{fungsi} \texttt{cek\_positif(n)} yang akan menolak angka negatif dengan pesan error:  
     \texttt{"Nilai tidak boleh negatif!"}  
     Tampilkan contoh penggunaan fungsi ini dalam blok \texttt{try-except}.
+  \begin{promptterarah}
+  Saya sedang membuat exception NilaiNegatifError untuk fungsi cek\_positif(). Jangan tuliskan kodenya. Tanyakan kelas apa yang perlu diwarisi dan di mana raise dipakai, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \subsection*{Tantangan Lanjutan}
@@ -729,6 +749,9 @@ Setiap soal dirancang untuk memperkuat pemahaman Anda terhadap berbagai aspek se
     \end{itemize}
     Gunakan ketiga exception tersebut untuk memvalidasi data pengguna dan tampilkan pesan kesalahan yang sesuai jika ada input yang tidak valid.
 
+      \begin{promptterarah}
+      Saya sedang membuat validasi formulir dengan tiga masukan yang masing-masing punya aturan. Jangan tuliskan kodenya. Tanyakan exception yang akan saya pakai untuk setiap aturan, lalu beri petunjuk bila rancangannya keliru. Setelah saya mengirim kode, beri beberapa masukan yang salah untuk saya uji sendiri.
+      \end{promptterarah}
     \item \textbf{Simulasi ATM Sederhana}  
     Buat program simulasi ATM dengan fitur:
     \begin{itemize}
@@ -738,10 +761,16 @@ Setiap soal dirancang untuk memperkuat pemahaman Anda terhadap berbagai aspek se
     Buat exception baru bernama \texttt{SaldoTidakCukupError} yang muncul jika pengguna mencoba menarik saldo lebih besar dari jumlah yang tersedia.  
     Gunakan blok \texttt{try-except-finally} untuk menampilkan pesan saldo akhir meskipun terjadi kesalahan.
 
+      \begin{promptterarah}
+      Saya sedang membuat simulasi ATM yang menolak transaksi tidak valid dengan exception. Jangan tuliskan kodenya. Tanyakan kondisi apa saja yang membuat transaksi ditolak, lalu periksa daftar saya. Setelah saya mengirim kode, beri beberapa skenario transaksi untuk saya uji sendiri.
+      \end{promptterarah}
     \item \textbf{Menangkap dan Menulis Log Kesalahan}  
-    Buat program yang menjalankan beberapa operasi aritmetika dari daftar, seperti pembagian, akar kuadrat, dan konversi tipe data.  
+    Buat program yang menjalankan beberapa operasi aritmetika dari daftar, seperti pembagian, akar kuadrat, dan konversi tipe data\index{konversi tipe data}.  
     Jika terjadi exception, tangkap semua jenis kesalahan (\texttt{Exception}) dan tulis pesan error ke file bernama \texttt{error.log}.  
     Setiap baris log harus memuat waktu kejadian dan jenis error yang terjadi.
+  \begin{promptterarah}
+  Saya sedang menulis kesalahan ke berkas log saat menjalankan beberapa operasi aritmetika. Jangan tuliskan kodenya. Tanyakan informasi apa yang perlu dicatat di log dan cara mendapatkan pesan kesalahannya, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \subsection*{Refleksi}
@@ -758,9 +787,9 @@ Latihan-latihan ini diharapkan dapat membantu Anda memahami konsep dasar hingga 
 
 \section{Ringkasan}
 
-Pada bab ini, Anda telah mempelajari bahwa kesalahan (\textit{error}) adalah bagian alami dari pemrograman dan dapat ditangani secara elegan menggunakan mekanisme \textbf{exception}. Kita membedakan antara \textit{syntax error} (terdeteksi sebelum eksekusi) dan \textit{runtime error}/\textbf{exception} (muncul saat program berjalan). Dengan blok \texttt{try-except}, alur program tidak perlu terhenti; Anda dapat memberikan pesan yang ramah, mengambil tindakan pemulihan, dan menjaga pengalaman pengguna. Kita juga meninjau pola lanjut seperti \texttt{else} (dijalankan saat tidak ada error) dan \texttt{finally} (selalu dijalankan untuk \textit{cleanup}), serta menangani banyak jenis exception secara spesifik agar debugging lebih mudah dan kode lebih jelas. Selain itu, Anda belajar membuat \textbf{custom exception} untuk mengekspresikan aturan bisnis/domain secara eksplisit.
+Pada bab ini, Anda telah mempelajari bahwa kesalahan (\textit{error}) adalah bagian alami dari pemrograman dan dapat ditangani secara elegan menggunakan mekanisme \textbf{exception\index{exception}}. Kita membedakan antara \textit{syntax error} (terdeteksi sebelum eksekusi) dan \textit{runtime error}/\textbf{exception} (muncul saat program berjalan). Dengan blok \texttt{try-except}, alur program tidak perlu terhenti; Anda dapat memberikan pesan yang ramah, mengambil tindakan pemulihan, dan menjaga pengalaman pengguna. Kita juga meninjau pola lanjut seperti \texttt{else} (dijalankan saat tidak ada error) dan \texttt{finally} (selalu dijalankan untuk \textit{cleanup}), serta menangani banyak jenis exception secara spesifik agar debugging\index{debugging} lebih mudah dan kode lebih jelas. Selain itu, Anda belajar membuat \textbf{custom exception} untuk mengekspresikan aturan bisnis/domain secara eksplisit.
 
-Fondasi ini menjadi pasangan erat bagi praktik \textbf{pengujian} dalam pengembangan perangkat lunak yang andal. Dengan pemahaman exception handling yang kuat, Anda siap melangkah ke pengujian otomatis (misalnya dengan \texttt{unittest}) guna memverifikasi perilaku fungsi, mencegah regresi, dan mempertahankan kualitas kode seiring perubahan. Intinya: gunakan \texttt{try-except-else-finally} untuk mengendalikan alur saat terjadi kondisi tak terduga, manfaatkan exception yang spesifik (atau custom) untuk kejelasan, dan lengkapi dengan pengujian yang baik agar program tetap \textit{robust}, mudah dirawat, dan dapat diandalkan.
+Fondasi ini menjadi pasangan erat bagi praktik \textbf{pengujian} dalam pengembangan perangkat lunak yang andal. Dengan pemahaman exception handling yang kuat, Anda siap melangkah ke pengujian otomatis (misalnya dengan \texttt{unittest}\index{unittest}) guna memverifikasi perilaku fungsi\index{fungsi}, mencegah regresi, dan mempertahankan kualitas kode seiring perubahan. Intinya: gunakan \texttt{try-except-else-finally} untuk mengendalikan alur saat terjadi kondisi tak terduga, manfaatkan exception yang spesifik (atau custom) untuk kejelasan, dan lengkapi dengan pengujian yang baik agar program tetap \textit{robust}, mudah dirawat, dan dapat diandalkan.
 
 \section*{Referensi}
 \begin{daftarrapat}

@@ -10,9 +10,9 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
-\title{Chatper-01:\\\LARGE{Pendahuluan: Sejarah, Instalasi,\\Hello World}}
+\title{Chapter-01:\\\LARGE{Pendahuluan: Sejarah, Instalasi,\\Hello World}}
 \date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
 \author[Pradita]{\small{\textbf{Alfa Yohannis}}}
 
@@ -53,6 +53,54 @@ morestring=[s]{"}{"},
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah}
+\small
+\begin{itemize}
+  \item AI generatif atau GenAI, misalnya ChatGPT, Gemini, dan Claude, dapat menjelaskan kode, menebak keluaran program, dan menuliskan program dari perintah dalam bahasa sehari-hari. Perintah itu disebut \textit{prompt}.
+  \item GenAI terarah berarti \textit{prompt} memberi GenAI peran sebagai pendamping belajar yang menjelaskan, bertanya balik, dan memeriksa jawaban tanpa menuliskan penyelesaian.
+  \item Program tetap diketik dan dijalankan sendiri.
+  \item Cocokkan setiap penjelasan GenAI dengan hasil menjalankan kode, karena GenAI bisa keliru.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Bila pemasangan Python atau program pertama gagal, misalnya Command Prompt tidak mengenali perintah \texttt{python}, tempelkan pesan kesalahannya ke GenAI dan sebutkan sistem operasi Anda.
+  \item Minta GenAI menjelaskan penyebabnya dan langkah pemeriksaannya satu per satu.
+  \item Untuk listing yang belum dipahami, pakai \textit{prompt} penjelasan kode. Untuk berlatih, pakai \textit{prompt} soal latihan baru. Keduanya ada di slide berikut dan di Bab 16 buku.
+  \item Setiap soal latihan di akhir bab disertai \textit{prompt} terarah untuk dipakai bila Anda buntu.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Prompt Penjelasan Kode}
+Salin ke layanan GenAI, lalu tempel kode Anda di bagian akhir.
+\begin{lstlisting}[breaklines=true, basicstyle=\ttfamily\small, columns=fullflexible, frame=single]
+Saya mahasiswa yang baru belajar Python. Jelaskan kode berikut baris demi
+baris dengan bahasa sederhana. Jangan memperbaiki atau menulis ulang
+kodenya. Setelah itu, beri saya 3 pertanyaan untuk menguji pemahaman saya,
+tanpa jawabannya. Tunggu jawaban saya, lalu periksa dan jelaskan bagian
+yang masih keliru.
+
+[tempel kode di sini]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Prompt Soal Latihan Baru}
+Salin ke layanan GenAI, lalu tempel kode Anda di bagian akhir.
+\begin{lstlisting}[breaklines=true, basicstyle=\ttfamily\small, columns=fullflexible, frame=single]
+Saya sedang belajar [topik, misalnya perulangan for] dengan Python.
+Buatkan 3 soal latihan baru yang setingkat dengan kode berikut. Jangan
+sertakan jawaban atau potongan kode penyelesaiannya. Setelah saya mengirim
+jawaban, periksa jawaban saya dan jelaskan kesalahannya tanpa langsung
+memberikan kode yang benar.
+
+[tempel kode di sini]
+\end{lstlisting}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Sejarah}
 \begin{frame}{Sejarah Komputer}
@@ -119,7 +167,7 @@ morestring=[s]{"}{"},
 \begin{frame}{Compiler vs Interpreter}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{../../../shared_assets/images/compiler_vs_interpreter.png}
+	\includegraphics[width=0.7\textwidth]{../../../figures/images/compiler_vs_interpreter.png}
 	\caption*{\textbf{Gambar 1:} Perbedaan antara Compiler dan Interpreter}
 	\smallskip
     {\tiny Sumber: \url{https://www.ankitweblogic.com/c/compiler-and-interpreter.php}}
@@ -224,10 +272,25 @@ print("Hello " + nama + "!") # Menampilkan output dengan input pengguna
 \end{frame}
 
 \section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]{Latihan 1: Membuat Program Pengenalan Diri}
 \begin{itemize}
-\item Buat file baru dengan nama \textbf{introduction.py} yang dimana program harus menerima input nama, usia, dan domisili dari pengguna kemudian mencetak pesan dengan format yang ditentukan
+\item Buat file baru dengan nama \textbf{introduction.py} yang dimana program harus menerima input nama, program studi, dan tahun angkatan dari pengguna, kemudian mencetak pesan dengan format yang ditentukan
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program introduction.py yang meminta nama, program studi, dan tahun angkatan, lalu mencetak pesan perkenalan. Jangan tuliskan kodenya. Tanyakan dulu fungsi apa yang akan saya pakai untuk meminta masukan, lalu beri satu petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Latihan 1: Kode Program}
@@ -243,8 +306,14 @@ print("Halo! Nama saya " + nama + ". Saya mahasiswa program studi " + prodi + " 
 \begin{frame}[fragile]{\LARGE{Latihan 2: Memformat teks menggunakan f-string}}
 \begin{itemize}
 \item Latihan ini bertujuan untuk belajar memformat teks (\textit{string}) menggunakan \textbf{f-string}, membuat output lebih rapi tanpa perlu menggunakan operator \texttt{+} sebagai penghubung antara teks. 
-\item Buat file baru dengan nama \textbf{introduction_with_fstring.py} dan isinya mirip dengan, namun format outputnya menggunakan \textbf{f-string}
+\item Buat file baru dengan nama \textbf{introduction_with_fstring.py} dan isinya mirip dengan Latihan 1, namun format outputnya menggunakan \textbf{f-string}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang belajar memformat teks dengan f-string tanpa operator +. Jangan tuliskan kodenya. Minta saya menulis satu baris f-string untuk mencetak nama saya, lalu jelaskan kesalahannya bila ada. Setelah itu beri satu kalimat lain untuk saya format sendiri.
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Latihan 2: Kode Program}
@@ -272,6 +341,12 @@ print(f"Halo! Nama saya {nama}. Saya mahasiswa program studi {prodi} tahun angka
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang belajar escape character seperti \textbackslash n dan \textbackslash t. Jangan tuliskan kode jawabannya. Beri saya tiga pertanyaan singkat tentang kapan setiap escape character dipakai, lalu periksa jawaban saya. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
 \begin{frame}[fragile]{Latihan 3: Kode Program}
 \begin{lstlisting}[style=PythonStyle, firstnumber=1]
 print("Hello\nWorld") # Membuat teks pindah baris
@@ -284,7 +359,7 @@ print("Hello \\ World") # Menampilkan backslash asli
 \section{Soal Latihan}
 
 \begin{frame}[fragile]{Soal Latihan}
-	Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep yang telah dipelajari:
+	Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep yang telah dipelajari. Seperti pada Latihan, setiap soal disertai \textit{prompt} terarah.
 \end{frame}
 
 \begin{frame}{Soal 1}
@@ -310,7 +385,14 @@ print("Hello \\ World") # Menampilkan backslash asli
 	\end{verbatim}
 \end{frame}
 
+\begin{frame}{Soal 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program biodata.py yang meminta nama lengkap, umur, dan hobi, lalu mencetaknya dalam satu kalimat dengan f-string. Jangan tuliskan kodenya. Tanyakan cara saya menyisipkan ketiga variabel itu ke dalam f-string, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
 \begin{frame}[fragile]{Soal 2}
+\small
 	Buat program bernama \texttt{quote.py} yang menampilkan kutipan favoritmu. Gunakan \textbf{escape character} untuk menampilkan tanda kutip di dalam string. Contoh output:
 
 	\begin{verbatim}
@@ -323,6 +405,12 @@ print("Hello \\ World") # Menampilkan backslash asli
 	\end{verbatim}
 \end{frame}
 
+\begin{frame}{Soal 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program quote.py yang menampilkan kutipan bertanda kutip di dalam string. Jangan tuliskan kodenya. Tanyakan dua cara menampilkan tanda kutip di dalam string, termasuk dengan escape character, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
 \begin{frame}{Soal 3}
 	Buat program bernama \texttt{schedule.py} yang menampilkan jadwal kuliah. Gunakan \textbf{tabulasi} (\texttt{\textbackslash t}) untuk merapikan kolom. Contoh output:
 	\\[15pt]
@@ -332,6 +420,12 @@ print("Hello \\ World") # Menampilkan backslash asli
 		Selasa & 09.00 & Basis Data \\
 		Selasa & 13.00 & Pemrograman Dasar \\
 	\end{tabular}
+\end{frame}
+
+\begin{frame}{Soal 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program schedule.py yang menampilkan jadwal kuliah dalam kolom yang rapi dengan tabulasi. Jangan tuliskan kodenya. Tanyakan di mana \textbackslash t perlu diletakkan agar kolom hari, waktu, dan mata kuliah sejajar, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Penutup}

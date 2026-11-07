@@ -7,8 +7,12 @@
   \item Memilih bentuk percabangan yang paling sesuai dengan masalah, sehingga program tetap mudah dibaca.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Ekspresi logika dan percabangan mudah dilatih dengan cara menebak lalu memeriksa. Mintalah GenAI membuat lima ekspresi yang menggabungkan \texttt{and}, \texttt{or}, dan \texttt{not}, lalu hitung hasilnya sendiri sebelum menjalankannya di Python. Untuk percabangan, tuliskan dulu daftar masukan yang menurut Anda menguji setiap cabang \texttt{if}, \texttt{elif}, dan \texttt{else}, lalu minta GenAI menunjukkan cabang yang belum tersentuh oleh daftar itu. Susunan kondisinya tetap Anda tulis sendiri, karena memilih urutan kondisi adalah keterampilan yang dilatih di bab ini.
+
 \section{Operator}
-Operator adalah karakter khusus yang digunakan untuk melakukan operasi terhadap variabel dan nilai. Di Python terdapat berbagai jenis operator, namun pada chapter ini kita hanya akan membahas beberapa operator yang paling umum digunakan, yaitu:
+Operator\index{operator} adalah karakter khusus yang digunakan untuk melakukan operasi terhadap variabel\index{variabel} dan nilai. Di Python terdapat berbagai jenis operator, namun pada bab ini kita hanya akan membahas beberapa operator yang paling umum digunakan, yaitu:
 
 \begin{enumerate}
     \item Operator Aritmatika
@@ -111,7 +115,7 @@ a % b = 1
 a ** b = 25
 \end{lstlisting}
 
-Tiga operator perlu perhatian lebih. Operator \texttt{/} selalu menghasilkan \texttt{float} walaupun hasil baginya bulat, sehingga \texttt{6 / 2} menghasilkan \texttt{3.0}. Operator \texttt{//} membulatkan ke bawah, termasuk untuk bilangan negatif, sehingga \texttt{-7 // 2} menghasilkan \texttt{-4}. Operator \texttt{\%} berguna untuk memeriksa kelipatan, karena bilangan genap memberi sisa 0 saat dibagi 2.
+Tiga operator perlu perhatian lebih. Operator \texttt{/} selalu menghasilkan \texttt{float\index{float}} walaupun hasil baginya bulat, sehingga \texttt{6 / 2} menghasilkan \texttt{3.0}. Operator \texttt{//} membulatkan ke bawah, termasuk untuk bilangan negatif, sehingga \texttt{-7 // 2} menghasilkan \texttt{-4}. Operator \texttt{\%} berguna untuk memeriksa kelipatan, karena bilangan genap memberi sisa 0 saat dibagi 2.
 
 Hubungan \texttt{//} dan \texttt{\%} dirumuskan pada Persamaan~\eqref{eq:b3-sisa-bagi} \cite{py-ref-expressions}. Untuk $a = 5$ dan $b = 2$, persamaan ini menjadi $5 = 2 \times 2 + 1$.
 
@@ -245,7 +249,7 @@ Berikut adalah penjelasan dari setiap operator:
 \end{itemize}
 
 
-Listing~\ref{lst:b3-assignment-out} menampilkan keluarannya. Setelah \texttt{x /= 4}, nilai \texttt{x} menjadi \texttt{float} dan tetap \texttt{float} pada baris-baris berikutnya. Operator gabungan hanya penulisan ringkas dari bentuk panjangnya, dan paling sering dipakai untuk menambah total di dalam perulangan, seperti \texttt{total += nilai}.
+Listing~\ref{lst:b3-assignment-out} menampilkan keluarannya. Setelah \texttt{x /= 4}, nilai \texttt{x} menjadi \texttt{float} dan tetap \texttt{float} pada baris-baris berikutnya. Operator gabungan hanya penulisan ringkas dari bentuk panjangnya, dan paling sering dipakai untuk menambah total di dalam perulangan\index{perulangan}, seperti \texttt{total += nilai}.
 
 \begin{lstlisting}[language=bash, caption={Keluaran assignment_operator.py}, label={lst:b3-assignment-out}]
 x = 10
@@ -260,7 +264,7 @@ x **= 2 -> 0.0
 
 \subsection{Operator Perbandingan}
 Operator perbandingan digunakan untuk membandingkan dua nilai. 
-Hasil dari operator ini selalu berupa nilai boolean (\texttt{True} atau \texttt{False}). Tabel~\ref{tab:b3-perbandingan} mendaftar operator tersebut, dan Listing~\ref{lst:b3-comparison} memakai semuanya.
+Hasil dari operator ini selalu berupa nilai boolean\index{boolean} (\texttt{True} atau \texttt{False}). Tabel~\ref{tab:b3-perbandingan} mendaftar operator tersebut, dan Listing~\ref{lst:b3-comparison} memakai semuanya.
 
 \begin{table}[H]
   \centering
@@ -403,7 +407,7 @@ Tidak lulus: True
 
 \subsection{Operator \textit{Membership}}
 Operator \textit{membership} digunakan untuk memeriksa apakah suatu nilai (biasanya berupa karakter atau substring) 
-terdapat di dalam sebuah string. Hasil dari operasi ini berupa nilai boolean (\texttt{True} atau \texttt{False}). Tabel~\ref{tab:b3-membership} mendaftar operator tersebut, dan Listing~\ref{lst:b3-membership} memberi contohnya.
+terdapat di dalam sebuah string\index{string}. Hasil dari operasi ini berupa nilai boolean (\texttt{True} atau \texttt{False}). Tabel~\ref{tab:b3-membership} mendaftar operator tersebut, dan Listing~\ref{lst:b3-membership} memberi contohnya.
 
 \begin{table}[H]
   \centering
@@ -429,7 +433,7 @@ print("'Java' not in text:", "Java" not in text) # True
 print("'P' in text:", "P" in text)           # True
 \end{lstlisting}
 
-Pemeriksaan ini membedakan huruf besar dan kecil. Operator yang sama juga berlaku untuk kumpulan data seperti \texttt{list}, misalnya untuk memeriksa nama dalam daftar peserta. Listing~\ref{lst:b3-membership-list} memperlihatkan keduanya, dan mencetak \texttt{False}, \texttt{True}, lalu \texttt{False}.
+Pemeriksaan ini membedakan huruf besar dan kecil. Operator yang sama juga berlaku untuk kumpulan data seperti \texttt{list\index{list}}, misalnya untuk memeriksa nama dalam daftar peserta. Listing~\ref{lst:b3-membership-list} memperlihatkan keduanya, dan mencetak \texttt{False}, \texttt{True}, lalu \texttt{False}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: membership_list.py}, label={lst:b3-membership-list}]
 text = "Python Programming"
@@ -441,7 +445,7 @@ print("Budi" in kelas_pagi)
 \end{lstlisting}
 
 \section{Pengkondisian}
-Pengkondisian adalah konsep penting dalam pemrograman yang memungkinkan pengambilan keputusan berdasarkan kondisi tertentu. Di Python, pengkondisian bisa diimplementasikan menggunakan beberapa struktur dasar seperti if, elif, else, match, dan operator ternary.
+Pengkondisian\index{pengkondisian} adalah konsep penting dalam pemrograman yang memungkinkan pengambilan keputusan berdasarkan kondisi tertentu. Di Python, pengkondisian bisa diimplementasikan menggunakan beberapa struktur dasar seperti if, elif, else, match, dan operator\index{operator} ternary.
 
 Program tanpa percabangan selalu menjalankan baris yang sama. Percabangan membuat program memilih baris yang dijalankan berdasarkan data. Polanya dekat dengan aturan sehari-hari: jika hujan, bawa payung, dan jika tidak, payung ditinggal di rumah.
 
@@ -461,7 +465,7 @@ if nilai >= 70:
     print("Lulus")
 \end{lstlisting}
 
-Karena \texttt{nilai} bernilai 75, kondisinya benar dan program mencetak \texttt{Lulus}. Bila \texttt{nilai} diganti menjadi 60, tidak ada yang tercetak, karena \texttt{if} tanpa \texttt{else} tidak punya jalur lain. Baris yang dijalankan bersyarat ditandai dengan indentasi. Tanpa indentasi, Python menghasilkan \texttt{IndentationError: expected an indented block after 'if' statement on line 2}.
+Karena \texttt{nilai} bernilai 75, kondisinya benar dan program mencetak \texttt{Lulus}. Bila \texttt{nilai} diganti menjadi 60, tidak ada yang tercetak, karena \texttt{if} tanpa \texttt{else} tidak punya jalur lain. Baris yang dijalankan bersyarat ditandai dengan indentasi\index{indentasi}. Tanpa indentasi, Python menghasilkan \texttt{IndentationError: expected an indented block after 'if' statement on line 2}.
 
 \subsection{If-Else}
 If-else memungkinkan kita untuk menentukan blok kode alternatif yang akan dijalankan jika kondisi tidak terpenuhi. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-if-else}:
@@ -598,7 +602,7 @@ if usia >= 18 and punya_surat_izin_mengemudi:
 \end{lstlisting}
 
 \subsection{\textit{Match}}
-Sejak Python 3.10, tersedia struktur kontrol baru bernama \texttt{match} yang mirip dengan \texttt{switch-case} di bahasa pemrograman lain. Dengan \texttt{match}, kita dapat mencocokkan sebuah nilai terhadap beberapa pola sekaligus. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-match}:
+Sejak Python 3.10, tersedia struktur kontrol baru bernama \texttt{match}\index{match} yang mirip dengan \texttt{switch-case} di bahasa pemrograman lain. Dengan \texttt{match}, kita dapat mencocokkan sebuah nilai terhadap beberapa pola sekaligus. Bentuk dasarnya ada pada Listing~\ref{lst:b3-bentuk-match}:
 
 \begin{lstlisting}[style=PythonStyle, caption={Bentuk dasar match}, label={lst:b3-bentuk-match}]
 match variabel / value:
@@ -626,7 +630,7 @@ match hari:
 
 Nilai \texttt{hari} dibandingkan dengan tiap \texttt{case} dari atas ke bawah, dan hanya blok pertama yang cocok yang dijalankan. Program ini mencetak \texttt{Awal minggu, semangat kerja!}. Pola \texttt{_} cocok dengan nilai apa pun, sehingga berperan seperti \texttt{else} dan ditulis paling akhir.
 
-Beberapa nilai dapat digabung dalam satu \texttt{case} dengan tanda \texttt{|}, seperti pada Listing~\ref{lst:b3-match-or}, yang mencetak \texttt{Akhir pekan}. Bentuk \texttt{match} paling mudah dibaca ketika satu variabel dibandingkan dengan beberapa nilai tetap. Untuk rentang seperti \texttt{nilai >= 80}, \texttt{if-elif-else} lebih sesuai. Python versi sebelum 3.10 tidak mengenal \texttt{match} dan akan menghasilkan \texttt{SyntaxError}.
+Beberapa nilai dapat digabung dalam satu \texttt{case} dengan tanda \texttt{|}, seperti pada Listing~\ref{lst:b3-match-or}, yang mencetak \texttt{Akhir pekan}. Bentuk \texttt{match} paling mudah dibaca ketika satu variabel\index{variabel} dibandingkan dengan beberapa nilai tetap. Untuk rentang seperti \texttt{nilai >= 80}, \texttt{if-elif-else} lebih sesuai. Python versi sebelum 3.10 tidak mengenal \texttt{match} dan akan menghasilkan \texttt{SyntaxError}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: match_beberapa_nilai.py}, label={lst:b3-match-or}]
 hari = "Minggu"
@@ -696,15 +700,17 @@ Tabel~\ref{tab:b3-pilih} merangkum kapan tiap bentuk percabangan dipakai.
 \end{table}
 
 \section{Ringkasan}
-Operator aritmatika menghitung nilai, operator perbandingan dan \textit{membership} menghasilkan \texttt{True} atau \texttt{False}, dan operator logika menggabungkan hasil tersebut. Prioritas operator menentukan urutan pengerjaan, dan tanda kurung membuat urutan itu jelas.
+Operator\index{operator} aritmatika menghitung nilai, operator perbandingan dan \textit{membership} menghasilkan \texttt{True} atau \texttt{False}, dan operator logika menggabungkan hasil tersebut. Prioritas operator menentukan urutan pengerjaan, dan tanda kurung membuat urutan itu jelas.
 
 Percabangan memakai hasil perbandingan untuk memilih baris yang dijalankan. Pada \texttt{if-elif-else}, kondisi diperiksa dari atas dan berhenti pada kondisi benar yang pertama, sehingga urutannya menentukan hasil.
 
 \section{Latihan}
 Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman tentang program Python yang telah dibahas:
 
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
+
 \begin{enumerate}
-\item \textbf{Latihan 1:} Buatlah program yang menerima input 5 nilai asesmen mahasiswa yang kemudian dihitung rata-ratanya. Berdasarkan rata-rata tersebut buatlah pengkondisian menggunakan \textit{if-elif-else statement} untuk menentukan grade yang sesuai dengan ketentuan:
+\item \textbf{Latihan 1:} Buatlah program yang menerima input 5 nilai asesmen mahasiswa yang kemudian dihitung rata-ratanya. Berdasarkan rata-rata tersebut buatlah pengkondisian\index{pengkondisian} menggunakan \textit{if-elif-else statement} untuk menentukan grade yang sesuai dengan ketentuan:
 \begin{itemize}
     \item Grade A jika rata-rata berada di \textit{range} 90,00 - 100
     \item Grade A- jika rata-rata berada di \textit{range} 85,00 - 89,99
@@ -717,6 +723,9 @@ Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman
     \item Grade E jika rata-rata kurang dari 49,99
 \end{itemize}
 
+  \begin{promptterarah}
+  Saya sedang membuat program yang menghitung rata-rata lima nilai lalu menentukan grade dengan if-elif-else. Jangan tuliskan kodenya. Tanyakan urutan kondisi yang akan saya tulis, lalu jelaskan bila urutannya membuat grade salah. Setelah saya mengirim kode, beri beberapa nilai batas untuk saya uji sendiri.
+  \end{promptterarah}
 \item \textbf{Latihan 2:} Buatlah program untuk menghitung \textit{Body Mass Index} (BMI) seseorang dengan rumus pada Persamaan~\eqref{eq:b3-bmi}:
 
 \begin{equation}
@@ -737,6 +746,9 @@ Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman
     \end{itemize}
 \end{itemize}
 
+  \begin{promptterarah}
+  Saya sedang membuat program penghitung BMI. Jangan tuliskan kodenya. Minta saya menuliskan rumus BMI dalam Python, lalu jelaskan bila urutan operasinya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \item \textbf{Latihan 3:} Modifikasi program BMI pada Latihan 2 dengan ketentuan berikut:
 \begin{itemize}
     \item Program tetap meminta input berat badan (kg) dan tinggi badan (cm).
@@ -758,6 +770,9 @@ Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman
 \end{itemize}
 
 
+  \begin{promptterarah}
+  Saya sedang mengubah program BMI agar tinggi badan dimasukkan dalam sentimeter. Jangan tuliskan kodenya. Tanyakan cara saya mengubah sentimeter ke meter, lalu beri satu petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \item \textbf{Latihan 4:} Buatlah program autentikasi sederhana yang meminta pengguna untuk memasukkan email dan password. Program harus memenuhi kriteria sebagai berikut:
 \begin{itemize}
     \item Email harus berupa alamat email dengan domain \texttt{pradita.ac.id}
@@ -765,6 +780,9 @@ Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman
     \item Gunakan \textit{data dummy} (statis), misalnya email \path{mahasiswa@pradita.ac.id} dan password \texttt{password123}, untuk proses pencocokan
 \end{itemize}
 
+  \begin{promptterarah}
+  Saya sedang membuat program login yang memeriksa email berdomain pradita.ac.id dan syarat password. Jangan tuliskan kodenya. Tanyakan operator atau metode string yang akan saya pakai untuk memeriksa domain, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, beri beberapa email dan password untuk saya uji sendiri.
+  \end{promptterarah}
 \item \textbf{Latihan 5:} Buatlah program kalkulator sederhana yang:
 \begin{itemize}
     \item Meminta pengguna memilih operasi aritmatika yang ingin dilakukan (\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/})
@@ -773,6 +791,9 @@ Berikut adalah beberapa latihan yang dapat Anda coba untuk memperdalam pemahaman
     \item Jika pengguna memasukkan operasi yang tidak valid, tampilkan pesan error
 \end{itemize}
 
+  \begin{promptterarah}
+  Saya sedang membuat kalkulator sederhana yang memilih operasi dengan percabangan. Jangan tuliskan kodenya. Tanyakan cara program saya menangani pembagian dengan nol, lalu jelaskan bila penanganannya kurang. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \section*{Referensi}

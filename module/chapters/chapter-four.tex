@@ -7,10 +7,14 @@
   \item Mengelompokkan kode ke dalam modul dan memanfaatkan modul yang sudah tersedia agar program mudah dirawat.
 \end{daftarrapat}
 
-\section{Fungsi}
-Fungsi adalah blok kode terorganisir yang memiliki nama tertentu dan dapat dipanggil berulang kali untuk melakukan tugas spesifik, mengurangi redundansi kode, dan mempermudah pengelolaan program. Fungsi membantu kita menulis kode yang lebih rapi, modular, dan mudah dipelihara.
+\section*{GenAI Terarah di Bab Ini}
 
-Cara kerja fungsi mirip mesin fotokopi di perpustakaan kampus. Lembar asli dimasukkan, mesin mengerjakan proses yang sama setiap kali dipakai, lalu salinannya keluar. Pemakai cukup tahu apa yang dimasukkan dan apa yang keluar, tanpa perlu tahu isi mesinnya. Fungsi juga punya tiga bagian itu: masukan berupa parameter, proses berupa isi fungsi, dan keluaran berupa nilai kembalian.
+Alur pemanggilan fungsi sering membingungkan pemula, terutama pada fungsi rekursif. Tempelkan sebuah listing ke GenAI dan minta penelusuran satu pemanggilan langkah demi langkah, mulai dari nilai yang diterima parameter sampai nilai yang dikembalikan. Untuk fungsi rekursif, pakai masukan kecil, lalu cocokkan penelusuran GenAI dengan keluaran \texttt{print} yang Anda sisipkan sendiri di dalam fungsi. Saat mempelajari modul, periksa setiap nama fungsi yang disebut GenAI di dokumentasi resmi Python, karena GenAI kadang menyebut fungsi yang sebenarnya tidak ada.
+
+\section{Fungsi}
+Fungsi\index{fungsi} adalah blok kode terorganisir yang memiliki nama tertentu dan dapat dipanggil berulang kali untuk melakukan tugas spesifik, mengurangi redundansi kode, dan mempermudah pengelolaan program. Fungsi membantu kita menulis kode yang lebih rapi, modular, dan mudah dipelihara.
+
+Cara kerja fungsi mirip mesin fotokopi di perpustakaan kampus. Lembar asli dimasukkan, mesin mengerjakan proses yang sama setiap kali dipakai, lalu salinannya keluar. Pemakai cukup tahu apa yang dimasukkan dan apa yang keluar, tanpa perlu tahu isi mesinnya. Fungsi juga punya tiga bagian itu: masukan berupa parameter\index{parameter}, proses berupa isi fungsi, dan keluaran berupa nilai kembalian.
 
 Tanpa fungsi, kode yang sama harus disalin ke banyak tempat. Bila ada kesalahan, semua salinan harus diperbaiki satu per satu. Dengan fungsi, perbaikan cukup dilakukan di satu tempat.
 
@@ -34,7 +38,7 @@ Fungsi harus didefinisikan sebelum dipanggil. Python membaca berkas dari atas ke
 
 Fungsi bisa memiliki parameter. Dengan adanya parameter, suatu nilai bisa di-sisipkan ke dalam fungsi secara dinamis saat pemanggilannya.
 
-Parameter sendiri merupakan istilah untuk variabel yang menempel pada fungsi, yang mengharuskan kita untuk menyisipkan nilai pada parameter tersebut saat pemanggilan fungsi.
+Parameter sendiri merupakan istilah untuk variabel\index{variabel} yang menempel pada fungsi, yang mengharuskan kita untuk menyisipkan nilai pada parameter tersebut saat pemanggilan fungsi.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: parameter_function.py}, label={lst:b4-parameter-function}]
 def greet_with_name(nama):
@@ -44,7 +48,7 @@ def greet_with_name(nama):
 greet_with_name("Jessie")
 \end{lstlisting}
 
-Dua istilah pada Listing~\ref{lst:b4-parameter-function} sering tertukar. Parameter adalah nama yang ditulis pada definisi fungsi, yaitu \texttt{nama}. Argumen adalah nilai yang dikirim saat pemanggilan, yaitu \texttt{"Jessie"}. Saat fungsi dipanggil, nilai argumen disimpan ke parameter, lalu parameter dapat dipakai seperti variabel biasa di dalam fungsi.
+Dua istilah pada Listing~\ref{lst:b4-parameter-function} sering tertukar. Parameter adalah nama yang ditulis pada definisi fungsi, yaitu \texttt{nama}. Argumen\index{argumen} adalah nilai yang dikirim saat pemanggilan, yaitu \texttt{"Jessie"}. Saat fungsi dipanggil, nilai argumen disimpan ke parameter, lalu parameter dapat dipakai seperti variabel biasa di dalam fungsi.
 
 Jumlah argumen harus sesuai dengan jumlah parameter. Memanggil \texttt{greet_with_name()} tanpa argumen menghasilkan \texttt{TypeError: greet_with_name() missing 1 required positional argument: 'nama'}.
 
@@ -109,7 +113,7 @@ print(sum_result)     # 9
 print(product_result) # 20
 \end{lstlisting}
 
-Pada Listing~\ref{lst:b4-multiple-return}, Python membungkus dua nilai itu menjadi satu \texttt{tuple}, yaitu \texttt{(9, 20)}. Baris \texttt{sum_result, product_result = operate(4, 5)} lalu membongkarnya ke dua variabel secara berurutan. Jumlah variabel di sisi kiri harus sama dengan jumlah nilai yang dikembalikan.
+Pada Listing~\ref{lst:b4-multiple-return}, Python membungkus dua nilai itu menjadi satu \texttt{tuple\index{tuple}}, yaitu \texttt{(9, 20)}. Baris \texttt{sum_result, product_result = operate(4, 5)} lalu membongkarnya ke dua variabel secara berurutan. Jumlah variabel di sisi kiri harus sama dengan jumlah nilai yang dikembalikan.
 
 \subsection{Fungsi dengan Parameter Default}
 
@@ -128,7 +132,7 @@ Pemanggilan pertama pada Listing~\ref{lst:b4-default-parameter} tidak mengirim a
 Parameter dengan nilai bawaan harus ditulis setelah parameter tanpa nilai bawaan. Menulis \texttt{def greet_you(name="Friend", age):} menghasilkan \texttt{SyntaxError: parameter without a default follows parameter with a default}.
 
 \subsection{Fungsi dengan Argumen Keyword dan Positional}
-Fungsi di Python bisa dipanggil menggunakan positional arguments atau keyword arguments. Positional argument adalah istilah untuk urutan parameter/argument fungsi. Pengisian argument saat pemanggilan fungsi harus urut sesuai dengan deklarasi parameternya. Keyword argument atau named argument adalah metode pengisian argument pemanggilan fungsi disertai nama parameter yang ditulis secara jelas (eksplisit).
+Fungsi di Python bisa dipanggil menggunakan positional arguments atau keyword arguments. Positional argument adalah istilah untuk urutan parameter/argument fungsi. Pengisian argument saat pemanggilan fungsi harus urut sesuai dengan deklarasi parameternya. Keyword argument atau named argument adalah metode\index{metode} pengisian argument pemanggilan fungsi disertai nama parameter yang ditulis secara jelas (eksplisit).
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: function_with_keyword_and_positional.py}, label={lst:b4-keyword-positional}]
 def student_info(name, age, major):
@@ -163,7 +167,7 @@ sum_numbers(1, 2, 3, 4)  # Output: Total: 10
 sum_numbers(5, 6, 7)     # Output: Total: 18
 \end{lstlisting}
 
-Tanda bintang pada Listing~\ref{lst:b4-variable-arguments} mengumpulkan semua argumen ke dalam satu \texttt{tuple}. Nama \texttt{args} hanya kebiasaan, karena yang menentukan adalah tanda bintangnya, sehingga contoh ini memakai nama \texttt{numbers}. Listing~\ref{lst:b4-args-type} memperlihatkan isinya, dan program itu mencetak \texttt{<class 'tuple'>} lalu \texttt{(1, 2, 3)}. Karena berupa \texttt{tuple}, isinya bisa ditelusuri dengan perulangan atau dijumlahkan dengan \texttt{sum()}.
+Tanda bintang pada Listing~\ref{lst:b4-variable-arguments} mengumpulkan semua argumen ke dalam satu \texttt{tuple}. Nama \texttt{args} hanya kebiasaan, karena yang menentukan adalah tanda bintangnya, sehingga contoh ini memakai nama \texttt{numbers}. Listing~\ref{lst:b4-args-type} memperlihatkan isinya, dan program itu mencetak \texttt{<class 'tuple'>} lalu \texttt{(1, 2, 3)}. Karena berupa \texttt{tuple}, isinya bisa ditelusuri dengan perulangan\index{perulangan} atau dijumlahkan dengan \texttt{sum()}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: isi_args.py}, label={lst:b4-args-type}]
 def show_numbers(*numbers):
@@ -188,7 +192,7 @@ Faktorial adalah contoh yang tepat, karena definisinya memang memakai dirinya se
   \label{eq:b4-faktorial}
 \end{equation}
 
-Fungsi rekursif selalu punya dua bagian. Kasus dasar adalah kondisi yang langsung memberi jawaban tanpa memanggil dirinya lagi. Langkah rekursif memanggil dirinya dengan masalah yang lebih kecil, sehingga semakin dekat ke kasus dasar. Listing~\ref{lst:b4-recursive} menerjemahkan Persamaan~\eqref{eq:b4-faktorial} menjadi kode.
+Fungsi rekursif\index{fungsi rekursif} selalu punya dua bagian. Kasus dasar adalah kondisi yang langsung memberi jawaban tanpa memanggil dirinya lagi. Langkah rekursif memanggil dirinya dengan masalah yang lebih kecil, sehingga semakin dekat ke kasus dasar. Listing~\ref{lst:b4-recursive} menerjemahkan Persamaan~\eqref{eq:b4-faktorial} menjadi kode.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: recursive_function.py}, label={lst:b4-recursive}]
 def factorial(n):
@@ -243,7 +247,7 @@ Nilai yang dibutuhkan di luar fungsi sebaiknya dikembalikan dengan \texttt{retur
 
 \section{Modul}
 
-Modul adalah file Python (\texttt{.py}) yang berisi kode seperti fungsi, variabel, atau kelas, yang bisa digunakan kembali di program lain. Modul membantu memecah program menjadi bagian-bagian yang lebih kecil dan terstruktur.
+Modul\index{modul} adalah file Python (\texttt{.py}) yang berisi kode seperti fungsi\index{fungsi}, variabel\index{variabel}, atau kelas\index{kelas}, yang bisa digunakan kembali di program lain. Modul membantu memecah program menjadi bagian-bagian yang lebih kecil dan terstruktur.
 
 Modul mirip buku rujukan di perpustakaan. Satu buku dapat dipakai banyak mahasiswa, dan tidak ada yang perlu menyalin isinya untuk memakainya. Program yang besar juga lebih mudah dirawat bila kodenya dibagi per urusan, misalnya perhitungan di satu berkas dan tampilan di berkas lain.
 
@@ -384,7 +388,7 @@ project/
 
 Dengan __init__.py, Python mengenali folder sebagai package.
 
-Berkas ini boleh kosong. Bila berisi kode, kode itu berjalan sekali saat paket pertama kali diimpor. Contoh pada subbab sebelumnya tetap berjalan tanpa berkas ini, karena Python 3 mengenali folder biasa sebagai \textit{namespace package}. Menuliskan \texttt{__init__.py} tetap dianjurkan agar maksud folder itu terlihat jelas.
+Berkas ini boleh kosong. Bila berisi kode, kode itu berjalan sekali saat paket\index{paket} pertama kali diimpor. Contoh pada subbab sebelumnya tetap berjalan tanpa berkas ini, karena Python 3 mengenali folder biasa sebagai \textit{namespace package}. Menuliskan \texttt{__init__.py} tetap dianjurkan agar maksud folder itu terlihat jelas.
 
 Cara import tetap sama (Listing~\ref{lst:b4-mengimpor-modul-dari-paket-utils}):
 
@@ -396,7 +400,7 @@ from utils import string_utils
 
 Python memiliki banyak modul bawaan yang bisa langsung digunakan tanpa instalasi. Beberapa modul bawaan yang sering dipakai antara lain:
 
-\texttt{math} — untuk operasi matematika, seperti akar, pangkat, atau konstanta \(\pi\).
+\texttt{math} — untuk operasi matematika, seperti akar, pangkat, atau konstanta\index{konstanta} \(\pi\).
 
 \texttt{random} — untuk menghasilkan angka acak.
 
@@ -426,7 +430,7 @@ today = date.today()
 print(today) # Output: tanggal hari ini, misal 2025-09-20
 \end{lstlisting}
 
-Hasil \texttt{math.sqrt(16)} adalah \texttt{4.0}, karena fungsi akar selalu mengembalikan \texttt{float}. Fungsi \texttt{random.randint(1, 10)} menyertakan kedua batasnya, sehingga angka 10 bisa muncul, berbeda dengan \texttt{range(1, 10)} yang berhenti di 9. Fungsi \texttt{date.today()} membaca tanggal dari sistem operasi, sehingga hasilnya berubah setiap hari.
+Hasil \texttt{math.sqrt(16)} adalah \texttt{4.0}, karena fungsi akar selalu mengembalikan \texttt{float\index{float}}. Fungsi \texttt{random.randint(1, 10)} menyertakan kedua batasnya, sehingga angka 10 bisa muncul, berbeda dengan \texttt{range(1, 10)} yang berhenti di 9. Fungsi \texttt{date.today()} membaca tanggal dari sistem operasi, sehingga hasilnya berubah setiap hari.
 
 \subsubsection{Mengimpor Fungsi atau Variabel Tertentu}
 
@@ -442,11 +446,14 @@ print(pi) # Output: 3.141592653589793
 Bentuk ini membuat \texttt{sqrt} dan \texttt{pi} dapat dipakai tanpa awalan \texttt{math.}, sehingga kodenya lebih pendek. Kekurangannya, asal fungsi tidak lagi terlihat dari baris pemanggilan, dan variabel lain bernama \texttt{pi} di berkas yang sama akan menimpanya.
 
 \section{Ringkasan}
-Fungsi membungkus satu tugas dengan sebuah nama, sehingga kode dapat dipakai ulang dan diperbaiki di satu tempat. Data masuk lewat parameter dan keluar lewat \texttt{return}, sedangkan variabel di dalam fungsi tidak dikenal dari luar. Fungsi rekursif membutuhkan kasus dasar agar dapat berhenti.
+Fungsi\index{fungsi} membungkus satu tugas dengan sebuah nama, sehingga kode dapat dipakai ulang dan diperbaiki di satu tempat. Data masuk lewat parameter\index{parameter} dan keluar lewat \texttt{return}, sedangkan variabel\index{variabel} di dalam fungsi tidak dikenal dari luar. Fungsi rekursif\index{fungsi rekursif} membutuhkan kasus dasar agar dapat berhenti.
 
-Modul mengelompokkan fungsi ke dalam berkas terpisah, dan folder berisi modul dapat disusun sebagai paket. Python juga menyediakan modul bawaan seperti \texttt{math}, \texttt{random}, dan \texttt{datetime} yang dapat langsung diimpor.
+Modul\index{modul} mengelompokkan fungsi ke dalam berkas terpisah, dan folder berisi modul dapat disusun sebagai paket\index{paket}. Python juga menyediakan modul bawaan seperti \texttt{math}, \texttt{random}, dan \texttt{datetime} yang dapat langsung diimpor.
 
 \section{Latihan}
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
+
 
 \begin{enumerate}
     \item \textbf{Soal 1:} Buatlah program yang meminta pengguna memasukan nilai (minimal 5 input), kemudian klasifikasikan nilai tersebut sesuai dengan ketentuan berikut:
@@ -457,24 +464,36 @@ Modul mengelompokkan fungsi ke dalam berkas terpisah, dan folder berisi modul da
         \item Jika nilai lebih besar atau sama dengan 50, maka klasifikasi \texttt{D}
         \item Jika nilai lebih kecil dari 50, maka klasifikasi \texttt{E}
     \end{enumerate}
-    Buatkan program dalam dua versi, yaitu dengan membuat fungsi untuk klasifikasi dan tanpa membuat fungsi klasifikasi.
+    Buatkan program dalam dua versi, yaitu dengan membuat fungsi\index{fungsi} untuk klasifikasi dan tanpa membuat fungsi klasifikasi.
 
-    \item \textbf{Soal 2:} Buatlah program yang meminta pengguna memasukan nilai 3 mata pelajaran (Matematika, Fisika, dan Kimia), kemudian buatlah fungsi yang menerima dua parameter yakni nilai dan parameter kedua nilai minimal kelulusan dengan default nilai 60. Program akan menampilkan lulus atau tidak lulus sesuai dengan nilai minimal. Standar kelulusan untuk matematika adalah 80, untuk fisika adalah 70, dan untuk kimia adalah 60.
+      \begin{promptterarah}
+      Saya sedang membuat program yang mengklasifikasikan beberapa nilai dengan fungsi. Jangan tuliskan kodenya. Tanyakan parameter dan nilai kembalian fungsi yang saya rencanakan, lalu beri petunjuk bila rancangannya kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
+    \item \textbf{Soal 2:} Buatlah program yang meminta pengguna memasukan nilai 3 mata pelajaran (Matematika, Fisika, dan Kimia), kemudian buatlah fungsi yang menerima dua parameter\index{parameter} yakni nilai dan parameter kedua nilai minimal kelulusan dengan default nilai 60. Program akan menampilkan lulus atau tidak lulus sesuai dengan nilai minimal. Standar kelulusan untuk matematika adalah 80, untuk fisika adalah 70, dan untuk kimia adalah 60.
 
+      \begin{promptterarah}
+      Saya sedang membuat fungsi kelulusan yang parameter nilai minimalnya punya nilai bawaan. Jangan tuliskan kodenya. Tanyakan apa yang terjadi bila fungsi dipanggil tanpa argumen kedua, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+      \end{promptterarah}
     \item \textbf{Soal 3:} Buatlah program untuk menghitung deret Fibonacci dengan cara:
     \begin{enumerate}
         \item Meminta input jumlah angka n dari pengguna
-        \item Menggunakan fungsi rekursif untuk menghitung angka Fibonacci ke-n.
+        \item Menggunakan fungsi rekursif\index{fungsi rekursif} untuk menghitung angka Fibonacci ke-n.
         \item Menampilkan deret Fibonacci hingga n angka pertama
     \end{enumerate}
 
-    \item \textbf{Soal 4:} Buat modul bernama \textbf{geometry.py} yang berisi fungsi:
+      \begin{promptterarah}
+      Saya sedang membuat fungsi rekursif untuk deret Fibonacci. Jangan tuliskan kodenya. Tanyakan kasus dasar dan langkah rekursif yang saya rencanakan, lalu beri petunjuk bila salah satunya keliru. Setelah saya mengirim kode, minta saya menelusuri pemanggilan untuk n = 4 dan periksa penelusuran saya.
+      \end{promptterarah}
+    \item \textbf{Soal 4:} Buat modul\index{modul} bernama \textbf{geometry.py} yang berisi fungsi:
     \begin{enumerate}
         \item \texttt{hitung_persegi_panjang(panjang, lebar)} → mengembalikan luas dan keliling persegi panjang (function with multiple returns)
         \item \texttt{hitung_persegi(sisi)} → mengembalikan luas dan keliling persegi (function with multiple returns)
     \end{enumerate}
     Kemudian import modul tersebut di file program utama dan gunakan fungsi-fungsi tersebut.
 
+  \begin{promptterarah}
+  Saya sedang membuat modul geometry.py berisi fungsi luas dan keliling. Jangan tuliskan kodenya. Tanyakan cara saya mengimpor modul itu dari berkas lain dan cara fungsi mengembalikan dua nilai, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \section*{Referensi}

@@ -7,15 +7,19 @@
   \item Mengatur tata letak komponen pada jendela aplikasi agar rapi dan mudah digunakan.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Aplikasi GUI berjalan berdasarkan kejadian (\textit{event}), sehingga urutan eksekusinya berbeda dari program berbasis teks. Mintalah GenAI menjelaskan kapan fungsi yang dipasang pada opsi \texttt{command} sebuah tombol dijalankan dan apa yang dikerjakan \texttt{mainloop()}, lalu buktikan dengan menambahkan \texttt{print} pada fungsi itu. Untuk tata letak, gambar dulu rancangan jendela di kertas, lalu minta GenAI menanyakan alasan Anda memilih \texttt{pack()}, \texttt{grid()}, atau \texttt{place()}. Ubah sendiri nilai opsi seperti \texttt{padx} dan \texttt{row} untuk melihat pengaruhnya pada jendela.
+
 \section{Pengenalan Tkinter}
 
-Tkinter adalah pustaka standar Python yang digunakan untuk membuat antarmuka grafis (Graphical User Interface/GUI). Dengan Tkinter, program tidak lagi hanya berjalan di terminal, tetapi dapat menampilkan jendela, tombol, teks, kotak input, dan berbagai elemen visual lainnya. Karena sudah termasuk dalam instalasi Python, Tkinter menjadi pilihan ideal bagi mahasiswa pemula yang ingin mengenal konsep GUI tanpa perlu menginstal modul tambahan.
+Tkinter\index{Tkinter} adalah pustaka standar Python yang digunakan untuk membuat antarmuka grafis (Graphical User Interface/GUI\index{GUI}). Dengan Tkinter, program tidak lagi hanya berjalan di terminal, tetapi dapat menampilkan jendela, tombol, teks, kotak input, dan berbagai elemen visual lainnya. Karena sudah termasuk dalam instalasi Python, Tkinter menjadi pilihan ideal bagi mahasiswa pemula yang ingin mengenal konsep GUI tanpa perlu menginstal modul\index{modul} tambahan.
 
-Berbeda dengan program berbasis teks yang berjalan secara berurutan, aplikasi Tkinter bekerja menggunakan pendekatan \textit{event-driven}, yaitu program merespons tindakan pengguna seperti klik tombol atau mengetik. Konsep ini membantu mahasiswa memahami bagaimana aplikasi modern bekerja. Tkinter juga menyediakan berbagai \textit{widget} dasar seperti \textit{label}, \textit{button}, \textit{entry}, dan \textit{menu}, yang akan dibahas lebih detail pada bagian-bagian berikutnya.
+Berbeda dengan program berbasis teks yang berjalan secara berurutan, aplikasi Tkinter bekerja menggunakan pendekatan \textit{event-driven}, yaitu program merespons tindakan pengguna seperti klik tombol atau mengetik. Konsep ini membantu mahasiswa memahami bagaimana aplikasi modern bekerja. Tkinter juga menyediakan berbagai \textit{widget\index{widget}} dasar seperti \textit{label}, \textit{button}, \textit{entry}, dan \textit{menu}, yang akan dibahas lebih detail pada bagian-bagian berikutnya.
 
 \section{Membuat Window Utama}
 
-Selain menggunakan pendekatan prosedural, Tkinter juga dapat dibangun dengan gaya pemrograman berorientasi objek. Cara ini umum digunakan dalam aplikasi berskala lebih besar karena membuat struktur program lebih rapi, modular, dan mudah dikembangkan. Dengan pendekatan ini, jendela utama biasanya dibuat sebagai sebuah kelas yang mewarisi \texttt{tk.Tk}, sehingga seluruh konfigurasi jendela dapat dikelola langsung di dalam konstruktor kelas.
+Selain menggunakan pendekatan prosedural, Tkinter\index{Tkinter} juga dapat dibangun dengan gaya pemrograman berorientasi objek\index{objek}. Cara ini umum digunakan dalam aplikasi berskala lebih besar karena membuat struktur program lebih rapi, modular, dan mudah dikembangkan. Dengan pendekatan ini, jendela utama biasanya dibuat sebagai sebuah kelas\index{kelas} yang mewarisi \texttt{tk.Tk}, sehingga seluruh konfigurasi jendela dapat dikelola langsung di dalam konstruktor kelas.
 
 Ketika aplikasi dijalankan, sebuah objek dari kelas tersebut dibuat dan kemudian menjalankan \texttt{mainloop()} seperti biasa. Pendekatan ini memudahkan penambahan komponen baru di masa depan dan memungkinkan mahasiswa memahami bagaimana antarmuka Tkinter dapat diorganisasikan dengan lebih baik dalam struktur kelas (Listing~\ref{lst:b11-membuat-window-utama-tkinter-dengan-pendekatan}).
 
@@ -39,17 +43,17 @@ if __name__ == "__main__":
     app.mainloop()
 \end{lstlisting}
 
-Pada kode di atas, kelas \texttt{MainWindow} didefinisikan dengan mewarisi \texttt{tk.Tk}. Di dalam metode \texttt{\_\_init\_\_()}, jendela utama dikonfigurasi dengan judul serta ukuran awal. Ketika objek \texttt{MainWindow} dibuat, seluruh pengaturan ini langsung diterapkan. Terakhir, \texttt{mainloop()} dipanggil untuk menjaga jendela tetap aktif dan merespons interaksi pengguna.
+Pada kode di atas, kelas \texttt{MainWindow} didefinisikan dengan mewarisi \texttt{tk.Tk}. Di dalam metode\index{metode} \texttt{\_\_init\_\_()}, jendela utama dikonfigurasi dengan judul serta ukuran awal. Ketika objek \texttt{MainWindow} dibuat, seluruh pengaturan ini langsung diterapkan. Terakhir, \texttt{mainloop()} dipanggil untuk menjaga jendela tetap aktif dan merespons interaksi pengguna.
 
 
 
 \section{Label}
 
-Label adalah salah satu widget paling dasar di Tkinter yang digunakan untuk menampilkan teks atau gambar di dalam jendela aplikasi. Widget ini sering dipakai untuk memberikan judul, penjelasan, atau informasi statis kepada pengguna. Untuk membuat sebuah label, Tkinter menyediakan kelas \texttt{Label} yang dapat dihubungkan dengan jendela utama atau \textit{frame}. Pembuatan label biasanya dimulai dengan menentukan teks yang ingin ditampilkan, kemudian menyimpannya dalam sebuah variabel untuk digunakan di dalam program.
+Label adalah salah satu widget\index{widget} paling dasar di Tkinter\index{Tkinter} yang digunakan untuk menampilkan teks atau gambar di dalam jendela aplikasi. Widget ini sering dipakai untuk memberikan judul, penjelasan, atau informasi statis kepada pengguna. Untuk membuat sebuah label, Tkinter menyediakan kelas\index{kelas} \texttt{Label} yang dapat dihubungkan dengan jendela utama atau \textit{frame}. Pembuatan label biasanya dimulai dengan menentukan teks yang ingin ditampilkan, kemudian menyimpannya dalam sebuah variabel\index{variabel} untuk digunakan di dalam program.
 
-Setelah label dibuat, pengembang dapat mengatur berbagai properti seperti ukuran font, warna teks, warna latar belakang, serta posisi perataan teks. Properti-properti ini membantu menyesuaikan tampilan label agar sesuai dengan desain aplikasi. Selain itu, label juga dapat menampilkan gambar menggunakan objek \texttt{PhotoImage}, sehingga memungkinkan penggunaan ikon atau ilustrasi kecil dalam antarmuka.
+Setelah label dibuat, pengembang dapat mengatur berbagai properti seperti ukuran font, warna teks, warna latar belakang, serta posisi perataan teks. Properti-properti ini membantu menyesuaikan tampilan label agar sesuai dengan desain aplikasi. Selain itu, label juga dapat menampilkan gambar menggunakan objek\index{objek} \texttt{PhotoImage}, sehingga memungkinkan penggunaan ikon atau ilustrasi kecil dalam antarmuka.
 
-Agar label terlihat oleh pengguna, widget ini harus ditempatkan pada jendela menggunakan salah satu metode tata letak Tkinter seperti \texttt{pack()}, \texttt{grid()}, atau \texttt{place()}. Tanpa pemanggilan metode tata letak, label tidak akan muncul meskipun sudah dibuat. Dengan menguasai penggunaan label dan propertinya, mahasiswa dapat mulai membangun antarmuka yang lebih informatif dan terstruktur (Listing~\ref{lst:b11-penggunaan-label-tkinter}).
+Agar label terlihat oleh pengguna, widget ini harus ditempatkan pada jendela menggunakan salah satu metode\index{metode} tata letak Tkinter seperti \texttt{pack()}, \texttt{grid()}, atau \texttt{place()}. Tanpa pemanggilan metode tata letak, label tidak akan muncul meskipun sudah dibuat. Dengan menguasai penggunaan label dan propertinya, mahasiswa dapat mulai membangun antarmuka yang lebih informatif dan terstruktur (Listing~\ref{lst:b11-penggunaan-label-tkinter}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh Penggunaan Label di Tkinter}, label={lst:b11-penggunaan-label-tkinter}]
 import tkinter as tk
@@ -74,15 +78,15 @@ label2.pack(pady=10)
 root.mainloop()
 \end{lstlisting}
 
-Penjelasan kode di atas dimulai dengan mengimpor modul Tkinter untuk mengaktifkan seluruh fungsionalitas GUI. Baris \texttt{root = tk.Tk()} membuat jendela utama aplikasi, kemudian \texttt{root.title("Contoh Label")} memberikan judul pada jendela tersebut. Selanjutnya, \texttt{label1} dibuat sebagai label sederhana dengan teks biasa, sementara \texttt{label2} menunjukkan bagaimana sebuah label dapat diberi properti tambahan seperti ukuran font, warna teks, dan warna latar belakang. Setelah label dibuat, keduanya ditampilkan pada jendela menggunakan metode \texttt{pack()} dengan jarak vertikal tambahan melalui parameter \texttt{pady}. Terakhir, \texttt{root.mainloop()} memastikan jendela tetap tampil dan merespons interaksi pengguna hingga ditutup secara manual.
+Penjelasan kode di atas dimulai dengan mengimpor modul\index{modul} Tkinter untuk mengaktifkan seluruh fungsionalitas GUI\index{GUI}. Baris \texttt{root = tk.Tk()} membuat jendela utama aplikasi, kemudian \texttt{root.title("Contoh Label")} memberikan judul pada jendela tersebut. Selanjutnya, \texttt{label1} dibuat sebagai label sederhana dengan teks biasa, sementara \texttt{label2} menunjukkan bagaimana sebuah label dapat diberi properti tambahan seperti ukuran font, warna teks, dan warna latar belakang. Setelah label dibuat, keduanya ditampilkan pada jendela menggunakan metode \texttt{pack()} dengan jarak vertikal tambahan melalui parameter\index{parameter} \texttt{pady}. Terakhir, \texttt{root.mainloop()} memastikan jendela tetap tampil dan merespons interaksi pengguna hingga ditutup secara manual.
 
 
 
 \section{Button}
 
-Button adalah widget Tkinter yang berfungsi sebagai tombol interaktif yang dapat ditekan oleh pengguna untuk menjalankan suatu aksi tertentu. Tombol ini merupakan komponen penting dalam antarmuka grafis karena digunakan untuk memicu berbagai fungsi, seperti menampilkan pesan, mengubah nilai komponen lain, menyimpan data, atau membuka jendela tambahan. Dengan menggunakan kelas \texttt{Button}, pengembang dapat membuat tombol dan memberikan teks yang menjelaskan fungsi tombol tersebut.
+Button adalah widget\index{widget} Tkinter\index{Tkinter} yang berfungsi sebagai tombol interaktif yang dapat ditekan oleh pengguna untuk menjalankan suatu aksi tertentu. Tombol ini merupakan komponen penting dalam antarmuka grafis karena digunakan untuk memicu berbagai fungsi\index{fungsi}, seperti menampilkan pesan, mengubah nilai komponen lain, menyimpan data, atau membuka jendela tambahan. Dengan menggunakan kelas\index{kelas} \texttt{Button}, pengembang dapat membuat tombol dan memberikan teks yang menjelaskan fungsi tombol tersebut.
 
-Agar tombol dapat melakukan sesuatu saat ditekan, diperlukan sebuah \textit{event handler} yang dihubungkan melalui parameter \texttt{command}. Event handler ini biasanya berupa metode di dalam sebuah kelas apabila pendekatan berbasis objek digunakan. Dalam pendekatan ini, tombol dapat berinteraksi dengan widget lain, misalnya mengubah teks pada label. Interaksi sederhana seperti ini membantu mahasiswa memahami bagaimana komponen GUI saling berhubungan dalam sebuah aplikasi yang dibangun secara terstruktur dengan OOP (Listing~\ref{lst:b11-button-interaksi-dengan-label-menggunakan-class}).
+Agar tombol dapat melakukan sesuatu saat ditekan, diperlukan sebuah \textit{event handler} yang dihubungkan melalui parameter\index{parameter} \texttt{command}. Event handler ini biasanya berupa metode\index{metode} di dalam sebuah kelas apabila pendekatan berbasis objek\index{objek} digunakan. Dalam pendekatan ini, tombol dapat berinteraksi dengan widget lain, misalnya mengubah teks pada label. Interaksi sederhana seperti ini membantu mahasiswa memahami bagaimana komponen GUI\index{GUI} saling berhubungan dalam sebuah aplikasi yang dibangun secara terstruktur dengan OOP (Listing~\ref{lst:b11-button-interaksi-dengan-label-menggunakan-class}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh Button dan Interaksi dengan Label Menggunakan Class}, label={lst:b11-button-interaksi-dengan-label-menggunakan-class}]
 import tkinter as tk
@@ -115,9 +119,9 @@ Pada contoh di atas, kelas \texttt{ButtonDemo} dibuat dengan mewarisi \texttt{tk
 
 \section{EditText (Entry)}
 
-Entry adalah widget Tkinter yang digunakan untuk menerima input teks dari pengguna. Widget ini sering digunakan untuk memasukkan data sederhana seperti nama atau angka. Dalam aplikasi dasar, Entry biasanya dikombinasikan dengan Label sebagai tampilan hasil dan Button untuk memicu proses penyalinan atau pemrosesan data. Salah satu contoh interaksi paling sederhana adalah menyalin isi Entry ke Label ketika tombol ditekan.
+Entry adalah widget\index{widget} Tkinter\index{Tkinter} yang digunakan untuk menerima input teks dari pengguna. Widget ini sering digunakan untuk memasukkan data sederhana seperti nama atau angka. Dalam aplikasi dasar, Entry biasanya dikombinasikan dengan Label sebagai tampilan hasil dan Button untuk memicu proses penyalinan atau pemrosesan data. Salah satu contoh interaksi paling sederhana adalah menyalin isi Entry ke Label ketika tombol ditekan.
 
-Untuk mengambil nilai dari Entry, Tkinter menyediakan metode \texttt{get()}, sementara Label dapat diperbarui menggunakan metode \texttt{config()}. Dengan menggabungkan komponen-komponen ini di dalam sebuah kelas, mahasiswa dapat memahami pola dasar interaksi antara widget dalam antarmuka grafis (Listing~\ref{lst:b11-menyalin-teks-dari-entry-ke-label}).
+Untuk mengambil nilai dari Entry, Tkinter menyediakan metode\index{metode} \texttt{get()}, sementara Label dapat diperbarui menggunakan metode \texttt{config()}. Dengan menggabungkan komponen-komponen ini di dalam sebuah kelas\index{kelas}, mahasiswa dapat memahami pola dasar interaksi antara widget dalam antarmuka grafis (Listing~\ref{lst:b11-menyalin-teks-dari-entry-ke-label}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Menyalin Teks dari Entry ke Label Menggunakan Class}, label={lst:b11-menyalin-teks-dari-entry-ke-label}]
 import tkinter as tk
@@ -157,11 +161,11 @@ Pada contoh ini, pengguna memasukkan teks ke dalam Entry, lalu ketika tombol dit
 
 \subsection{Pengenalan Sistem Layout}
 
-Tkinter menyediakan tiga metode utama untuk mengatur tata letak widget, yaitu \texttt{pack()}, \texttt{grid()}, dan \texttt{place()}. Ketiga metode ini berfungsi untuk menentukan bagaimana widget ditampilkan di dalam jendela atau frame. Metode \texttt{pack()} menyusun widget secara berurutan secara vertikal atau horizontal, \texttt{grid()} menyusun widget dalam bentuk baris dan kolom seperti tabel, sementara \texttt{place()} memberikan kontrol penuh untuk menempatkan widget berdasarkan koordinat tertentu. Memahami karakteristik dari setiap metode akan membantu pengembang memilih cara yang paling sesuai untuk merancang tampilan aplikasi.
+Tkinter\index{Tkinter} menyediakan tiga metode\index{metode} utama untuk mengatur tata letak widget\index{widget}, yaitu \texttt{pack()}, \texttt{grid()}, dan \texttt{place()}. Ketiga metode ini berfungsi untuk menentukan bagaimana widget ditampilkan di dalam jendela atau frame. Metode \texttt{pack()} menyusun widget secara berurutan secara vertikal atau horizontal, \texttt{grid()} menyusun widget dalam bentuk baris dan kolom seperti tabel, sementara \texttt{place()} memberikan kontrol penuh untuk menempatkan widget berdasarkan koordinat tertentu. Memahami karakteristik dari setiap metode akan membantu pengembang memilih cara yang paling sesuai untuk merancang tampilan aplikasi.
 
 \subsection{Menggunakan \texttt{pack()}}
 
-Metode \texttt{pack()} adalah metode layout yang paling sederhana. Widget akan ditempatkan secara berurutan di area jendela sesuai posisi yang ditentukan melalui parameter seperti \texttt{side}, \texttt{fill}, dan \texttt{expand}. Parameter \texttt{fill} digunakan agar widget dapat melebar secara horizontal atau vertikal, sedangkan \texttt{expand} memungkinkan widget memanfaatkan ruang kosong tambahan saat jendela diperbesar. Dengan pendekatan berbasis kelas, pengaturan layout ditempatkan di dalam konstruktor sehingga struktur aplikasi lebih terorganisasi (Listing~\ref{lst:b11-layout-pack-menggunakan-class-1-baris}).
+Metode \texttt{pack()} adalah metode layout yang paling sederhana. Widget akan ditempatkan secara berurutan di area jendela sesuai posisi yang ditentukan melalui parameter\index{parameter} seperti \texttt{side}, \texttt{fill}, dan \texttt{expand}. Parameter \texttt{fill} digunakan agar widget dapat melebar secara horizontal atau vertikal, sedangkan \texttt{expand} memungkinkan widget memanfaatkan ruang kosong tambahan saat jendela diperbesar. Dengan pendekatan berbasis kelas\index{kelas}, pengaturan layout ditempatkan di dalam konstruktor sehingga struktur aplikasi lebih terorganisasi (Listing~\ref{lst:b11-layout-pack-menggunakan-class-1-baris}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh Layout pack() Menggunakan Class (1 Baris per pack)}, label={lst:b11-layout-pack-menggunakan-class-1-baris}]
 import tkinter as tk
@@ -313,22 +317,25 @@ Pada contoh di atas, frame form ditempatkan menggunakan \texttt{pack()}, sementa
 
 \section{Rangkuman}
 
-Tkinter merupakan pustaka standar Python untuk membangun antarmuka grafis berbasis \textit{event-driven}, sehingga aplikasi dapat merespons berbagai interaksi pengguna seperti klik tombol dan input teks. Berbagai widget dasar seperti \texttt{Label}, \texttt{Button}, dan \texttt{Entry} digunakan untuk menampilkan informasi, menerima masukan, dan menjalankan aksi tertentu. Pembuatan window utama dapat dilakukan secara prosedural maupun dengan pendekatan berorientasi objek menggunakan kelas yang mewarisi \texttt{tk.Tk}, sehingga struktur aplikasi menjadi lebih rapi, modular, dan mudah dikembangkan.
+Tkinter\index{Tkinter} merupakan pustaka standar Python untuk membangun antarmuka grafis berbasis \textit{event-driven}, sehingga aplikasi dapat merespons berbagai interaksi pengguna seperti klik tombol dan input teks. Berbagai widget\index{widget} dasar seperti \texttt{Label}, \texttt{Button}, dan \texttt{Entry} digunakan untuk menampilkan informasi, menerima masukan, dan menjalankan aksi tertentu. Pembuatan window utama dapat dilakukan secara prosedural maupun dengan pendekatan berorientasi objek\index{objek} menggunakan kelas\index{kelas} yang mewarisi \texttt{tk.Tk}, sehingga struktur aplikasi menjadi lebih rapi, modular, dan mudah dikembangkan.
 
-Untuk mengatur tata letak, Tkinter menyediakan tiga metode utama: \texttt{pack()}, \texttt{grid()}, dan \texttt{place()}, yang masing-masing menawarkan fleksibilitas berbeda sesuai kebutuhan desain. Penggunaan \texttt{Frame} memungkinkan pengelompokan widget agar antarmuka lebih terorganisasi, serta mendukung kombinasi layout seperti \texttt{pack()} untuk frame utama dan \texttt{grid()} untuk bagian dalamnya. Dengan memahami widget dan teknik layout ini, mahasiswa dapat membangun aplikasi GUI yang bersih, terstruktur, dan mudah diperluas.
+Untuk mengatur tata letak, Tkinter menyediakan tiga metode\index{metode} utama: \texttt{pack()}, \texttt{grid()}, dan \texttt{place()}, yang masing-masing menawarkan fleksibilitas berbeda sesuai kebutuhan desain. Penggunaan \texttt{Frame} memungkinkan pengelompokan widget agar antarmuka lebih terorganisasi, serta mendukung kombinasi layout seperti \texttt{pack()} untuk frame utama dan \texttt{grid()} untuk bagian dalamnya. Dengan memahami widget dan teknik layout ini, mahasiswa dapat membangun aplikasi GUI\index{GUI} yang bersih, terstruktur, dan mudah diperluas.
 
 
 \section{Latihan}
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
+
 
 \begin{enumerate}
   
 
   \item \textbf{Latihan 1: Game Tebak Angka Sederhana}
 
-  Buatlah sebuah game GUI sederhana \textbf{Tebak Angka} dengan Tkinter dan pendekatan class:
+  Buatlah sebuah game GUI\index{GUI} sederhana \textbf{Tebak Angka} dengan Tkinter\index{Tkinter} dan pendekatan class:
   \begin{enumerate}
     \item Window utama berjudul \texttt{"Game Tebak Angka"} dengan ukuran sekitar \texttt{350x220}.
-    \item Program memilih sebuah angka rahasia antara 1 sampai 10 (boleh menggunakan modul \texttt{random} dari Python, tetapi fokus utama latihan adalah pada GUI Tkinter).
+    \item Program memilih sebuah angka rahasia antara 1 sampai 10 (boleh menggunakan modul\index{modul} \texttt{random} dari Python, tetapi fokus utama latihan adalah pada GUI Tkinter).
     \item Di jendela utama, tampilkan:
           \begin{itemize}
             \item Sebuah \texttt{Label} instruksi, misalnya: \texttt{"Saya punya angka 1-10, coba tebak!"}.
@@ -347,11 +354,14 @@ Untuk mengatur tata letak, Tkinter menyediakan tiga metode utama: \texttt{pack()
             \item Mengambil nilai dari \texttt{Entry} dengan \texttt{get()}.
             \item Mengubah teks \texttt{Label} hasil sesuai dengan perbandingan antara tebakan dan angka rahasia.
           \end{itemize}
-    \item Semua logika game (penyimpanan angka rahasia, pengecekan tebakan, dan update label) ditulis di dalam sebuah kelas, misalnya \texttt{class TebakAngkaApp(tk.Tk)}.
+    \item Semua logika game (penyimpanan angka rahasia, pengecekan tebakan, dan update label) ditulis di dalam sebuah kelas\index{kelas}, misalnya \texttt{class TebakAngkaApp(tk.Tk)}.
   \end{enumerate}
   Tuliskan kode program Python lengkap yang memenuhi spesifikasi game sederhana di atas.
 
 
+	  \begin{promptterarah}
+	  Saya sedang membuat game tebak angka dengan Tkinter memakai pendekatan kelas. Jangan tuliskan kodenya. Tanyakan widget apa saja yang saya butuhkan dan metode mana yang dijalankan saat tombol ditekan, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+	  \end{promptterarah}
 	\item \textbf{Latihan 2: Form Login Sederhana}
 
   Buatlah sebuah aplikasi Tkinter menggunakan \textbf{pendekatan class} (kelas mewarisi \texttt{tk.Tk}) dengan spesifikasi berikut:
@@ -370,14 +380,17 @@ Untuk mengatur tata letak, Tkinter menyediakan tiga metode utama: \texttt{pack()
             \item Jika tidak, \texttt{Label} status diubah menjadi \texttt{"Username atau password salah"}.
           \end{itemize}
     \item Gunakan kombinasi \texttt{pack()} (untuk meletakkan frame dan label status di window utama) dan \texttt{grid()} (untuk form di dalam frame).
-    \item Semua widget dan event handler didefinisikan di dalam satu kelas, misalnya \texttt{class LoginApp(tk.Tk)}.
+    \item Semua widget\index{widget} dan event handler didefinisikan di dalam satu kelas, misalnya \texttt{class LoginApp(tk.Tk)}.
   \end{enumerate}
   Tuliskan kode program Python lengkap yang memenuhi spesifikasi di atas.
+  \begin{promptterarah}
+  Saya sedang membuat form login dengan Tkinter dalam kelas yang mewarisi tk.Tk. Jangan tuliskan kodenya. Tanyakan cara saya mengambil isi Entry saat tombol login ditekan, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 \section{Daftar Widgets}
 
-Tabel~\ref{tab:b11-widget}, Tabel~\ref{tab:b11-ttk}, dan Tabel~\ref{tab:b11-dialog} mendaftar widget dan dialog yang sering dipakai.
+Tabel~\ref{tab:b11-widget}, Tabel~\ref{tab:b11-ttk}, dan Tabel~\ref{tab:b11-dialog} mendaftar widget\index{widget} dan dialog yang sering dipakai.
 
 \begin{table}[H]
   \centering

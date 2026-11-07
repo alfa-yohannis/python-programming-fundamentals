@@ -7,10 +7,14 @@
   \item Mengolah data bertingkat secara bertahap dengan menggabungkan perulangan dan percabangan.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Keterampilan utama di bab ini adalah memilih struktur data. Ceritakan sebuah kebutuhan kepada GenAI, misalnya menyimpan nilai mahasiswa yang dicari lewat NIM, lalu minta GenAI bertanya balik sampai Anda sendiri dapat memutuskan untuk memakai list, tuple, dictionary, atau set. Untuk data bertingkat, minta GenAI menjelaskan langkah demi langkah cara ekspresi seperti \texttt{data["mahasiswa"][0]["nama"]} mengambil nilainya. Jalankan ekspresi itu, lalu ubah kunci atau indeksnya untuk menguji pemahaman Anda.
+
 \section{Pendahuluan}
 Struktur data adalah cara menyimpan dan mengatur data agar dapat digunakan secara efisien dalam program.
-Python menyediakan berbagai struktur data bawaan seperti \texttt{list}, \texttt{tuple}, \texttt{dictionary}, dan \texttt{set}.
-Pemahaman terhadap struktur data sangat penting karena menjadi dasar dalam pengolahan informasi dan pengembangan algoritma.
+Python menyediakan berbagai struktur data bawaan seperti \texttt{list\index{list}}, \texttt{tuple\index{tuple}}, \texttt{dictionary\index{dictionary}}, dan \texttt{set}\index{set}.
+Pemahaman terhadap struktur data sangat penting karena menjadi dasar dalam pengolahan informasi dan pengembangan algoritma\index{algoritma}.
 
 Memilih struktur data mirip memilih tempat menyimpan barang di kamar kos. Buku disusun berurutan di rak, surat penting dicari lewat label pada mapnya, dan koleksi prangko cukup disimpan satu per jenis. Tiap cara penyimpanan memudahkan satu jenis pencarian. Listing~\ref{lst:b6-pendahuluan} memperlihatkan contoh paling sederhana.
 
@@ -22,7 +26,7 @@ Kode pada Listing~\ref{lst:b6-pendahuluan} menggunakan list untuk menyimpan tiga
 
 % =====================================================
 \section{List}
-List adalah struktur data berurutan (sequential) yang bersifat mutable, artinya elemen di dalamnya dapat diubah setelah dibuat. 
+List\index{list} adalah struktur data berurutan (sequential) yang bersifat mutable, artinya elemen di dalamnya dapat diubah setelah dibuat. 
 List digunakan untuk menyimpan kumpulan data yang sejenis atau campuran, seperti daftar nama, nilai, atau hasil input pengguna. 
 Karena bersifat dinamis, kita dapat menambah, membaca, memperbarui, dan menghapus elemen kapan pun diperlukan, seperti pada Listing~\ref{lst:b6-list}.
 
@@ -73,7 +77,7 @@ print(nilai[4])
 IndexError: list index out of range
 \end{lstlisting}
 
-Listing~\ref{lst:b6-penjualan} menerapkan list pada kasus nyata, yaitu menghitung total penjualan. Variabel \texttt{total} mulai dari 0, lalu bertambah pada tiap putaran. Format \texttt{\{total:,\}} menambahkan koma sebagai pemisah ribuan, sehingga program mencetak \texttt{Total penjualan minggu ini: Rp540,000}.
+Listing~\ref{lst:b6-penjualan} menerapkan list pada kasus nyata, yaitu menghitung total penjualan. Variabel\index{variabel} \texttt{total} mulai dari 0, lalu bertambah pada tiap putaran. Format \texttt{\{total:,\}} menambahkan koma sebagai pemisah ribuan, sehingga program mencetak \texttt{Total penjualan minggu ini: Rp540,000}.
 
 
 \begin{lstlisting}[style=PythonStyle, caption={Menghitung total penjualan dari list}, label={lst:b6-penjualan}]
@@ -89,7 +93,7 @@ print("Total penjualan minggu ini:",
 
 % =====================================================
 \section{Tuple}
-Tuple mirip dengan list, tetapi bersifat \textit{immutable}, artinya elemen di dalamnya tidak dapat diubah setelah dibuat. 
+Tuple\index{tuple} mirip dengan list\index{list}, tetapi bersifat \textit{immutable}, artinya elemen di dalamnya tidak dapat diubah setelah dibuat. 
 Struktur ini cocok digunakan untuk menyimpan data yang bersifat tetap seperti koordinat, ukuran gambar, warna RGB, atau data konfigurasi. 
 Jika ingin melakukan perubahan, kita harus membuat tuple baru berdasarkan tuple lama, seperti pada Listing~\ref{lst:b6-tuple}.
 
@@ -108,7 +112,7 @@ tetapi tidak bisa dimodifikasi secara langsung.
 Untuk "memperbarui" data, kita membuat tuple baru dari data lama. 
 Karena bersifat tetap, tuple aman digunakan untuk data yang tidak boleh berubah selama program berjalan.
 
-Program tersebut mencetak \texttt{(10, 20)}, \texttt{10}, lalu \texttt{(10, 25)}. Mengubah isi tuple secara langsung, seperti \texttt{koordinat[0] = 15}, menghasilkan \texttt{TypeError: 'tuple' object does not support item assignment}. Isi tuple juga dapat dibongkar ke beberapa variabel sekaligus dengan \texttt{lintang, bujur = lokasi}. Tuple berisi satu elemen wajib memakai koma, karena \texttt{(5)} hanya angka 5 dalam kurung, sedangkan \texttt{(5,)} adalah tuple.
+Program tersebut mencetak \texttt{(10, 20)}, \texttt{10}, lalu \texttt{(10, 25)}. Mengubah isi tuple secara langsung, seperti \texttt{koordinat[0] = 15}, menghasilkan \texttt{TypeError: 'tuple' object does not support item assignment}. Isi tuple juga dapat dibongkar ke beberapa variabel\index{variabel} sekaligus dengan \texttt{lintang, bujur = lokasi}. Tuple berisi satu elemen wajib memakai koma, karena \texttt{(5)} hanya angka 5 dalam kurung, sedangkan \texttt{(5,)} adalah tuple.
 
 Listing~\ref{lst:b6-lokasi} memakai tuple untuk koordinat, karena lintang dan bujur sebuah tempat selalu berpasangan dan tidak berubah selama program berjalan.
 
@@ -126,7 +130,7 @@ print("Bujur  :", lokasi[1])
 
 % =====================================================
 \section{Dictionary (Map)}
-Dictionary adalah struktur data yang menyimpan pasangan \texttt{key:value}. 
+Dictionary\index{dictionary} adalah struktur data yang menyimpan pasangan \texttt{key:value}. 
 Setiap \texttt{key} bersifat unik dan digunakan untuk mengakses nilainya secara langsung. 
 Struktur ini sangat berguna untuk merepresentasikan data berlabel, seperti identitas pengguna, data mahasiswa, atau konfigurasi sistem. 
 Kita dapat menambah, membaca, memperbarui, maupun menghapus pasangan data dengan mudah, seperti pada Listing~\ref{lst:b6-dict}.
@@ -159,7 +163,7 @@ Setelah diubah: {'nama': 'Andi', 'umur': 21, 'kota': 'Tangerang'}
 
 Pada Listing~\ref{lst:b6-dict-out}, baris \texttt{mahasiswa["umur"] = 21} memperbarui nilai karena kuncinya sudah ada, sedangkan baris berikutnya menambah pasangan baru karena kuncinya belum ada. Dictionary mirip buku alamat: nomor telepon dicari lewat nama, tanpa perlu tahu posisinya di halaman berapa.
 
-Membaca kunci yang tidak ada dengan tanda kurung siku menghasilkan \texttt{KeyError}. Metode \texttt{get()} lebih aman untuk data yang mungkin kosong, seperti terlihat pada Listing~\ref{lst:b6-dict-get} dan keluarannya pada Listing~\ref{lst:b6-dict-get-out}. Tanpa nilai cadangan, \texttt{get()} mengembalikan \texttt{None}.
+Membaca kunci yang tidak ada dengan tanda kurung siku menghasilkan \texttt{KeyError}. Metode\index{metode} \texttt{get()} lebih aman untuk data yang mungkin kosong, seperti terlihat pada Listing~\ref{lst:b6-dict-get} dan keluarannya pada Listing~\ref{lst:b6-dict-get-out}. Tanpa nilai cadangan, \texttt{get()} mengembalikan \texttt{None}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Kode Python: dictionary_get.py}, label={lst:b6-dict-get}]
 mahasiswa = {"nama": "Andi", "umur": 20}
@@ -239,7 +243,7 @@ Gabungan: {1, 3, 4, 5, 6}
 Irisan: {3, 4}
 \end{lstlisting}
 
-Baris pertama Listing~\ref{lst:b6-set-out} menunjukkan bahwa angka 2 dan 3 yang ditulis dua kali hanya tersimpan sekali. Set tidak punya urutan, sehingga isinya tidak dapat diakses dengan indeks. Menulis \texttt{produk[0]} menghasilkan \texttt{TypeError: 'set' object is not subscriptable}, sedangkan pemeriksaan \texttt{"kopi" in produk} tetap berjalan. Set kosong dibuat dengan \texttt{set()}, karena \texttt{\{\}} menghasilkan dictionary kosong. Selain gabungan dan irisan, operator \texttt{-} memberikan selisih, misalnya \texttt{\{1, 2, 3\} - \{3, 4\}} menghasilkan \texttt{\{1, 2\}}.
+Baris pertama Listing~\ref{lst:b6-set-out} menunjukkan bahwa angka 2 dan 3 yang ditulis dua kali hanya tersimpan sekali. Set tidak punya urutan, sehingga isinya tidak dapat diakses dengan indeks. Menulis \texttt{produk[0]} menghasilkan \texttt{TypeError: 'set' object is not subscriptable}, sedangkan pemeriksaan \texttt{"kopi" in produk} tetap berjalan. Set kosong dibuat dengan \texttt{set()}, karena \texttt{\{\}} menghasilkan dictionary\index{dictionary} kosong. Selain gabungan dan irisan, operator\index{operator} \texttt{-} memberikan selisih, misalnya \texttt{\{1, 2, 3\} - \{3, 4\}} menghasilkan \texttt{\{1, 2\}}.
 
 Listing~\ref{lst:b6-produk} memakai set untuk membuang nama produk yang tercatat ganda. Urutan produk yang tercetak dapat berbeda setiap kali program dijalankan, karena set tidak menyimpan urutan.
 
@@ -262,8 +266,8 @@ for p in produk:
 % =====================================================
 \section{Range}
 Range adalah struktur bawaan Python yang digunakan untuk menghasilkan urutan angka secara efisien. 
-Objek ini sering digunakan dalam perulangan untuk mengontrol jumlah iterasi tanpa perlu membuat daftar angka secara manual. 
-Tidak seperti list, \texttt{range} tidak menyimpan seluruh nilai di memori, melainkan menghasilkan angka satu per satu saat dibutuhkan, sehingga lebih hemat sumber daya. Listing~\ref{lst:b6-range} memperlihatkan dua cara memakainya.
+Objek\index{objek} ini sering digunakan dalam perulangan\index{perulangan} untuk mengontrol jumlah iterasi\index{iterasi} tanpa perlu membuat daftar angka secara manual. 
+Tidak seperti list\index{list}, \texttt{range}\index{range} tidak menyimpan seluruh nilai di memori\index{memori}, melainkan menghasilkan angka satu per satu saat dibutuhkan, sehingga lebih hemat sumber daya. Listing~\ref{lst:b6-range} memperlihatkan dua cara memakainya.
 
 \begin{lstlisting}[style=PythonStyle, caption={Dua cara memakai range}, label={lst:b6-range}]
 for i in range(3):
@@ -274,8 +278,8 @@ print("Daftar angka:", angka)
 \end{lstlisting}
 
 Contoh pada Listing~\ref{lst:b6-range} menunjukkan penggunaan \texttt{range()} dalam dua bentuk. 
-Pertama, untuk mengatur jumlah pengulangan di dalam perulangan \texttt{for}. 
-Kedua, untuk membuat daftar angka berurutan dengan fungsi \texttt{list()}. 
+Pertama, untuk mengatur jumlah pengulangan di dalam perulangan \texttt{for}\index{for}. 
+Kedua, untuk membuat daftar angka berurutan dengan fungsi\index{fungsi} \texttt{list()}. 
 Dengan \texttt{range()}, kita dapat membuat urutan angka dengan batas awal, akhir, dan langkah tertentu tanpa membebani memori.
 
 \begin{lstlisting}[language=bash, caption={Keluaran kode range}, label={lst:b6-range-out}]
@@ -291,8 +295,8 @@ Keluaran tersebut ada pada Listing~\ref{lst:b6-range-out}. Penghematan memorinya
 % =====================================================
 \section{Struktur Data Bertingkat (Nested Structure)}
 Struktur data bertingkat adalah struktur yang di dalamnya terdapat struktur data lain. 
-Contohnya adalah list di dalam list, atau dictionary di dalam list. 
-Struktur seperti ini berguna untuk menyimpan data yang lebih kompleks, seperti tabel, daftar objek, atau data dalam format JSON. 
+Contohnya adalah list\index{list} di dalam list, atau dictionary\index{dictionary} di dalam list. 
+Struktur seperti ini berguna untuk menyimpan data yang lebih kompleks, seperti tabel, daftar objek\index{objek}, atau data dalam format JSON. 
 Dengan menggunakan struktur bertingkat, kita dapat merepresentasikan hubungan antar data secara lebih alami. Listing~\ref{lst:b6-nested} memberi dua contohnya.
 
 \begin{lstlisting}[style=PythonStyle, caption={List di dalam list dan dictionary di dalam list}, label={lst:b6-nested}]
@@ -320,7 +324,7 @@ Akses ke data bertingkat dibaca dari kiri ke kanan, satu tingkat setiap kali. Pa
 
 % =====================================================
 \section{Perkalian Matriks Menggunakan List}
-Matriks dapat direpresentasikan sebagai list dua dimensi, di mana setiap elemen di dalam list utama berisi list lain yang mewakili baris. 
+Matriks dapat direpresentasikan sebagai list\index{list} dua dimensi, di mana setiap elemen di dalam list utama berisi list lain yang mewakili baris. 
 Perkalian matriks dilakukan dengan menjumlahkan hasil kali antara elemen-elemen baris dari matriks pertama dan kolom dari matriks kedua, seperti pada Persamaan~\eqref{eq:b6-perkalian-matriks}. 
 Konsep ini banyak digunakan dalam berbagai bidang seperti pemrosesan citra, machine learning, dan grafik komputer.
 
@@ -329,7 +333,7 @@ Konsep ini banyak digunakan dalam berbagai bidang seperti pemrosesan citra, mach
   \label{eq:b6-perkalian-matriks}
 \end{equation}
 
-Indeks $i$ menunjuk baris pada matriks pertama, $j$ menunjuk kolom pada matriks kedua, dan $k$ menelusuri pasangan elemen yang dikalikan. Banyak kolom matriks pertama harus sama dengan banyak baris matriks kedua. Listing~\ref{lst:b6-matriks} menerapkan persamaan ini dengan tiga tingkat perulangan.
+Indeks $i$ menunjuk baris pada matriks pertama, $j$ menunjuk kolom pada matriks kedua, dan $k$ menelusuri pasangan elemen yang dikalikan. Banyak kolom matriks pertama harus sama dengan banyak baris matriks kedua. Listing~\ref{lst:b6-matriks} menerapkan persamaan ini dengan tiga tingkat perulangan\index{perulangan}.
 
 \begin{lstlisting}[style=PythonStyle, caption={Perkalian dua matriks dengan perulangan bertingkat}, label={lst:b6-matriks}]
 A = [
@@ -381,11 +385,11 @@ Hasil akhir matriks C:
 [139, 154]
 \end{lstlisting}
 
-Listing~\ref{lst:b6-matriks-out} memperlihatkan tiap langkah perhitungan. Baris pertamanya adalah Persamaan~\eqref{eq:b6-perkalian-matriks} untuk $i = 0$ dan $j = 0$, yaitu $1 \times 7 + 2 \times 9 + 3 \times 11 = 58$. Variabel \texttt{total} dikembalikan ke 0 sebelum tiap elemen dihitung, karena tiap elemen \texttt{C} punya jumlah sendiri.
+Listing~\ref{lst:b6-matriks-out} memperlihatkan tiap langkah perhitungan. Baris pertamanya adalah Persamaan~\eqref{eq:b6-perkalian-matriks} untuk $i = 0$ dan $j = 0$, yaitu $1 \times 7 + 2 \times 9 + 3 \times 11 = 58$. Variabel\index{variabel} \texttt{total} dikembalikan ke 0 sebelum tiap elemen dihitung, karena tiap elemen \texttt{C} punya jumlah sendiri.
 
 \section{Mengolah Data Bersarang dengan Perulangan dan Kondisi}
-Struktur data bersarang sering digunakan dalam situasi di mana setiap elemen di dalam kumpulan data memiliki beberapa atribut. 
-Dengan memanfaatkan perulangan bertingkat (\textit{nested loop}) dan kondisi, kita dapat menelusuri dan memproses data tersebut dengan lebih terarah. 
+Struktur data bersarang sering digunakan dalam situasi di mana setiap elemen di dalam kumpulan data memiliki beberapa atribut\index{atribut}. 
+Dengan memanfaatkan perulangan\index{perulangan} bertingkat (\textit{nested loop}) dan kondisi, kita dapat menelusuri dan memproses data tersebut dengan lebih terarah. 
 Pendekatan ini banyak digunakan dalam pengolahan data, analisis hasil survei, atau pembuatan laporan berdasarkan kriteria tertentu. Listing~\ref{lst:b6-kategori} memberi contohnya.
 
 \begin{lstlisting}[style=PythonStyle, caption={Menentukan kategori nilai dari data bersarang}, label={lst:b6-kategori}]
@@ -411,7 +415,7 @@ for m in mahasiswa:
     print(f"{m['nama']} - Rata-rata: {rata:.1f} ({kategori})")
 \end{lstlisting}
 
-Contoh pada Listing~\ref{lst:b6-kategori} memperlihatkan bagaimana list yang berisi dictionary dan list lain di dalamnya dapat diolah menggunakan dua tingkat perulangan. 
+Contoh pada Listing~\ref{lst:b6-kategori} memperlihatkan bagaimana list\index{list} yang berisi dictionary\index{dictionary} dan list lain di dalamnya dapat diolah menggunakan dua tingkat perulangan. 
 Perulangan pertama menelusuri setiap mahasiswa, sedangkan perulangan kedua menjumlahkan nilai-nilai mereka untuk menghitung rata-rata. 
 Kondisi \texttt{if} kemudian digunakan untuk menentukan kategori hasil belajar berdasarkan nilai rata-rata tersebut. 
 Contoh ini menggabungkan konsep struktur data bersarang, perulangan bertingkat, dan logika percabangan dalam satu program sederhana yang menggambarkan situasi dunia nyata.
@@ -425,7 +429,7 @@ Citra - Rata-rata: 95.0 (Sangat Baik)
 Listing~\ref{lst:b6-kategori-out} menampilkan hasilnya. Andi masuk kategori \texttt{Sangat Baik} karena rata-ratanya tepat 85, dan batas \texttt{rata >= 85} menyertakan angka itu.
 
 \section{Memilih Struktur Data}
-Tabel~\ref{tab:b6-perbandingan} merangkum sifat tiap struktur data. Pertanyaan yang membantu saat memilih adalah apakah urutan penting, apakah isinya akan berubah, dan bagaimana data akan dicari. Bila data dicari lewat posisi, gunakan \texttt{list} atau \texttt{tuple}. Bila dicari lewat nama, gunakan \texttt{dictionary}. Bila yang penting hanya ada atau tidaknya suatu nilai, gunakan \texttt{set}.
+Tabel~\ref{tab:b6-perbandingan} merangkum sifat tiap struktur data. Pertanyaan yang membantu saat memilih adalah apakah urutan penting, apakah isinya akan berubah, dan bagaimana data akan dicari. Bila data dicari lewat posisi, gunakan \texttt{list\index{list}} atau \texttt{tuple\index{tuple}}. Bila dicari lewat nama, gunakan \texttt{dictionary\index{dictionary}}. Bila yang penting hanya ada atau tidaknya suatu nilai, gunakan \texttt{set}\index{set}.
 
 \begin{table}[H]
   \centering
@@ -452,13 +456,15 @@ Tabel~\ref{tab:b6-perbandingan} merangkum sifat tiap struktur data. Pertanyaan y
 % =====================================================
 \section{Latihan}
 Latihan berikut dirancang agar mahasiswa dapat menerapkan berbagai konsep struktur data Python 
-secara terpadu — meliputi list, tuple, dictionary, serta penggunaan perulangan, kondisi, dan struktur bersarang. Semua solusi harus dibuat moduler ke dalam modul dan fungsi-fungsi yang kemudian dipanggil di fungsi utama. 
+secara terpadu — meliputi list\index{list}, tuple\index{tuple}, dictionary\index{dictionary}, serta penggunaan perulangan\index{perulangan}, kondisi, dan struktur bersarang. Semua solusi harus dibuat moduler ke dalam modul\index{modul} dan fungsi\index{fungsi}-fungsi yang kemudian dipanggil di fungsi utama. 
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
 
 \begin{enumerate}
 
 %%%%%%%%%%%%%%%%
 \item \textbf{Mencari Nilai Tertinggi, Terendah, dan Nilai Spesifik} \\
-Sebuah kelas memiliki daftar nilai ujian yang disimpan dalam bentuk \texttt{list}. 
+Sebuah kelas\index{kelas} memiliki daftar nilai ujian yang disimpan dalam bentuk \texttt{list}. 
 Mahasiswa diminta untuk menentukan nilai tertinggi, nilai terendah, 
 dan memeriksa apakah nilai tertentu ada di dalam daftar tersebut.  
 
@@ -477,9 +483,12 @@ Tentukan:
 
 
 Latihan ini membantu memahami penggunaan fungsi bawaan seperti 
-\texttt{max()}, \texttt{min()}, dan operator \texttt{in} untuk pencarian elemen pada list.
+\texttt{max()}, \texttt{min()}, dan operator\index{operator} \texttt{in} untuk pencarian elemen pada list.
 
 %%%%%%%%%%%%%%
+  \begin{promptterarah}
+  Saya sedang mencari nilai tertinggi, nilai terendah, dan nilai tertentu dalam list. Jangan tuliskan kodenya. Tanyakan fungsi bawaan atau operator yang akan saya pakai, lalu beri petunjuk bila pilihannya kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \item \textbf{Mengurutkan Data Menggunakan List} \\
 Sebuah daftar nilai ujian siswa disimpan dalam bentuk \texttt{list}. 
 Mahasiswa diminta untuk menampilkan data yang telah diurutkan dalam dua cara:  
@@ -506,9 +515,12 @@ urut_descending = [95, 92, 90, 88, 85, 78, 75]
 \end{lstlisting}
 
 Latihan ini membantu memahami penggunaan fungsi bawaan \texttt{sorted()} 
-dan metode \texttt{.sort()} untuk mengurutkan data numerik secara menaik dan menurun.
+dan metode\index{metode} \texttt{.sort()} untuk mengurutkan data numerik secara menaik dan menurun.
 
 
+    \begin{promptterarah}
+    Saya sedang mengurutkan list nilai dari tertinggi ke terendah dan sebaliknya. Jangan tuliskan kodenya. Tanyakan perbedaan sort() dan sorted() menurut saya, lalu jelaskan bila pemahaman saya keliru. Setelah saya mengirim kode, periksa apakah list aslinya ikut berubah.
+    \end{promptterarah}
   \item \textbf{Koordinat Pusat Massa Kubus} \\
   Sebuah kubus memiliki delapan titik sudut dengan koordinat dalam ruang tiga dimensi. 
   Setiap titik direpresentasikan sebagai tuple \texttt{(x, y, z)} dan seluruh titik disimpan dalam sebuah list.  
@@ -517,6 +529,9 @@ dan metode \texttt{.sort()} untuk mengurutkan data numerik secara menaik dan men
 
 
 
+    \begin{promptterarah}
+    Saya sedang menghitung pusat massa kubus dari delapan titik berupa tuple di dalam list. Jangan tuliskan kodenya. Tanyakan cara saya mengambil koordinat x, y, dan z dari setiap tuple, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+    \end{promptterarah}
   \item \textbf{Seleksi dan Gabung Data Berdasarkan Kriteria} \\
 Terdapat dua struktur data yang saling melengkapi. 
 Struktur pertama menyimpan daftar produk dan harganya, 
@@ -556,9 +571,12 @@ produk_terpilih = [
 Struktur ini merepresentasikan data hasil seleksi yang memenuhi kriteria dan sudah digabungkan dari dua sumber data berbeda.
 
 
+  \begin{promptterarah}
+  Saya sedang menggabungkan dua dictionary berisi harga dan stok produk berdasarkan kriteria tertentu. Jangan tuliskan kodenya. Tanyakan cara saya mencocokkan kunci di kedua dictionary, lalu beri petunjuk bila rencananya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \item \textbf{Operasi Himpunan Menggunakan Set} \\
 Dua kelompok data mewakili pelanggan dari dua cabang toko yang berbeda. 
-Setiap kelompok disimpan dalam bentuk \texttt{set} karena setiap nama pelanggan bersifat unik.  
+Setiap kelompok disimpan dalam bentuk \texttt{set}\index{set} karena setiap nama pelanggan bersifat unik.  
 Mahasiswa diminta melakukan berbagai operasi himpunan untuk menganalisis kesamaan dan perbedaan antar cabang (Listing~\ref{lst:b6-data-pelanggan-dua-cabang-latihan}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Data pelanggan dua cabang untuk latihan}, label={lst:b6-data-pelanggan-dua-cabang-latihan}]
@@ -586,14 +604,17 @@ pelanggan_xor = {"Andi", "Citra", "Eka", "Farah", "Gilang", "Hadi"}
 Struktur ini membantu memahami hubungan antar himpunan data dan dapat digunakan untuk 
 analisis pelanggan, pencocokan data, maupun perbandingan hasil survei.
 
+  \begin{promptterarah}
+  Saya sedang memakai set untuk membandingkan pelanggan dua cabang toko. Jangan tuliskan kodenya. Tanyakan operasi set yang menghasilkan pelanggan di kedua cabang, di salah satu cabang saja, dan di cabang pertama saja, lalu periksa jawaban saya. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+  \end{promptterarah}
 \end{enumerate}
 
 % =====================================================
 \section{Kesimpulan}
 Python memiliki berbagai struktur data bawaan yang fleksibel dan mudah digunakan.
-Pemahaman tentang list, tuple, dictionary, dan set menjadi dasar penting sebelum mempelajari algoritma dan struktur data lanjutan.
+Pemahaman tentang list\index{list}, tuple\index{tuple}, dictionary\index{dictionary}, dan set menjadi dasar penting sebelum mempelajari algoritma\index{algoritma} dan struktur data lanjutan.
 
-List cocok untuk data berurutan yang berubah, tuple untuk data tetap, dictionary untuk data berlabel, dan set untuk nilai unik. Range menghasilkan deret angka tanpa banyak memakai memori. Struktur bertingkat menggabungkan semuanya untuk data yang lebih rumit, dan aksesnya dibaca satu tingkat setiap kali.
+List cocok untuk data berurutan yang berubah, tuple untuk data tetap, dictionary untuk data berlabel, dan set untuk nilai unik. Range menghasilkan deret angka tanpa banyak memakai memori\index{memori}. Struktur bertingkat menggabungkan semuanya untuk data yang lebih rumit, dan aksesnya dibaca satu tingkat setiap kali.
 Dengan menguasai struktur data ini, programmer dapat menulis kode yang lebih efisien, terstruktur, dan mudah dipelihara.
 
 \section*{Referensi}

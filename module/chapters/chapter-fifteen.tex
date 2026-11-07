@@ -1,19 +1,53 @@
-\chapter{Tugas Akhir}
+\chapter{Capstone Project: Membuat Game}
 
 \section*{Tujuan Pembelajaran}
 \begin{daftarrapat}
   \item Merancang dan membangun permainan yang dapat dimainkan minimal oleh dua pemain.
-  \item Menerapkan seluruh materi semester pada satu program utuh yang berfungsi dengan baik.
+  \item Menerapkan seluruh materi buku pada satu program utuh yang berfungsi dengan baik.
   \item Mempresentasikan cara kerja program dan menunjukkan penerapan tiap materi lewat video demonstrasi.
 \end{daftarrapat}
 
-\section*{Deskripsi Tugas}
+\section{Deskripsi Proyek}
 
-Buatlah Game multiplayer (minimal 2 player) dengan menggunakan bahasa pemrograman Python yang mencakup semua topik yang diajarkan pada semester ini. Berikut adalah persentasi komponen penilaian dari tugas tersebut (Tabel~\ref{tab:b15-penilaian}).
+\textit{Capstone project\index{capstone project}} adalah proyek penutup yang menggabungkan seluruh materi dalam satu karya. Proyek pada buku ini adalah membuat \textit{game} untuk minimal dua pemain dengan Python. \textit{Game} dipilih karena satu program kecil sudah membutuhkan hampir semua topik: variabel\index{variabel} dan perulangan\index{perulangan} untuk alur permainan, kelas\index{kelas} untuk pemain dan objek\index{objek} di layar, berkas untuk menyimpan skor, \textit{exception\index{exception}} untuk masukan yang salah, \textit{unit test\index{unit test}} untuk aturan permainan, dan Tkinter\index{Tkinter} untuk tampilan.
+
+Kedua pemain cukup bermain di satu komputer, bergantian atau berbagi papan ketik, sehingga proyek ini tidak memerlukan pemrograman jaringan. Soal 1 pada latihan Bab 12 dapat menjadi titik awal, karena di sana dua pemain sudah bergerak di atas \texttt{Canvas} dengan tombol masing-masing. Gagasan lain yang dapat dipakai:
+
+\begin{itemize}
+  \item \textit{Tic-tac-toe}, dengan papan berupa deretan tombol Tkinter dan dua pemain yang bergiliran.
+  \item \textit{Pong}, dengan bola yang bergerak seperti pada contoh animasi di Bab 12 dan dua pemukul yang dikendalikan dari satu papan ketik.
+  \item Tebak kata, dengan giliran bergantian dan daftar kata yang dibaca dari berkas.
+\end{itemize}
+
+\section{Tahapan Pengerjaan}
+
+Proyek ini lebih mudah dikerjakan bertahap, dengan urutan seperti berikut:
+
+\begin{enumerate}
+  \item Pilih \textit{game}, lalu tulis aturannya, termasuk kapan permainan berakhir dan siapa yang menang.
+  \item Tulis aturan permainan sebagai kelas\index{kelas} dan fungsi\index{fungsi} pada modul\index{modul} tersendiri, terpisah dari tampilan, lalu uji dengan \textit{unit test\index{unit test}} (Bab 10).
+  \item Bangun tampilan dengan Tkinter\index{Tkinter} (Bab 11 dan Bab 12), lalu hubungkan dengan aturan permainan.
+  \item Simpan dan baca skor dari berkas (Bab 7), lalu tangani berkas yang hilang dan masukan yang salah dengan \textit{exception\index{exception}} (Bab 9).
+  \item Mainkan bersama orang lain, catat kesalahan yang muncul, lalu telusuri penyebabnya dengan \textit{debugger} (Bab 13).
+\end{enumerate}
+
+\section{Hasil Proyek}
+
+Hasil proyek berupa \textbf{source code} dan \textbf{video} demonstrasi. Sebagai contoh, video dapat dibatasi \textbf{maksimum 5 menit} dengan resolusi 1280 $\times$ 720, 30 fps, dan format mp4. Di dalam video:
+\begin{itemize}
+  \item Jelaskan gambaran umum \textit{game} dan aturannya.
+  \item Peragakan \textit{game} saat dimainkan oleh dua pemain.
+  \item Jelaskan cara kerja programnya.
+  \item Tunjukkan di bagian mana dalam program setiap komponen pada Tabel~\ref{tab:b15-penilaian} dipakai dan apa fungsinya.
+\end{itemize}
+
+\section{Contoh Penilaian}
+
+Tabel~\ref{tab:b15-penilaian} memberi contoh cara menilai proyek ini. Komponen 1 sampai 14, dengan total bobot 60\%, memeriksa penerapan materi pada program. Komponen 15 dan 16, dengan total bobot 40\%, memeriksa tingkat kesulitan dan keutuhan \textit{game}. Komponen dan bobotnya hanya contoh, sehingga dosen dapat menyesuaikannya dengan kebutuhan kelas\index{kelas}, dan pembaca yang belajar mandiri dapat memakainya sebagai daftar periksa.
 
 \begin{table}[!htb]
   \centering
-  \caption{Komponen Penilaian dan Bobot}
+  \caption{Contoh komponen penilaian dan bobot}
   \label{tab:b15-penilaian}
   \begin{tabularx}{\textwidth}{lXr}
     \hline
@@ -33,7 +67,7 @@ Buatlah Game multiplayer (minimal 2 player) dengan menggunakan bahasa pemrograma
     \hline
     7 & perulangan & 5 \\
     \hline
-    8 & struktur data (salah satu: list/tuple/dictionary /set) & 5 \\
+    8 & struktur data (salah satu: list, tuple, dictionary, atau set) & 5 \\
     \hline
     9 & file input (read) & 4 \\
     \hline
@@ -56,19 +90,11 @@ Buatlah Game multiplayer (minimal 2 player) dengan menggunakan bahasa pemrograma
   \end{tabularx}
 \end{table}
 
-
-Kumpulkan \textbf{source code} disertai dengan \textbf{video} (\textbf{durasi maksimum 5 menit}, resolusi 1080:720, 30 fps, mp4) yang menjelaskan kode game yang Anda buat. Di video tersebut:
-\begin{itemize}
-\item Deskripsikan secara umum program yang Anda buat.
-\item Demo-kan game Anda.
-\item Jelaskan cara kerjanya.
-\item Semua komponen penilaian di atas harus Anda sebutkan di bagian mana (di dalam program) mereka digunakan serta fungsinya di program tersebut.
-\end{itemize}
-
 \section*{Referensi}
 \begin{daftarrapat}
   \item \textit{The Python Tutorial} \cite{py-tutorial}: rujukan umum bahasa Python, dari tipe data sampai kelas.
   \item \textit{Think Python, 3rd edition} \cite{thinkpython}: buku terbuka untuk mengulang seluruh topik dasar.
   \item \textit{tkinter — Python interface to Tcl/Tk} \cite{py-tkinter}: antarmuka grafis dengan Tkinter.
   \item \textit{unittest — Unit testing framework} \cite{py-unittest}: pengujian dengan \texttt{unittest}.
+  \item \textit{Invent Your Own Computer Games with Python} \cite{invent-games}: contoh membuat \textit{game} sederhana dengan Python, dari \textit{hangman} sampai \textit{tic-tac-toe}.
 \end{daftarrapat}

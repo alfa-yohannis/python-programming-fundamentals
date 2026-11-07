@@ -224,3 +224,10 @@ __marimo__/
 *.vrb
 *.pdf
 *.xdv
+## Indeks hasil makeindex
+*.idx
+*.ilg
+*.ind
+
+# Skrip pemeriksa dan hasil build lokal
+.work/

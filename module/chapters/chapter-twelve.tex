@@ -7,11 +7,15 @@
   \item Membuat animasi sederhana yang dapat dikendalikan pengguna lewat papan ketik.
 \end{daftarrapat}
 
+\section*{GenAI Terarah di Bab Ini}
+
+Beberapa perilaku Tkinter di bab ini tidak terlihat dari kodenya, misalnya gambar yang hilang dari jendela bila referensi \texttt{PhotoImage} tidak disimpan. Mintalah GenAI menjelaskan penyebabnya, lalu buktikan dengan menjadikan baris penyimpan referensi pada listing sebagai komentar dan menjalankannya kembali. Untuk animasi dengan \texttt{after()} dan kendali papan ketik, minta GenAI menjelaskan urutan kejadian dari tombol ditekan sampai objek bergerak. Setelah itu, ubah nilai jeda dan besar langkah gerak untuk menguji penjelasan tersebut.
+
 \section{Menampilkan Gambar Menggunakan File Dialog}
 
-Tkinter menyediakan objek \texttt{PhotoImage} untuk menampilkan gambar pada aplikasi. Gambar dapat dimuat dari file dan dipasang pada widget \texttt{Label}. Untuk memungkinkan pengguna memilih gambar sendiri, Tkinter menyediakan fungsi \texttt{askopenfilename()} dari modul \texttt{filedialog}. Dengan menggabungkan satu tombol, satu label, dan file dialog, aplikasi sederhana dapat dibuat untuk menampilkan gambar yang dipilih pengguna.
+Tkinter\index{Tkinter} menyediakan objek\index{objek} \texttt{PhotoImage} untuk menampilkan gambar pada aplikasi. Gambar dapat dimuat dari file dan dipasang pada widget\index{widget} \texttt{Label}. Untuk memungkinkan pengguna memilih gambar sendiri, Tkinter menyediakan fungsi\index{fungsi} \texttt{askopenfilename()} dari modul\index{modul} \texttt{filedialog}. Dengan menggabungkan satu tombol, satu label, dan file dialog, aplikasi sederhana dapat dibuat untuk menampilkan gambar yang dipilih pengguna.
 
-Dalam penerapannya, tombol digunakan untuk membuka dialog pemilihan file. Jika pengguna memilih gambar, file tersebut dimuat sebagai objek \texttt{PhotoImage} lalu ditampilkan pada Label. Agar gambar muncul dengan benar, referensinya harus disimpan sehingga tidak terhapus oleh sistem memori Python. Contoh berikut menunjukkan implementasi dasar dari proses tersebut (Listing~\ref{lst:b12-menampilkan-gambar-dengan-class}).
+Dalam penerapannya, tombol digunakan untuk membuka dialog pemilihan file. Jika pengguna memilih gambar, file tersebut dimuat sebagai objek \texttt{PhotoImage} lalu ditampilkan pada Label. Agar gambar muncul dengan benar, referensinya harus disimpan sehingga tidak terhapus oleh sistem memori\index{memori} Python. Contoh berikut menunjukkan implementasi dasar dari proses tersebut (Listing~\ref{lst:b12-menampilkan-gambar-dengan-class}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Contoh Menampilkan Gambar dengan Class}, label={lst:b12-menampilkan-gambar-dengan-class}]
 import tkinter as tk
@@ -50,7 +54,7 @@ Pada contoh di atas, tombol digunakan untuk membuka file dialog sehingga penggun
 
 \section{Menu}
 
-Menu merupakan komponen antarmuka yang digunakan untuk memberikan daftar perintah dalam bentuk \textit{menu bar} di bagian atas jendela. Melalui menu, pengguna dapat memilih perintah tertentu seperti membuka form lain, menyimpan data, atau mengubah pengaturan aplikasi. Tkinter menyediakan kelas \texttt{Menu} yang memungkinkan pengembang membuat menu bar dan menambahkan item menu secara sederhana. Dengan menghubungkan item menu ke sebuah method, menu dapat berinteraksi langsung dengan komponen dalam aplikasi.
+Menu merupakan komponen antarmuka yang digunakan untuk memberikan daftar perintah dalam bentuk \textit{menu bar} di bagian atas jendela. Melalui menu, pengguna dapat memilih perintah tertentu seperti membuka form lain, menyimpan data, atau mengubah pengaturan aplikasi. Tkinter\index{Tkinter} menyediakan kelas\index{kelas} \texttt{Menu} yang memungkinkan pengembang membuat menu bar dan menambahkan item menu secara sederhana. Dengan menghubungkan item menu ke sebuah method, menu dapat berinteraksi langsung dengan komponen dalam aplikasi.
 
 Untuk memahami konsep dasar menu, contoh berikut memperlihatkan sebuah item menu yang berfungsi mengubah judul jendela. Ketika pengguna memilih menu tersebut, sebuah method dipanggil dan judul jendela diperbarui. Contoh ini menunjukkan bagaimana menu dapat dihubungkan dengan logika program dengan cara yang mudah dan terorganisasi menggunakan pendekatan berbasis kelas (Listing~\ref{lst:b12-menu-mengubah-judul-window-menggunakan-class}).
 
@@ -90,7 +94,7 @@ Pada contoh di atas, menu bar dibuat di dalam konstruktor kelas \texttt{MenuDemo
 
 \section{Navigasi Antar Form}
 
-Dalam aplikasi Tkinter, pengembang dapat membuat lebih dari satu form atau jendela agar fitur aplikasi dapat dipisahkan dengan rapi. Salah satu cara untuk membuka form lain adalah melalui menu, sehingga pengguna dapat melakukan navigasi dengan memilih item menu tertentu. Tkinter menyediakan kelas \texttt{Toplevel} untuk membuat jendela tambahan yang berdiri sendiri tetapi tetap terhubung dengan aplikasi utama.
+Dalam aplikasi Tkinter\index{Tkinter}, pengembang dapat membuat lebih dari satu form atau jendela agar fitur aplikasi dapat dipisahkan dengan rapi. Salah satu cara untuk membuka form lain adalah melalui menu, sehingga pengguna dapat melakukan navigasi dengan memilih item menu tertentu. Tkinter menyediakan kelas\index{kelas} \texttt{Toplevel} untuk membuat jendela tambahan yang berdiri sendiri tetapi tetap terhubung dengan aplikasi utama.
 
 Pada contoh ini, form utama akan memiliki menu bernama “Navigasi.” Ketika pengguna memilih “Buka Form Kedua,” sebuah form baru akan muncul. Form kedua dibuat pada file terpisah dan hanya merupakan jendela kosong tanpa komponen tambahan. Contoh ini menunjukkan struktur navigasi antar file secara sederhana (Listing~\ref{lst:b12-main-window}).
 
@@ -147,7 +151,7 @@ Dalam contoh ini, form kedua dibuat sebagai kelas \texttt{SecondForm} yang mewar
 
 \section{Tabel Data (Table)}
 
-Pada Tkinter, tampilan data dalam bentuk tabel dapat dibuat menggunakan widget \texttt{ttk.Treeview} dari modul \texttt{tkinter.ttk}. Meskipun Tkinter tidak memiliki widget tabel khusus seperti di spreadsheet, \texttt{Treeview} dapat berfungsi sebagai tabel sederhana dengan beberapa kolom dan banyak baris. Widget ini sering digunakan untuk menampilkan data yang terstruktur, misalnya daftar mahasiswa, data barang, atau hasil perhitungan. Setiap baris pada \texttt{Treeview} disebut \textit{item}, sedangkan kolom-kolomnya dapat diberi nama dan lebar tertentu sesuai kebutuhan.
+Pada Tkinter\index{Tkinter}, tampilan data dalam bentuk tabel dapat dibuat menggunakan widget\index{widget} \texttt{ttk.Treeview} dari modul\index{modul} \texttt{tkinter.ttk}. Meskipun Tkinter tidak memiliki widget tabel khusus seperti di spreadsheet, \texttt{Treeview} dapat berfungsi sebagai tabel sederhana dengan beberapa kolom dan banyak baris. Widget ini sering digunakan untuk menampilkan data yang terstruktur, misalnya daftar mahasiswa, data barang, atau hasil perhitungan. Setiap baris pada \texttt{Treeview} disebut \textit{item}, sedangkan kolom-kolomnya dapat diberi nama dan lebar tertentu sesuai kebutuhan.
 
 Untuk membuat tabel, pengembang perlu mendefinisikan nama kolom, judul header, serta menambahkan baris data satu per satu. Selain itu, biasanya ditambahkan scrollbar agar pengguna dapat menggulir tabel ketika jumlah datanya banyak. Pengguna juga dapat memilih salah satu baris, kemudian data dari baris terpilih tersebut dapat diambil dan ditampilkan di Label atau diproses lebih lanjut. Dengan kombinasi sederhana antara \texttt{Treeview}, \texttt{Scrollbar}, dan \texttt{Button}, mahasiswa sudah dapat membangun tampilan tabel dasar yang cukup untuk banyak kasus aplikasi pemula (Listing~\ref{lst:b12-tabel-data-dengan-ttk-treeview}).
 
@@ -220,9 +224,11 @@ Pada contoh di atas, \texttt{ttk.Treeview} digunakan sebagai tabel dengan dua ko
 
 \section{Menggambar Gambar dan Bentuk Geometris pada Canvas Tkinter}
 
-Bagian ini membahas penggunaan \texttt{Canvas} untuk menampilkan gambar dan bentuk-bentuk geometris menggunakan \texttt{Tkinter}. Contoh implementasi ini memuat sebuah berkas gambar berformat PNG ke dalam \texttt{Canvas} dan menambahkan dua objek grafis: persegi dan segitiga. Pendekatan ini memperlihatkan cara menggabungkan elemen gambar raster dengan bentuk vektor dalam satu area tampilan.
+Bagian ini membahas penggunaan \texttt{Canvas} untuk menampilkan gambar dan bentuk-bentuk geometris menggunakan \texttt{Tkinter\index{Tkinter}}. Contoh implementasi ini memuat sebuah berkas gambar berformat PNG ke dalam \texttt{Canvas} dan menambahkan dua objek\index{objek} grafis: persegi dan segitiga. Pendekatan ini memperlihatkan cara menggabungkan elemen gambar raster dengan bentuk vektor dalam satu area tampilan.
 
-Kelas \texttt{CanvasShapesDemo} berfungsi sebagai jendela utama. \texttt{Canvas} berwarna putih disiapkan sebagai tempat penempatan objek. Gambar PNG dimuat dengan \texttt{PhotoImage} dan ditempatkan di koordinat awal \texttt{(0,0)} menggunakan \texttt{create\_image()}. Fungsi \texttt{gambar\_bentuk()} kemudian digunakan untuk menghasilkan objek persegi dan segitiga. Persegi digambar menggunakan \texttt{create\_rectangle()} dengan garis berwarna biru, sedangkan segitiga dibentuk melalui \texttt{create\_polygon()} dengan kombinasi garis berwarna merah dan isian berwarna merah muda (Listing~\ref{lst:b12-menggambar-persegi-segitiga-canvas}).
+Siapkan berkas gambar bernama \texttt{image.png} di folder yang sama dengan program sebelum menjalankan contoh ini.
+
+Kelas\index{kelas} \texttt{CanvasShapesDemo} berfungsi sebagai jendela utama. \texttt{Canvas} berwarna putih disiapkan sebagai tempat penempatan objek. Gambar PNG dimuat dengan \texttt{PhotoImage} dan ditempatkan di koordinat awal \texttt{(0,0)} menggunakan \texttt{create\_image()}. Fungsi\index{fungsi} \texttt{gambar\_bentuk()} kemudian digunakan untuk menghasilkan objek persegi dan segitiga. Persegi digambar menggunakan \texttt{create\_rectangle()} dengan garis berwarna biru, sedangkan segitiga dibentuk melalui \texttt{create\_polygon()} dengan kombinasi garis berwarna merah dan isian berwarna merah muda (Listing~\ref{lst:b12-menggambar-persegi-segitiga-canvas}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Menggambar persegi dan segitiga pada Canvas}, label={lst:b12-menggambar-persegi-segitiga-canvas}]
 import tkinter as tk
@@ -270,9 +276,9 @@ if __name__ == "__main__":
 
 \section{Animasi Sederhana Menggunakan Canvas di Tkinter}
 
-Bagian ini menjelaskan pembuatan animasi halus menggunakan \texttt{Canvas} pada \texttt{Tkinter}. Tidak seperti pendekatan dasar yang mengubah posisi berdasarkan interval tetap, contoh berikut menggunakan teknik \textit{smooth animation} melalui kombinasi \textbf{delta time} dan \textbf{frame rate konstan} (60 FPS). Pendekatan ini membuat gerakan lebih stabil dan mulus meskipun performa sistem berubah.
+Bagian ini menjelaskan pembuatan animasi halus menggunakan \texttt{Canvas} pada \texttt{Tkinter\index{Tkinter}}. Tidak seperti pendekatan dasar yang mengubah posisi berdasarkan interval tetap, contoh berikut menggunakan teknik \textit{smooth animation} melalui kombinasi \textbf{delta time} dan \textbf{frame rate konstan} (60 FPS). Pendekatan ini membuat gerakan lebih stabil dan mulus meskipun performa sistem berubah.
 
-Kelas \texttt{AnimasiCanvas} menyiapkan sebuah \texttt{Canvas} berwarna putih sebagai area animasi, lalu membuat objek lingkaran sebagai bola yang bergerak mendatar. Kecepatan bola dinyatakan dalam satuan piksel per detik, sementara pergerakan aktual dihitung menggunakan delta time agar jarak tempuh per frame tetap konsisten. Ketika bola menyentuh batas kiri atau kanan, nilai kecepatannya dibalik untuk menghasilkan efek pantulan. Penggunaan \texttt{after()} dengan interval sekitar 16 ms menghasilkan laju animasi mendekati 60 FPS sehingga tampilan menjadi lebih halus (Listing~\ref{lst:b12-animasi-bola-canvas}).
+Kelas\index{kelas} \texttt{AnimasiCanvas} menyiapkan sebuah \texttt{Canvas} berwarna putih sebagai area animasi, lalu membuat objek\index{objek} lingkaran sebagai bola yang bergerak mendatar. Kecepatan bola dinyatakan dalam satuan piksel per detik, sementara pergerakan aktual dihitung menggunakan delta time agar jarak tempuh per frame tetap konsisten. Ketika bola menyentuh batas kiri atau kanan, nilai kecepatannya dibalik untuk menghasilkan efek pantulan. Penggunaan \texttt{after()} dengan interval sekitar 16 ms menghasilkan laju animasi mendekati 60 FPS sehingga tampilan menjadi lebih halus (Listing~\ref{lst:b12-animasi-bola-canvas}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Animasi bola pada Canvas}, label={lst:b12-animasi-bola-canvas}]
 import tkinter as tk
@@ -337,11 +343,11 @@ if __name__ == "__main__":
 
 
 
-\section{Kontrol Objek Segitiga Menggunakan Keyboard pada Canvas Tkinter}
+\section{Kontrol Objek Segitiga dengan Keyboard pada Canvas Tkinter}
 
-Bagian ini menjelaskan teknik pengendalian objek grafis pada \texttt{Canvas} menggunakan input keyboard dengan pendekatan animasi halus. Berbeda dari metode dasar yang menggeser objek beberapa piksel setiap kali tombol ditekan, implementasi berikut menggunakan konsep \textbf{velocity} (kecepatan), \textbf{delta time}, dan \textbf{frame rate konstan} untuk menghasilkan gerakan yang lebih mulus dan responsif.
+Bagian ini menjelaskan teknik pengendalian objek\index{objek} grafis pada \texttt{Canvas} menggunakan input keyboard dengan pendekatan animasi halus. Berbeda dari metode\index{metode} dasar yang menggeser objek beberapa piksel setiap kali tombol ditekan, implementasi berikut menggunakan konsep \textbf{velocity} (kecepatan), \textbf{delta time}, dan \textbf{frame rate konstan} untuk menghasilkan gerakan yang lebih mulus dan responsif.
 
-Kelas \texttt{TriangleControlDemo} menampilkan sebuah segitiga pada \texttt{Canvas}. Alih-alih memindahkan segitiga secara langsung setiap kali tombol panah ditekan, tombol panah digunakan untuk mengubah komponen kecepatan horizontal dan vertikal. Nilai kecepatan inilah yang kemudian diproses oleh loop animasi 60 FPS untuk menghitung jarak perpindahan berdasarkan delta time. Ketika tombol dilepas, kecepatan pada arah tersebut dihapus sehingga objek berhenti dengan mulus. Pendekatan ini menghasilkan kontrol yang lebih stabil, halus, dan cocok untuk pembuatan game atau simulasi sederhana menggunakan \texttt{Tkinter} (Listing~\ref{lst:b12-mengendalikan-segitiga-dengan-papan-ketik}).
+Kelas\index{kelas} \texttt{TriangleControlDemo} menampilkan sebuah segitiga pada \texttt{Canvas}. Alih-alih memindahkan segitiga secara langsung setiap kali tombol panah ditekan, tombol panah digunakan untuk mengubah komponen kecepatan horizontal dan vertikal. Nilai kecepatan inilah yang kemudian diproses oleh loop animasi 60 FPS untuk menghitung jarak perpindahan berdasarkan delta time. Ketika tombol dilepas, kecepatan pada arah tersebut dihapus sehingga objek berhenti dengan mulus. Pendekatan ini menghasilkan kontrol yang lebih stabil, halus, dan cocok untuk pembuatan game atau simulasi sederhana menggunakan \texttt{Tkinter\index{Tkinter}} (Listing~\ref{lst:b12-mengendalikan-segitiga-dengan-papan-ketik}).
 
 \begin{lstlisting}[style=PythonStyle, caption={Mengendalikan segitiga dengan papan ketik}, label={lst:b12-mengendalikan-segitiga-dengan-papan-ketik}]
 import tkinter as tk
@@ -423,29 +429,31 @@ if __name__ == "__main__":
 \section{Struktur Program Tkinter}
 
 \subsection{Struktur Dasar File}
-Struktur program Tkinter yang baik biasanya memisahkan logika antarmuka, fungsi-fungsi pendukung, dan form tambahan ke dalam file yang berbeda. Pada program yang sederhana, satu file sudah mencukupi, tetapi ketika aplikasi mulai berkembang, pemisahan file akan membantu menjaga kode tetap teratur dan mudah dibaca. Biasanya, file utama berisi jendela utama aplikasi, sedangkan form tambahan ditempatkan dalam file lain menggunakan kelas \texttt{Toplevel}. Struktur file yang rapi juga memudahkan proses debugging dan pengembangan fitur baru.
+Struktur program Tkinter\index{Tkinter} yang baik biasanya memisahkan logika antarmuka, fungsi\index{fungsi}-fungsi pendukung, dan form tambahan ke dalam file yang berbeda. Pada program yang sederhana, satu file sudah mencukupi, tetapi ketika aplikasi mulai berkembang, pemisahan file akan membantu menjaga kode tetap teratur dan mudah dibaca. Biasanya, file utama berisi jendela utama aplikasi, sedangkan form tambahan ditempatkan dalam file lain menggunakan kelas\index{kelas} \texttt{Toplevel}. Struktur file yang rapi juga memudahkan proses debugging\index{debugging} dan pengembangan fitur baru.
 
 \subsection{Pemanggilan Fungsi dan Modul}
-Aplikasi Tkinter dapat menggunakan berbagai modul Python untuk mendukung operasinya. Modul standar seperti \texttt{tkinter}, \texttt{tkinter.ttk}, dan \texttt{filedialog} biasanya diimpor pada bagian atas file. Jika aplikasi memiliki beberapa form, file tambahan dapat diimpor menggunakan sintaks \texttt{from nama\_file import NamaClass}. Pola ini memungkinkan form utama memanggil dan membuka form lainnya secara modular. Selain itu, fungsi-fungsi kecil yang mendukung logika aplikasi dapat ditulis sebagai metode di dalam kelas, sehingga keterkaitan antara tombol, menu, dan fungsi menjadi lebih jelas.
+Aplikasi Tkinter dapat menggunakan berbagai modul\index{modul} Python untuk mendukung operasinya. Modul standar seperti \texttt{tkinter}, \texttt{tkinter.ttk}, dan \texttt{filedialog} biasanya diimpor pada bagian atas file. Jika aplikasi memiliki beberapa form, file tambahan dapat diimpor menggunakan sintaks \texttt{from nama\_file import NamaClass}. Pola ini memungkinkan form utama memanggil dan membuka form lainnya secara modular. Selain itu, fungsi-fungsi kecil yang mendukung logika aplikasi dapat ditulis sebagai metode\index{metode} di dalam kelas, sehingga keterkaitan antara tombol, menu, dan fungsi menjadi lebih jelas.
 
 \subsection{Best Practice Organisasi Kode}
-Untuk menjaga kualitas kode, beberapa praktik umum dapat diterapkan. Pertama, gunakan pendekatan berbasis kelas agar struktur program lebih mudah diatur dan diperluas. Kedua, pisahkan komponen antarmuka dan logika ke dalam metode yang terorganisasi sehingga program tidak menjadi satu blok besar yang sulit dibaca. Ketiga, gunakan nama variabel dan metode yang jelas serta deskriptif untuk memudahkan pemahaman. Terakhir, pertimbangkan untuk memisahkan form atau komponen kompleks ke dalam file terpisah guna mendukung pengembangan aplikasi yang lebih besar. Dengan mengikuti prinsip-prinsip ini, mahasiswa dapat membangun aplikasi Tkinter yang lebih profesional dan mudah dipelihara.
+Untuk menjaga kualitas kode, beberapa praktik umum dapat diterapkan. Pertama, gunakan pendekatan berbasis kelas agar struktur program lebih mudah diatur dan diperluas. Kedua, pisahkan komponen antarmuka dan logika ke dalam metode yang terorganisasi sehingga program tidak menjadi satu blok besar yang sulit dibaca. Ketiga, gunakan nama variabel\index{variabel} dan metode yang jelas serta deskriptif untuk memudahkan pemahaman. Terakhir, pertimbangkan untuk memisahkan form atau komponen kompleks ke dalam file terpisah guna mendukung pengembangan aplikasi yang lebih besar. Dengan mengikuti prinsip-prinsip ini, mahasiswa dapat membangun aplikasi Tkinter yang lebih profesional dan mudah dipelihara.
 
 
 \section{Rangkuman}
 
-Bab ini menyajikan berbagai teknik penting dalam pengembangan antarmuka grafis berbasis Tkinter. Materi mencakup pemanfaatan \texttt{PhotoImage} untuk menampilkan gambar, penggunaan \texttt{Menu} untuk menyediakan perintah terstruktur, serta mekanisme navigasi antar form menggunakan \texttt{Toplevel}. Selain itu, konsep tabel data diperkenalkan melalui widget \texttt{ttk.Treeview}, yang memungkinkan penampilan data secara terstruktur dalam bentuk kolom dan baris. Contoh-contoh yang diberikan memperlihatkan bagaimana setiap komponen diintegrasikan dengan logika program melalui pendekatan berbasis kelas.
+Bab ini menyajikan berbagai teknik penting dalam pengembangan antarmuka grafis berbasis Tkinter\index{Tkinter}. Materi mencakup pemanfaatan \texttt{PhotoImage} untuk menampilkan gambar, penggunaan \texttt{Menu} untuk menyediakan perintah terstruktur, serta mekanisme navigasi antar form menggunakan \texttt{Toplevel}. Selain itu, konsep tabel data diperkenalkan melalui widget\index{widget} \texttt{ttk.Treeview}, yang memungkinkan penampilan data secara terstruktur dalam bentuk kolom dan baris. Contoh-contoh yang diberikan memperlihatkan bagaimana setiap komponen diintegrasikan dengan logika program melalui pendekatan berbasis kelas\index{kelas}.
 
-Bagian akhir membahas penggunaan \texttt{Canvas} untuk menggambar bentuk geometris, menampilkan gambar PNG, membuat animasi dengan pembaruan posisi berkala, serta mengendalikan objek menggunakan input keyboard. Berbagai contoh menunjukkan penerapan koordinat, transformasi objek, serta teknik event handling untuk interaksi pengguna. Seluruh materi memberikan dasar yang kuat bagi pengembangan aplikasi Tkinter yang lebih kompleks, sekaligus menekankan praktik organisasi kode yang baik agar struktur program tetap teratur, modular, dan mudah dirawat.
+Bagian akhir membahas penggunaan \texttt{Canvas} untuk menggambar bentuk geometris, menampilkan gambar PNG, membuat animasi dengan pembaruan posisi berkala, serta mengendalikan objek\index{objek} menggunakan input keyboard. Berbagai contoh menunjukkan penerapan koordinat, transformasi objek, serta teknik event handling untuk interaksi pengguna. Seluruh materi memberikan dasar yang kuat bagi pengembangan aplikasi Tkinter yang lebih kompleks, sekaligus menekankan praktik organisasi kode yang baik agar struktur program tetap teratur, modular, dan mudah dirawat.
 
 
 \section{Latihan}
 
-Bagian ini berisi dua latihan praktikum yang bertujuan memperdalam pemahaman mahasiswa terhadap konsep-konsep yang telah dibahas, yaitu penampilan gambar menggunakan \texttt{PhotoImage} dan \texttt{filedialog}, penggunaan \texttt{Menu}, navigasi antar form (\texttt{Toplevel}), serta penampilan data dalam bentuk tabel menggunakan \texttt{ttk.Treeview}. Mahasiswa diminta mengerjakan soal berikut dengan pendekatan berbasis kelas seperti pada contoh-contoh di bab ini.
+Bagian ini berisi dua latihan yang bertujuan memperdalam pemahaman mahasiswa terhadap konsep-konsep yang telah dibahas, yaitu penampilan gambar menggunakan \texttt{PhotoImage} dan \texttt{filedialog}, penggunaan \texttt{Menu}, navigasi antar form (\texttt{Toplevel}), serta penampilan data dalam bentuk tabel menggunakan \texttt{ttk.Treeview}. Mahasiswa diminta mengerjakan soal berikut dengan pendekatan berbasis kelas\index{kelas} seperti pada contoh-contoh di bab ini.
+
+Setiap soal di bawah ini disertai \textit{prompt} terarah. Kerjakan soal sendiri lebih dulu. Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda. \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya, sesuai pembahasan di Bab~\ref{chap:penelitian}.
 
 \subsection*{Soal 1: Dua Pemain dengan Gambar Berjalan yang Dapat Dikendalikan Keyboard}
 
-Buatlah sebuah aplikasi Tkinter berbasis kelas yang menggabungkan konsep \texttt{Canvas}, kontrol keyboard, dan pemilihan gambar menggunakan \texttt{file dialog}. Aplikasi ini merupakan pengembangan dari contoh \emph{Kontrol Segitiga dengan Keyboard}, tetapi objek segitiga digantikan oleh dua gambar animasi (animated GIF) yang menggambarkan orang berjalan.
+Buatlah sebuah aplikasi Tkinter\index{Tkinter} berbasis kelas yang menggabungkan konsep \texttt{Canvas}, kontrol keyboard, dan pemilihan gambar menggunakan \texttt{file dialog}. Aplikasi ini merupakan pengembangan dari contoh \emph{Kontrol Segitiga dengan Keyboard}, tetapi objek\index{objek} segitiga digantikan oleh dua gambar animasi (animated GIF) yang menggambarkan orang berjalan.
 
 Spesifikasi:
 \begin{itemize}
@@ -456,7 +464,7 @@ Spesifikasi:
     \item Player 1 digerakkan dengan tombol keyboard \textbf{W, A, S, D} (misalnya: A = kiri, D = kanan, W/S = atas/bawah, atau atur sendiri skema yang konsisten).
     \item Player 2 digerakkan dengan tombol panah (\textbf{Left, Right, Up, Down}) seperti pada contoh sebelumnya.
     \item Gerakan dilakukan dengan memanggil \texttt{canvas.move()} terhadap objek gambar yang sesuai.
-    \item Pastikan referensi \texttt{PhotoImage} untuk kedua pemain disimpan (misalnya sebagai atribut objek) agar gambar tidak hilang dari tampilan.
+    \item Pastikan referensi \texttt{PhotoImage} untuk kedua pemain disimpan (misalnya sebagai atribut\index{atribut} objek) agar gambar tidak hilang dari tampilan.
 \end{itemize}
 
 Syarat:
@@ -466,6 +474,10 @@ Syarat:
     \item Susun program dengan pendekatan berbasis kelas (misalnya \texttt{GameWindow} sebagai turunan \texttt{tk.Tk}).
     \item Opsional (tantangan tambahan): jika file GIF benar-benar animasi, usahakan animasi tetap berjalan ketika pemain digerakkan.
 \end{enumerate}
+
+\begin{promptterarah}
+Saya sedang membuat aplikasi Tkinter dengan dua pemain bergambar di Canvas yang digerakkan dengan keyboard. Jangan tuliskan kodenya. Tanyakan cara saya memisahkan tombol kendali kedua pemain dan menyimpan referensi gambarnya, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
 
 
 \subsection*{Soal 2: Navigasi Antar Form ke Tabel Data Mahasiswa}
@@ -491,6 +503,10 @@ Syarat:
     \item Gunakan pola \texttt{from second\_form import SecondForm} (atau nama file lain yang sesuai) untuk memanggil form kedua dari form utama.
     \item Pastikan \texttt{Treeview} dikonfigurasi dengan \texttt{show="headings"} dan memiliki header kolom yang jelas, serta mekanisme pemilihan baris menggunakan \texttt{selection()}.
 \end{enumerate}
+
+\begin{promptterarah}
+Saya sedang membuat aplikasi Tkinter dengan menu yang membuka form kedua berisi tabel Treeview. Jangan tuliskan kodenya. Tanyakan cara saya membuka Toplevel dari menu dan membaca baris yang dipilih di tabel, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{promptterarah}
 
 \section*{Referensi}
 \begin{daftarrapat}

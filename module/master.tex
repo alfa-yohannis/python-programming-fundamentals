@@ -25,11 +25,17 @@ BoldItalicFont = TitilliumWeb-BoldItalic.ttf
   outer=2.0cm,
   top=2.5cm,
   bottom=2.5cm]{geometry}
+\usepackage{makeidx}
+\makeindex
 \usepackage[colorlinks=true, linkcolor=black, citecolor=blue, urlcolor=blue]{hyperref}
+\hypersetup{pdftitle={Dasar Pemrograman dengan GenAI Terarah}, pdfauthor={Alfa Yohannis, Ariya Panna}}
 \usepackage{graphicx}
 \usepackage{float}
 
 \usepackage[font=footnotesize, labelfont=bf, textfont=normalfont]{caption}
+
+% Halaman kosong di antara bab tidak memuat kepala halaman dan nomor.
+\usepackage{emptypage}
 
 % Garis bawah pada teks dan nama berkas tidak perlu di-escape.
 \usepackage[strings]{underscore}
@@ -89,6 +95,10 @@ BoldItalicFont = TitilliumWeb-BoldItalic.ttf
   {\begin{itemize}\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
   {\end{itemize}}
 
+% Bagian yang belum bisa diisi sebelum naskah diterima penerbit. Warna merah
+% memudahkan pencarian sebelum naskah dicetak.
+\newcommand{\isian}[1]{\textcolor{red}{[#1]}}
+
 \usepackage{listings}
 
 % Python dipakai untuk seluruh contoh kode.
@@ -138,12 +148,39 @@ BoldItalicFont = TitilliumWeb-BoldItalic.ttf
 
 \definecolor{praditagreen}{RGB}{37, 113, 71}
 
+% Prompt terarah di bawah setiap soal latihan. Kotak ini bukan listing,
+% jadi tidak diberi caption.
+\newsavebox{\kotakprompt}
+\newenvironment{promptterarah}
+  {\par\smallskip\noindent\setlength{\fboxsep}{5pt}%
+   \begin{lrbox}{\kotakprompt}%
+   \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}\footnotesize
+   \textbf{\textcolor{praditagreen}{Prompt terarah}}\par\smallskip\itshape}
+  {\end{minipage}\end{lrbox}%
+   \fcolorbox{praditagreen}{praditagreen!6}{\usebox{\kotakprompt}}\par\smallskip}
+
 \begin{document}
 
-  \include{titlepage}
+  % Bagian awal, urutannya mengikuti Permendikbudristek 22/2022 Lampiran III Tabel 1.
+  \frontmatter
 
-  % Contents Page
+  \include{titlepage}
+  \include{halamanjudul}
+
   \tableofcontents
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\listfigurename}
+  \listoffigures
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\listtablename}
+  \listoftables
+
+  \include{prakata}
+  \include{pernyataan-ai}
+
+  \mainmatter
 
   \include{chapters/chapter-one}
   \include{chapters/chapter-two}
@@ -160,10 +197,24 @@ BoldItalicFont = TitilliumWeb-BoldItalic.ttf
   \include{chapters/chapter-thirteen}
   \include{chapters/chapter-fourteen}
   \include{chapters/chapter-fifteen}
+  \include{chapters/chapter-sixteen}
 
+  % Bagian akhir, urutannya mengikuti Permendikbudristek 22/2022 Lampiran III Tabel 3.
   \backmatter
+
+  \include{glosarium}
+
+  \cleardoublepage
+  \phantomsection
   \addcontentsline{toc}{chapter}{Daftar Pustaka}
   \bibliographystyle{plainnat}
   \bibliography{references}
+
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\indexname}
+  \printindex
+
+  \include{riwayat-penulis}
 
 \end{document}

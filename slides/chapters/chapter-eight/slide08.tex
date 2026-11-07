@@ -18,7 +18,7 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
 \title{Chapter-08:\\\LARGE{Pemrograman Berorientasi Objek\\}
 \vspace{10pt}}
@@ -78,11 +78,22 @@
 \tableofcontents[sections={1-4}]
 \end{column}
 \begin{column}{.6\textwidth}
-\tableofcontents[sections={5-7}]
+\tableofcontents[sections={5-9}]
 \end{column}
 \end{columns}
 \end{frame}
 
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Ceritakan sebuah kasus, misalnya peminjaman buku di perpustakaan kampus, lalu minta GenAI menanyakan kelas, atribut, dan metode yang Anda usulkan.
+  \item Minta GenAI menanggapi rancangan itu tanpa menuliskan kodenya.
+  \item Pada listing pewarisan dan polimorfisme, minta GenAI menjelaskan metode milik kelas mana yang dijalankan untuk setiap objek, lalu jalankan listing itu untuk memeriksanya.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Pengenalan OOP}
 
@@ -742,6 +753,197 @@ rounded corners, fill=blue!10, minimum width=3cm, minimum height=1cm]
     \item Overriding memungkinkan perilaku disesuaikan oleh kelas turunan.
     \item Meningkatkan fleksibilitas, modularitas, dan keterbacaan kode.
 \end{itemize}
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+\textbf{Latihan 1: Membuat Kelas dan Objek}\par\medskip
+Buat sebuah kelas bernama \texttt{Mahasiswa} dengan ketentuan berikut:
+\begin{enumerate}
+    \item Memiliki atribut \texttt{nama}, \texttt{nim}, dan \texttt{jurusan}.
+    \item Memiliki metode \texttt{tampilkan\_info()} yang menampilkan semua atribut di layar.
+    \item Buat minimal dua objek dari kelas tersebut dan panggil metode \texttt{tampilkan\_info()} untuk masing-masing.
+\end{enumerate}
+
+listing \textit{Contoh keluaran yang diharapkan (tidak harus identik)} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Nama: Rani
+NIM: A11.2024.0001
+Jurusan: Informatika
+
+Nama: Dani
+NIM: A11.2024.0002
+Jurusan: Sistem Informasi
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat kelas Mahasiswa dengan atribut nama, nim, dan jurusan serta metode tampilkan\_info(). Jangan tuliskan kodenya. Tanyakan peran \_\_init\_\_ dan self menurut saya, lalu jelaskan bila pemahaman saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+\textbf{Latihan 2: Atribut dan Metode}\par\medskip
+Kembangkan kelas \texttt{Mahasiswa} sebelumnya dengan:
+\begin{enumerate}
+    \item Menambahkan atribut kelas bernama \texttt{universitas}.
+    \item Membuat metode baru \texttt{ubah\_jurusan(jurusan\_baru)} yang mengubah nilai atribut \texttt{jurusan}.
+    \item Panggil metode tersebut dan tampilkan hasil perubahan.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang menambahkan atribut kelas universitas dan metode ubah\_jurusan() ke kelas Mahasiswa. Jangan tuliskan kodenya. Tanyakan perbedaan atribut kelas dan atribut objek menurut saya, lalu jelaskan bila keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+\textbf{Latihan 3: Pewarisan}\par\medskip
+Buat hierarki kelas berikut:
+\begin{itemize}
+    \item Kelas induk: \texttt{Kendaraan} dengan atribut \texttt{merek} dan metode \texttt{bergerak()}.
+    \item Kelas turunan: \texttt{Mobil} dan \texttt{SepedaMotor}, masing-masing menimpa metode \texttt{bergerak()}.
+    \item Tambahkan konstruktor di setiap kelas dan panggil konstruktor induk menggunakan \texttt{super()}.
+\end{itemize}
+
+listing \textit{Contoh penggunaan} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+k1 = Mobil("Toyota")
+k2 = SepedaMotor("Honda")
+
+k1.bergerak()
+k2.bergerak()
+\end{lstlisting}
+
+Keluarannya ada pada listing \textit{Output Program}.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Mobil Toyota melaju di jalan raya.
+Sepeda motor Honda berjalan di aspal.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat kelas Mobil dan SepedaMotor yang mewarisi Kendaraan. Jangan tuliskan kodenya. Tanyakan kapan super().\_\_init\_\_() perlu dipanggil, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+\textbf{Latihan 4: Polimorfisme}\par\medskip
+Buat fungsi \texttt{uji\_bergerak(kendaraan)} yang menerima objek apa pun yang memiliki metode \texttt{bergerak()}.  
+Gunakan kelas-kelas dari latihan sebelumnya (\texttt{Kendaraan}, \texttt{Mobil}, \texttt{SepedaMotor}), dan tambahkan satu kelas baru \texttt{Pesawat} yang juga memiliki metode \texttt{bergerak()}.
+
+\begin{enumerate}
+    \item Buat daftar berisi beberapa objek dari kelas berbeda.
+    \item Gunakan satu loop untuk memanggil \texttt{bergerak()} pada semuanya.
+\end{enumerate}
+
+listing \textit{Output yang Diharapkan} menampilkan contoh keluarannya.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Mobil Toyota melaju di jalan raya.
+Sepeda motor Honda berjalan di aspal.
+Pesawat Garuda terbang di udara.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat fungsi uji\_bergerak() yang menerima objek dari kelas berbeda. Jangan tuliskan kodenya. Tanyakan mengapa fungsi itu bisa memanggil bergerak() tanpa memeriksa jenis objeknya, lalu jelaskan bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 5}
+\footnotesize
+\textbf{Latihan 5: Studi Kasus Mini — Sistem Geometri Bangun Datar}\par\medskip
+Rancang sebuah program kecil untuk mendemonstrasikan seluruh konsep OOP yang telah dipelajari melalui perhitungan luas berbagai bangun datar.
+
+\textbf{Deskripsi:}
+\begin{itemize}
+    \item Buat kelas induk \texttt{BangunDatar} dengan metode \texttt{luas()}.
+    \item Buat kelas turunan \texttt{Persegi}, \texttt{PersegiPanjang}, dan \texttt{Lingkaran} yang menimpa metode \texttt{luas()}.
+    \item Tambahkan atribut yang sesuai untuk tiap bangun (misalnya \texttt{sisi}, \texttt{panjang}, \texttt{lebar}, \texttt{jari\_jari}).
+    \item Gunakan polimorfisme untuk menghitung luas semua bangun dalam satu loop.
+\end{itemize}
+
+listing \textit{Contoh Implementasi} menunjukkan contoh kodenya.
+
+\begin{lstlisting}[style=PythonStyle, breaklines=true]
+import math
+
+class BangunDatar:
+    def luas(self):
+        print("Metode luas() harus dioverride di kelas turunan")
+
+class Persegi(BangunDatar):
+    def __init__(self, sisi):
+        self.sisi = sisi
+    def luas(self):
+        return self.sisi * self.sisi
+
+class PersegiPanjang(BangunDatar):
+    def __init__(self, panjang, lebar):
+        self.panjang = panjang
+        self.lebar = lebar
+    def luas(self):
+        return self.panjang * self.lebar
+
+class Lingkaran(BangunDatar):
+    def __init__(self, jari_jari):
+        self.jari_jari = jari_jari
+    def luas(self):
+        return math.pi * self.jari_jari ** 2
+
+# Daftar objek dari berbagai kelas turunan
+bangun_list = [
+    Persegi(5),
+    PersegiPanjang(4, 6),
+    Lingkaran(7)
+]
+
+# Menghitung luas setiap bangun secara polimorfik
+for b in bangun_list:
+    print(f"Luas {b.__class__.__name__}: {b.luas():.2f}")
+\end{lstlisting}
+
+Keluarannya ada pada listing \textit{Output Program}.
+
+\begin{lstlisting}[language=bash, breaklines=true, basicstyle=\ttfamily\scriptsize]
+Luas Persegi: 25.00
+Luas PersegiPanjang: 24.00
+Luas Lingkaran: 153.94
+\end{lstlisting}
+
+\textbf{Tujuan:}
+\begin{itemize}
+    \item Menunjukkan bahwa setiap kelas turunan dapat memiliki perilaku (metode) yang berbeda, meskipun memiliki antarmuka yang sama.
+    \item Mempraktikkan penggunaan pewarisan dan overriding dalam konteks yang realistis.
+    \item Memahami bagaimana polimorfisme memudahkan pemrosesan banyak objek dalam satu struktur kode yang seragam.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 5: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang merancang program bangun datar yang memakai kelas induk, pewarisan, dan polimorfisme. Jangan tuliskan kodenya. Minta saya menggambarkan hubungan antarkelas lebih dulu, lalu beri masukan atas rancangan itu. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Ringkasan}

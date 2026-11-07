@@ -14,9 +14,9 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
-\title{Chatper-03:\\\LARGE{Operator dan Pengkondisian\\}
+\title{Chapter-03:\\\LARGE{Operator dan Pengkondisian\\}
 \vspace{10pt}}
 \date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
 \author[Pradita]{\small{\textbf{Alfa Yohannis}}}
@@ -54,10 +54,21 @@ morestring=[s]{"}{"},
 \tableofcontents[sections={1}]
 \end{column}
 \begin{column}{.5\textwidth}
-\tableofcontents[sections={2}]
+\tableofcontents[sections={2-4}]
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Minta GenAI membuat lima ekspresi yang menggabungkan \texttt{and}, \texttt{or}, dan \texttt{not}. Hitung hasilnya sendiri, lalu jalankan di Python untuk memeriksa.
+  \item Tuliskan daftar masukan yang menurut Anda menguji setiap cabang \texttt{if}, \texttt{elif}, dan \texttt{else}, lalu minta GenAI menunjukkan cabang yang belum tersentuh.
+  \item Susunan kondisi tetap Anda tulis sendiri, karena memilih urutan kondisi adalah keterampilan yang dilatih di bab ini.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Operator}
 
@@ -399,6 +410,128 @@ nilai = 55
 hasil = "Lulus" if nilai >= 70 else "Tidak Lulus"
 print(hasil)
 \end{lstlisting}
+\end{frame}
+
+\section{Latihan}
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 1}
+\footnotesize
+Buatlah program yang menerima input 5 nilai asesmen mahasiswa yang kemudian dihitung rata-ratanya. Berdasarkan rata-rata tersebut buatlah pengkondisian menggunakan \textit{if-elif-else statement} untuk menentukan grade yang sesuai dengan ketentuan:
+\begin{itemize}
+    \item Grade A jika rata-rata berada di \textit{range} 90,00 - 100
+    \item Grade A- jika rata-rata berada di \textit{range} 85,00 - 89,99
+    \item Grade B+ jika rata-rata berada di \textit{range} 80,00 - 84,99
+    \item Grade B jika rata-rata berada di \textit{range} 75,00 - 79,99
+    \item Grade B- jika rata-rata berada di \textit{range} 70,00 - 74,99
+    \item Grade C+ jika rata-rata berada di \textit{range} 65,00 - 69,99
+    \item Grade C jika rata-rata berada di \textit{range} 60,00 - 64,99
+    \item Grade D jika rata-rata berada di \textit{range} 50,00 - 59,99
+    \item Grade E jika rata-rata kurang dari 49,99
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program yang menghitung rata-rata lima nilai lalu menentukan grade dengan if-elif-else. Jangan tuliskan kodenya. Tanyakan urutan kondisi yang akan saya tulis, lalu jelaskan bila urutannya membuat grade salah. Setelah saya mengirim kode, beri beberapa nilai batas untuk saya uji sendiri.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 2}
+\footnotesize
+Buatlah program untuk menghitung \textit{Body Mass Index} (BMI) seseorang dengan rumus pada persamaan berikut:
+
+\begin{equation}
+  BMI = \frac{berat \ (kg)}{(tinggi \ (m))^2}
+\end{equation}
+
+\begin{itemize}
+    \item Program meminta input berat badan (kg) dan tinggi badan (cm).
+    \item Konversikan tinggi badan dari cm menjadi meter.
+    \item Hitung nilai BMI menggunakan rumus di atas.
+    \item Kategorikan hasilnya dengan \texttt{if-elif-else}:
+    \begin{itemize}
+        \item $<$ 18.5 : \texttt{Kurus}
+        \item 18.5 -- 24.9 : \texttt{Normal}
+        \item 25 -- 29.9 : \texttt{Overweight}
+        \item $\geq$ 30 : \texttt{Obesitas}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program penghitung BMI. Jangan tuliskan kodenya. Minta saya menuliskan rumus BMI dalam Python, lalu jelaskan bila urutan operasinya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 3}
+\footnotesize
+Modifikasi program BMI pada Latihan 2 dengan ketentuan berikut:
+\begin{itemize}
+    \item Program tetap meminta input berat badan (kg) dan tinggi badan (cm).
+    \item Konversikan tinggi badan dari cm ke meter, lalu hitung nilai BMI.
+    \item Gunakan struktur \texttt{if-elif-else} untuk menentukan kategori BMI:
+    \begin{itemize}
+        \item $<$ 18.5 : \texttt{"kurus"}
+        \item 18.5 -- 24.9 : \texttt{"normal"}
+        \item 25 -- 29.9 : \texttt{"overweight"}
+        \item $\geq$ 30 : \texttt{"obesitas"}
+    \end{itemize}
+    \item Setelah kategori ditentukan, gunakan \texttt{match-case} untuk menampilkan pesan sesuai kategori:
+    \begin{itemize}
+        \item \texttt{"kurus"} : tampilkan pesan untuk memperhatikan asupan gizi
+        \item \texttt{"normal"} : tampilkan pesan untuk mempertahankan pola hidup sehat
+        \item \texttt{"overweight"} : tampilkan pesan untuk mulai menjaga pola makan
+        \item \texttt{"obesitas"} : tampilkan pesan untuk konsultasi ke dokter
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang mengubah program BMI agar tinggi badan dimasukkan dalam sentimeter. Jangan tuliskan kodenya. Tanyakan cara saya mengubah sentimeter ke meter, lalu beri satu petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 4}
+\footnotesize
+Buatlah program autentikasi sederhana yang meminta pengguna untuk memasukkan email dan password. Program harus memenuhi kriteria sebagai berikut:
+\begin{itemize}
+    \item Email harus berupa alamat email dengan domain \texttt{pradita.ac.id}
+    \item Password harus memiliki panjang minimal 8 karakter
+    \item Gunakan \textit{data dummy} (statis), misalnya email \path{mahasiswa@pradita.ac.id} dan password \texttt{password123}, untuk proses pencocokan
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 4: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program login yang memeriksa email berdomain pradita.ac.id dan syarat password. Jangan tuliskan kodenya. Tanyakan operator atau metode string yang akan saya pakai untuk memeriksa domain, lalu beri petunjuk bila keliru. Setelah saya mengirim kode, beri beberapa email dan password untuk saya uji sendiri.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.8]{Latihan 5}
+\footnotesize
+Buatlah program kalkulator sederhana yang:
+\begin{itemize}
+    \item Meminta pengguna memilih operasi aritmatika yang ingin dilakukan (\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/})
+    \item Meminta pengguna memasukkan dua buah angka
+    \item Menampilkan hasil perhitungan sesuai operasi yang dipilih
+    \item Jika pengguna memasukkan operasi yang tidak valid, tampilkan pesan error
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Latihan 5: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat kalkulator sederhana yang memilih operasi dengan percabangan. Jangan tuliskan kodenya. Tanyakan cara program saya menangani pembagian dengan nol, lalu jelaskan bila penanganannya kurang. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Penutup}

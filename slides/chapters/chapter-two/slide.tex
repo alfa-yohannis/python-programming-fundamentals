@@ -12,9 +12,9 @@
 
 \usetheme{Pradita}
 
-\subtitle{IF120203-Programming Fundamentals}
+\subtitle{Dasar Pemrograman dengan GenAI Terarah}
 
-\title{Chatper-02:\\\LARGE{Variabel, Konstanta, Tipe Data,\\ dan Konversi Tipe Data}}
+\title{Chapter-02:\\\LARGE{Variabel, Konstanta, Tipe Data,\\ dan Konversi Tipe Data}}
 \date[Serial]{\scriptsize {PRU/SPMI/FR-BM-18/0222}}
 \author[Pradita]{\small{\textbf{Alfa Yohannis}}}
 
@@ -51,10 +51,22 @@ morestring=[s]{"}{"},
 \tableofcontents[sections={1-3}]
 \end{column}
 \begin{column}{.5\textwidth}
-\tableofcontents[sections={4}]
+\tableofcontents[sections={4-6}]
 \end{column}
 \end{columns}
 \end{frame}
+
+% >>> GenAI terarah, disisipkan oleh module/.work/genai_ke_slide.py
+\begin{frame}{GenAI Terarah di Bab Ini}
+\small
+\begin{itemize}
+  \item Minta GenAI memberi beberapa nilai, misalnya \texttt{"12"}, \texttt{12.0}, dan \texttt{True}.
+  \item Tebak sendiri hasil \texttt{type()} dan hasil konversinya, lalu jalankan untuk memeriksa tebakan Anda.
+  \item Saat konversi gagal, tempelkan pesan \texttt{ValueError} dan minta penjelasan mengapa \texttt{int("3.5")} gagal sedangkan \texttt{int(3.5)} berhasil, tanpa meminta perbaikan kode.
+  \item Minta GenAI memeriksa apakah nama variabel dan konstanta Anda sudah mengikuti aturan penamaan.
+\end{itemize}
+\end{frame}
+% <<< GenAI terarah
 
 \section{Variabel}
 \begin{frame}{Apa Itu Variabel?}
@@ -74,7 +86,7 @@ Variabel merupakan tempat penyimpanan sementara yang digunakan untuk menampung d
 \begin{frame}{Struktur Variabel}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{../../../shared_assets/images/python_variable_structure.png}
+	\includegraphics[width=0.7\textwidth]{../../../figures/images/python_variable_structure.png}
 	\caption{}
 	\caption*{\textbf{Gambar 2:} Struktur Variabel di Python}
 	\smallskip
@@ -291,18 +303,39 @@ angka_int = int(angka_str)
 
 \section{Soal Latihan}
 \begin{frame}{Soal Latihan (1)}
-Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep variabel, konstanta tipe data, dan konversi tipe data yang telah dipelajari:
+Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda mengenai konsep variabel, konstanta, tipe data, dan konversi tipe data yang telah dipelajari.
+\end{frame}
+
+\begin{frame}{Cara Memakai Prompt Terarah}
+\begin{itemize}
+\item Setiap soal latihan disertai \textit{prompt} terarah.
+\item Kerjakan soal sendiri lebih dulu.
+\item Bila buntu, salin \textit{prompt} itu ke layanan AI bersama soal dan kode Anda.
+\item \textit{Prompt} ini meminta AI memberi petunjuk dan memeriksa jawaban tanpa menuliskan penyelesaiannya.
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Soal Latihan (2)}
 \begin{itemize}
-\item \textbf{Soal 1:} Buat program bernama \texttt{luas_persegi_panjang.py} yang meminta pengguna memasukan nilai panjang dan lebar persegi panjang, kemudian program harus bisa menghitung dan mencetak luas persegi panjang tersebut.
+\item \textbf{Soal 1:} Buat program bernama \texttt{luas_persegi_panjang.py} yang meminta pengguna memasukkan nilai panjang dan lebar persegi panjang, kemudian program harus bisa menghitung dan mencetak luas persegi panjang tersebut.
 \newline \newline
 \textbf{Hint:} Gunakan operator perkalian \texttt{*} untuk menghitung luas.
 
-\item \textbf{Soal 2:} Buat program bernama \texttt{luas_lingkaran.py} yang meminta pengguna memasukan nilai jari-jari lingkaran. Program harus menampung nilai konstanta \textbf{\textit{pi}} mengikuti standar \textit{best practice} dari Python dan bisa menghitung sekaligus mencetak luas lingkaran tersebut.
+\item \textbf{Soal 2:} Buat program bernama \texttt{luas_lingkaran.py} yang meminta pengguna memasukkan nilai jari-jari lingkaran. Program harus menampung nilai konstanta \textbf{\textit{pi}} mengikuti standar \textit{best practice} dari Python dan bisa menghitung sekaligus mencetak luas lingkaran tersebut.
 
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Soal 1: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program luas persegi panjang yang membaca panjang dan lebar dari pengguna. Jangan tuliskan kodenya. Tanyakan mengapa hasil input() perlu diubah tipenya sebelum dikalikan, lalu beri petunjuk bila jawaban saya keliru. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
+\end{frame}
+
+\begin{frame}{Soal 2: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program luas lingkaran dengan konstanta pi. Jangan tuliskan kodenya. Tanyakan cara saya menamai konstanta sesuai kebiasaan Python, lalu jelaskan bila penamaan saya kurang tepat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Soal Latihan (3)}
@@ -311,12 +344,18 @@ Berikut adalah beberapa soal latihan tambahan untuk menguji pemahaman Anda menge
 \begin{enumerate}
     \item Menyimpan tahun lahir di variabel.
     \item Mengubah input dari string menjadi integer.
-    \item Menghitung umur dengan mengurangi tahun saat ini dengan tahun lahir yang dimasukan oleh pengguna.
+    \item Menghitung umur dengan mengurangi tahun saat ini dengan tahun lahir yang dimasukkan oleh pengguna.
     \item Menampilkan pesan seperti: "Kamu berusia [umur] tahun."
 \end{enumerate}
 
 \textbf{Hint:} Gunakan operator pengurangan \texttt{-} untuk menghitung usia saat ini.
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Soal 3: Prompt Terarah}
+\begin{block}{Salin ke layanan AI bila buntu}
+\small Saya sedang membuat program yang menghitung usia dari tahun lahir. Jangan tuliskan kodenya. Minta saya menjelaskan langkah dari membaca masukan sampai mencetak usia, lalu tunjukkan langkah yang terlewat. Setelah saya mengirim kode, periksa dan tunjukkan bagian yang keliru tanpa memberi kode yang benar.
+\end{block}
 \end{frame}
 
 \section{Penutup}
